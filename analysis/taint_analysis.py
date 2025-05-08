@@ -539,7 +539,7 @@ def process_json(sources_hex, taint_data, inverted_fs_relations_data, subregion_
             elif sink_id == previous_sink_id:
                 pass
             else:
-                assert(False)
+                assert(False)   # or continue
 
         if event["event"] == 1 and (event["op_name"] in {0, 1}):
             cov_xxhash = event["cov_xxhash"]
