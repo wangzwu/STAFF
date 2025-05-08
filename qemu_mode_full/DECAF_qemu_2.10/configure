@@ -4277,7 +4277,7 @@ fi
 #elif compile_prog "" "-lbfd" ; then
 #  LIBS="-lbfd $LIBS"
 #fi
-LIBS="\$(SRC_PATH)/shared/sleuthkit/lib/libtsk.a -lbfd $LIBS -lxxhash -luring"
+LIBS="\$(SRC_PATH)/shared/sleuthkit/lib/libtsk.a -lbfd $LIBS -lxxhash"
 
 ##########################################
 # spice probe
