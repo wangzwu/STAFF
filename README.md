@@ -170,9 +170,13 @@ Make sure the following are installed on your system:
    Ctrl-A + D
    ```
 
-5. **Save the current container state**, run:
+5. **Save the current container state** by running:
    ```bash
    docker commit STAFF staff
+   ```
+6. (Optional) **Remove the container**  by running:
+   ```bash
+   docker rm -f STAFF
    ```
 
 ---
@@ -183,7 +187,13 @@ To generate the FirmAE image for your firmware:
 
 1. Be sure your firmware is under the directory `firmware/<brand>`
 
-2. Edit the `config.ini` file based on the firmware you want to process:
+2. Create a docker container with a **bridge network** and attach it:
+   ```bash
+   ./docker.sh run_bridge STAFF 0,1     # Replace 0,1 with the CPU cores to assign
+   ./docker attach STAFF
+   ```
+
+3. Edit the `config.ini` file based on the firmware you want to process:
    ```ini
    [GENERAL]
    mode = check
@@ -197,10 +207,15 @@ To generate the FirmAE image for your firmware:
    firmware = all
    ```
 
-1. Launch the `start.py` script:
+4. Launch the `start.py` script:
    ```bash
    ./docker attach STAFF
    python3 start.py --keep_config 1
+   ```
+
+5. (Optional) **Remove the container**  by running:
+   ```bash
+   docker rm -f STAFF
    ```
 
 ---
@@ -220,15 +235,26 @@ To capture an interaction for your firmware:
    blacklist_keywords = .gif/.jpg/.png/.css/.js/.ico/.htm/.html
    ```
 
-2. Launch the `start.py` script:
+2. Create a docker container with **host network** and attach it:
+   ```bash
+   ./docker.sh run STAFF 0,1     # Replace 0,1 with the CPU cores to assign
+   ./docker attach STAFF
+   ```
+
+3. Launch the `start.py` script:
    ```bash
    ./docker attach STAFF
    python3 start.py --keep_config 1
    ```
 
-3. Wait for firmware booting up, and use a browser or something else to reach the webserver at the indicated IP.
+4. Wait for firmware booting up, and use a browser or something else to reach the webserver at the indicated IP.
 
-4. All your actions will be recorded into a pcap file.
+5. All your actions will be recorded into a pcap file.
+
+6. (Optional) **Remove the container**  by running:
+   ```bash
+   docker rm -f STAFF
+   ```
 
 ---
 
