@@ -43,17 +43,14 @@ def process_mode(current_mode):
         if "mipseb" in firm_architecture:
             cmd.append(f"sudo cp -f qemu_mode_full/DECAF_qemu_2.10/mips-softmmu/qemu-system-mips {target_dir}/afl-qemu-system-trace")
             cmd.append(f"sudo cp -f qemu_mode_full/DECAF_qemu_2.10/mips-softmmu/qemu-system-mips {target_dir}/")
-            cmd.append(f"sudo cp -f user_mode/mips-linux-user/qemu-mips {target_dir}/afl-qemu-trace")
             cmd.append(f"sudo cp -f FirmAFL_config/procinfo.ini {target_dir}/")
         elif "mipsel" in firm_architecture:
             cmd.append(f"sudo cp -f qemu_mode_full/DECAF_qemu_2.10/mipsel-softmmu/qemu-system-mipsel {target_dir}/afl-qemu-system-trace")
             cmd.append(f"sudo cp -f qemu_mode_full/DECAF_qemu_2.10/mipsel-softmmu/qemu-system-mipsel {target_dir}/")
-            cmd.append(f"sudo cp -f user_mode/mipsel-linux-user/qemu-mipsel {target_dir}/afl-qemu-trace")
             cmd.append(f"sudo cp -f FirmAFL_config/procinfo.ini {target_dir}/")
         else:
             cmd.append(f"sudo cp -f qemu_mode_full/DECAF_qemu_2.10/arm-softmmu/qemu-system-arm {target_dir}/afl-qemu-system-trace")
             cmd.append(f"sudo cp -f qemu_mode_full/DECAF_qemu_2.10/arm-softmmu/qemu-system-arm {target_dir}/")
-            cmd.append(f"sudo cp -f user_mode/arm-linux-user/qemu-arm {target_dir}/afl-qemu-trace")
             cmd.append(f"sudo cp -f FirmAFL_config/procinfo.ini {target_dir}/")
     for c in cmd:
         os.system(c)

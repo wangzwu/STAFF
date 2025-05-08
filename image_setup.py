@@ -75,19 +75,13 @@ dst_input = "%s/inputs/" % firm_dir
 
 # Executables QEMU system mode and user mode
 if "mipseb" in firm_arch:   
-	sys_src = "qemu_mode/DECAF_qemu_2.10/mips-softmmu/qemu-system-mips"
 	full_sys_src = "qemu_mode_full/DECAF_qemu_2.10/mips-softmmu/qemu-system-mips"
-	user_src = "user_mode/mips-linux-user/qemu-mips"
 	kernel_src = "FirmAE/binaries/vmlinux.mipseb.4_DECAF"
 elif "mipsel" in firm_arch:
-	sys_src = "qemu_mode/DECAF_qemu_2.10/mipsel-softmmu/qemu-system-mipsel"
 	full_sys_src = "qemu_mode_full/DECAF_qemu_2.10/mipsel-softmmu/qemu-system-mipsel"
-	user_src = "user_mode/mipsel-linux-user/qemu-mipsel"
 	kernel_src = "FirmAE/binaries/vmlinux.mipsel.4_DECAF"
 else:
-	sys_src = "qemu_mode/DECAF_qemu_2.10/arm-softmmu/qemu-system-arm"
 	full_sys_src = "qemu_mode_full/DECAF_qemu_2.10/arm-softmmu/qemu-system-arm"
-	user_src = "user_mode/arm-linux-user/qemu-arm"
 	kernel_src = "FirmAE/binaries/zImage.armel.4_DECAF"
 
 # Fuzzing_Config_File Creation (Default FEED_HTTP for Web Server)
@@ -118,15 +112,14 @@ if not (os.path.isdir(firm_dir+"/inputs")):
 seed_src = "FirmAFL_config/seed"  
 
 # VGABios binary
-vgabios_bin = "qemu_mode/DECAF_qemu_2.10/pc-bios/vgabios-cirrus.bin"  
+vgabios_bin = "qemu_mode_full/DECAF_qemu_2.10/pc-bios/vgabios-cirrus.bin"  
 
 # EFI binary
-efi_bin =  "qemu_mode/DECAF_qemu_2.10/pc-bios/efi-e1000.rom"
+efi_bin =  "qemu_mode_full/DECAF_qemu_2.10/pc-bios/efi-e1000.rom"
 
 cmd.append("cp %s %s" %(seed_src, dst_input))
 cmd.append("cp %s %s" %(full_sys_src, dst))
 cmd.append("cp %s %s/afl-qemu-system-trace" %(full_sys_src, dst))
-cmd.append("cp %s %s/afl-qemu-trace" %(user_src, dst))
 cmd.append("cp %s %s" %(kernel_src, dst))
 cmd.append("cp %s %s" %(procinfo_src, dst))
 cmd.append("cp %s %s" %(vgabios_bin, dst))
