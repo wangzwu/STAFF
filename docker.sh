@@ -16,7 +16,7 @@ case $1 in
         ;;
 
     run)
-    	docker run -dit --privileged --cpuset-cpus $3 --memory="8g" --network host --name $2 -v /dev:/dev -v $(pwd):/STAFF staff;
+    	docker run -dit --privileged --cpuset-cpus $3 --memory="100g" --network host --name $2 -v /dev:/dev -v $(pwd):/STAFF staff;
         ;;
 
     run_bridge)
