@@ -16,19 +16,19 @@ case $1 in
         ;;
 
     run)
-    	docker run -dit --privileged --cpuset-cpus $3 --memory="100g" --network host --name $2 -v /dev:/dev -v $(pwd):/STAFF staff;
+    	docker run -dit --privileged --cpuset-cpus $3 --memory="15g" --network host --name $2 -v /dev:/dev -v $(pwd):/STAFF staff;
         ;;
 
     run_bridge)
-    	docker run -dit --privileged --cpuset-cpus $3 --memory="8g" --network bridge --name $2 -v /dev:/dev -v $(pwd):/STAFF staff;
+    	docker run -dit --privileged --cpuset-cpus $3 --memory="15g" --network bridge --name $2 -v /dev:/dev -v $(pwd):/STAFF staff;
         ;;
 
     run_exp)
-    	docker run -dit --privileged --cpuset-cpus=$3 --memory="8g" --network bridge --name $2 -v /dev:/dev -v $(pwd):/STAFF staff /bin/bash -c "$(cat command)";
+    	docker run -dit --privileged --cpuset-cpus=$3 --memory="15g" --network bridge --name $2 -v /dev:/dev -v $(pwd):/STAFF staff /bin/bash -c "$(cat command)";
         ;;
 
     run_postgres)
-    	docker run -dit --privileged --cpuset-cpus $3 --memory="8g" --network bridge -p 6666:6666 --name $2 -v /dev:/dev -v $(pwd):/STAFF staff_postgres;
+    	docker run -dit --privileged --cpuset-cpus $3 --memory="15g" --network bridge -p 6666:6666 --name $2 -v /dev:/dev -v $(pwd):/STAFF staff_postgres;
         ;;
 
     attach)

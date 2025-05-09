@@ -258,6 +258,38 @@ To capture an interaction for your firmware:
 
 ---
 
+### Perform a pre-analysis
+
+To capture an interaction for your firmware:
+
+1. Be sure in `pcap/<brand>/<firmware_name>` there are some pcap files containing an interaction.
+
+2. Edit the `config.ini` file based on the firmware you want to process and the whitelist/blacklist keywords which will filter in/out some requests (*note*: whitelist has higher priority than blacklist):
+   ```ini
+   [GENERAL]
+   mode = pre_analysis
+   firmware = dlink/dap2310_v1.00_o772.bin
+
+   [CAPTURE]
+   whitelist_keywords = POST/PUT/.php/.cgi/.xml
+   blacklist_keywords = .gif/.jpg/.png/.css/.js/.ico/.htm/.html
+   ```
+
+2. Create a docker container with **bridge network** and attach it:
+   ```bash
+   ./docker.sh run_bridge STAFF 0,1     # Replace 0,1 with the CPU cores to assign
+   ./docker attach STAFF
+   ```
+   If the process will be "Killed", it means it exceeded the memory limit during the process. You can modify the script `docker.sh` by increasing the memory limit.
+
+3. Launch the `start.py` script:
+   ```bash
+   ./docker attach STAFF
+   python3 start.py --keep_config 1
+   ```
+
+---
+
 ### Start an experiment
 
 To generate the FirmAE image for your firmware:
