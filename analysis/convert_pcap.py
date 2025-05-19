@@ -80,7 +80,9 @@ def convert_pcap_into_single_seed_file(pcap_path, dst_ip, output_raw, region_del
 
     requests_with_ts.sort(key=lambda x: x[0])
 
-    os.makedirs(os.path.dirname(output_raw), exist_ok=True)
+    output_dir = os.path.dirname(output_raw)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
     with open(output_raw, "wb") as f:
         for _, req_data in requests_with_ts:
             f.write(req_data)

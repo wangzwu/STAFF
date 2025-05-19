@@ -524,7 +524,7 @@ def replay():
     os.environ["FD_DEPENDENCIES_TRACK"] = "1"
     os.environ["REGION_DELIMITER"] = config["AFLNET_FUZZING"]["region_delimiter"].decode('latin-1')    
     os.environ["INCLUDE_LIBRARIES"] = str(config["EMULATION_TRACING"]["include_libraries"])
-    # os.environ["DEBUG"] = "1"
+    os.environ["DEBUG"] = "1"
 
     if config["GENERAL"]["firmware"] != "all":
         iid = str(check("run"))

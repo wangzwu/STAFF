@@ -105,26 +105,27 @@ void write_debug_files(int request_id, const char *request, unsigned int request
 
     char send_request_file[256];
     snprintf(send_request_file, sizeof(send_request_file), "%s/send_request", dir_name);
-    FILE *send_file = fopen(send_request_file, "w");
+    FILE *send_file = fopen(send_request_file, "wb");
     if (!send_file) {
         perror("Error opening send_request file");
         exit(2);
     }
-    fprintf(send_file, "%.*s", request_len, request);
+    fwrite(request, 1, request_len, send_file);
     fclose(send_file);
 
     if (response && response_len) {
         char received_response_file[256];
         snprintf(received_response_file, sizeof(received_response_file), "%s/received_response", dir_name);
-        FILE *response_file = fopen(received_response_file, "w");
+        FILE *response_file = fopen(received_response_file, "wb");
         if (!response_file) {
             perror("Error opening received_response file");
             exit(2);
         }
-        fprintf(response_file, "%.*s", response_len, response);
+        fwrite(response, 1, response_len, response_file);
         fclose(response_file);
     }
 }
+
 
 int main(int argc, char *argv[]) {
     int debug_mode = 0;
@@ -259,22 +260,20 @@ int main(int argc, char *argv[]) {
     setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
 
     char *current_request = requests;
+    size_t remaining_len = file_size;
     int request_id = 0;
     double total_response_time = 0;
     int total_requests = 0;
 
-    while (current_request && *current_request) {
+    while (remaining_len > 0) {
         struct timespec start_time, end_time;
         clock_gettime(CLOCK_MONOTONIC, &start_time);
 
-        char *next_request = memmem(current_request, strlen(current_request), region_delimiter, strlen(region_delimiter));
-        size_t request_len = next_request ? (size_t)(next_request - current_request) : strlen(current_request);
+        size_t delim_len = strlen(region_delimiter);
+        char *next_request = memmem(current_request, remaining_len, region_delimiter, delim_len);
+        size_t request_len = next_request ? (size_t)(next_request - current_request) : remaining_len;
 
-        char *request = strndup(current_request, request_len);
-        if (!request) {
-            perror("Memory allocation error for request");
-            exit(2);
-        }
+        printf("LEN_: %zu\n", request_len);
 
         *send_next_region = 1;
         usleep(500000);
@@ -283,11 +282,11 @@ int main(int argc, char *argv[]) {
         int res = 0;
         char *response_buf = NULL;
         unsigned int response_len = 0;
+
 retry:
-        res = net_send(sockfd, timeout, request, request_len);
+        res = net_send(sockfd, timeout, current_request, request_len);
         if (res <= 0) {
             fprintf(stderr, "Error sending request\n");
-            free(request);
             close(sockfd);
             exit(2);
         }
@@ -295,7 +294,7 @@ retry:
         printf("Sent request %d (%d bytes)\n", request_id, res);
 
         if (debug_mode) {
-            write_debug_files(request_id, request, request_len, NULL, NULL);
+            write_debug_files(request_id, current_request, request_len, NULL, 0);
         }
 
         res = net_recv(sockfd, timeout, &response_buf, &response_len, HTTP);
@@ -307,14 +306,15 @@ retry:
             total_response_time += response_time_ms;
             total_requests++;
 
-            printf("Response time for request %d (%zu bytes) (res = %d, errno = %d): %lf ms 0x%lx\n", request_id, response_len, res, errno, response_time_ms, response_buf);
+            printf("Response time for request %d (%u bytes) (res = %d, errno = %d): %lf ms 0x%lx\n", request_id, response_len, res, errno, response_time_ms, (unsigned long)response_buf);
 
             if (debug_mode) {
-                write_debug_files(request_id, request, request_len, response_buf, response_len);
+                write_debug_files(request_id, current_request, request_len, response_buf, response_len);
             }
+
             ck_free(response_buf);
         } else if (res == 2) {
-            printf(stderr, "Timeout!\n");
+            fprintf(stderr, "Timeout!\n");
         }
 
         if (res == 1 || res == 3) {
@@ -326,22 +326,28 @@ retry:
             }
 
             printf("Connecting to %s:%d...\n", server_ip, server_port);
-            int connected = 0;
-            while (!connected) {
+            int reconnected = 0;
+            while (!reconnected) {
                 if (connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
                     perror("Error connecting to server");
                     sleep(RETRY_DELAY);
                 } else {
-                    connected = 1;
+                    reconnected = 1;
                 }
             }
-            printf("Connection established.\n");
+            printf("Connection re-established.\n");
 
-            if (res == 3) goto retry;       
+            if (res == 3) goto retry;
         }
 
-        free(request);
-        current_request = next_request ? (next_request + strlen(region_delimiter)) : NULL;
+        if (next_request) {
+            size_t consumed = (next_request - current_request) + delim_len;
+            current_request += consumed;
+            remaining_len -= consumed;
+        } else {
+            break;
+        }
+
         request_id++;
     }
 
