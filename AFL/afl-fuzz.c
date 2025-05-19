@@ -71,9 +71,6 @@
 #include <sys/prctl.h>
 #include <assert.h>
 #include <curl/curl.h>
-#include "../aflnet/config2.h"
-
-#define RETRY_DELAY 2
 
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined (__OpenBSD__)
 #  include <sys/sysctl.h>
@@ -2268,14 +2265,14 @@ void *send_requests(void *arg) {
     FILE *file = fopen("ip.0", "r");
     if (!file) {
       perror("Failed to open ip.0");
-      sleep(RETRY_DELAY);
+      sleep(MAX_SLEEP);
       continue;
     }
 
     if (!fgets(net_ip, sizeof(net_ip), file)) {
       perror("Failed to read IP");
       fclose(file);
-      sleep(RETRY_DELAY);
+      sleep(MAX_SLEEP);
       continue;
     }
     fclose(file);
@@ -2283,7 +2280,7 @@ void *send_requests(void *arg) {
     FILE *seed = fopen("seed", "rb");
     if (!seed) {
       perror("Failed to open seed");
-      sleep(RETRY_DELAY);
+      sleep(MAX_SLEEP);
       continue;
     }
 
@@ -2294,7 +2291,7 @@ void *send_requests(void *arg) {
     if (seed_size <= 0) {
       fclose(seed);
       fprintf(stderr, "Seed file is empty or unreadable\n");
-      sleep(RETRY_DELAY);
+      sleep(MAX_SLEEP);
       continue;
     }
 
@@ -2302,7 +2299,7 @@ void *send_requests(void *arg) {
     if (!request) {
       fclose(seed);
       perror("Failed to allocate buffer");
-      sleep(RETRY_DELAY);
+      sleep(MAX_SLEEP);
       continue;
     }
 
@@ -2310,7 +2307,7 @@ void *send_requests(void *arg) {
       perror("Failed to read full seed");
       fclose(seed);
       free(request);
-      sleep(RETRY_DELAY);
+      sleep(MAX_SLEEP);
       continue;
     }
     fclose(seed);
@@ -2319,7 +2316,7 @@ void *send_requests(void *arg) {
     if (sockfd < 0) {
       perror("Error creating socket");
       free(request);
-      sleep(RETRY_DELAY);
+      sleep(MAX_SLEEP);
       continue;
     }
 
@@ -2332,7 +2329,7 @@ void *send_requests(void *arg) {
       perror("Invalid server IP address");
       close(sockfd);
       free(request);
-      sleep(RETRY_DELAY);
+      sleep(MAX_SLEEP);
       continue;
     }
 
@@ -2341,7 +2338,7 @@ void *send_requests(void *arg) {
     while (!connected) {
       if (connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
         perror("Error connecting to server");
-        sleep(RETRY_DELAY);
+        sleep(MAX_SLEEP);
       } else {
         connected = 1;
       }

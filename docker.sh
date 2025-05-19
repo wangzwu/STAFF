@@ -24,7 +24,7 @@ case $1 in
         ;;
 
     run_exp)
-    	docker run -dit --privileged --cpuset-cpus=$3 --memory="15g" --network bridge --name $2 -v /dev:/dev -v $(pwd):/STAFF staff /bin/bash -c "$(cat command)";
+    	docker run -dit --privileged --cpuset-cpus=$3 --memory="15g" --network bridge --name $2 -v /dev:/dev -v $(pwd):/STAFF --mount type=tmpfs,destination=/dev/shm staff /bin/bash -c "$(cat command)";
         ;;
 
     run_postgres)

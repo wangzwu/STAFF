@@ -58,7 +58,7 @@ void create_debug_dir() {
     }
 
     if (mkdir(debug_dir, 0777) != 0) {
-        perror("Error creating debug directory");
+        printf("Error creating debug directory at %s", debug_dir);
         exit(2);
     }
 }

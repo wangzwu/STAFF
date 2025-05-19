@@ -1228,8 +1228,9 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
     os.environ["TAINT"] = "1"
     os.environ["FD_DEPENDENCIES_TRACK"] = "1"
     os.environ["INCLUDE_LIBRARIES"] = str(include_libraries)
-    os.environ["REGION_DELIMITER"] = region_delimiter.decode('latin-1') 
-    # os.environ["DEBUG"] = "1"
+    os.environ["REGION_DELIMITER"] = region_delimiter.decode('latin-1')
+    os.environ["DEBUG"] = "1"
+    os.environ["DEBUG_DIR"] = os.path.join(work_dir, "debug", "interaction")
 
     subprocess.run(["sudo", "-E", "/STAFF/FirmAE/flush_interface.sh"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 

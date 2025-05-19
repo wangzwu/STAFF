@@ -1,7 +1,7 @@
 #ifndef CONFIG2_H
 #define CONFIG2_H
 
-#define MAP_SIZE_POW2       16
+#define MAP_SIZE_POW2       18
 #define MAP_SIZE            (1 << MAP_SIZE_POW2)
 #define SHARED_MEM_NAME "/START_FORK"
 #define SHARED_CHILD_RETVAL "/CHILD_RETVAL"
@@ -23,6 +23,7 @@
 #define NUM_TRACES          10
 #define TRACE_LEN           10
 #define TRACE_COMPARE_LEN 5
+#define MAX_SLEEP 2000000
 
 struct AppTBPC {
    char procname[MAX_PROCESS_NAME_LENGTH];

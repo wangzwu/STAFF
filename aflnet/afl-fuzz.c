@@ -1428,9 +1428,7 @@ int send_over_network(int checkpoint)
 
       if (sleep < MAX_SLEEP) {
         sleep *= 2;
-        if (sleep > MAX_SLEEP){
-          return 1;
-        }
+        if (sleep > MAX_SLEEP) sleep = MAX_SLEEP;
       }
     }
   }
@@ -1568,10 +1566,7 @@ retry:
 
             if (sleep < MAX_SLEEP) {
               sleep *= 2;
-              if (sleep > MAX_SLEEP) {
-                exit = 1;
-                break;
-              }
+              if (sleep > MAX_SLEEP) sleep = MAX_SLEEP;
             }
           }
 
