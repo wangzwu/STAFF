@@ -21,6 +21,7 @@ from typing import List, Tuple, Dict
 import socket
 import configparser
 import struct
+import psutil
 
 RESET = "\033[0m"
 LIGHT_GREY = "\033[90m"
@@ -44,6 +45,9 @@ global_sources = []
 global_fs_relations = []
 global_regions_dependance = {}
 global_regions_affections = {}
+
+error = 0
+global_max_len = -1
 
 # Hyperparams
 min_value = 0
@@ -411,24 +415,49 @@ class TrieNode:
         self.positions = []
 
 class MultiSequenceTrie:
-    def __init__(self):
+    def __init__(self, max_len=-1):
         self.root = TrieNode()
+        self.max_len = max_len
+
+    def get_container_memory_limit(self):
+        try:
+            with open("/sys/fs/cgroup/memory.max", "r") as f:
+                val = int(f.read().strip())
+                return val if val < (1 << 60) else None
+        except Exception:
+            return None
 
     def insert(self, byte_sequence, seq_index):
-        for start_pos in range(len(byte_sequence)):
-            current_node = self.root
-            # current_region_str = "".join(chr(val) if 32 < val < 127 else "." for val in byte_sequence)
+        length = len(byte_sequence)
+        mem_limit = self.get_container_memory_limit()
+        process = psutil.Process(os.getpid())
 
-            for offset, byte in enumerate(byte_sequence[start_pos:]):
-                if byte not in current_node.children:
-                    current_node.children[byte] = TrieNode()
-                current_node = current_node.children[byte]
+        iteration_check_interval = 10_000
+        time_check_interval = 1
+        last_check_time = time.time()
+
+        for start_pos in range(length):
+            current_node = self.root
+            end_pos = length if self.max_len == -1 else int(min(length, start_pos + self.max_len))
+
+            for offset, byte in enumerate(byte_sequence[start_pos:end_pos]):
+                current_node = current_node.children.setdefault(byte, TrieNode())
                 current_node.positions.append((seq_index, start_pos))
+
+                if (offset + start_pos) % iteration_check_interval == 0:
+                    now = time.time()
+                    if now - last_check_time > time_check_interval:
+                        mem_used = process.memory_info().rss
+
+                        if mem_limit and mem_used > mem_limit * 0.9:
+                            print(f"[!] Memory limit exceeded: {mem_used} bytes > 90% of {mem_limit} bytes")
+                            return False
+                        last_check_time = now
+
+        return True
 
     def find_subsequence(self, subsequence):
         current_node = self.root
-        # current_region_str = "".join(chr(val) if 32 < val < 127 else "." for val in subsequence)
-
         for byte in subsequence:
             if byte in current_node.children:
                 current_node = current_node.children[byte]
@@ -491,10 +520,12 @@ def process_log_file(log_path):
 
     return events
 
-def process_json(sources_hex, taint_data, inverted_fs_relations_data, subregion_divisor, min_subregion_len):
+def process_json(sources_hex, taint_data, inverted_fs_relations_data, subregion_divisor, min_subregion_len, max_len):
+    global error
     global global_regions_dependance
     global global_regions_affections
 
+    print("\n[\033[34m*\033[0m] max_len:", global_max_len)
 
     output_dir = "taint_analysis_stats"
     if os.path.exists(output_dir):
@@ -511,7 +542,7 @@ def process_json(sources_hex, taint_data, inverted_fs_relations_data, subregion_
     current_region_store = [0, []]
     last_load_event = None
     current_region_load = [0, []]
-    multi_trie = MultiSequenceTrie()
+    multi_trie = MultiSequenceTrie(max_len)
     multiples = set()
     multiples2 = set()
 
@@ -530,10 +561,18 @@ def process_json(sources_hex, taint_data, inverted_fs_relations_data, subregion_
             if sink_id > previous_sink_id:
                 previous_sink_id = sink_id
                 if sink_id >= len(sources_hex):
+                    error = 1
                     print("Error: sink_id [%d] >= len(sources_hex) [%d]"%(sink_id, len(sources_hex)))
                     return None
                 sources.append(([], [(byte, [], [], []) for byte in sources_hex[sink_id]]))
-                multi_trie.insert(sources_hex[sink_id], sink_id)
+                if not (multi_trie.insert(sources_hex[sink_id], sink_id)):
+                    del multi_trie
+                    time.sleep(1)
+                    process = psutil.Process(os.getpid())
+                    mem_used = process.memory_info().rss
+                    print(f"Current mem_used: {mem_used}")           
+                    error = 2
+                    return None
                 global_regions_dependance[sink_id] = []
                 global_regions_affections[sink_id] = {}
             elif sink_id == previous_sink_id:
@@ -655,6 +694,7 @@ def process_json(sources_hex, taint_data, inverted_fs_relations_data, subregion_
                 last_load_event = event
 
     if (len(sources) != len(sources_hex)):
+        error = 1
         print("Error: len(sources) [%d] != len(sources_hex) [%d]"%(len(sources), len(sources_hex)))
         return None
 
@@ -1199,7 +1239,8 @@ def create_config(config_path, subregion_divisor, min_subregion_len, delta_thres
     config["PRE-ANALYSIS"] = {
         "subregion_divisor": str(subregion_divisor),
         "min_subregion_len": str(min_subregion_len),
-        "delta_threshold": str(delta_threshold)
+        "delta_threshold": str(delta_threshold),
+        "max_len": str(global_max_len)
     }
 
     config["EMULATION_TRACING"] = {
@@ -1221,6 +1262,8 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
     global global_sources
     global global_regions_dependance
     global qemu_pid
+    global global_max_len
+    global error
 
     print("\n[\033[32m+\033[0m] TAINT ANALYSIS of the firmware '%s' (timeout: %d)\n"%(os.path.basename(firmware), timeout))
 
@@ -1289,8 +1332,8 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
                 elif res == 2:
                     print("config.ini file does not match 'include_libraries' or 'region_delimiter'!")
                     force_run = True
-                # else:
-                #     continue
+                else:
+                    continue
 
             print("\n[\033[34m*\033[0m] PCAP #{}".format(pcap_file))
             skip_run = False
@@ -1325,17 +1368,27 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
                         fs_relations_data = clean_json_structure(fs_json_path)
                         taint_data = process_log_file(json_path)
                         
-                        sources = process_json(sources_hex, taint_data, invert_fs_relations_data(fs_relations_data), subregion_divisor, min_subregion_len)
-                        if sources:
-                            delta = update_global(sources)
-                            analysis_results = calculate_analysis_results()
+                        while(1):
+                            sources = process_json(sources_hex, taint_data, invert_fs_relations_data(fs_relations_data), subregion_divisor, min_subregion_len, global_max_len)
+                            if sources:
+                                delta = update_global(sources)
+                                analysis_results = calculate_analysis_results()
 
-                            if check_if_delta_is_little_enough_to_stop(delta, delta_threshold):
-                                skip_run = True
-                                break
-                        else:
-                            print("Error process_json() (2)")
-                            exit(1)
+                                if check_if_delta_is_little_enough_to_stop(delta, delta_threshold):
+                                    skip_run = True
+                                    break
+                            else:
+                                if error == 2:
+                                    if (global_max_len == -1):
+                                        global_max_len = 1000
+                                    else:
+                                        global_max_len /= 2
+                                    continue
+                                else:
+                                    print("Error process_json() (2)")
+                                    exit(1)
+                                error = 0
+                            break
             else:
                 taint_json_dir = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "taint_json")
                 if os.path.exists(taint_json_dir):
@@ -1433,16 +1486,26 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
                     fs_relations_data = clean_json_structure(fs_target_file)
                     taint_data = process_log_file(taint_target_file)
 
-                    sources = process_json(sources_hex, taint_data, invert_fs_relations_data(fs_relations_data), subregion_divisor, min_subregion_len)
-                    if sources:
-                        delta = update_global(sources)
-                        analysis_results = calculate_analysis_results()
+                    while(True):
+                        sources = process_json(sources_hex, taint_data, invert_fs_relations_data(fs_relations_data), subregion_divisor, min_subregion_len)
+                        if sources:
+                            delta = update_global(sources)
+                            analysis_results = calculate_analysis_results()
 
-                        if check_if_delta_is_little_enough_to_stop(delta, delta_threshold):
-                            break
-                    else:
-                        print("Error process_json() (1)")
-                        exit(1)
+                            if check_if_delta_is_little_enough_to_stop(delta, delta_threshold):
+                                break
+                        else:
+                            if error == 2:
+                                if (global_max_len == -1):
+                                    global_max_len = 1000
+                                else:
+                                    global_max_len /= 2
+                                continue
+                            else:
+                                print("Error process_json() (2)")
+                                exit(1)
+                            error = 0
+                        break
 
             plot_dir_path = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "taint_plot")
             os.makedirs(plot_dir_path, exist_ok=True)
