@@ -2,6 +2,29 @@
 # STAFF  
 _Stateful Taint‑Assisted Full‑system Firmware Fuzzer_
 
+# Table of Contents
+
+- [Introduction & Motivation](#introduction--motivation)
+
+- [Overview](#overview)  
+  - [Exploration Phase](#exploration-phase)  
+  - [Taint-Assisted Pre-analysis](#taint-assisted-pre-analysis)  
+  - [Emulation/Fuzzing Phase](#emulationfuzzing-phase)
+
+- [Experimental Assessment](#experimental-assessment)  
+  - [Methods Comparison](#methods-comparison)  
+  - [Experimental Parameters](#experimental-parameters)  
+  - [Dataset](#dataset)
+
+- [Getting Started](#getting-started)  
+  - [Prerequisites](#prerequisites)  
+  - [Setup & Build](#setup--build)  
+  - [Create FirmAE Images](#create-firmae-images)  
+  - [Capture a New Interaction](#capture-a-new-interaction)  
+  - [Perform a Pre-analysis](#perform-a-pre-analysis)  
+  - [Start an Experiment](#start-an-experiment)  
+  - [Start a Bunch of Experiments](#start-a-bunch-of-experiments)
+
 ## Introduction & Motivation  
 **STAFF** is a stateful, taint‑based, full‑system firmware fuzzing tool that combines ideas from protocol fuzzers and whole-system taint analyzers to uncover deep-state bugs in embedded systems. It builds on three pillars:
 
@@ -135,6 +158,141 @@ The parameters used into this experimental evaluation are divided in several cat
 **coverage_tracing**. Selects the coverage feedback mode: classic edge‑ or block‑coverage, or taint‑focused variants that report only edges or blocks involving taint‑related loads/stores.
 
 **stage_max**. The maximum number of sequential mutations of the same type to apply to each seed in one go. For example, if *stage_max = 32*, the fuzzer may apply and run up to 32 bit‑flips (or 32 consecutive arithmetic ops, etc.).
+
+### Dataset
+
+The dataset is a curated subset of firmware images originally sourced from the larger [FirmAE](https://github.com/pr0v3rbs/FirmAE) project. It includes firmware for various brands of routers and IP cameras. The selection was performed by analyzing a wide range of images and filtering in only those firmwares that met the following criteria:
+
+- The embedded web server is reachable and explorable.
+- The firmware emulates correctly, without critical sections being broken or failing to initialize.
+- The interface supports fast and responsive user interactions.
+- A valid and simple web session can be captured and replayed using a PCAP trace.
+- The web server does not selectively respond only to specific browser clients or reject automated/non-standard user agents.
+- The firmware does not require an encrypted or obfuscated login session procedure that prevents reproducible interaction or taint tracing.
+- Web authentication must result in actual, replayable HTTP requests (e.g., not just browser pop-ups that don’t produce usable credentialed traffic).
+- Firmware was excluded if the embedded web server only presents an informational landing page with static content or external links (e.g., to the vendor's website), without exposing the actual device management interface.
+
+The corresponding firmware images are located in the `firmwares` directory, and the per-firmware user interaction traces can be found in the `pcap` directory. Below is a table summarizing the dataset.
+
+<table style="border-collapse: collapse; width: 100%; color: inherit; border-color: inherit;">
+  <tr>
+    <td colspan="27" style="border-bottom: 1px solid currentColor;"></td>
+  </tr>
+  <tr>
+    <th style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">Brand</th>
+    <th style="border-right: 1px solid currentColor;">Firmware Name</th>
+    <th style="border-right: 1px solid currentColor;">Device Type</th>
+    <th style="border-right: 1px solid currentColor;">Number of PCAPs</th>    
+  </tr>
+  <!-- Data Row 1 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">ASUS</td>
+    <td style="border-right: 1px solid currentColor;">FW_RT_N10U_B1_30043763754.zip</td>
+    <td style="border-right: 1px solid currentColor;">Router</td>
+    <td style="border-right: 1px solid currentColor;">4</td>
+  </tr>
+  <!-- Data Row 2 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">ASUS</td>
+    <td style="border-right: 1px solid currentColor;">FW_RT_N53_30043763754.zip</td>
+    <td style="border-right: 1px solid currentColor;">Router</td>
+    <td style="border-right: 1px solid currentColor;">4</td>
+  </tr>
+  <!-- Data Row 3 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">D-Link</td>
+    <td style="border-right: 1px solid currentColor;">dap2310_v1.00_o772.bin</td>
+    <td style="border-right: 1px solid currentColor;">Router</td>
+    <td style="border-right: 1px solid currentColor;">4</td>
+  </tr>
+  <!-- Data Row 4 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">D-Link</td>
+    <td style="border-right: 1px solid currentColor;">dir300_v1.03_7c.bin</td>
+    <td style="border-right: 1px solid currentColor;">Router</td>
+    <td style="border-right: 1px solid currentColor;">4</td>
+  </tr>
+  <!-- Data Row 5 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">D-Link</td>
+    <td style="border-right: 1px solid currentColor;">DIR815A1_FW104b03.bin</td>
+    <td style="border-right: 1px solid currentColor;">Router</td>
+    <td style="border-right: 1px solid currentColor;">5</td>
+  </tr>
+  <!-- Data Row 6 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">Linksys</td>
+    <td style="border-right: 1px solid currentColor;">FW_RE1000_1.0.02.001_US_20120214_SHIPPING.bin</td>
+    <td style="border-right: 1px solid currentColor;">Range Extender</td>
+    <td style="border-right: 1px solid currentColor;">2</td>
+  </tr>
+  <!-- Data Row 7 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">Linksys</td>
+    <td style="border-right: 1px solid currentColor;">FW_WRT320N_1.0.05.002_20110331.bin</td>
+    <td style="border-right: 1px solid currentColor;">Router</td>
+    <td style="border-right: 1px solid currentColor;">4</td>
+  </tr>
+  <!-- Data Row 8 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">Netgear</td>
+    <td style="border-right: 1px solid currentColor;">DGN3500-V1.1.00.30_NA.zip</td>
+    <td style="border-right: 1px solid currentColor;">Router</td>
+    <td style="border-right: 1px solid currentColor;">5</td>
+  </tr>
+  <!-- Data Row 9 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">Netgear</td>
+    <td style="border-right: 1px solid currentColor;">DGND3300_Firmware_Version_1.1.00.22__North_America_.zip</td>
+    <td style="border-right: 1px solid currentColor;">Router</td>
+    <td style="border-right: 1px solid currentColor;">5</td>
+  </tr>
+  <!-- Data Row 10 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">Netgear</td>
+    <td style="border-right: 1px solid currentColor;">JNR3210_Firmware_Version_1.1.0.14.zip</td>
+    <td style="border-right: 1px solid currentColor;">Router</td>
+    <td style="border-right: 1px solid currentColor;">4</td>
+  </tr>
+  <!-- Data Row 11 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">TP-Link</td>
+    <td style="border-right: 1px solid currentColor;">Archer_C2_US__v1_160128.zip</td>
+    <td style="border-right: 1px solid currentColor;">Router</td>
+    <td style="border-right: 1px solid currentColor;">4</td>
+  </tr>
+  <!-- Data Row 12 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">TP-Link</td>
+    <td style="border-right: 1px solid currentColor;">TL-WPA8630_US__V2_171011.zip</td>
+    <td style="border-right: 1px solid currentColor;">Range Extender</td>
+    <td style="border-right: 1px solid currentColor;">4</td>
+  </tr>
+  <!-- Data Row 13 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">TRENDnet</td>
+    <td style="border-right: 1px solid currentColor;">FW_TV-IP121WN_1.2.2.zip</td>
+    <td style="border-right: 1px solid currentColor;">IP Camera</td>
+    <td style="border-right: 1px solid currentColor;">4</td>
+  </tr>
+  <!-- Data Row 14 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">TRENDnet</td>
+    <td style="border-right: 1px solid currentColor;">FW_TV-IP651WI_V1_1.07.01.zip</td>
+    <td style="border-right: 1px solid currentColor;">IP Camera</td>
+    <td style="border-right: 1px solid currentColor;">4</td>
+  </tr>
+  <!-- Data Row 15 -->
+  <tr>
+    <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">TRENDnet</td>
+    <td style="border-right: 1px solid currentColor;">TEW-652BRU_1.00b12.zip</td>
+    <td style="border-right: 1px solid currentColor;">Router</td>
+    <td style="border-right: 1px solid currentColor;">4</td>
+  </tr>
+  <tr>
+    <td colspan="27" style="border-top: 1px solid currentColor;"></td>
+  </tr>
+</table>
 
 ## Getting Started
 

@@ -44,7 +44,7 @@ if __name__ == "__main__":
         print("Example: python script.py eth0 192.168.1.1 out.pcap \".htm .jpg\" \"login password\"")
         sys.exit(1)
 
-    interface = sys.argv[1]
+    interface = sys.argv[1] if sys.argv[2] != "127.0.0.1" else "lo"
     target = sys.argv[2]
     outfile = sys.argv[3]
     blacklist_keywords = sys.argv[4].split()
