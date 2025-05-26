@@ -432,7 +432,7 @@ class MultiSequenceTrie:
         mem_limit = self.get_container_memory_limit()
         process = psutil.Process(os.getpid())
 
-        iteration_check_interval = 10_000
+        iteration_check_interval = 5_000
         time_check_interval = 1
         last_check_time = time.time()
 

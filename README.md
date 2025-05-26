@@ -62,6 +62,253 @@ To further improve efficiency, STAFF enforces **input sequence minimization**. W
 This minimization is achieved by combining **taint-tracking** and a **filesystem tracking mechanism** that detects dependencies such as files involved in login sessions or inter-region communication. By replaying only the **essential subset** of the original sequence, STAFF significantly reduces execution time while preserving semantic correctness and state dependencies.
 To avoid re‑executing the same prefix for every mutation of a region, STAFF enforces a **checkpoint stragegy** by executing the unmodified prefix once, then takes a VM snapshot via a secondary forkserver. For each variant, it forks from that snapshot, applies the mutated region and reattaches the original suffix, resuming execution from the saved state. This reuse of the prefix snapshot drastically reduces redundant computation when exploring multiple mutations of the same region.
 
+#### Algorithm: Build Taint‐Interaction Metadata via Subsequence Matching
+
+This module performs dependency inference between tainted memory regions by:
+1. Building a trie of all possible subsequences (with optional length limits) from sink regions.
+2. Parsing taint events into contiguous memory blocks.
+3. Matching each block's subregions against the trie to identify dependencies.
+4. Recording byte-level dependencies between memory regions.
+
+---
+
+The goal is to infer potential **dataflow or taint propagation** relationships between regions of memory during binary execution, based on taint traces and subsequence similarity.
+
+---
+
+```python
+Inputs:
+  - sources_hex: List of byte‐arrays, one per sink region index
+  - log_path: Path to the binary taint log file
+  - inverted_fs: File‐system relations (not used in subsequence logic)
+  - subregion_divisor ∈ ℕ⁺: Controls minimal subregion size
+  - min_sub_len ∈ ℕ⁺: Minimum subsequence length
+  - max_len ∈ ℤ (≥–1): Upper bound on subsequence length (–1 → unbounded)
+
+Globals to populate:
+  - global_regions_dependance: map sink_id → list of dependent sink_ids
+  - global_regions_affections: map sink_id → map other_sink_id → list of matching substrings
+
+Output:
+  - sources: List of length N = len(sources_hex), each entry
+      ( fs_relations: list,
+        region_info: list of tuples ( byte, [taint_sources], [app_tb_pcs], [coverages] ) )
+
+Steps:
+
+1. ─── Parse Taint Log ───
+   1.1. Let struct_fmt ← "B I I I I B B Q"
+   1.2. Read entire log_path in record‐sized chunks:
+         for each record: unpack into fields
+           event, sink_id, cov, pc, gpa, op_name, value, inode
+         append each event‐dict to `events`
+
+2. ─── Initialize Data Structures ───
+   2.1. sources ← empty list
+   2.2. previous_sink_id ← –1
+   2.3. last_store_event ← null ; current_store_block ← (–1, empty list)
+   2.4. last_load_event  ← null ; current_load_block  ← (–1, empty list)
+   2.5. multi_trie ← new MultiSequenceTrie(max_len)
+   2.6. Clear global_regions_dependance, global_regions_affections
+
+3. ─── Process Each Event ───
+   For event in events in chronological order:
+     
+     if event.event ∉ {0,1}:
+       continue   // ignore non‐sink events
+
+     sink_id ← event.sink_id
+
+     // 3A. New sink region encountered?
+     if sink_id > previous_sink_id:
+       previous_sink_id ← sink_id
+       if sink_id ≥ len(sources_hex): error and abort
+       // Initialize `sources[sink_id]`
+       byte_seq ← sources_hex[sink_id]
+       region_info ← [ (b, [], [], []) for each b in byte_seq ]
+       append ( [], region_info ) to `sources`
+
+       // Insert the full region into trie
+       if not multi_trie.insert(byte_seq, sink_id):
+         error ← memory‐limit; abort
+
+       global_regions_dependance[sink_id] ← []
+       global_regions_affections[sink_id] ← {}
+
+     // 3B. Collect consecutive store/load blocks
+     if event.event == 1 and event.op_name ∈ {0,1}:
+       mode ← (event.op_name == 1) ? "store" : "load"
+       (last_evt, current_block) ←
+         mode=="store" ? (last_store_event, current_store_block)
+                        : (last_load_event,  current_load_block)
+
+       if last_evt ≠ null and event.gpa == last_evt.gpa + 1:
+         append (gpa, value, (inode, pc), cov) to current_block.entries
+       else:
+         if last_evt ≠ null:
+           ProcessBlock(current_block, mode)
+         current_block ← (sink_id, [ (gpa, value, (inode, pc), cov) ])
+
+       if mode == "store":
+         last_store_event ← event; current_store_block ← current_block
+       else:
+         last_load_event  ← event; current_load_block  ← current_block
+
+4. ─── Final Block Flush ───
+   if last_store_event  ≠ null: ProcessBlock(current_store_block, "store")
+   if last_load_event   ≠ null: ProcessBlock(current_load_block,  "load")
+
+5. ─── Return `sources` ───
+   if len(sources) ≠ len(sources_hex): error and abort
+   return sources
+
+────────────────────────────────────────────────────────────────────────────────
+
+Subroutine: ProcessBlock(block, mode)
+Inputs:
+  - block = ( region_id, entries )
+      where entries = list of tuples (gpa, value, (inode,pc), cov)
+  - mode ∈ {"store","load"}
+
+Steps:
+
+1. Extract byte_sequence:
+   byte_seq ← [ value for each (_, value, _, _) in entries ]
+   L ← length(byte_seq)
+
+2. Enumerate candidate subsequence lengths:
+   for sub_len from L down to 1:
+     if sub_len < L/subregion_divisor AND sub_len ≥ min_sub_len:
+       break   // too small relative to divisor
+
+     // Slide window of size sub_len
+     for start_pos in 0 … (L – sub_len):
+       subseq ← byte_seq[start_pos : start_pos + sub_len]
+       positions ← multi_trie.find_subsequence(subseq)
+       if positions is null:
+         continue
+       if positions.size == 1:
+         (other_id, other_start) ← positions[0]
+         // Verify monotonic and exact match
+         if region_id ≥ other_id AND
+            sources_hex[other_id][other_start : other_start+sub_len] == subseq:
+           
+           RecordDependencyAndAffection(
+             from_id=region_id,
+             to_id=other_id,
+             subseq=subseq,
+             start_offset=other_start,
+             entries=entries
+           )
+       goto EndOfBlock  // stop after first successful match
+
+EndOfBlock:
+
+────────────────────────────────────────────────────────────────────────────────
+
+Subroutine: RecordDependencyAndAffection(from_id, to_id, subseq, start_offset, entries)
+
+1. // Dependency
+   if to_id not in global_regions_dependance[from_id]:
+     append to_id
+
+2. // Affection
+   substr_str ← make_printable(subseq)
+   A ← global_regions_affections[to_id]
+   if from_id not in A: A[from_id] ← [substr_str]
+   else if substr_str not in A[from_id]: append substr_str
+
+3. // Annotate `sources[to_id].region_info`
+   for j in 0 … length(subseq)-1:
+     (_, taint_list, pc_list, cov_list) ← sources[to_id][1][start_offset + j]
+     append from_id       to taint_list
+     append entries[j].(inode,pc) to pc_list
+     append entries[j].cov to cov_list
+
+────────────────────────────────────────────────────────────────────────────────
+
+Class MultiSequenceTrie
+  Fields:
+    root      ← new TrieNode()
+    max_len   ← maximum sequence length per subsequence (−1 if unbounded)
+
+  Method insert(sequence, seq_id)
+    for i from 0 to length(sequence) − 1 do
+      node ← root
+      for j from i to min(i + max_len, length(sequence)) do
+        byte ← sequence[j]
+        if byte not in node.children:
+          node.children[byte] ← new TrieNode()
+        node ← node.children[byte]
+        append (seq_id, i) to node.positions
+
+  Method find_subsequence(subseq)
+    node ← root
+    for byte in subseq do
+      if byte not in node.children:
+        return null
+      node ← node.children[byte]
+    return node.positions
+
+Class TrieNode
+  Fields:
+    children  ← map from byte to TrieNode
+    positions ← list of (seq_id, start_offset)
+
+```
+
+Below is a summary of the **time** and **space complexities** of the entire subsequence‐extraction and matching algorithm, expressed in terms of:
+
+**S** = number of sink regions (≈ len(sources_hex))
+
+**L** = average length of each region’s byte sequence
+
+**M** = max_len (if set ≥ 0, otherwise M ≈ L)
+
+**E** = total number of taint events (≈ total memory operations logged)
+
+Breakdown of the **time complexity** for each major phase of the algorithm:
+
+1. **Trie construction (O(S · L · M))**  
+   We insert all length-bounded subsequences of each sink region (S regions, each of length L, up to maximum subsequence length M) into the `MultiSequenceTrie`. Each start position (L) can extend up to M steps, yielding O(L·M) per region, and O(S·L·M) overall.
+
+2. **Event grouping (O(E) or O(E log E))**  
+   We scan and optionally sort the total E taint events by physical address (`gpa`) to form contiguous blocks. If events arrive pre-sorted, this is O(E); otherwise sorting adds an O(E log E) factor.
+
+3. **Subsequence matching (O(S · L² · M))**  
+   For each sink region block (at most S blocks of average length ≤ L), we try sliding windows of all lengths from L down to a lower bound. Each window (≈L of them) calls `find_subsequence()` which traverses up to M trie levels. That yields O(L × L × M) = O(L²·M) per region, or O(S·L²·M) total.
+
+4. **Recording metadata (O(S · M))**  
+   On each successful match (one per block, ≤S matches), we update per-byte lists of length up to M. This is O(M) per region, or O(S·M) overall.
+
+| Step                    | Complexity             |
+|------------------------|------------------------|
+| Trie construction      | O(S · L · M)           |
+| Event grouping         | O(E) (or O(E log E))   |
+| Subsequence matching   | O(S · L² · M)          |
+| Recording metadata     | O(S · M)               |
+| **Overall**            | **O(S · L² · M)**      |
+
+---
+
+Below is a breakdown of the **space requirements** of the data structures used:
+
+1. **Trie nodes & positions (O(S · L · M))**  
+   Each inserted subsequence prefix creates or reuses a trie node. In the worst case (no shared prefixes), there are O(L·M) nodes per region, each holding a list of positions—total O(S·L·M).
+
+2. **Sources per-byte info (O(S · L))**  
+   We maintain for each byte of each sink region (S regions, L bytes each) lists of taint origins, PCs, and coverage hashes. This requires O(S·L) space.
+
+3. **Dependency map (O(S²))**  
+   In the worst case, every sink region might depend on every other, yielding an O(S²) sized map for `global_regions_dependance`.
+
+| Component                 | Complexity              |
+|--------------------------|-------------------------|
+| Trie nodes & positions   | O(S · L · M)            |
+| Sources per-byte info    | O(S · L)                |
+| Dependency map           | O(S²)                   |
+| **Total**                | **O(S · L · M + S²)**   |
+
 
 ### Emulation/Fuzzing Phase
 TODO (coverage tracing strategy, execution trace instability/variability, VM snapshot/forking strategy, crash deduplication strategy, ...)
