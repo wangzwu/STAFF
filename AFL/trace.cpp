@@ -56,7 +56,6 @@ int update_traces(trace_t *src, trace_t *dst) {
         for (int j = 0; j < NUM_TRACES; ++j) {
             if (is_trace_zero(&dst[j])) {
                 memcpy(&dst[j], &src[i], sizeof(trace_t));
-                memset(&src[i], 0, sizeof(trace_t));
                 updated = 1;
                 break;
             }
