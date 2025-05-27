@@ -36,7 +36,7 @@ STAFF targets firmware exposing **Protocol-based services**, applying fuzzing ov
 
 ## Overview
 
-![System Architecture Diagram](img/workflow.png)
+![System Architecture Diagram](img/staff_overall.svg)
 
 ### Exploration Phase
 An initial *exploration phase* where the user interact with the target firmware and all requests are captured and recorded into a pcap files which are then used as initial corpus for the subsequent testing.
