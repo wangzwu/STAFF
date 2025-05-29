@@ -506,7 +506,7 @@ The corresponding firmware images are located in the `firmwares` directory, and 
     <td style="border-left: 1px solid currentColor; border-right: 1px solid currentColor;">TP-Link</td>
     <td style="border-right: 1px solid currentColor;">Archer_C2_US__v1_160128.zip</td>
     <td style="border-right: 1px solid currentColor;">Router</td>
-    <td style="border-right: 1px solid currentColor;">4</td>
+    <td style="border-right: 1px solid currentColor;">3</td>
   </tr>
   <!-- Data Row 12 -->
   <tr>

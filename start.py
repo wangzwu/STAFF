@@ -13,6 +13,19 @@ from analysis.convert_pcap import convert_pcap_into_single_seed_file, convert_pc
 from analysis.taint_analysis import taint
 import csv
 import stat
+import glob
+
+patterns = [
+    "FirmAE/scratch/staff_*",
+    "FirmAE/scratch/aflnet_*",
+    "FirmAE/scratch/triforce_*",
+    "FirmAE/images/staff_*",
+    "FirmAE/images/aflnet_*",
+    "FirmAE/images/triforce_*",
+    "FirmAE/firm_db_aflnet_*",
+    "FirmAE/firm_db_staff_*",
+    "FirmAE/firm_db_triforce_*"
+]
 
 DEFAULT_CONFIG = {
     "GENERAL": {
@@ -985,6 +998,15 @@ def start(keep_config, replay_exp, out_dir, container_name):
 
     PSQL_IP = "0.0.0.0"
     os.environ["NO_PSQL"] = "1"
+
+    for pattern in patterns:
+        for path in glob.glob(pattern):
+            if os.path.isdir(path):
+                print(f"Removing directory: {path}")
+                shutil.rmtree(path)
+            elif os.path.isfile(path):
+                print(f"Removing file: {path}")
+                os.remove(path)
 
     config = load_config(CONFIG_INI_PATH)
 
