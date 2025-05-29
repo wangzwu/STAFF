@@ -992,21 +992,22 @@ def pre_analysis():
 
                     taint(work_dir, "run", os.path.join(os.path.basename(brand), os.path.basename(device)), sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
 
-def start(keep_config, replay_exp, out_dir, container_name):
+def start(keep_config, reset_firmware_images, replay_exp, out_dir, container_name):
     global PSQL_IP
     global config
 
     PSQL_IP = "0.0.0.0"
     os.environ["NO_PSQL"] = "1"
 
-    for pattern in patterns:
-        for path in glob.glob(pattern):
-            if os.path.isdir(path):
-                print(f"Removing directory: {path}")
-                shutil.rmtree(path)
-            elif os.path.isfile(path):
-                print(f"Removing file: {path}")
-                os.remove(path)
+    if reset_firmware_images:
+        for pattern in patterns:
+            for path in glob.glob(pattern):
+                if os.path.isdir(path):
+                    print(f"Removing directory: {path}")
+                    shutil.rmtree(path)
+                elif os.path.isfile(path):
+                    print(f"Removing file: {path}")
+                    os.remove(path)
 
     config = load_config(CONFIG_INI_PATH)
 
@@ -1053,11 +1054,12 @@ def start(keep_config, replay_exp, out_dir, container_name):
 if __name__ == "__main__":
     os.umask(0o000)
     parser = argparse.ArgumentParser(description="Process some arguments.")
-    parser.add_argument("--keep_config", type=int, help="Keep config file")
-    parser.add_argument("--replay_exp", type=int, help="Replay an experiment (triforce)")
-    parser.add_argument("--output", type=str, help="Output dir")
-    parser.add_argument("--container_name", type=str, help="Container name")
+    parser.add_argument("--keep_config", type=int, help="Keep config file", default=1)
+    parser.add_argument("--reset_firmware_images", type=int, help="Reset firmware images", default=1)
+    parser.add_argument("--replay_exp", type=int, help="Replay an experiment (triforce)", default=0)
+    parser.add_argument("--output", type=str, help="Output dir", default=None)
+    parser.add_argument("--container_name", type=str, help="Container name", default=None)
 
     args = parser.parse_args()
 
-    start(args.keep_config, args.replay_exp, os.path.abspath(args.output) if args.output else None, args.container_name if args.container_name else None)
+    start(args.keep_config, args.reset_firmware_images, args.replay_exp, os.path.abspath(args.output) if args.output else None, args.container_name if args.container_name else None)

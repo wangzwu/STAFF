@@ -21,7 +21,8 @@ N_CPU_MAX = int(os.cpu_count())
 logical_to_pair = {}
 pair_to_logical = defaultdict(list)
 CPUS_WHITELIST = None
-# CPUS_WHITELIST = [0,56,4,60,64,8,12,68,10,66,6,62,2,58,16,72,20,76,24,80,26,82,22,78,18,74,14,70,28,84,32,88,36,92,40,96,38,94,34,90,30,86,100,44,104,48,108,52,110,54,106,50]
+CPUS_WHITELIST = [0,56,4,60,64,8,12,68,10,66,6,62,2,58,16,72,20,76,24,80,26,82,22,78,18,74,14,70,28,84,32,88,36,92,40,96,38,94,34,90,30,86,100,44,104,48,108,52,110,54,106,50,1,57,5,61,65,9,13,69,11,67,63,7,3,59,17,73,21,77,25,81,27,83,23,79,19,75,15,71]
+reset_firmware_images = 1
 
 def usage():
     print("python3 experiments.py")
@@ -68,6 +69,8 @@ def wait_for_container_init(file_path="wait_for_container_init"):
     print(f"{file_path} removed, continuing execution.")
 
 def start_routine(exp_name, container_name, cpus, replay):
+    global reset_firmware_images
+
     remove_container_if_exists(container_name)
 
     os.makedirs("docker", exist_ok=True)
@@ -76,8 +79,9 @@ def start_routine(exp_name, container_name, cpus, replay):
     if os.path.exists(log_filename):
         os.remove(log_filename)
 
-    command = f"python3 start.py --replay_exp {replay} --keep_config 0 --output {os.path.join(EXPERIMENTS_DIR, exp_name)} --container_name {container_name}; "
-
+    command = f"python3 start.py --reset_firmware_images {reset_firmware_images} --replay_exp {replay} --keep_config 0 --output {os.path.join(EXPERIMENTS_DIR, exp_name)} --container_name {container_name}; "
+    reset_firmware_images = 0
+    
     print(command)
     with open("command", 'w') as file:
         file.write(command)
