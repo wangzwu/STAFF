@@ -62,50 +62,83 @@ To further improve efficiency, STAFF enforces **input sequence minimization**. W
 This minimization is achieved by combining **taint-tracking** and a **filesystem tracking mechanism** that detects dependencies such as files involved in login sessions or inter-region communication. By replaying only the **essential subset** of the original sequence, STAFF significantly reduces execution time while preserving semantic correctness and state dependencies.
 To avoid re‑executing the same prefix for every mutation of a region, STAFF enforces a **checkpoint stragegy** by executing the unmodified prefix once, then takes a VM snapshot via a secondary forkserver. For each variant, it forks from that snapshot, applies the mutated region and reattaches the original suffix, resuming execution from the saved state. This reuse of the prefix snapshot drastically reduces redundant computation when exploring multiple mutations of the same region.
 
-#### Algorithm: Build Taint‐Interaction Metadata via Subsequence Matching
+#### Dataflow Metadata Extraction Heuristic
 
-This module performs dependency inference between tainted memory regions by:
-1. Building a trie of all possible subsequences (with optional length limits) from sink regions.
+This heuristic associates traced **taint events** (tainted memory operations like load/store) with the actual sequence of memory regions to build a structure. This structure can then be further processed by another heuristic to define a priority queue of **taint hints** for use during fuzzing. The main steps are:
+
+1. Building a `MultiSequenceTrie` of all possible subsequences (optionally constrained by length) of each region in the input sequence.
 2. Parsing taint events into contiguous memory blocks.
-3. Matching each block's subregions against the trie to identify dependencies.
-4. Recording byte-level dependencies between memory regions.
+3. Matching each block’s subregions against the trie to identify dependencies based on data read from or written to memory.
+4. Recording dependency metadata for each byte in every region.
 
 ---
 
-The goal is to infer potential **dataflow or taint propagation** relationships between regions of memory during binary execution, based on taint traces and subsequence similarity.
+The ultimate goal is to infer potential dataflow relationships between regions in the sequence during firmware execution inside a QEMU VM, based on taint traces and subsequence similarity.
 
 ---
 
 ```python
 Inputs:
-  - sources_hex: List of byte‐arrays, one per sink region index
-  - log_path: Path to the binary taint log file
-  - inverted_fs: File‐system relations (not used in subsequence logic)
-  - subregion_divisor ∈ ℕ⁺: Controls minimal subregion size
-  - min_sub_len ∈ ℕ⁺: Minimum subsequence length
-  - max_len ∈ ℤ (≥–1): Upper bound on subsequence length (–1 → unbounded)
+- `sources_hex`: List of byte arrays, one per region index in the sequence.
+- `taint_log`: Binary taint log file.
+- `fs_relations_log`: File-system relations log (not used in the subsequence-taint matching logic).
+- `subregion_divisor ∈ ℕ⁺`: Maximum divisor for subsequence subdivision.
+- `min_sub_len ∈ ℕ⁺`: Minimum length for subsequences.
+- `max_len ∈ ℤ (≥–1)`: Maximum subsequence length for trie storage (–1 → unbounded).
 
-Globals to populate:
-  - global_regions_dependance: map sink_id → list of dependent sink_ids
-  - global_regions_affections: map sink_id → map other_sink_id → list of matching substrings
+Input Structures:
+1. Taint Log (`taint_log.json`)
+  The `taint_log` records taint propagation events during the execution of the instrumented firmware. Each entry provides a fine-grained trace of data dependencies and memory interactions. It is structured as a list of JSON dictionaries, where each dictionary represents a single taint-related event:
+
+  ```json
+  [
+    {
+      "type": "store" | "load",
+      "addr": <destination memory address, integer>,
+      "size": <number of bytes affected, integer>,
+      "pc": <program counter (instruction address), integer>,
+      "src": [[<input_id>, <offset_in_input>], ...]  // optional for 'store'
+    },
+    ...
+  ]
+
+2.  File-System Relations Log (`fs_relations_log.json`)
+
+  The `fs_relations_log` records **causal dependencies between memory regions**, inferred via shared file accesses.
+
+  {
+    "<affected_region_id>": {
+      "<affector_region_id>": [ "<file1>", "<file2>", ... ]
+    },
+    ...
+  }
+  
+  - affected_region_id: ID of the memory region that is affected or influenced.
+  - affector_region_id: ID of the memory region that affects or causes the influence.
+  - list of files: File paths accessed by both regions through which the dependency was inferred.
+
+Globals Populated:
+- `global_regions_dependance`: Map of region_id → list of dependent region_ids.
+- `global_regions_affections`: Map of region_id → map of other_region_id → list of matching substrings.
 
 Output:
-  - sources: List of length N = len(sources_hex), each entry
-      ( fs_relations: list,
-        region_info: list of tuples ( byte, [taint_sources], [app_tb_pcs], [coverages] ) )
+- `sources`: A list of length N = len(sources_hex), where each element is a tuple:
+  - `fs_relations`: List (unused in this logic).
+  - `region_info`: List of tuples for each byte:  
+    `(byte_value, [taint_sources], [app_tb_pcs], [coverages])`
 
 Steps:
 
 1. ─── Parse Taint Log ───
    1.1. Let struct_fmt ← "B I I I I B B Q"
-   1.2. Read entire log_path in record‐sized chunks:
+   1.2. Read entire taint_log in record‐sized chunks:
          for each record: unpack into fields
-           event, sink_id, cov, pc, gpa, op_name, value, inode
+           event, region_id, cov, pc, gpa, op_name, value, inode
          append each event‐dict to `events`
 
 2. ─── Initialize Data Structures ───
    2.1. sources ← empty list
-   2.2. previous_sink_id ← –1
+   2.2. previous_region_id ← –1
    2.3. last_store_event ← null ; current_store_block ← (–1, empty list)
    2.4. last_load_event  ← null ; current_load_block  ← (–1, empty list)
    2.5. multi_trie ← new MultiSequenceTrie(max_len)
@@ -117,23 +150,23 @@ Steps:
      if event.event ∉ {0,1}:
        continue   // ignore non‐sink events
 
-     sink_id ← event.sink_id
+     region_id ← event.region_id
 
      // 3A. New sink region encountered?
-     if sink_id > previous_sink_id:
-       previous_sink_id ← sink_id
-       if sink_id ≥ len(sources_hex): error and abort
-       // Initialize `sources[sink_id]`
-       byte_seq ← sources_hex[sink_id]
+     if region_id > previous_region_id:
+       previous_region_id ← region_id
+       if region_id ≥ len(sources_hex): error and abort
+       // Initialize `sources[region_id]`
+       byte_seq ← sources_hex[region_id]
        region_info ← [ (b, [], [], []) for each b in byte_seq ]
        append ( [], region_info ) to `sources`
 
        // Insert the full region into trie
-       if not multi_trie.insert(byte_seq, sink_id):
+       if not multi_trie.insert(byte_seq, region_id):
          error ← memory‐limit; abort
 
-       global_regions_dependance[sink_id] ← []
-       global_regions_affections[sink_id] ← {}
+       global_regions_dependance[region_id] ← []
+       global_regions_affections[region_id] ← {}
 
      // 3B. Collect consecutive store/load blocks
      if event.event == 1 and event.op_name ∈ {0,1}:
@@ -147,7 +180,7 @@ Steps:
        else:
          if last_evt ≠ null:
            ProcessBlock(current_block, mode)
-         current_block ← (sink_id, [ (gpa, value, (inode, pc), cov) ])
+         current_block ← (region_id, [ (gpa, value, (inode, pc), cov) ])
 
        if mode == "store":
          last_store_event ← event; current_store_block ← current_block
@@ -254,7 +287,6 @@ Class TrieNode
   Fields:
     children  ← map from byte to TrieNode
     positions ← list of (seq_id, start_offset)
-
 ```
 
 Below is a summary of the **time** and **space complexities** of the entire subsequence‐extraction and matching algorithm, expressed in terms of:
@@ -309,6 +341,9 @@ Below is a breakdown of the **space requirements** of the data structures used:
 | Dependency map           | O(S²)                   |
 | **Total**                | **O(S · L · M + S²)**   |
 
+#### Subsequences Extraction and Prioritization Heuristic 
+
+TODO
 
 ### Emulation/Fuzzing Phase
 TODO (coverage tracing strategy, execution trace instability/variability, VM snapshot/forking strategy, crash deduplication strategy, ...)
