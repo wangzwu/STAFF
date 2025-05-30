@@ -752,10 +752,11 @@ def fuzz(out_dir, container_name, replay_exp):
             pcap_file = os.path.join(pcap_path, "%s.seed"%(pcap_file))
             taint_metadata_file = os.path.join(pcap_path, "%s_metadata.json"%(pcap_file))
             shutil.copy(pcap_file, inputs)
-        if out_dir:
-            shutil.copy(taint_metadata_file, os.path.join(out_dir, "taint_metadata"))
-        else:
-            shutil.copy(taint_metadata_file, os.path.join(work_dir, "outputs", "taint_metadata"))
+
+            if out_dir:
+                shutil.copy(taint_metadata_file, os.path.join(out_dir, "outputs", "taint_metadata"))
+            else:
+                shutil.copy(taint_metadata_file, os.path.join(work_dir, "outputs", "taint_metadata"))
 
     elif "aflnet" in mode:
         inputs = os.path.join(work_dir, "inputs")
