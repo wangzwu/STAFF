@@ -714,7 +714,7 @@ def fuzz(out_dir, container_name, replay_exp):
 
     if "staff" in mode:
         if out_dir:
-            os.makedirs(os.path.join(out_dir, "taint_metadata"))
+            os.makedirs(os.path.join(out_dir, "outputs", "taint_metadata"))
         else:
             os.makedirs(os.path.join(work_dir, "outputs", "taint_metadata"))
 
