@@ -900,6 +900,9 @@ void serialize_queue_to_json(const std::priority_queue<T, std::vector<T>, Compar
 }
 
 void filter_and_apply_heuristics() {
+    FILE *fp = fopen("debug/debug_json.log", "a+");
+    fprintf(fp, "%d", debug_json);
+    fclose(fp);
     if (debug_json) {
         for (const auto& entry : global_subregions_app_tb_pcs) {
             serialize_queue_to_json(entry.second, "app_tb_pcs", "pre", entry.first);
@@ -1008,17 +1011,50 @@ void filter_and_apply_heuristics() {
 
 void initialize_queue(char* fn, char* out_dir, const char* config_file, int debug) {
     debug_json = debug;
+
+    if (debug_json) {
+        FILE *fp = fopen("debug/initialize_queue.log", "a+");
+        fprintf(fp, "Debug: initialize_queue called with fn = %s, out_dir = %s, config_file = %s, debug = %d\n", fn, out_dir, config_file, debug);
+        fclose(fp);
+    }
+
     std::string json_file = getJsonFilePath(fn, out_dir);
+    
+    if (debug_json) {
+        FILE *fp = fopen("debug/initialize_queue.log", "a+");
+        fprintf(fp, "Debug: JSON file path resolved to %s\n", json_file.c_str());
+        fclose(fp);
+    }
+
     std::ifstream jsonFile(json_file);
-    if (!jsonFile) return;
+    if (!jsonFile) {
+        if (debug_json) {
+            FILE *fp = fopen("debug/initialize_queue.log", "a+");
+            fprintf(fp, "Error: Failed to open JSON file: %s\n", json_file.c_str());
+            fclose(fp);
+        }
+        return;
+    }
 
     json inputData = json::parse(jsonFile);
 
     if (!config || config->empty()) {
         config = readConfigFile(config_file);
+
+        if (debug_json) {
+            FILE *fp = fopen("debug/initialize_queue.log", "a+");
+            fprintf(fp, "Debug: Configuration file loaded\n");
+            fclose(fp);
+        }
     }
 
     global_sources.clear();
+
+    if (debug_json) {
+        FILE *fp = fopen("debug/initialize_queue.log", "a+");
+        fprintf(fp, "Debug: global_sources cleared\n");
+        fclose(fp);
+    }
 
     for (const auto& group : inputData) {
         std::vector<int> fs_region_ids = group[0].get<std::vector<int>>();
@@ -1041,6 +1077,12 @@ void initialize_queue(char* fn, char* out_dir, const char* config_file, int debu
         global_sources.emplace_back(std::move(fs_region_ids), std::move(source_entry));
     }
 
+    if (debug_json) {
+        FILE *fp = fopen("debug/initialize_queue.log", "a+");
+        fprintf(fp, "Debug: global_sources populated with %zu entries\n", global_sources.size());
+        fclose(fp);
+    }
+
     auto it = global_subregions_app_tb_pcs.find(fn);
     if (it == global_subregions_app_tb_pcs.end()) {
         global_subregions_app_tb_pcs.emplace(
@@ -1049,6 +1091,12 @@ void initialize_queue(char* fn, char* out_dir, const char* config_file, int debu
                 AppTbPCSubsequenceComparator(config)
             )
         );
+
+        if (debug_json) {
+            FILE *fp = fopen("debug/initialize_queue.log", "a+");
+            fprintf(fp, "Debug: Initialized global_subregions_app_tb_pcs for %s\n", fn);
+            fclose(fp);
+        }
     }
 
     auto it2 = global_subregions_covs.find(fn);
@@ -1059,9 +1107,27 @@ void initialize_queue(char* fn, char* out_dir, const char* config_file, int debu
                 CovSubsequenceComparator(config)
             )
         );
+
+        if (debug_json) {
+            FILE *fp = fopen("debug/initialize_queue.log", "a+");
+            fprintf(fp, "Debug: Initialized global_subregions_covs for %s\n", fn);
+            fclose(fp);
+        }
     }
 
     calculate_analysis_results(std::string(fn));
 
+    if (debug_json) {
+        FILE *fp = fopen("debug/initialize_queue.log", "a+");
+        fprintf(fp, "Debug: Finished calculate_analysis_results\n");
+        fclose(fp);
+    }
+
     filter_and_apply_heuristics();
+
+    if (debug_json) {
+        FILE *fp = fopen("debug/initialize_queue.log", "a+");
+        fprintf(fp, "Debug: Finished filter_and_apply_heuristics\n");
+        fclose(fp);
+    }
 }
