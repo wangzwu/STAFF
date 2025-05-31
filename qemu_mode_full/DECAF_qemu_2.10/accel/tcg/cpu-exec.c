@@ -2213,7 +2213,7 @@ int feed_input_helper(CPUState *cpu, target_ulong pc)
 
 int feed_input_times = 0;
 
-int feed_input_to_program(CPUState *cpu, int into_syscall) //before recv
+int feed_input_to_program(CPUState *cpu, int into_syscall) // before recv
 {
     CPUArchState *env = cpu->env_ptr;
 #ifdef TARGET_MIPS
@@ -2223,25 +2223,23 @@ int feed_input_to_program(CPUState *cpu, int into_syscall) //before recv
     int a3 = env->active_tc.gpr[7];
 #elif defined(TARGET_ARM)
     target_ulong a0 = env->regs[0];
-    target_ulong a1 =env->regs[1];
+    target_ulong a1 = env->regs[1];
     target_ulong a2 = env->regs[2];
     target_ulong a3 = env->regs[3];
 #endif
 
-
 #ifdef TARGET_MIPS
-    if(into_syscall == 4175 || into_syscall == 4003 || into_syscall == 4176)
+    if (into_syscall == 4175 || into_syscall == 4003 || into_syscall == 4176)
 #elif defined(TARGET_ARM)
-    if(into_syscall == 3 || into_syscall == 291 || into_syscall == 292)
+    if (into_syscall == 3 || into_syscall == 291 || into_syscall == 292)
 #endif
     {
 #ifdef TARGET_MIPS
-        get_page_addr_code(env, a1); //important
+        get_page_addr_code(env, a1); // important
 #endif
         int final_recv_len = 0;
 
-        if(program_id == 161161)
-        {
+        if (program_id == 161161) {
             feed_input_times++;
         }
 
@@ -2249,42 +2247,73 @@ int feed_input_to_program(CPUState *cpu, int into_syscall) //before recv
         int len = a2;
         int rest_len = total_len - buf_read_index;
 
-        if(rest_len > len)
-        {
-            final_recv_len = len;
-        }
-        else
-        {
-            final_recv_len  = rest_len;
+        final_recv_len = (rest_len > len) ? len : rest_len;
+
+        // Read original memory content before injection
+        char *original_data = (char *)malloc(final_recv_len);
+        if (original_data) {
+            DECAF_read_mem(cpu, a1, final_recv_len, original_data);
         }
 
         int tmp_addr = write_package(cpu, a1, recv_buf + buf_read_index, final_recv_len);
-        DECAF_write_mem(cpu, tmp_addr, 1, "\0"); //important
+        DECAF_write_mem(cpu, tmp_addr, 1, "\0"); // null-terminate
 
         if (taint_tracking_enabled) {
             uint8_t *taint_status = (uint8_t *)malloc(final_recv_len);
-
             memset(taint_status, 0xFF, final_recv_len);
-
             taintcheck_taint_virtmem(a1, final_recv_len, taint_status);
         }
-    
+
+        if (debug_fuzz) {
+            FILE *fd = fopen("debug/feed_input_to_program.log", "a+");
+            if (fd) {
+                fprintf(fd, "==== feed_input_to_program ====\n");
+                fprintf(fd, "Syscall ID: %d\n", into_syscall);
+                fprintf(fd, "Dest address (a1): 0x%08lx\n", (long unsigned int)a1);
+                fprintf(fd, "Requested len: %d, Injected len: %d\n", len, final_recv_len);
+                fprintf(fd, "Flags: %d\n", flag);
+                fprintf(fd, "Buffer index: %d\n", buf_read_index);
+
+                if (original_data) {
+                    fprintf(fd, "Original bytes at a1: \"");
+                    for (int i = 0; i < final_recv_len && i < 32; i++) {
+                        fprintf(fd, "%c", (original_data[i] >= 32 && original_data[i] <= 126) ? original_data[i] : '.');
+                    }
+                    fprintf(fd, "\"\n");
+                }
+
+                fprintf(fd, "Injected bytes: \"");
+                for (int i = 0; i < final_recv_len && i < 32; i++) {
+                    char ch = recv_buf[buf_read_index + i];
+                    fprintf(fd, "%c", (ch >= 32 && ch <= 126) ? ch : '.');
+                }
+                fprintf(fd, "\"\n");
+
+                fprintf(fd, "Remaining input: %d\n", total_len - buf_read_index - final_recv_len);
+                fprintf(fd, "===============================\n");
+                fclose(fd);
+            }
+        }
+
+        free(original_data);
+
 #ifdef TARGET_MIPS
-        if(MSG_PEEK == flag && (into_syscall == 4175 || into_syscall == 4176))
+        if (MSG_PEEK == flag && (into_syscall == 4175 || into_syscall == 4176))
 #elif defined(TARGET_ARM)
-        if(MSG_PEEK == flag && (into_syscall == 291 || into_syscall == 292))
-#endif   
+        if (MSG_PEEK == flag && (into_syscall == 291 || into_syscall == 292))
+#endif
         {
-            //printf("recv msg_peek\n");
+            // MSG_PEEK: do not advance buffer index
         }
         else
         {
-            //printf("feed input:%s\n", recv_buf + extern_struct->buf_read_index);
-            buf_read_index+=final_recv_len;   
+            buf_read_index += final_recv_len;
         }
+
         ret_syscall(cpu, final_recv_len, 0);
-        return 1;//goto skip_to_pos;
+        return 1;
     }
+
     return 0;
 }
 
@@ -2955,10 +2984,10 @@ int forkserver_mode(CPUState *cpu){
                         char buf[ret];
                         memset(buf,0,ret);
                         DECAF_read_mem(cpu, a1, ret, buf);
-                        buf[ret-1] = 0;
+                        // buf[ret-1] = 0;
 
                         if (countCharOccurrences(buf, '\n') > 1 && 
-                            (strncmp(buf, "GET", 3) == 0 || strncmp(buf, "POST", 4) == 0)){
+                            (strncmp(buf, "GET", 3) == 0 || strncmp(buf, "POST", 4) == 0) || (ret == 1 && (strncmp(buf, "G", 1) == 0 || strncmp(buf, "P", 1) == 0))){
 
                             target_pid = pid;
                             target_fd = a0;
@@ -2992,7 +3021,7 @@ int forkserver_mode(CPUState *cpu){
                     int app_tb_pc = get_coverage_value(pid, "app_tb_pc", 0);
                     FILE *fd = fopen("debug/syscalls.log","a+"); 
                     fprintf(fd, "(RETURN) SYSCALL %d", into_syscall, pc);
-                    fprintf(fd, " (ret: %d, a0: %d, a1: %d, a2: %d, a3: %d) (PC: 0x%lx)\n", ret, a0, a1, a2, a3, app_tb_pc);
+                    fprintf(fd, " (ret: %d, a0: %d, a1: %d, a2: %d, a3: %d) (PC: 0x%lx) (procname: %s, program_analysis: %s)\n", ret, a0, a1, a2, a3, app_tb_pc, procname, program_analysis);
                     fclose(fd);
                 }
             }

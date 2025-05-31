@@ -685,7 +685,7 @@ def fuzz(out_dir, container_name, replay_exp):
     os.environ["AFL_NO_EXTRAS"] = str(config["GENERAL_FUZZING"]["afl_no_extras"])
     os.environ["AFL_CALIBRATION"] = str(config["GENERAL_FUZZING"]["afl_calibration"])
     os.environ["AFL_SHUFFLE_QUEUE"] = str(config["GENERAL_FUZZING"]["afl_shuffle_queue"])
-    os.environ["DEBUG_FUZZ"] = "1"
+    # os.environ["DEBUG_FUZZ"] = "1"
     # os.environ["DEBUG"] = "1"
 
     if "aflnet" in mode or "staff" in mode or replay_exp:
@@ -827,7 +827,7 @@ def fuzz(out_dir, container_name, replay_exp):
     os.chdir(work_dir)
 
     command = ["sudo", "-E"]
-    command += ["gdb", "--args"]
+    # command += ["gdb", "--args"]
     command += ["./afl-fuzz"]
     command += ["-t", "8000000+"]
     command += ["-w", str(config["GENERAL_FUZZING"]["timeout"])]
@@ -884,8 +884,6 @@ def fuzz(out_dir, container_name, replay_exp):
             subprocess.run(
                 command,
                 env=env,
-                input="run\nbt\n",
-                text=True,
                 check=True
             )
             ret = 0
@@ -933,8 +931,6 @@ def fuzz(out_dir, container_name, replay_exp):
             subprocess.run(
                 command,
                 env=env,
-                input="run\nbt\n",
-                text=True,
                 check=True
             )
             ret = 0
@@ -1062,7 +1058,7 @@ if __name__ == "__main__":
     os.umask(0o000)
     parser = argparse.ArgumentParser(description="Process some arguments.")
     parser.add_argument("--keep_config", type=int, help="Keep config file", default=1)
-    parser.add_argument("--reset_firmware_images", type=int, help="Reset firmware images", default=1)
+    parser.add_argument("--reset_firmware_images", type=int, help="Reset firmware images", default=0)
     parser.add_argument("--replay_exp", type=int, help="Replay an experiment (triforce)", default=0)
     parser.add_argument("--output", type=str, help="Output dir", default=None)
     parser.add_argument("--container_name", type=str, help="Container name", default=None)
