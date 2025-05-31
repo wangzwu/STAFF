@@ -92,8 +92,11 @@ if (${FIRMAE_ETC}); then
     elif [ -e /usr/sbin/mini_httpd ]; then
         echo -n "/usr/sbin/mini_httpd" > /firmadyne/service
         echo -n "mini_httpd" > /firmadyne/service_name
-    elif [ -e /usr/sbin/mini_httpd ]; then
+    elif [ -e /sbin/mini_httpd ]; then
         echo -n "/sbin/mini_httpd" > /firmadyne/service
         echo -n "mini_httpd" > /firmadyne/service_name
+    elif [ -e /server/boa ]; then
+        echo -n "/server/boa" > /firmadyne/service
+        echo -n "boa" > /firmadyne/service_name
     fi
 fi

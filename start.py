@@ -16,15 +16,15 @@ import stat
 import glob
 
 patterns = [
-    "FirmAE/scratch/staff_*",
-    "FirmAE/scratch/aflnet_*",
-    "FirmAE/scratch/triforce_*",
-    "FirmAE/images/staff_*",
-    "FirmAE/images/aflnet_*",
-    "FirmAE/images/triforce_*",
-    "FirmAE/firm_db_aflnet_*",
-    "FirmAE/firm_db_staff_*",
-    "FirmAE/firm_db_triforce_*"
+    "FirmAE/scratch/staff*",
+    "FirmAE/scratch/aflnet*",
+    "FirmAE/scratch/triforce*",
+    "FirmAE/images/staff*",
+    "FirmAE/images/aflnet*",
+    "FirmAE/images/triforce*",
+    "FirmAE/firm_db_aflnet*",
+    "FirmAE/firm_db_staff*",
+    "FirmAE/firm_db_triforce*"
 ]
 
 DEFAULT_CONFIG = {
