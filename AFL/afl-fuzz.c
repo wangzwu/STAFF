@@ -2262,9 +2262,9 @@ void *send_requests(void *arg) {
   int iteration = 0;
 
   while (!file_exists("fuzzing_started")) {
-    FILE *file = fopen("ip.0", "r");
+    FILE *file = fopen("ip", "r");
     if (!file) {
-      perror("Failed to open ip.0");
+      perror("Failed to open ip");
       usleep(MAX_SLEEP);
       continue;
     }
