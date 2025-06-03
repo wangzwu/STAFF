@@ -706,9 +706,9 @@ void calculate_analysis_results(const std::string& fn) {
                     }
                 }
                 for (int kw : fs_relations) {
-                    if (std::find(region_influences[kw].begin(), region_influences[kw].end(), i) == 
-                        region_influences[kw].end()) {
-                        region_influences[kw].push_back(i);
+                    if (std::find(region_influences[i].begin(), region_influences[i].end(), kw) == 
+                        region_influences[i].end()) {
+                        region_influences[i].push_back(kw);
                     }                    
                 }
                 for (const auto& pc : pcs_app_tb_pcs) {
@@ -762,9 +762,9 @@ void calculate_analysis_results(const std::string& fn) {
                     }
                 }
                 for (int kw : fs_relations) {
-                    if (std::find(region_influences[kw].begin(), region_influences[kw].end(), i) == 
-                        region_influences[kw].end()) {
-                        region_influences[kw].push_back(i);
+                    if (std::find(region_influences[i].begin(), region_influences[kw].end(), kw) == 
+                        region_influences[i].end()) {
+                        region_influences[i].push_back(kw);
                     }                    
                 }
                 for (const auto& cov : pcs_covs) {

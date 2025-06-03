@@ -73,15 +73,6 @@ class Subsequence:
     def __repr__(self):
         return f"Subsequence(region_id={self.region_id}, offset={self.offset}, length={self.length})"
 
-def invert_fs_relations_data(fs_relations):
-    inverted_relations = {}
-    for outer_key, inner_dict in fs_relations.items():
-        for inner_key, file_list in inner_dict.items():
-            if inner_key not in inverted_relations:
-                inverted_relations[inner_key] = {}
-            inverted_relations[inner_key][outer_key] = file_list
-    return inverted_relations
-
 def safe_div(numerator, denominator):
     return numerator / denominator if denominator != 0 else 0
 
@@ -466,34 +457,62 @@ class MultiSequenceTrie:
                 return None
         return list(current_node.positions)
 
-def clean_json_structure(file_path):
-    with open(file_path, "r") as file:
-        data = json.load(file)
+def summarize_node_dependencies(json_path):
+    with open(json_path, "r") as f:
+        data = json.load(f)
 
-    file_occurrences = defaultdict(lambda: defaultdict(set))
-    for outer_key, inner_dict in data.items():
-        for inner_key, file_list in inner_dict.items():
-            for file in file_list:
-                if file:
-                    file_occurrences[file][outer_key].add(inner_key)
+    file_min_dst = {}
+    for src_str, dsts in data.items():
+        for dst_str, files in dsts.items():
+            dst = int(dst_str)
+            for f in files:
+                if f:
+                    if f not in file_min_dst or dst < file_min_dst[f]:
+                        file_min_dst[f] = dst
 
-    files_to_keep = {
-        file
-        for file, outer_keys in file_occurrences.items()
-        if len(set(inner_key for inner_keys in outer_keys.values() for inner_key in inner_keys)) == 1
-    }
+    node_files = {}
+    for f, dst_node in file_min_dst.items():
+        node_files.setdefault(dst_node, set()).add(f)
 
-    cleaned_data = {}
-    for outer_key, inner_dict in data.items():
-        cleaned_inner_dict = {}
-        for inner_key, file_list in inner_dict.items():
-            filtered_files = [file for file in file_list if file in files_to_keep]
-            if filtered_files:
-                cleaned_inner_dict[inner_key] = filtered_files
-        if cleaned_inner_dict:
-            cleaned_data[outer_key] = cleaned_inner_dict
+    graph = {}
+    for src_str, dsts in data.items():
+        src = int(src_str)
+        graph.setdefault(src, set())
+        for dst_str in dsts.keys():
+            dst = int(dst_str)
+            graph[src].add(dst)
 
-    return cleaned_data
+    def build_json(node, visited=None):
+        if visited is None:
+            visited = set()
+        if node in visited:
+            return {}
+        visited.add(node)
+        result = {}
+        for child in sorted(graph.get(node, [])):
+            entry = {}
+            if child in node_files:
+                entry[child] = sorted(node_files[child])
+            child_descendants = build_json(child, visited)
+            if child_descendants:
+                if entry:
+                    entry.update(child_descendants)
+                else:
+                    entry = child_descendants
+            result.update(entry)
+        return result
+
+    final_json = {}
+    for node_str in data.keys():
+        node = int(node_str)
+        final_json[node] = build_json(node, visited=set())
+
+    for key in final_json:
+        if isinstance(final_json[key], dict):
+            final_json[key] = list(final_json[key].keys())
+    
+    return final_json
+
 
 def process_log_file(log_path):
     events = []
@@ -521,13 +540,15 @@ def process_log_file(log_path):
 
     return events
 
-def process_json(sources_hex, taint_data, inverted_fs_relations_data, subregion_divisor, min_subregion_len, max_len):
+def process_json(sources_hex, taint_data, fs_relations_data, subregion_divisor, min_subregion_len, max_len):
     global global_all_app_tb_pcs
     global error
     global global_regions_dependance
     global global_regions_affections
 
     print("\n[\033[34m*\033[0m] max_len:", global_max_len)
+
+    print(fs_relations_data)
 
     output_dir = "taint_analysis_stats"
     if os.path.exists(output_dir):
@@ -566,7 +587,7 @@ def process_json(sources_hex, taint_data, inverted_fs_relations_data, subregion_
                     error = 1
                     print("Error: sink_id [%d] >= len(sources_hex) [%d]"%(sink_id, len(sources_hex)))
                     return None
-                sources.append(([], [(byte, [], [], []) for byte in sources_hex[sink_id]]))
+                sources.append((fs_relations_data[sink_id] if sink_id in fs_relations_data else [], [(byte, [], [], []) for byte in sources_hex[sink_id]]))
                 if not (multi_trie.insert(sources_hex[sink_id], sink_id)):
                     del multi_trie
                     time.sleep(1)
@@ -589,9 +610,6 @@ def process_json(sources_hex, taint_data, inverted_fs_relations_data, subregion_
             op_name = event["op_name"]
             value_hex = event["value"]
             inode = event["inode"]
-
-            if ((inode, app_tb_pc) in global_all_app_tb_pcs):
-                continue
 
             if (op_name == 1):
                 if (last_store_event != None):
@@ -616,22 +634,21 @@ def process_json(sources_hex, taint_data, inverted_fs_relations_data, subregion_
                                         for i, start_exist in found_positions:
                                             if current_region_store[0] >= i and sources_hex[i][start_exist:start_exist + sub_len ] == current_value_hex[start_curr:start_curr + sub_len]:
                                                 for j in range(sub_len):
-                                                    if i not in global_regions_dependance[current_region_store[0]]:
-                                                        global_regions_dependance[current_region_store[0]].append(i)
-                                                    if current_region_store[0] not in global_regions_affections[i]:
-                                                        sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
-                                                        global_regions_affections[i][current_region_store[0]] = [sub_curr_str]
-                                                    else:
-                                                        sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
-                                                        if sub_curr_str not in global_regions_affections[i][current_region_store[0]]:
-                                                            global_regions_affections[i][current_region_store[0]].append(sub_curr_str)
+                                                    # if i not in global_regions_dependance[current_region_store[0]]:
+                                                    #     global_regions_dependance[current_region_store[0]].append(i)
+                                                    # if current_region_store[0] not in global_regions_affections[i]:
+                                                    #     sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
+                                                    #     global_regions_affections[i][current_region_store[0]] = [sub_curr_str]
+                                                    # else:
+                                                    #     sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
+                                                    #     if sub_curr_str not in global_regions_affections[i][current_region_store[0]]:
+                                                    #         global_regions_affections[i][current_region_store[0]].append(sub_curr_str)
                                                     if current_region_store[0] not in sources[i][1][j + start_exist][1]:
                                                         sources[i][1][j + start_exist][1].append(current_region_store[0])
-                                                    if current_region_store[1][j][2] not in sources[i][1][j + start_exist][2]:
+                                                    if current_region_store[1][j][2] not in global_all_app_tb_pcs:
                                                         sources[i][1][j + start_exist][2].append(current_region_store[1][j][2])
-                                                        global_all_app_tb_pcs.add((inode, app_tb_pc))
-                                                    if current_region_store[1][j][3] not in sources[i][1][j + start_exist][3]:
                                                         sources[i][1][j + start_exist][3].append(current_region_store[1][j][3])
+                                                        global_all_app_tb_pcs.add(current_region_store[1][j][2])
 
                                     matched_any = True
                                     
@@ -669,22 +686,21 @@ def process_json(sources_hex, taint_data, inverted_fs_relations_data, subregion_
                                         for i, start_exist in found_positions:
                                             if current_region_load[0] >= i and sources_hex[i][start_exist:start_exist + sub_len ] == current_value_hex[start_curr:start_curr + sub_len]:
                                                 for j in range(sub_len):
-                                                    if i not in global_regions_dependance[current_region_load[0]]:
-                                                        global_regions_dependance[current_region_load[0]].append(i)
-                                                    if current_region_load[0] not in global_regions_affections[i]:
-                                                        sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
-                                                        global_regions_affections[i][current_region_load[0]] = [sub_curr_str]
-                                                    else:
-                                                        sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
-                                                        if sub_curr_str not in global_regions_affections[i][current_region_load[0]]:
-                                                            global_regions_affections[i][current_region_load[0]].append(sub_curr_str)
+                                                    # if i not in global_regions_dependance[current_region_load[0]]:
+                                                    #     global_regions_dependance[current_region_load[0]].append(i)
+                                                    # if current_region_load[0] not in global_regions_affections[i]:
+                                                    #     sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
+                                                    #     global_regions_affections[i][current_region_load[0]] = [sub_curr_str]
+                                                    # else:
+                                                    #     sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
+                                                    #     if sub_curr_str not in global_regions_affections[i][current_region_load[0]]:
+                                                    #         global_regions_affections[i][current_region_load[0]].append(sub_curr_str)
                                                     if current_region_load[0] not in sources[i][1][j + start_exist][1]:
                                                         sources[i][1][j + start_exist][1].append(current_region_load[0])
-                                                    if current_region_load[1][j][2] not in sources[i][1][j + start_exist][2]:
+                                                    if current_region_load[1][j][2] not in global_all_app_tb_pcs:                                                        
                                                         sources[i][1][j + start_exist][2].append(current_region_load[1][j][2])
-                                                        global_all_app_tb_pcs.add((inode, app_tb_pc))
-                                                    if current_region_load[1][j][3] not in sources[i][1][j + start_exist][3]:
                                                         sources[i][1][j + start_exist][3].append(current_region_load[1][j][3])
+                                                        global_all_app_tb_pcs.add(current_region_load[1][j][2])
 
                                     matched_any = True
 
@@ -723,22 +739,21 @@ def process_json(sources_hex, taint_data, inverted_fs_relations_data, subregion_
                     for i, start_exist in found_positions:
                         if current_region_store[0] >= i and sources_hex[i][start_exist:start_exist + sub_len ] == current_value_hex[start_curr:start_curr + sub_len]:
                             for j in range(sub_len):
-                                if i not in global_regions_dependance[current_region_store[0]]:
-                                    global_regions_dependance[current_region_store[0]].append(i)
-                                if current_region_store[0] not in global_regions_affections[i]:
-                                    sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
-                                    global_regions_affections[i][current_region_store[0]] = [sub_curr_str]
-                                else:
-                                    sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
-                                    if sub_curr_str not in global_regions_affections[i][current_region_store[0]]:
-                                        global_regions_affections[i][current_region_store[0]].append(sub_curr_str)
+                                # if i not in global_regions_dependance[current_region_store[0]]:
+                                #     global_regions_dependance[current_region_store[0]].append(i)
+                                # if current_region_store[0] not in global_regions_affections[i]:
+                                #     sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
+                                #     global_regions_affections[i][current_region_store[0]] = [sub_curr_str]
+                                # else:
+                                #     sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
+                                #     if sub_curr_str not in global_regions_affections[i][current_region_store[0]]:
+                                #         global_regions_affections[i][current_region_store[0]].append(sub_curr_str)
                                 if current_region_store[0] not in sources[i][1][j + start_exist][1]:
                                     sources[i][1][j + start_exist][1].append(current_region_store[0])
-                                if current_region_store[1][j][2] not in sources[i][1][j + start_exist][2]:
+                                if current_region_store[1][j][2] not in global_all_app_tb_pcs:   
                                     sources[i][1][j + start_exist][2].append(current_region_store[1][j][2])
-                                    global_all_app_tb_pcs.add((inode, app_tb_pc))
-                                if current_region_store[1][j][3] not in sources[i][1][j + start_exist][3]:
                                     sources[i][1][j + start_exist][3].append(current_region_store[1][j][3])
+                                    global_all_app_tb_pcs.add(current_region_store[1][j][2])
 
                 matched_any = True
 
@@ -766,22 +781,21 @@ def process_json(sources_hex, taint_data, inverted_fs_relations_data, subregion_
                     for i, start_exist in found_positions:
                         if current_region_load[0] >= i and sources_hex[i][start_exist:start_exist + sub_len ] == current_value_hex[start_curr:start_curr + sub_len]:
                             for j in range(sub_len):
-                                if i not in global_regions_dependance[current_region_load[0]]:
-                                    global_regions_dependance[current_region_load[0]].append(i)
-                                if current_region_load[0] not in global_regions_affections[i]:
-                                    sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
-                                    global_regions_affections[i][current_region_load[0]] = [sub_curr_str]
-                                else:
-                                    sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
-                                    if sub_curr_str not in global_regions_affections[i][current_region_load[0]]:
-                                        global_regions_affections[i][current_region_load[0]].append(sub_curr_str)
+                                # if i not in global_regions_dependance[current_region_load[0]]:
+                                #     global_regions_dependance[current_region_load[0]].append(i)
+                                # if current_region_load[0] not in global_regions_affections[i]:
+                                #     sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
+                                #     global_regions_affections[i][current_region_load[0]] = [sub_curr_str]
+                                # else:
+                                #     sub_curr_str = "".join(chr(val) if 32 < val < 127 else "." for val in current_value_hex[start_curr:start_curr + sub_len])
+                                #     if sub_curr_str not in global_regions_affections[i][current_region_load[0]]:
+                                #         global_regions_affections[i][current_region_load[0]].append(sub_curr_str)
                                 if current_region_load[0] not in sources[i][1][j + start_exist][1]:
                                     sources[i][1][j + start_exist][1].append(current_region_load[0])
-                                if current_region_load[1][j][2] not in sources[i][1][j + start_exist][2]:
+                                if current_region_load[1][j][2] not in global_all_app_tb_pcs:  
                                     sources[i][1][j + start_exist][2].append(current_region_load[1][j][2])
-                                    global_all_app_tb_pcs.add((inode, app_tb_pc))
-                                if current_region_load[1][j][3] not in sources[i][1][j + start_exist][3]:
                                     sources[i][1][j + start_exist][3].append(current_region_load[1][j][3])
+                                    global_all_app_tb_pcs.add(current_region_load[1][j][2])
 
                     matched_any = True
 
@@ -1394,12 +1408,12 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
                             print(f"Removed orphaned taint JSON file: {json_path}")
                             continue
                         
-                        fs_relations_data = clean_json_structure(fs_json_path)
+                        fs_relations_data = summarize_node_dependencies(fs_json_path)
                         taint_data = process_log_file(json_path)
                         
                         delta_check = False
                         while(True):
-                            sources = process_json(sources_hex, taint_data, invert_fs_relations_data(fs_relations_data), subregion_divisor, min_subregion_len, global_max_len)
+                            sources = process_json(sources_hex, taint_data, fs_relations_data, subregion_divisor, min_subregion_len, global_max_len)
                             if sources:
                                 delta = update_global(sources)
                                 analysis_results = calculate_analysis_results()
@@ -1518,12 +1532,12 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
 
                     time.sleep(2)
 
-                    fs_relations_data = clean_json_structure(fs_target_file)
+                    fs_relations_data = summarize_node_dependencies(fs_target_file)
                     taint_data = process_log_file(taint_target_file)
 
                     delta_check = False
                     while(True):
-                        sources = process_json(sources_hex, taint_data, invert_fs_relations_data(fs_relations_data), subregion_divisor, min_subregion_len, global_max_len)
+                        sources = process_json(sources_hex, taint_data, fs_relations_data, subregion_divisor, min_subregion_len, global_max_len)
                         if sources:
                             delta = update_global(sources)
                             analysis_results = calculate_analysis_results()
