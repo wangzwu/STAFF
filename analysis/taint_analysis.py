@@ -547,9 +547,7 @@ def process_json(sources_hex, taint_data, fs_relations_data, subregion_divisor, 
     global global_regions_affections
 
     print("\n[\033[34m*\033[0m] max_len:", global_max_len)
-
-    print(fs_relations_data)
-
+    
     output_dir = "taint_analysis_stats"
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
