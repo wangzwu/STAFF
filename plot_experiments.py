@@ -7,7 +7,17 @@ from collections import defaultdict
 import venn
 
 TRIM_LINES = False
-EXP_N_MIN = 0
+INCLUDE_EXPERIMENTS = "0-53"
+
+def parse_range_list(skip_str):
+    include_set = set()
+    for part in skip_str.split(","):
+        if "-" in part:
+            start, end = map(int, part.split("-"))
+            include_set.update(range(start, end + 1))
+        else:
+            include_set.add(int(part))
+    return include_set
 
 def get_bitmap_data(bitmap_path):
     bitmap_data = set()
@@ -86,14 +96,15 @@ def read_params(param_file):
 
 def find_matching_experiments(base_dir, var_params, fixed_params):
     experiments = defaultdict(list)
+    include_set = parse_range_list(INCLUDE_EXPERIMENTS)
 
     for exp_id in os.listdir(base_dir):
         try:
             exp_n = int(exp_id.split('_')[1])
-        except ValueError:
+        except (ValueError, IndexError):
             continue
-        
-        if exp_n < EXP_N_MIN:
+
+        if exp_n not in include_set:
             continue
         
         exp_path = os.path.join(base_dir, exp_id, 'outputs')

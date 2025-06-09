@@ -127,7 +127,7 @@ int move_file(const char *source_path, const char *dest_dir) {
 
 FILE* warnf_output_file = NULL;
 int sequence_minimization = 0;
-int no_more_taint_hints = 0, no_more_taint_hints_at_all = 0, num_taint_analyzed_queue_entries = 0;
+int no_more_taint_hints = 0, no_more_taint_hints_at_all = 0, num_taint_analyzed_queue_entries = 0, taint_hints_all_at_once = 0;
 int enable_taint_aware_mode = 0;
 int stage_max_par = 0;
 char *region_delimiter = NULL;
@@ -10479,7 +10479,7 @@ int main(int argc, char** argv) {
   gettimeofday(&tv, &tz);
   srandom(tv.tv_sec ^ tv.tv_usec ^ getpid());
 
-  while ((opt = getopt(argc, argv, "+i:o:f:m:b:t:T:dnCB:S:M:x:QN:D:w:e:P:Eq:s:RFc:l:y:HXYA:")) > 0)
+  while ((opt = getopt(argc, argv, "+i:o:f:m:b:t:T:dnCB:S:M:x:QN:D:w:e:P:Eq:s:RFc:l:y:HXYA:O")) > 0)
 
     switch (opt) {
 
@@ -10680,7 +10680,7 @@ int main(int argc, char** argv) {
         server_wait = 1;
         break;
 
-      case 'A': /* waiting time for the server initialization */
+      case 'A':
         if (taint_elapsed_ms) FATAL("Multiple -A options not supported");
 
         if (sscanf(optarg, "%llu", &taint_elapsed_ms) < 1 || optarg[0] == '-') FATAL("Bad syntax used for -A");
@@ -10768,6 +10768,11 @@ int main(int argc, char** argv) {
       case 'E':
         if (state_aware_mode) FATAL("Multiple -E options not supported");
         state_aware_mode = 1;
+        break;
+
+      case 'O':
+        if (taint_hints_all_at_once) FATAL("Multiple -O options not supported");
+        taint_hints_all_at_once = 1;
         break;
 
       case 'H':
@@ -11118,7 +11123,8 @@ int main(int argc, char** argv) {
         else
           queue_cur = old_taint_analyzed_queue_cur->next;
 
-        enable_taint_aware_mode = 1;
+        if (!taint_hints_all_at_once)
+          enable_taint_aware_mode = 1;
 
         if (debug) {
           if (queue_cur) {

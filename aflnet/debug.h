@@ -175,14 +175,9 @@
 
 /* Show a prefixed warning. */
 
-#include <stdio.h>
-extern FILE* warnf_output_file;
 #define WARNF(x...) do { \
-    if (warnf_output_file) { \
-      fprintf(warnf_output_file, cYEL "[!] " cBRI "WARNING: " cRST x); \
-      fprintf(warnf_output_file, cRST "\n"); \
-      fflush(warnf_output_file); \
-    } \
+    SAYF(cYEL "[!] " cBRI "WARNING: " cRST x); \
+    SAYF(cRST "\n"); \
   } while (0)
 
 /* Show a prefixed "doing something" message. */

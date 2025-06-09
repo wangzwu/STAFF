@@ -19,11 +19,45 @@ TOOL_RANK = {
 }
 
 METRICS = ["bitmap_cvg", "unique_crashes", "unique_hangs", "paths_total", "paths_favored", "execs_done"]
+BASELINE_EXPERIMENTS = "0,1,2,5,6,7,10,11,12,15,16,17,20,21,22,25,26,27,"
+STAFF_EDGE = "3,4,8,9,13,14,18,19,23,24,28,29"
+STAFF_TAINT_BLOCK = "42-53"
+INCLUDE_EXPERIMENTS = BASELINE_EXPERIMENTS+STAFF_TAINT_BLOCK
 
-def parse_fuzzer_stats(path):
+def parse_range_list(skip_str):
+    include_set = set()
+    for part in skip_str.split(","):
+        if "-" in part:
+            start, end = map(int, part.split("-"))
+            include_set.update(range(start, end + 1))
+        else:
+            include_set.add(int(part))
+    return include_set
+
+def parse_fuzzer_stats(path, fallback_path=None, force_time_fallback=False):
     data = {}
     start_time = None
     last_update = None
+
+    def load_times_from(path):
+        nonlocal start_time, last_update
+        with open(path) as f:
+            for line in f:
+                if ":" not in line:
+                    continue
+                key, val = line.split(":", 1)
+                key = key.strip()
+                val = val.strip().rstrip('%')
+                if key == "start_time":
+                    try:
+                        start_time = int(val)
+                    except ValueError:
+                        pass
+                elif key == "last_update":
+                    try:
+                        last_update = int(val)
+                    except ValueError:
+                        pass
 
     with open(path) as f:
         for line in f:
@@ -42,6 +76,9 @@ def parse_fuzzer_stats(path):
             except ValueError:
                 pass
 
+    if force_time_fallback and fallback_path:
+        load_times_from(fallback_path)
+
     if start_time and last_update:
         data["run_time"] = float(last_update - start_time)
     else:
@@ -52,8 +89,17 @@ def parse_fuzzer_stats(path):
 agg = defaultdict(lambda: defaultdict(list))
 valid_experiments = 0
 firmwares = set()
+include_set = parse_range_list(INCLUDE_EXPERIMENTS)
 
 for exp_dir in sorted(glob.glob(os.path.join(BASE_DIR, "exp_*"))):
+    exp_name = os.path.basename(exp_dir)
+    try:
+        exp_id = int(exp_name.split("_")[1])
+        if exp_id not in include_set:
+            continue
+    except (IndexError, ValueError):
+        continue
+
     cfg_path = os.path.join(exp_dir, "outputs", "config.ini")
     stats_path = os.path.join(exp_dir, "outputs", "fuzzer_stats")
 
@@ -71,7 +117,8 @@ for exp_dir in sorted(glob.glob(os.path.join(BASE_DIR, "exp_*"))):
     if mode not in TOOLS:
         continue
 
-    stats = parse_fuzzer_stats(stats_path)
+    old_stats_path = os.path.join(exp_dir, "outputs", "old_fuzzer_stats") if mode == "triforce" else None
+    stats = parse_fuzzer_stats(stats_path, fallback_path=old_stats_path, force_time_fallback=(mode == "triforce"))
     if stats.get("execs_done", 0.0) <= 0:
         continue
 

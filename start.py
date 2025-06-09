@@ -62,6 +62,7 @@ DEFAULT_CONFIG = {
         "region_level_mutation": (1, int)
     },
     "STAFF_FUZZING": {
+        "taint_hints_all_at_once": (0, int),
         "sequence_minimization": (1, int),
         "taint_metrics": ("rarest_app_tb_pc/number_of_app_tb_pcs/rarest_process/number_of_processes", str),
         "checkpoint_strategy": (1, int)
@@ -854,6 +855,8 @@ def fuzz(out_dir, container_name, replay_exp):
         with open(os.path.join(TAINT_DIR, os.path.basename(os.path.dirname(config["GENERAL"]["firmware"])), os.path.basename(config["GENERAL"]["firmware"]), "global_elapsed_time"), "r") as f:
             global_elapsed_time_ms = f.read().strip()
         command += ["-A", global_elapsed_time_ms]
+        if config["STAFF_FUZZING"]["taint_hints_all_at_once"]:
+            command += ["-O"]
     if "state_aware" in mode:
         command += ["-E"]
 
