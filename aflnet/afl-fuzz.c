@@ -11227,15 +11227,16 @@ int main(int argc, char** argv) {
 
       if (stop_soon) break;
 
-      if (taint_aware_mode && !no_more_taint_hints && !enable_taint_aware_mode) {
+      if (taint_aware_mode && !no_more_taint_hints_at_all && !enable_taint_aware_mode) {
         old_queue_cur = queue_cur;
 
         if (!old_taint_analyzed_queue_cur || !old_taint_analyzed_queue_cur->next || !old_taint_analyzed_queue_cur->next->taint_analyzed)
           queue_cur = queue;
         else
           queue_cur = old_taint_analyzed_queue_cur->next;
-
-        enable_taint_aware_mode = 1;
+        
+        if (!taint_hints_all_at_once)
+          enable_taint_aware_mode = 1;
 
         if (debug && queue_cur) {
           FILE *fp = fopen("debug/fuzzing.log", "a+");
