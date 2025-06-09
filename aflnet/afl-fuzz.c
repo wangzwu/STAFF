@@ -11050,6 +11050,9 @@ int main(int argc, char** argv) {
       PFATAL("No server states have been detected. Server responses are likely empty!");
     }
 
+    if (taint_aware_mode)
+      enable_taint_aware_mode = 1;
+    
     while (1) {
       u8 skipped_fuzz;
 
@@ -11115,6 +11118,9 @@ int main(int argc, char** argv) {
 
       if (stop_soon) break;
 
+      if (!no_more_taint_hints_at_all && taint_hints_all_at_once)
+        enable_taint_aware_mode = 0;
+
       if (taint_aware_mode && !no_more_taint_hints_at_all && !enable_taint_aware_mode) {
         old_queue_cur = queue_cur;
 
@@ -11123,8 +11129,7 @@ int main(int argc, char** argv) {
         else
           queue_cur = old_taint_analyzed_queue_cur->next;
 
-        if (!taint_hints_all_at_once)
-          enable_taint_aware_mode = 1;
+        enable_taint_aware_mode = 1;
 
         if (debug) {
           if (queue_cur) {
@@ -11166,6 +11171,10 @@ int main(int argc, char** argv) {
     }
 
   } else {
+
+    if (taint_aware_mode)
+      enable_taint_aware_mode = 1;
+
     while (1) {
 
       u8 skipped_fuzz;
@@ -11227,6 +11236,9 @@ int main(int argc, char** argv) {
 
       if (stop_soon) break;
 
+      if (!no_more_taint_hints_at_all && taint_hints_all_at_once)
+        enable_taint_aware_mode = 0;
+
       if (taint_aware_mode && !no_more_taint_hints_at_all && !enable_taint_aware_mode) {
         old_queue_cur = queue_cur;
 
@@ -11235,8 +11247,7 @@ int main(int argc, char** argv) {
         else
           queue_cur = old_taint_analyzed_queue_cur->next;
         
-        if (!taint_hints_all_at_once)
-          enable_taint_aware_mode = 1;
+        enable_taint_aware_mode = 1;
 
         if (debug && queue_cur) {
           FILE *fp = fopen("debug/fuzzing.log", "a+");
