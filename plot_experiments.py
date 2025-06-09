@@ -130,6 +130,7 @@ def find_matching_experiments(base_dir, var_params, fixed_params):
 def merge_experiment_data(experiments, base_dir):
     merged_data = {}
     resume_markers = defaultdict(list)
+    experiment_counts = {}
 
     for key, exp_list in experiments.items():
         all_dfs = []
@@ -143,14 +144,15 @@ def merge_experiment_data(experiments, base_dir):
             if df is None:
                 continue
 
-            df['exp_id'] = exp_id
             all_dfs.append(df)
             min_time = min(min_time, df['unix_time'].min())
             max_time = max(max_time, df['unix_time'].max())
             resume_markers[key].extend(resume_ts)
-        
+
         if not all_dfs:
             continue
+
+        experiment_counts[key] = len(all_dfs)
 
         common_times = np.linspace(min_time, max_time, num=100)
         interpolated_dfs = []
@@ -160,12 +162,13 @@ def merge_experiment_data(experiments, base_dir):
                 df[column] = pd.to_numeric(df[column], errors='coerce')
 
             if df['unix_time'].isnull().all():
-                print(f"Warning: All 'unix_time' values are NaN in {df['exp_id']}, skipping interpolation.")
+                print(f"Warning: All 'unix_time' values are NaN in a dataset, skipping interpolation.")
                 continue
-            
+
             interp_df = pd.DataFrame({'unix_time': common_times})
             for column in ['map_size', 'unique_crashes', 'unique_hangs', 'paths_total', 'execs_per_sec', 'cycles_done', 'execs_done', 'stability', 'n_fetched_random_hints', 'n_fetched_state_hints', 'n_fetched_taint_hints', 'n_calibration']:
                 interp_df[column] = np.interp(common_times, df['unix_time'], df[column], left=np.nan, right=np.nan)
+
             interpolated_dfs.append(interp_df)
 
         if TRIM_LINES:
@@ -178,13 +181,16 @@ def merge_experiment_data(experiments, base_dir):
 
         merged_data[key] = merged_df
 
-    return merged_data, resume_markers
+    return merged_data, resume_markers, experiment_counts
 
-def plot_metric(merged_data, metric, ylabel, title, output_path, resume_markers):
+def plot_metric(merged_data, metric, ylabel, title, output_path, resume_markers, experiment_counts):
     plt.figure(figsize=(10, 6))
 
     for key, df in merged_data.items():
         label = ", ".join(f"{p}={v}" for (s, p), v in zip(var_params, key))
+        n_exp = experiment_counts.get(key, '?')
+        label += f" (n={n_exp})"
+
         mean_values = df.groupby('unix_time').mean()
         std_dev = df.groupby('unix_time').std()
 
@@ -207,35 +213,35 @@ def plot_metric(merged_data, metric, ylabel, title, output_path, resume_markers)
     plt.savefig(output_path)
     plt.close()
 
-def plot_experiments(merged_data, resume_markers, output_dir):
+def plot_experiments(merged_data, resume_markers, experiment_counts, output_dir):
     os.makedirs(output_dir, exist_ok=True)
 
     plot_metric(merged_data, 'map_size', "Coverage (%)", "Coverage over Time with Confidence Bands",
-                os.path.join(output_dir, "coverage_plot.png"), resume_markers)
+                os.path.join(output_dir, "coverage_plot.png"), resume_markers, experiment_counts)
 
     plot_metric(merged_data, 'unique_crashes', "Unique Crashes", "Crashes over Time with Confidence Bands",
-                os.path.join(output_dir, "crashes_plot.png"), resume_markers)
+                os.path.join(output_dir, "crashes_plot.png"), resume_markers, experiment_counts)
 
     plot_metric(merged_data, 'unique_hangs', "Unique Hangs", "Hangs over Time with Confidence Bands",
-                os.path.join(output_dir, "hangs_plot.png"), resume_markers)
+                os.path.join(output_dir, "hangs_plot.png"), resume_markers, experiment_counts)
 
     plot_metric(merged_data, 'paths_total', "Total Paths", "Total Paths over Time with Confidence Bands",
-                os.path.join(output_dir, "paths_total_plot.png"), resume_markers)
+                os.path.join(output_dir, "paths_total_plot.png"), resume_markers, experiment_counts)
 
     plot_metric(merged_data, 'execs_per_sec', "Executions per Second", "Executions per Second over Time with Confidence Bands",
-                os.path.join(output_dir, "execs_per_sec_plot.png"), resume_markers)
+                os.path.join(output_dir, "execs_per_sec_plot.png"), resume_markers, experiment_counts)
 
     plot_metric(merged_data, 'cycles_done', "Cycles Done", "Fuzzing Cycles Done over Time with Confidence Bands",
-                os.path.join(output_dir, "cycles_done_plot.png"), resume_markers)
+                os.path.join(output_dir, "cycles_done_plot.png"), resume_markers, experiment_counts)
 
     plot_metric(merged_data, 'stability', "Stability", "Fuzzing Stability over Time with Confidence Bands",
-                os.path.join(output_dir, "stability_plot.png"), resume_markers)
+                os.path.join(output_dir, "stability_plot.png"), resume_markers, experiment_counts)
 
     plot_metric(merged_data, 'execs_done', "Total Executions Done", "Total Executions Done over Time",
-                os.path.join(output_dir, "execs_done_plot.png"), resume_markers)
+                os.path.join(output_dir, "execs_done_plot.png"), resume_markers, experiment_counts)
 
     plot_metric(merged_data, 'n_calibration', "Total Calibration Runs Done", "Total Calibration Runs Done over Time",
-                os.path.join(output_dir, "n_calibration_plot.png"), resume_markers)
+                os.path.join(output_dir, "n_calibration_plot.png"), resume_markers, experiment_counts)
 
 def plot_venn(experiments, base_dir, output_dir):
     def collect_sets(suffix):
@@ -282,7 +288,7 @@ if __name__ == "__main__":
     var_params, fixed_params = read_params(param_file)
     
     experiments = find_matching_experiments(base_dir, var_params, fixed_params)
-    merged_data, resume_markers = merge_experiment_data(experiments, base_dir)
+    merged_data, resume_markers, experiment_counts = merge_experiment_data(experiments, base_dir)
 
-    plot_experiments(merged_data, resume_markers, output_dir)
+    plot_experiments(merged_data, resume_markers, experiment_counts, output_dir)
     plot_venn(experiments, base_dir, output_dir)
