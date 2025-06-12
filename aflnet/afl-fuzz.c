@@ -10987,6 +10987,22 @@ int main(int argc, char** argv) {
             }
           }
         }
+        else {
+          enable_taint_aware_mode = 0;
+
+          if (debug) {
+            if (queue_cur) {
+              FILE *fp = fopen("debug/fuzzing.log", "a+");
+              fprintf(fp, "\tSTATE_AWARE_MODE: queue_cur->fname = %s, enable_taint_aware_mode = %d\n", queue_cur->fname, enable_taint_aware_mode);
+              fclose(fp);
+            }
+            else {
+              FILE *fp = fopen("debug/fuzzing.log", "a+");
+              fprintf(fp, "\tSTATE_AWARE_MODE: queue_cur = 0x%lx, enable_taint_aware_mode = %d\n", queue_cur, enable_taint_aware_mode);
+              fclose(fp);            
+            }
+          }          
+        }
       }
     }
 
@@ -11087,36 +11103,56 @@ int main(int argc, char** argv) {
         }
       }
       else {
-        static int no_more_taint_hints_tmp = 0;
+        if (taint_aware_mode) {
+          static int no_more_taint_hints_tmp = 0;
 
-        if (no_more_taint_hints > no_more_taint_hints_tmp) {
-          if (old_taint_analyzed_queue_cur && old_taint_analyzed_queue_cur->next && old_taint_analyzed_queue_cur->next->taint_analyzed) {
-            queue_cur = old_taint_analyzed_queue_cur->next;
-            current_entry_taint++;
-          }
-          else {
-            queue_cur = queue;
-            current_entry_taint = 0;
-          }
-
-          no_more_taint_hints_tmp = no_more_taint_hints;
-
-          if (debug) {
-            if (queue_cur) {
-              FILE *fp = fopen("debug/fuzzing.log", "a+");
-              fprintf(fp, "\tTAINT_AWARE_MODE: queue_cur->fname = %s, enable_taint_aware_mode = %d\n", queue_cur->fname, enable_taint_aware_mode);
-              fclose(fp);
+          if (no_more_taint_hints > no_more_taint_hints_tmp) {
+            if (old_taint_analyzed_queue_cur && old_taint_analyzed_queue_cur->next && old_taint_analyzed_queue_cur->next->taint_analyzed) {
+              queue_cur = old_taint_analyzed_queue_cur->next;
+              current_entry_taint++;
             }
             else {
-              FILE *fp = fopen("debug/fuzzing.log", "a+");
-              fprintf(fp, "\tTAINT_AWARE_MODE: queue_cur = 0x%lx, old_taint_analyzed_queue_cur->next = 0x%lx, enable_taint_aware_mode = %d\n", queue_cur, old_taint_analyzed_queue_cur->next, enable_taint_aware_mode);
-              fclose(fp);            
+              queue_cur = queue;
+              current_entry_taint = 0;
+            }
+
+            no_more_taint_hints_tmp = no_more_taint_hints;
+
+            if (debug) {
+              if (queue_cur) {
+                FILE *fp = fopen("debug/fuzzing.log", "a+");
+                fprintf(fp, "\tTAINT_AWARE_MODE: queue_cur->fname = %s, enable_taint_aware_mode = %d\n", queue_cur->fname, enable_taint_aware_mode);
+                fclose(fp);
+              }
+              else {
+                FILE *fp = fopen("debug/fuzzing.log", "a+");
+                fprintf(fp, "\tTAINT_AWARE_MODE: queue_cur = 0x%lx, old_taint_analyzed_queue_cur->next = 0x%lx, enable_taint_aware_mode = %d\n", queue_cur, old_taint_analyzed_queue_cur->next, enable_taint_aware_mode);
+                fclose(fp);            
+              }
+            }
+          }
+          else {
+            old_taint_analyzed_queue_cur = queue_cur;
+            queue_cur = old_queue_cur->next;
+            current_entry++;
+            enable_taint_aware_mode = 0;
+
+            if (debug) {
+              if (queue_cur) {
+                FILE *fp = fopen("debug/fuzzing.log", "a+");
+                fprintf(fp, "\tRANDOM_MODE: queue_cur->fname = %s, enable_taint_aware_mode = %d\n", queue_cur->fname, enable_taint_aware_mode);
+                fclose(fp);
+              }
+              else {
+                FILE *fp = fopen("debug/fuzzing.log", "a+");
+                fprintf(fp, "\tRANDOM_MODE: queue_cur = 0x%lx, enable_taint_aware_mode = %d\n", queue_cur, enable_taint_aware_mode);
+                fclose(fp);            
+              }
             }
           }
         }
         else {
-          old_taint_analyzed_queue_cur = queue_cur;
-          queue_cur = old_queue_cur->next;
+          queue_cur = queue_cur->next;
           current_entry++;
           enable_taint_aware_mode = 0;
 
@@ -11131,7 +11167,7 @@ int main(int argc, char** argv) {
               fprintf(fp, "\tRANDOM_MODE: queue_cur = 0x%lx, enable_taint_aware_mode = %d\n", queue_cur, enable_taint_aware_mode);
               fclose(fp);            
             }
-          }
+          }          
         }
       }
     }
