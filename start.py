@@ -952,26 +952,26 @@ def fuzz(out_dir, container_name, replay_exp):
         else:
             update_schedule_status(SCHEDULE_CSV_PATH, "succeeded", os.path.basename(out_dir))
 
-            if os.path.isdir(out_dir):
-                os.makedirs(EXP_DONE_PATH, exist_ok=True)
+            # if os.path.isdir(out_dir):
+            #     os.makedirs(EXP_DONE_PATH, exist_ok=True)
 
-                def get_next_available_exp_name(out_dir):
-                    used = set()
-                    pattern = re.compile(r'^exp_(\d+)$')
-                    for entry in os.listdir(out_dir):
-                        match = pattern.match(entry)
-                        if match:
-                            used.add(int(match.group(1)))
-                    n = 1
-                    while True:
-                        if n not in used:
-                            return f"exp_{n}"
-                        n += 1
+            #     def get_next_available_exp_name(out_dir):
+            #         used = set()
+            #         pattern = re.compile(r'^exp_(\d+)$')
+            #         for entry in os.listdir(out_dir):
+            #             match = pattern.match(entry)
+            #             if match:
+            #                 used.add(int(match.group(1)))
+            #         n = 1
+            #         while True:
+            #             if n not in used:
+            #                 return f"exp_{n}"
+            #             n += 1
 
-                new_exp_name = get_next_available_exp_name(EXP_DONE_PATH)
-                dst_path = os.path.join(EXP_DONE_PATH, new_exp_name)
-                print(f"Moving succeeded experiment {exp_name} -> {new_exp_name}")
-                shutil.move(out_dir, dst_path)
+            #     new_exp_name = get_next_available_exp_name(EXP_DONE_PATH)
+            #     dst_path = os.path.join(EXP_DONE_PATH, new_exp_name)
+            #     print(f"Moving succeeded experiment {os.path.basename(out_dir)} -> {new_exp_name}")
+            #     shutil.move(out_dir, dst_path)
 
     return ret
 
