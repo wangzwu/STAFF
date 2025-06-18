@@ -13,7 +13,7 @@ def get_next_available_exp_name(dest_dir):
         match = pattern.match(entry)
         if match:
             used.add(int(match.group(1)))
-    n = 1
+    n = 0
     while True:
         if n not in used:
             return f"exp_{n}"
@@ -21,11 +21,11 @@ def get_next_available_exp_name(dest_dir):
 
 def determine_destination(mode, taint, coverage):
     if mode in BASELINE_MODES:
-        return "experiments_baseline"
+        return "experiments_done/baseline"
     elif mode == "staff_state_aware":
-        return f"staff_state_aware_{taint}_{coverage}"
+        return f"experiments_done/staff_state_aware_{taint}_{coverage}"
     elif mode == "staff_base":
-        return f"staff_base_{taint}_{coverage}"
+        return f"experiments_done/staff_base_{taint}_{coverage}"
     else:
         return None
 
@@ -43,7 +43,7 @@ def move_experiment(exp_path, mode, taint, coverage):
     shutil.move(exp_path, dst_path)
 
 def process_experiment_dir(exp_dir):
-    config_path = os.path.join(exp_dir, "config.ini")
+    config_path = os.path.join(exp_dir, "outputs", "config.ini")
     if not os.path.isfile(config_path):
         print(f"Warning: config.ini not found in {exp_dir}. Skipping.")
         return
