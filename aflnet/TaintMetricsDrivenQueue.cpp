@@ -100,7 +100,7 @@ struct AppTbPCSubsequenceComparator {
         lhs_avg /= config->size();
         rhs_avg /= config->size();
 
-        return lhs_avg < rhs_avg;
+        return lhs_avg > rhs_avg;
     }
 };
 
@@ -182,8 +182,8 @@ std::string getJsonFilePath(const std::string& fn, const std::string& out_dir) {
     return outPath.string();
 }
 
-std::unordered_map<std::string, std::priority_queue<AppTbPCSubsequence, std::vector<AppTbPCSubsequence>, AppTbPCSubsequenceComparator>> global_subregions_app_tb_pcs;
-std::unordered_map<std::string, std::priority_queue<CovSubsequence, std::vector<CovSubsequence>, CovSubsequenceComparator>> global_subregions_covs;
+std::unordered_map<std::string, std::vector<AppTbPCSubsequence>> global_subregions_app_tb_pcs;
+std::unordered_map<std::string, std::vector<CovSubsequence>> global_subregions_covs;
 std::shared_ptr<std::vector<std::string>> config;
 
 std::vector<int> getVector(const std::vector<int>& indices, int totalSize) {
@@ -258,15 +258,17 @@ int fetch_element_from_alias_app_tb_pc(char* alias, QueueElement* result) {
 
     if (queue.empty()) return -1;
 
-    const AppTbPCSubsequence& top = queue.top();
+    size_t& cursor = alias_cursors[alias];
+    cursor = cursor % queue.size();
 
-    result->region_num = static_cast<int>(top.index);
-    result->offset = static_cast<int>(top.offset);
-    result->length = static_cast<int>(top.count);
-    result->regions_to_keep = getMergedVectorC(top.affected_regions, top.region_influences);
+    const AppTbPCSubsequence& current = queue[cursor];
 
-    queue.pop();
-    alias_cursors[alias]++;
+    result->region_num = static_cast<int>(current.index);
+    result->offset = static_cast<int>(current.offset);
+    result->length = static_cast<int>(current.count);
+    result->regions_to_keep = getMergedVectorC(current.affected_regions, current.region_influences);
+
+    cursor++;
 
     return 0;
 }
@@ -284,15 +286,17 @@ int fetch_element_from_alias_cov(char* alias, QueueElement* result) {
 
     if (queue.empty()) return -1;
 
-    const CovSubsequence& top = queue.top();
+    size_t& cursor = alias_cursors[alias];
+    cursor = cursor % queue.size();
 
-    result->region_num = static_cast<int>(top.index);
-    result->offset = static_cast<int>(top.offset);
-    result->length = static_cast<int>(top.count);
-    result->regions_to_keep = getMergedVectorC(top.affected_regions, top.region_influences);
+    const CovSubsequence& current = queue[cursor];
 
-    queue.pop();
-    alias_cursors[alias]++;
+    result->region_num = static_cast<int>(current.index);
+    result->offset = static_cast<int>(current.offset);
+    result->length = static_cast<int>(current.count);
+    result->regions_to_keep = getMergedVectorC(current.affected_regions, current.region_influences);
+
+    cursor++;
 
     return 0;
 }
@@ -762,7 +766,7 @@ void calculate_analysis_results(const std::string& fn) {
                     }
                 }
                 for (int kw : fs_relations) {
-                    if (std::find(region_influences[i].begin(), region_influences[kw].end(), kw) == 
+                    if (std::find(region_influences[i].begin(), region_influences[i].end(), kw) == 
                         region_influences[i].end()) {
                         region_influences[i].push_back(kw);
                     }                    
@@ -799,14 +803,9 @@ void calculate_analysis_results(const std::string& fn) {
                     };
                     auto it = global_subregions_app_tb_pcs.find(fn);
                     if (it == global_subregions_app_tb_pcs.end()) {
-                        it = global_subregions_app_tb_pcs.emplace(
-                            fn,
-                            std::priority_queue<AppTbPCSubsequence, std::vector<AppTbPCSubsequence>, AppTbPCSubsequenceComparator>(
-                                AppTbPCSubsequenceComparator(config)
-                            )
-                        ).first;
+                        it = global_subregions_app_tb_pcs.emplace(fn, std::vector<AppTbPCSubsequence>{}).first;
                     }
-                    it->second.push(app_tb_pc_subseq);
+                    it->second.push_back(app_tb_pc_subseq);
                     app_tb_pc_to_del.push_back(app_tb_pc);
                 }
             }
@@ -845,14 +844,9 @@ void calculate_analysis_results(const std::string& fn) {
                     };
                     auto it = global_subregions_covs.find(fn);
                     if (it == global_subregions_covs.end()) {
-                        it = global_subregions_covs.emplace(
-                            fn,
-                            std::priority_queue<CovSubsequence, std::vector<CovSubsequence>, CovSubsequenceComparator>(
-                                CovSubsequenceComparator(config)
-                            )
-                        ).first;
+                        it = global_subregions_covs.emplace(fn, std::vector<CovSubsequence>{}).first;
                     }
-                    it->second.push(cov_subseq);
+                    it->second.push_back(cov_subseq);
                     cov_to_del.push_back(coverage);
                 }
             }
@@ -869,14 +863,12 @@ void calculate_analysis_results(const std::string& fn) {
     }
 }
 
-template <typename T, typename Comparator>
-void serialize_queue_to_json(const std::priority_queue<T, std::vector<T>, Comparator>& queue,
+template <typename Container>
+void serialize_queue_to_json(const Container& container,
                              const std::string& queue_type,
                              const std::string& stage,
                              const std::string& queue_name) {
     std::filesystem::create_directories("debug");
-
-    auto temp_queue = queue;
 
     nlohmann::json json_output;
     json_output["queue_type"] = queue_type;
@@ -884,9 +876,8 @@ void serialize_queue_to_json(const std::priority_queue<T, std::vector<T>, Compar
     json_output["queue_name"] = queue_name;
 
     std::vector<nlohmann::json> elements;
-    while (!temp_queue.empty()) {
-        elements.push_back(temp_queue.top().to_json());
-        temp_queue.pop();
+    for (const auto& item : container) {
+        elements.push_back(item.to_json());
     }
 
     json_output["elements"] = elements;
@@ -914,94 +905,74 @@ void filter_and_apply_heuristics() {
     };
 
     for (auto& entry : global_subregions_app_tb_pcs) {
-        auto& queue = entry.second;
-        std::vector<AppTbPCSubsequence> filtered_queue;
+        auto& vec = entry.second;
+        std::vector<AppTbPCSubsequence> filtered_vec;
 
-        std::vector<AppTbPCSubsequence> queue_copy;
-        while (!queue.empty()) {
-            queue_copy.push_back(queue.top());
-            queue.pop();
-        }
-
-        std::sort(queue_copy.begin(), queue_copy.end(), [](const AppTbPCSubsequence& a, const AppTbPCSubsequence& b) {
+        std::sort(vec.begin(), vec.end(), [](const AppTbPCSubsequence& a, const AppTbPCSubsequence& b) {
             return a.count < b.count || (a.count == b.count && a.offset < b.offset);
         });
 
         std::vector<std::pair<size_t, size_t>> covered_ranges;
 
-        for (const auto& subsequence : queue_copy) {
+        for (const auto& subsequence : vec) {
             bool has_overlap = false;
-
             for (const auto& range : covered_ranges) {
                 if (is_overlapping(subsequence.offset, subsequence.offset + subsequence.count, range.first, range.second)) {
                     has_overlap = true;
                     break;
                 }
             }
-
             if (!has_overlap) {
-                filtered_queue.push_back(subsequence);
-                covered_ranges.push_back({subsequence.offset, subsequence.offset + subsequence.count});
+                filtered_vec.push_back(subsequence);
+                covered_ranges.emplace_back(subsequence.offset, subsequence.offset + subsequence.count);
             }
         }
 
         AppTbPCSubsequenceComparator app_tb_pc_comparator(config);
-        std::priority_queue<AppTbPCSubsequence, std::vector<AppTbPCSubsequence>, AppTbPCSubsequenceComparator> new_queue(app_tb_pc_comparator);
+        std::sort(filtered_vec.begin(), filtered_vec.end(), [&](const AppTbPCSubsequence& a, const AppTbPCSubsequence& b) {
+            return app_tb_pc_comparator(a, b);
+        });
 
-        for (const auto& subsequence : filtered_queue) {
-            new_queue.push(subsequence);
-        }
-
-        queue = std::move(new_queue);
+        vec = std::move(filtered_vec);
 
         if (debug_json) {
-            serialize_queue_to_json(queue, "app_tb_pcs", "post", entry.first);
+            serialize_queue_to_json(vec, "app_tb_pcs", "post", entry.first);
         }
     }
 
     for (auto& entry : global_subregions_covs) {
-        auto& queue = entry.second;
-        std::vector<CovSubsequence> filtered_queue;
+        auto& vec = entry.second;
+        std::vector<CovSubsequence> filtered_vec;
 
-        std::vector<CovSubsequence> queue_copy;
-        while (!queue.empty()) {
-            queue_copy.push_back(queue.top());
-            queue.pop();
-        }
-
-        std::sort(queue_copy.begin(), queue_copy.end(), [](const CovSubsequence& a, const CovSubsequence& b) {
+        std::sort(vec.begin(), vec.end(), [](const CovSubsequence& a, const CovSubsequence& b) {
             return a.count < b.count || (a.count == b.count && a.offset < b.offset);
         });
 
         std::vector<std::pair<size_t, size_t>> covered_ranges;
 
-        for (const auto& subsequence : queue_copy) {
+        for (const auto& subsequence : vec) {
             bool has_overlap = false;
-
             for (const auto& range : covered_ranges) {
                 if (is_overlapping(subsequence.offset, subsequence.offset + subsequence.count, range.first, range.second)) {
                     has_overlap = true;
                     break;
                 }
             }
-
             if (!has_overlap) {
-                filtered_queue.push_back(subsequence);
-                covered_ranges.push_back({subsequence.offset, subsequence.offset + subsequence.count});
+                filtered_vec.push_back(subsequence);
+                covered_ranges.emplace_back(subsequence.offset, subsequence.offset + subsequence.count);
             }
         }
 
         CovSubsequenceComparator cov_comparator(config);
-        std::priority_queue<CovSubsequence, std::vector<CovSubsequence>, CovSubsequenceComparator> new_queue(cov_comparator);
+        std::sort(filtered_vec.begin(), filtered_vec.end(), [&](const CovSubsequence& a, const CovSubsequence& b) {
+            return cov_comparator(a, b);
+        });
 
-        for (const auto& subsequence : filtered_queue) {
-            new_queue.push(subsequence);
-        }
-
-        queue = std::move(new_queue);
+        vec = std::move(filtered_vec);
 
         if (debug_json) {
-            serialize_queue_to_json(queue, "covs", "post", entry.first);
+            serialize_queue_to_json(vec, "covs", "post", entry.first);
         }
     }
 }
@@ -1016,7 +987,7 @@ void initialize_queue(char* fn, char* out_dir, const char* config_file, int debu
     }
 
     std::string json_file = getJsonFilePath(fn, out_dir);
-    
+
     if (debug_json) {
         FILE *fp = fopen("debug/initialize_queue.log", "a+");
         fprintf(fp, "Debug: JSON file path resolved to %s\n", json_file.c_str());
@@ -1080,34 +1051,22 @@ void initialize_queue(char* fn, char* out_dir, const char* config_file, int debu
         fclose(fp);
     }
 
-    auto it = global_subregions_app_tb_pcs.find(fn);
-    if (it == global_subregions_app_tb_pcs.end()) {
-        global_subregions_app_tb_pcs.emplace(
-            fn,
-            std::priority_queue<AppTbPCSubsequence, std::vector<AppTbPCSubsequence>, AppTbPCSubsequenceComparator>(
-                AppTbPCSubsequenceComparator(config)
-            )
-        );
+    if (global_subregions_app_tb_pcs.find(fn) == global_subregions_app_tb_pcs.end()) {
+        global_subregions_app_tb_pcs.emplace(fn, std::vector<AppTbPCSubsequence>{});
 
         if (debug_json) {
             FILE *fp = fopen("debug/initialize_queue.log", "a+");
-            fprintf(fp, "Debug: Initialized global_subregions_app_tb_pcs for %s\n", fn);
+            fprintf(fp, "Debug: Initialized global_subregions_app_tb_pcs vector for %s\n", fn);
             fclose(fp);
         }
     }
 
-    auto it2 = global_subregions_covs.find(fn);
-    if (it2 == global_subregions_covs.end()) {
-        global_subregions_covs.emplace(
-            fn,
-            std::priority_queue<CovSubsequence, std::vector<CovSubsequence>, CovSubsequenceComparator>(
-                CovSubsequenceComparator(config)
-            )
-        );
+    if (global_subregions_covs.find(fn) == global_subregions_covs.end()) {
+        global_subregions_covs.emplace(fn, std::vector<CovSubsequence>{});
 
         if (debug_json) {
             FILE *fp = fopen("debug/initialize_queue.log", "a+");
-            fprintf(fp, "Debug: Initialized global_subregions_covs for %s\n", fn);
+            fprintf(fp, "Debug: Initialized global_subregions_covs vector for %s\n", fn);
             fclose(fp);
         }
     }

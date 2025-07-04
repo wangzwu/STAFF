@@ -323,15 +323,6 @@ def ensure_experiment_consistency(csv_file, exp_dir, affinity_file="affinity.dat
                 if status and not container_in_affinity and status == "running":
                     row[status_idx] = "stopped"
 
-                if status == "succeeded" and exp_name in existing_experiments:
-                    src_path = os.path.join(exp_dir, exp_name)
-                    os.makedirs(done_dir, exist_ok=True)
-                    new_exp_name = get_next_available_exp_name(done_dir)
-                    dst_path = os.path.join(done_dir, new_exp_name)
-                    print(f"Moving succeeded experiment {exp_name} -> {new_exp_name}")
-                    shutil.move(src_path, dst_path)
-                    continue
-
                 rows_to_keep.append(row)
 
     with open(csv_file, "w", newline="") as outfile:

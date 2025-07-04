@@ -45,7 +45,6 @@ DEFAULT_CONFIG = {
         "include_libraries": (1, int)
     },
     "GENERAL_FUZZING": {
-        "snapshot_mode": (1, int), 
         "fuzz_tmout": (86400, int),
         "timeout": (120, int),
         "afl_no_arith": (1, int),
@@ -678,7 +677,6 @@ def fuzz(out_dir, container_name, replay_exp):
     os.environ["FD_DEPENDENCIES_TRACK"] = "0"
     os.environ["INCLUDE_LIBRARIES"] = str(config["EMULATION_TRACING"]["include_libraries"])
     os.environ["COVERAGE_TRACING"] = str(config["EXTRA_FUZZING"]["coverage_tracing"])
-    os.environ["SNAPSHOT_MODE"] = str(config["GENERAL_FUZZING"]["snapshot_mode"])
     os.environ["STAGE_MAX"] = str(config["EXTRA_FUZZING"]["stage_max"])
     os.environ["AFL_NO_ARITH"] = str(config["GENERAL_FUZZING"]["afl_no_arith"])
     os.environ["AFL_NO_BITFLIP"] = str(config["GENERAL_FUZZING"]["afl_no_bitflip"])

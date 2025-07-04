@@ -8301,8 +8301,8 @@ int main(int argc, char** argv) {
   char *tmp;
 
   char *env_var = getenv("DEBUG_FUZZ");
-  if (env_var && !strcmp(env_var, "1")) {
-    debug = 1;
+  if (env_var) {
+    debug = atoi(env_var);
   }
 
   if (debug) {

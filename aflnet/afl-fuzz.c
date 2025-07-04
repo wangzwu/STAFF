@@ -4133,6 +4133,19 @@ static u8 run_target(char** argv, u32 timeout) {
 
   }
 
+  if (debug == 2) {
+    FILE *f = fopen("debug/fuzzing.log", "a+");
+    if (f) {
+      fprintf(f, "\tCUR_CRASH_TRACES\n");
+      dump_traces_to_file_2(cur_crash_traces, f);
+      fprintf(f, "\n\n");
+      fprintf(f, "\tBLACKLIST_CRASH_TRACES\n");
+      dump_traces_to_file_2(blacklist_crash_traces, f);
+      fprintf(f, "\n\n");
+      fclose(f);
+    }
+  }
+
   if (!check_and_filter_traces(cur_crash_traces, blacklist_crash_traces, debug)) {
     *child_retval = 0;
   }
@@ -4993,12 +5006,15 @@ static u8 save_if_interesting(char** argv, void* mem, u32 len, u8 fault) {
 
 #ifndef SIMPLE_FILES
 
-    fn = alloc_printf("%s/queue/id:%06u,%s$%lld", out_dir, queued_paths,
+    fn = alloc_printf("%s/queue/id%s:%06u,%s$%lld", out_dir, 
+                      enable_taint_aware_mode ? "&1" : "&0", queued_paths,
                       describe_op(hnb), get_cur_time());
 
 #else
 
-    fn = alloc_printf("%s/queue/id_%06u$%lld", out_dir, queued_paths, get_cur_time());
+    fn = alloc_printf("%s/queue/id%s_%06u$%lld", out_dir, 
+                      enable_taint_aware_mode ? "&1" : "&0", queued_paths, 
+                      get_cur_time());
 
 #endif /* ^!SIMPLE_FILES */
 
@@ -5090,13 +5106,15 @@ static u8 save_if_interesting(char** argv, void* mem, u32 len, u8 fault) {
 
 #ifndef SIMPLE_FILES
 
-      fn = alloc_printf("%s/hangs/id:%06llu,%s$%lld", out_dir,
-                        unique_hangs, describe_op(0), get_cur_time());
+      fn = alloc_printf("%s/hangs/id%s:%06llu,%s$%lld", out_dir, 
+                        enable_taint_aware_mode ? "&1" : "&0", unique_hangs, 
+                        describe_op(0), get_cur_time());
 
 #else
 
-      fn = alloc_printf("%s/hangs/id_%06llu$%lld", out_dir,
-                        unique_hangs, get_cur_time());
+      fn = alloc_printf("%s/hangs/id%s_%06llu$%lld", out_dir, 
+                        enable_taint_aware_mode ? "&1" : "&0", unique_hangs, 
+                        get_cur_time());
 
 #endif /* ^!SIMPLE_FILES */
 
@@ -5120,17 +5138,17 @@ keep_as_crash:
 
 #ifndef SIMPLE_FILES
 
-      fn = alloc_printf("%s/crashes/id:%06llu,sig:%02u,%s$%lld", out_dir,
-                        unique_crashes, kill_signal, describe_op(0), get_cur_time());
-      fn2 = alloc_printf("%s/crash_traces/id:%06llu,sig:%02u,%s$%lld", out_dir,
-                        unique_crashes, kill_signal, describe_op(0), get_cur_time());
+      fn = alloc_printf("%s/crashes/id%s:%06llu,sig:%02u,%s$%lld", out_dir,
+                        enable_taint_aware_mode ? "&1" : "&0", unique_crashes, kill_signal, describe_op(0), get_cur_time());
+      fn2 = alloc_printf("%s/crash_traces/id%s:%06llu,sig:%02u,%s$%lld", out_dir,
+                        enable_taint_aware_mode ? "&1" : "&0", unique_crashes, kill_signal, describe_op(0), get_cur_time());
 
 #else
 
-      fn = alloc_printf("%s/crashes/id_%06llu_%02u$%lld", out_dir, unique_crashes,
-                        kill_signal, get_cur_time());
-      fn2 = alloc_printf("%s/crash_traces/id_%06llu_%02u$%lld", out_dir, unique_crashes,
-                        kill_signal, get_cur_time());
+      fn = alloc_printf("%s/crashes/id%s_%06llu_%02u$%lld", out_dir,
+                        enable_taint_aware_mode ? "&1" : "&0", unique_crashes, kill_signal, get_cur_time());
+      fn2 = alloc_printf("%s/crash_traces/id%s_%06llu_%02u$%lld", out_dir,
+                        enable_taint_aware_mode ? "&1" : "&0", unique_crashes, kill_signal, get_cur_time());
 
 #endif /* ^!SIMPLE_FILES */
 
@@ -10133,8 +10151,8 @@ int main(int argc, char** argv) {
   struct timezone tz;
 
   char *env_var = getenv("DEBUG_FUZZ");
-  if (env_var && !strcmp(env_var, "1")) {
-    debug = 1;
+  if (env_var) {
+    debug = atoi(env_var);
   }
 
   env_var = getenv("STAGE_MAX");

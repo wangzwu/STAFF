@@ -100,6 +100,28 @@ void dump_traces_to_file(trace_t *traces, const char *filename) {
     fclose(f);
 }
 
+void dump_traces_to_file_2(trace_t *traces, FILE *f) {
+    if (!f) {
+        perror("fopen (trace dump)");
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < NUM_TRACES; ++i) {
+        if (is_trace_zero(&traces[i])) continue;
+
+        fprintf(f, "=== Trace %d ===\n", i);
+        fprintf(f, "Process: %s\n", traces[i].procname);
+
+        for (int j = 0; j < TRACE_LEN; ++j) {
+            trace_element_t *el = &traces[i].trace[j];
+            if (el->inode == 0 && el->pc == 0) break;
+            fprintf(f, "  [%02d] inode: %lu, pc: 0x%08lx, module: %s\n",
+                    j, el->inode, el->pc, el->modname);
+        }
+        fprintf(f, "\n");
+    }
+}
+
 void update_and_persist_blacklist(trace_t *src, trace_t *blacklist_crash_traces, const char *out_dir, int debug) {
     int updated = update_traces(src, blacklist_crash_traces);
     if (!updated) return;

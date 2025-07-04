@@ -3315,9 +3315,9 @@ skip_to_pos:
                     if (pgd)
                         status = VMI_find_process_by_cr3_all(pgd, procname, 64, &pid, &par_pid);
                     
-                    if (debug) {
-                        FILE *fd = fopen("debug/crashed_tb_pc_inode_dry_run.log","a+");
-                        fprintf(fd, "do_coredump_addr (1)\n");
+                    if (debug_fuzz) {
+                        FILE *fd = fopen("debug/fuzzing.log","a+");
+                        fprintf(fd, "do_coredump_addr: %s\n", procname);
                         fclose(fd);              
                     }
 

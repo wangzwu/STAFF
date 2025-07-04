@@ -3174,8 +3174,8 @@ int main(int argc, char **argv, char **envp)
     }
 
     env_var = getenv("DEBUG_FUZZ");
-    if (env_var && !strcmp(env_var, "1")) {
-        debug_fuzz = 1;
+    if (env_var) {
+        debug_fuzz = atoi(env_var);
     }
 
     env_var = getenv("DEBUG_TAINT");
