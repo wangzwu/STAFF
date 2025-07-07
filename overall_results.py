@@ -5,16 +5,13 @@ import configparser
 from collections import defaultdict
 import pandas as pd
 from scipy.stats import mannwhitneyu
+import re
 
-BLACKBOX = [
-    "neaps_array",
-    "ethlink",
-    "aparraymsg"
-]
+BLACKBOX = ["neaps_array", "ethlink", "aparraymsg"]
 
 BASE_DIRS = [
     "experiments_done/baseline",
-    "experiments_done/staff_state_aware_0_taint_block"
+    "experiments_done/staff_state_aware_0_block"
 ]
 OUTPUT_DIR = "results"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -28,14 +25,18 @@ TOOL_RANK = {
     "staff_state_aware": 2,
 }
 
-METRICS = ["bitmap_cvg", "unique_crashes", "unique_hangs", "paths_total", "paths_favored", "execs_done"]
+METRICS = [
+    "bitmap_cvg", "unique_crashes_direct", "unique_crashes_indirect",
+    "unique_crashes_none", "unique_crashes_total", "unique_hangs", "paths_total",
+    "paths_favored", "execs_done"
+]
 BASELINE_TOOLS = ["aflnet_base", "aflnet_state_aware", "triforce"]
+STAFF_TOOLS    = ["staff_base", "staff_state_aware"]
 
-BASELINE_EXPERIMENTS = "0,1,2,5,6,7,10,11,12,15,16,17,20,21,22,25,26,27,"
-STAFF_EDGE = "3,4,8,9,13,14,18,19,23,24,28,29"
-STAFF_TAINT_BLOCK = "42-53"
 INCLUDE_EXPERIMENTS = None
 
+A12_LOWER_THRESHOLD = 0.44
+A12_UPPER_THRESHOLD = 0.56
 
 def effect_size_a12(x, y):
     n_x, n_y = len(x), len(y)
@@ -43,228 +44,277 @@ def effect_size_a12(x, y):
     r_x = ranks.iloc[:n_x].sum()
     return (r_x / n_x - (n_x + 1) / 2) / n_y
 
-
-def parse_range_list(range_str):
-    include_set = set()
-    for part in range_str.split(","):
+def parse_range_list(rng):
+    if not rng:
+        return None
+    s = set()
+    for part in rng.split(","):
         if "-" in part:
-            a, b = map(int, part.split("-"))
-            include_set.update(range(a, b + 1))
+            a,b = map(int, part.split("-"))
+            s.update(range(a,b+1))
         elif part.strip():
-            include_set.add(int(part))
-    return include_set
-
+            s.add(int(part))
+    return s
 
 def parse_fuzzer_stats(path, fallback_path=None, force_time_fallback=False):
-    data = {}
-    start_time = last_update = None
+    data, start, last = {}, None, None
     def load_times(p):
-        nonlocal start_time, last_update
+        nonlocal start, last
         if not os.path.exists(p): return 1
         for ln in open(p):
             if ":" not in ln: continue
-            k, v = ln.split(":",1)
-            k, v = k.strip(), v.strip().rstrip('%')
-            if k == "start_time":
-                try: start_time = int(v)
+            k,v = ln.split(":",1); k,v=k.strip(),v.strip().rstrip('%')
+            if k=="start_time":
+                try: start=int(v)
                 except: pass
-            elif k == "last_update":
-                try: last_update = int(v)
+            elif k=="last_update":
+                try: last=int(v)
                 except: pass
         return 0
     for ln in open(path):
         if ":" not in ln: continue
-        k, v = ln.split(":",1)
-        k, v = k.strip(), v.strip().rstrip('%')
+        k,v = ln.split(":",1); k,v=k.strip(),v.strip().rstrip('%')
         try:
-            if k == "start_time": start_time = int(v)
-            elif k == "last_update": last_update = int(v)
-            elif k in METRICS and k != "unique_crashes":
-                data[k] = float(v)
+            if k=="start_time":     start=int(v)
+            elif k=="last_update":  last=int(v)
+            elif k in METRICS:      data[k]=float(v)
         except: pass
-    if force_time_fallback and fallback_path:
-        if load_times(fallback_path): return None
-    data["run_time"] = float((last_update or 0) - (start_time or 0))
+    if force_time_fallback and fallback_path and load_times(fallback_path):
+        return None
+    data["run_time"] = float((last or 0) - (start or 0))
     return data
 
+def count_crashes_from_traces(exp_dir):
+    traces_dir = os.path.join(exp_dir, "outputs", "crash_traces")
+    queue_dir  = os.path.join(exp_dir, "outputs", "queue")
+    if not os.path.isdir(traces_dir):
+        return 0.0, 0.0, 0.0
 
-def count_crashes_from_traces(exp_dir, debug=False):
-    ct = os.path.join(exp_dir, "outputs", "crash_traces")
-    if not os.path.isdir(ct): return 0
-    total = 0
-    for f in os.listdir(ct):
-        p = os.path.join(ct, f)
-        if not os.path.isfile(p): continue
-        txt = open(p, 'r', errors='ignore').read()
-        c = txt.count("Process: ") + 1
-        for pat in BLACKBOX:
-            if pat in txt: c -= 1
-        if debug:
-            print(f"DEBUG [{exp_dir}]: file={f}, base_count={txt.count('Process: ')+1}, after_blackbox={c}")
-        total += max(c, 0)
-    if debug:
-        print(f"DEBUG [{exp_dir}]: total_crashes={total}")
-    return total
+    id_to_queue = {}
+    for fn in os.listdir(queue_dir):
+        parts = fn.split(":",1)
+        if len(parts)<2: 
+            continue
+        after = parts[1]
+        m = re.match(r"([0-9]+)&[01]", after)
+        if m:
+            _id = m.group(1)
+            id_to_queue[_id] = os.path.join(queue_dir, fn)
 
+    def is_indirect_trace(txt, visited):
+        for sid in re.findall(r"src:([0-9]+)", txt):
+            if sid in visited:
+                continue
+            visited.add(sid)
+            qpath = id_to_queue.get(sid)
+            if not qpath:
+                continue
+            if "&1" in os.path.basename(qpath):
+                return True
+            try:
+                subtxt = open(qpath, "r", errors="ignore").read()
+            except:
+                continue
+            if is_indirect_trace(subtxt, visited):
+                return True
+        return False
+
+    direct_cr = indirect_cr = none_cr = 0.0
+
+    for tf in os.listdir(traces_dir):
+        tp = os.path.join(traces_dir, tf)
+        if not os.path.isfile(tp):
+            continue
+        txt = open(tp, "r", errors="ignore").read()
+        crash_count = txt.count("Process: ")
+
+        if "&1" in tf:
+            direct_cr += crash_count
+        else:
+            if is_indirect_trace(txt, visited=set()):
+                indirect_cr += crash_count
+            else:
+                none_cr += crash_count
+
+    return direct_cr, indirect_cr, none_cr
 
 def read_config(exp_dir):
     cfg = configparser.ConfigParser()
-    cfg.read(os.path.join(exp_dir, "outputs", "config.ini"))
+    cfg.read(os.path.join(exp_dir,"outputs","config.ini"))
     return cfg.get("GENERAL","firmware"), cfg.get("GENERAL","mode")
 
+agg_ids = defaultdict(list)
 agg = defaultdict(lambda: defaultdict(list))
+include_set = parse_range_list(INCLUDE_EXPERIMENTS)
 valid = 0
 firmwares = set()
-include_set = parse_range_list(INCLUDE_EXPERIMENTS) if INCLUDE_EXPERIMENTS else None
-all_dirs = []
-for b in BASE_DIRS:
-    all_dirs += glob.glob(os.path.join(b, "exp_*"))
-for exp in sorted(all_dirs):
-    nm = os.path.basename(exp)
-    try:
-        eid = int(nm.split("_")[1])
-        if include_set and eid not in include_set: continue
-    except: pass
-    cfgp = os.path.join(exp, "outputs", "config.ini")
-    statp = os.path.join(exp, "outputs", "fuzzer_stats")
-    plotp = os.path.join(exp, "outputs", "plot_data")
-    if not os.path.isfile(cfgp) or not os.path.isfile(statp): continue
-    fw, mode = read_config(exp)
-    if mode not in TOOLS: continue
-    stats = parse_fuzzer_stats(statp, 
-        fallback_path=os.path.join(exp, "outputs", "old_fuzzer_stats") if mode=="triforce" else None,
-        force_time_fallback=(mode=="triforce"))
-    if not stats: continue
-    cc = count_crashes_from_traces(exp)
-    # if cc <= 0: continue
 
-    cols = (["unix_time","paths_total","map_size","unique_crashes","unique_hangs","stability","n_calibration"]
-            if mode=="triforce" else
-            ["unix_time","cycles_done","execs_done","cur_path","paths_total",
-             "pending_total","pending_favs","map_size","unique_crashes",
-             "unique_hangs","max_depth","execs_per_sec","stability",
-             "n_fetched_random_hints","n_fetched_state_hints",
-             "n_fetched_taint_hints","n_calibration"])
-    dfp = pd.read_csv(plotp, comment="#", names=cols)
-    dfp["map_size"] = dfp["map_size"].str.rstrip("%").astype(float)
+for base in BASE_DIRS:
+    for exp in sorted(glob.glob(os.path.join(base,"exp_*"))):
+        nm = os.path.basename(exp)
+        try:
+            eid = int(nm.split("_",1)[1])
+            if include_set and eid not in include_set:
+                continue
+        except: pass
 
-    valid += 1
-    firmwares.add(fw)
-    key = (fw,mode)
-    agg[key]["bitmap_cvg"].append(dfp["map_size"].tolist())
-    agg[key]["run_time"].append(stats["run_time"])
-    agg[key]["unique_crashes"].append(cc)
-    for m in METRICS:
-        if m not in ("bitmap_cvg","unique_crashes"):
-            agg[key][m].append(stats.get(m,0.0))
-if valid == 0: exit(1)
+        cfgp = os.path.join(exp,"outputs","config.ini")
+        statp= os.path.join(exp,"outputs","fuzzer_stats")
+        if not os.path.isfile(cfgp) or not os.path.isfile(statp):
+            continue
 
+        fw, mode = read_config(exp)
+        if mode not in TOOLS:
+            continue
 
-rows = []
-headers = ["winner","Firmware","Mode","num_experiments"] + [f"{m}_avg" for m in METRICS] + ["run_time_avg"]
+        stats = parse_fuzzer_stats(
+            statp,
+            fallback_path=os.path.join(exp,"outputs","old_fuzzer_stats") if mode=="triforce" else None,
+            force_time_fallback=(mode=="triforce")
+        )
+        if not stats:
+            continue
+
+        agg_ids[(fw, mode)].append(eid)
+
+        direct_cr, indirect_cr, none_cr = count_crashes_from_traces(exp)
+        total_cr = direct_cr + indirect_cr + none_cr
+
+        valid += 1
+        firmwares.add(fw)
+        key = (fw, mode)
+
+        agg[key]["unique_crashes_direct"].append(direct_cr)
+        agg[key]["unique_crashes_indirect"].append(indirect_cr)
+        agg[key]["unique_crashes_none"].append(none_cr)
+        agg[key]["unique_crashes_total"].append(total_cr)
+
+        for m in [x for x in METRICS if not x.startswith("unique_crashes")]:
+            agg[key][m].append(stats.get(m, 0.0))
+        agg[key]["run_time"].append(stats["run_time"])
+
+if valid == 0:
+    exit(1)
+
+summary = {}
+for (fw, mode), vals in agg.items():
+    n = len(vals["run_time"])
+    row = {"num_experiments": n}
+    for m in METRICS + ["run_time"]:
+        col = f"{m}_avg"
+        if vals[m]:
+            avg = sum(vals[m]) / n
+        else:
+            avg = 0.0
+        row[col] = round(avg,4) if m=="bitmap_cvg" else int(round(avg))
+    summary[(fw,mode)] = row
+
+results = []
+columns = [
+    "winner", "Firmware", "Mode", "num_experiments",
+    *[f"{m}_avg" for m in METRICS],
+    "run_time_avg", "best_baseline",
+    "bitmap_cvg_p_value_with_best", "bitmap_cvg_A12_with_best",
+    "unique_crashes_direct_p_value_with_best", "unique_crashes_direct_A12_with_best"
+]
+
 for fw in sorted(firmwares):
-    rows.append({h:"" for h in headers})
-    tool_rows = {}
-    baseline_scores = []
+    results.append({col: "" for col in columns})
 
-    for t in TOOLS:
-        k=(fw,t)
-        mets = agg.get(k,{})
-        count_list = mets.get("unique_crashes",[])
-        row={"Firmware":fw, "Mode":t, "num_experiments":len(count_list)}
+    base_modes = [
+        mode for mode in TOOLS
+        if mode in BASELINE_TOOLS
+           and summary.get((fw, mode), {}).get("num_experiments", 0) > 0
+    ]
+    if not base_modes:
+        chosen = None
+        winner = 0
+        best_base = ""
+        best_base_cr = best_base_cvg = []
+    else:
+        base_modes.sort(
+            key=lambda t: (
+                summary[(fw,t)]["unique_crashes_total_avg"],
+                summary[(fw,t)]["bitmap_cvg_avg"]
+            ),
+            reverse=True
+        )
+        best_base     = base_modes[0]
+        best_base_cr  = agg[(fw,best_base)]["unique_crashes_direct"]
+        best_base_cvg = agg[(fw,best_base)]["bitmap_cvg"]
+
+        staff_modes = [m for m in TOOLS if m in STAFF_TOOLS]
+        has_staff = any(
+            summary.get((fw,s),{}).get("num_experiments",0)>0
+            for s in staff_modes
+        )
+        if not has_staff:
+            chosen = best_base
+            winner = TOOL_RANK[best_base]
+            best_staff_cr = best_staff_cvg = []
+        else:
+            staff_modes = [
+                s for s in staff_modes
+                if summary.get((fw,s),{}).get("num_experiments",0)>0
+            ]
+            staff_modes.sort(
+                key=lambda t: (
+                    summary[(fw,t)]["unique_crashes_total_avg"],
+                    summary[(fw,t)]["bitmap_cvg_avg"]
+                ),
+                reverse=True
+            )
+            best_staff     = staff_modes[0]
+            best_staff_cr  = agg[(fw,best_staff)]["unique_crashes_direct"]
+            best_staff_cvg = agg[(fw,best_staff)]["bitmap_cvg"]
+
+            a12_cr = effect_size_a12(best_staff_cr, best_base_cr)
+            if A12_LOWER_THRESHOLD <= a12_cr <= A12_UPPER_THRESHOLD:
+                a12 = effect_size_a12(best_staff_cvg, best_base_cvg)
+            else:
+                a12 = a12_cr
+
+            if   a12 <  A12_LOWER_THRESHOLD:
+                chosen = best_base
+            elif a12 >  A12_UPPER_THRESHOLD:
+                chosen = best_staff
+            else:
+                chosen = None
+            winner = TOOL_RANK[chosen] if chosen else 0
+
+    for mode in TOOLS:
+        run_count = len( agg.get((fw,mode),{}).get("bitmap_cvg", []) )
+        out = {
+            "winner": winner,
+            "Firmware": fw,
+            "Mode": mode,
+            "num_experiments": run_count,
+            "best_baseline": best_base
+        }
 
         for m in METRICS:
-            vals = mets.get(m,[])
-            if not vals:
-                row[f"{m}_avg"] = 0
-            else:
-                if m=="bitmap_cvg":
-                    flat=[x for sub in vals for x in (sub if isinstance(sub,list) else [sub])]
-                    row[f"{m}_avg"]=round(sum(flat)/len(flat),4)
-                else:
-                    row[f"{m}_avg"]=int(round(sum(vals)/len(vals)))
-        row["run_time_avg"]=int(round(sum(mets.get("run_time",[]))/len(mets.get("run_time",[1]))))
-        tool_rows[t]=row
-        if t in BASELINE_TOOLS:
-            baseline_scores.append((t,row["unique_crashes_avg"],row["bitmap_cvg_avg"]))
-    if not baseline_scores: continue
+            out[f"{m}_avg"] = summary.get((fw,mode),{}).get(f"{m}_avg", "")
+        out["run_time_avg"] = summary.get((fw,mode),{}).get("run_time_avg", "")
 
-    baseline_scores.sort(key=lambda x:(x[1],x[2]),reverse=True)
-    best_base=baseline_scores[0][0]
-    best_vals_cvg=agg[(fw,best_base)]["bitmap_cvg"]
-    best_vals_cr=agg[(fw,best_base)]["unique_crashes"]
-
-    def score(tool): return (
-        tool_rows[tool]["unique_crashes_avg"],
-        tool_rows[tool]["bitmap_cvg_avg"],
-        TOOL_RANK.get(tool,0)
-    )
-    scores={t:score(t) for t in tool_rows}
-    max_cr=max(s[0] for s in scores.values())
-    tied_cr=[t for t,s in scores.items() if s[0]==max_cr]
-    max_bm=max(scores[t][1] for t in tied_cr)
-    tied_final=[t for t in tied_cr if scores[t][1]==max_bm]
-
-    legacy=[t for t in BASELINE_TOOLS if t in tool_rows]
-    staff=[t for t in ["staff_base","staff_state_aware"] if t in tool_rows]
-    best_leg=max((tool_rows[t] for t in legacy),key=lambda r:r["bitmap_cvg_avg"],default=None)
-    best_st=max((tool_rows[t] for t in staff),key=lambda r:r["bitmap_cvg_avg"],default=None)
-    abs_diff=abs(best_leg["bitmap_cvg_avg"]-best_st["bitmap_cvg_avg"]) if best_leg and best_st else 0
-    rel_diff=abs_diff/max(best_leg["bitmap_cvg_avg"],1e-6)
-    leg_cr=max((tool_rows[t]["unique_crashes_avg"] for t in legacy),default=0)
-    st_cr=max((tool_rows[t]["unique_crashes_avg"] for t in staff),default=0)
-    if leg_cr==st_cr and rel_diff<0.05:
-        winner=0
-    elif len(tied_final)>1 and any(TOOL_RANK[t]>0 for t in tied_final) and any(TOOL_RANK[t]<0 for t in tied_final):
-        winner=0
-    else:
-        winner=TOOL_RANK.get(max(tied_final,key=lambda t:TOOL_RANK[t]),0)
-
-    for t,r in tool_rows.items():
-        r["winner"]=winner
-        r["best_baseline"]=best_base
-
-        vals=agg[(fw,t)]["bitmap_cvg"]
-        if vals and best_vals_cvg:
-            flat_t=[x for sub in vals for x in (sub if isinstance(sub,list) else [sub])]
-            flat_b=[x for sub in best_vals_cvg for x in (sub if isinstance(sub,list) else [sub])]
-            r["bitmap_cvg_p_value_with_best"]=round(mannwhitneyu(flat_t,flat_b).pvalue,4)
-            r["bitmap_cvg_A12_with_best"]=round(effect_size_a12(flat_t,flat_b),4)
+        vals_c = agg.get((fw,mode),{}).get("bitmap_cvg",[])
+        vals_cr = agg.get((fw,mode),{}).get("unique_crashes_direct",[])
+        if vals_c and best_base_cvg:
+            out["bitmap_cvg_p_value_with_best"] = round(mannwhitneyu(vals_c, best_base_cvg).pvalue,4)
+            out["bitmap_cvg_A12_with_best"]     = round(effect_size_a12(vals_c, best_base_cvg),4)
         else:
-            r["bitmap_cvg_p_value_with_best"]=None
-            r["bitmap_cvg_A12_with_best"]=None
-        vals_cr=agg[(fw,t)]["unique_crashes"]
-        if vals_cr and best_vals_cr:
-            r["unique_crashes_p_value_with_best"]=round(mannwhitneyu(vals_cr,best_vals_cr).pvalue,4)
-            r["unique_crashes_A12_with_best"]=round(effect_size_a12(vals_cr,best_vals_cr),4)
+            out["bitmap_cvg_p_value_with_best"] = ""
+            out["bitmap_cvg_A12_with_best"]     = ""
+        if vals_cr and best_base_cr:
+            out["unique_crashes_direct_p_value_with_best"] = round(mannwhitneyu(vals_cr, best_base_cr).pvalue,4)
+            out["unique_crashes_direct_A12_with_best"]     = round(effect_size_a12(vals_cr, best_base_cr),4)
         else:
-            r["unique_crashes_p_value_with_best"]=None
-            r["unique_crashes_A12_with_best"]=None
+            out["unique_crashes_direct_p_value_with_best"] = ""
+            out["unique_crashes_direct_A12_with_best"]     = ""
 
-        base = {"winner":r["winner"],"Firmware":r["Firmware"],"Mode":r["Mode"],
-                "num_experiments":r["num_experiments"],"best_baseline":r["best_baseline"],
-                "bitmap_cvg_p_value_with_best":r["bitmap_cvg_p_value_with_best"],
-                "bitmap_cvg_A12_with_best":r["bitmap_cvg_A12_with_best"],
-                "unique_crashes_p_value_with_best":r["unique_crashes_p_value_with_best"],
-                "unique_crashes_A12_with_best":r["unique_crashes_A12_with_best"]}
-        base.update(r)
-        rows.append(base)
+        results.append(out)
 
-df = pd.DataFrame(rows)
-df.to_csv(os.path.join(OUTPUT_DIR,"per_firmware_mode.csv"),index=False)
-mode_rows=[]
-for mo,grp in df[df["Firmware"]!=""].groupby("Mode"):
-    mr={"Mode":mo}
-    for m in METRICS:
-        if m=="bitmap_cvg": mr[f"{m}_avg"]=round(grp[f"{m}_avg"].astype(float).mean(),4)
-        else: mr[f"{m}_sum"]=int(grp[f"{m}_avg"].astype(float).sum())
-    mr["run_time_avg"]=int(round(grp["run_time_avg"].astype(float).mean()))
-    mr["total_experiments"]=int(grp["num_experiments"].astype(int).sum())
-    mode_rows.append(mr)
-df2=pd.DataFrame(mode_rows).sort_values("Mode")
-df2.to_csv(os.path.join(OUTPUT_DIR,"per_mode_aggregate.csv"),index=False)
+final_df = pd.DataFrame(results)
+final_df.to_csv(os.path.join(OUTPUT_DIR,"per_firmware_mode.csv"), index=False)
 
 print("\nPer-Firmware/Mode Averages:")
-print(df)
-print("\nPer-Mode Aggregated Totals:")
-print(df2)
+print(final_df)

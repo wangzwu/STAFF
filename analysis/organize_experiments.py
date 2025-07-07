@@ -54,7 +54,7 @@ def process_experiment_dir(exp_dir):
 
     try:
         mode = config.get("GENERAL", "mode").strip()
-        taint = config.get("AFLNET_FUZZING", "taint_hints_all_at_once").strip()
+        taint = config.get("STAFF_FUZZING", "taint_hints_all_at_once").strip()
         coverage = config.get("EXTRA_FUZZING", "coverage_tracing").strip()
     except (configparser.NoSectionError, configparser.NoOptionError) as e:
         print(f"Invalid config in {exp_dir}: {e}. Skipping.")
