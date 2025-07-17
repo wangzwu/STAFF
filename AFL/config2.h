@@ -1,7 +1,7 @@
 #ifndef CONFIG2_H
 #define CONFIG2_H
 
-#define MAP_SIZE_POW2       19
+#define MAP_SIZE_POW2       25
 #define MAP_SIZE            (1 << MAP_SIZE_POW2)
 #define SHARED_MEM_NAME "/START_FORK"
 #define SHARED_CHILD_RETVAL "/CHILD_RETVAL"
@@ -21,7 +21,7 @@
 #define MAX_MODULE_NAME_LENGTH 20
 #define MAX_PROCESS_NAME_LENGTH 30
 #define NUM_TRACES          20
-#define TRACE_LEN           20
+#define TRACE_LEN           5
 #define TRACE_COMPARE_LEN 5
 #define MAX_SLEEP 2000000
 

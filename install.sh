@@ -33,7 +33,7 @@ cmake --build . --target install
 cd /STAFF
 rm -r xxHash
 sudo apt install -y python3.7-distutils;
-sudo python3 -m pip install scapy scipy matplotlib_venn venn colorama docker;
+sudo python3 -m pip install scapy scipy matplotlib_venn venn colorama docker angr;
 download
 sudo python3 -m pip config set global.break-system-packages true
 dpkg -i liburing1_0.7-3~bpo10+1_amd64.deb

@@ -3296,11 +3296,6 @@ int main(int argc, char **argv, char **envp)
                 exit(EXIT_FAILURE);
             }
 
-            if (ftruncate(shm_fd, sizeof(char)) == -1) {
-                perror("ftruncate");
-                exit(EXIT_FAILURE);
-            }
-
             start_fork_flag = mmap(NULL, sizeof(char), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
             if (start_fork_flag == MAP_FAILED) {
                 perror("mmap");
@@ -3319,11 +3314,6 @@ int main(int argc, char **argv, char **envp)
             shm_fd = shm_open(CHECKPOINT_FORKSRV, O_RDWR, 0666);
             if (shm_fd == -1) {
                 perror("shm_open");
-                exit(EXIT_FAILURE);
-            }
-
-            if (ftruncate(shm_fd, sizeof(char)) == -1) {
-                perror("ftruncate");
                 exit(EXIT_FAILURE);
             }
 
@@ -3347,11 +3337,6 @@ int main(int argc, char **argv, char **envp)
             exit(EXIT_FAILURE);
         }
 
-        if (ftruncate(shm_fd, sizeof(char)) == -1) {
-            perror("ftruncate");
-            exit(EXIT_FAILURE);
-        }
-
         child_retval = mmap(NULL, sizeof(char), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
         if (child_retval == MAP_FAILED) {
             perror("mmap");
@@ -3365,17 +3350,13 @@ int main(int argc, char **argv, char **envp)
 
         close(shm_fd);
 
-        shm_fd = shm_open(CUR_CRASHES, O_CREAT | O_RDWR, 0666);
+        shm_fd = shm_open(CUR_CRASHES, O_RDWR, 0666);
         if (shm_fd == -1) {
             perror("shm_open");
             exit(EXIT_FAILURE);
         }
 
         size_t shm_size = sizeof(trace_t) * NUM_TRACES;
-        if (ftruncate(shm_fd, shm_size) == -1) {
-            perror("ftruncate");
-            exit(EXIT_FAILURE);
-        }
 
         cur_crashes = mmap(NULL, shm_size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
         if (cur_crashes == MAP_FAILED) {
@@ -3402,15 +3383,10 @@ int main(int argc, char **argv, char **envp)
     }
     else {
         shm_unlink(SHARED_MEM_NAME);
-        shm_fd = shm_open(SHARED_MEM_NAME, O_CREAT | O_RDWR, 0666);
+        shm_fd = shm_open(SHARED_MEM_NAME, O_RDWR, 0666);
 
         if (shm_fd == -1) {
             perror("shm_open");
-            exit(EXIT_FAILURE);
-        }
-
-        if (ftruncate(shm_fd, sizeof(char)) == -1) {
-            perror("ftruncate");
             exit(EXIT_FAILURE);
         }
 
@@ -3430,14 +3406,9 @@ int main(int argc, char **argv, char **envp)
         close(shm_fd);
 
         shm_unlink(SEND_NEXT_REGION);
-        shm_fd = shm_open(SEND_NEXT_REGION, O_CREAT | O_RDWR, 0666);
+        shm_fd = shm_open(SEND_NEXT_REGION, O_RDWR, 0666);
         if (shm_fd == -1) {
             perror("shm_open");
-            exit(EXIT_FAILURE);
-        }
-
-        if (ftruncate(shm_fd, sizeof(char)) == -1) {
-            perror("ftruncate");
             exit(EXIT_FAILURE);
         }
 
