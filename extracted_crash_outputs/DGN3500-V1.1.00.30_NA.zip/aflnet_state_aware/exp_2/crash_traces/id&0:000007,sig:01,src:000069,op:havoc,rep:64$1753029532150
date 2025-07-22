@@ -1,8 +1,0 @@
-=== Trace 4 ===
-Process: rc
-  [00] inode: 40966, pc: 0x00048ab8, module: libc.so.0
-  [01] inode: 40966, pc: 0x00048ad8, module: libc.so.0
-  [02] inode: 40966, pc: 0x00048c80, module: libc.so.0
-  [03] inode: 40966, pc: 0x00029834, module: libc.so.0
-  [04] inode: 57618, pc: 0x0001cbd4, module: busybox
-

@@ -1,8 +1,0 @@
-=== Trace 0 ===
-Process: httpd
-  [00] inode: 24605, pc: 0x00052198, module: libc.so.0
-  [01] inode: 24605, pc: 0x000521a8, module: libc.so.0
-  [02] inode: 24605, pc: 0x0004d14c, module: libc.so.0
-  [03] inode: 24605, pc: 0x0004d160, module: libc.so.0
-  [04] inode: 24605, pc: 0x00051bd0, module: libc.so.0
-

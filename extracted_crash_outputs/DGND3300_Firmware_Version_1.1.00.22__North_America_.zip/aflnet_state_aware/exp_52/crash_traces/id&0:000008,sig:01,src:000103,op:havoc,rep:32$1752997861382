@@ -1,8 +1,0 @@
-=== Trace 3 ===
-Process: setup.cgi
-  [00] inode: 32774, pc: 0x00032e74, module: libc.so.0
-  [01] inode: 32791, pc: 0x000011c4, module: libscnvram.so
-  [02] inode: 32791, pc: 0x000012e8, module: libscnvram.so
-  [03] inode: 32791, pc: 0x00001328, module: libscnvram.so
-  [04] inode: 24746, pc: 0x0000cc3c, module: setup.cgi
-

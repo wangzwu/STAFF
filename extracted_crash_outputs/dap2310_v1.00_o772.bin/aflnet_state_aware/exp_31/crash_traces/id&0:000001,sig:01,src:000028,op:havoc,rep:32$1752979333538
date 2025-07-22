@@ -1,8 +1,0 @@
-=== Trace 2 ===
-Process: sh
-  [00] inode: 24578, pc: 0x000010ec, module: ld-uClibc.so.0
-  [01] inode: 24578, pc: 0x00001e3c, module: ld-uClibc.so.0
-  [02] inode: 24578, pc: 0x00001e88, module: ld-uClibc.so.0
-  [03] inode: 24578, pc: 0x00004858, module: ld-uClibc.so.0
-  [04] inode: 24580, pc: 0x0004cb30, module: libc.so.0
-

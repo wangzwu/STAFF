@@ -1,8 +1,0 @@
-=== Trace 0 ===
-Process: alphapd
-  [00] inode: 8228, pc: 0x0004e074, module: libuClibc-0.9.28.so
-  [01] inode: 8228, pc: 0x0004e09c, module: libuClibc-0.9.28.so
-  [02] inode: 8228, pc: 0x0002c2a8, module: libuClibc-0.9.28.so
-  [03] inode: 8228, pc: 0x0004e0bc, module: libuClibc-0.9.28.so
-  [04] inode: 8228, pc: 0x0004e0fc, module: libuClibc-0.9.28.so
-

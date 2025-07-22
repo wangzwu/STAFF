@@ -1,8 +1,0 @@
-=== Trace 0 ===
-Process: u2ec
-  [00] inode: 16388, pc: 0x0002e510, module: libc.so.0
-  [01] inode: 16388, pc: 0x0002e544, module: libc.so.0
-  [02] inode: 16388, pc: 0x0002e550, module: libc.so.0
-  [03] inode: 16388, pc: 0x0002e55c, module: libc.so.0
-  [04] inode: 16388, pc: 0x00019a70, module: libc.so.0
-

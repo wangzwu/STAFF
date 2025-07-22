@@ -1,8 +1,0 @@
-=== Trace 0 ===
-Process: view.cgi
-  [00] inode: 24628, pc: 0x0005021c, module: libuClibc-0.9.30.so
-  [01] inode: 24628, pc: 0x000501f8, module: libuClibc-0.9.30.so
-  [02] inode: 24628, pc: 0x00050208, module: libuClibc-0.9.30.so
-  [03] inode: 24628, pc: 0x00030710, module: libuClibc-0.9.30.so
-  [04] inode: 24628, pc: 0x000309b8, module: libuClibc-0.9.30.so
-

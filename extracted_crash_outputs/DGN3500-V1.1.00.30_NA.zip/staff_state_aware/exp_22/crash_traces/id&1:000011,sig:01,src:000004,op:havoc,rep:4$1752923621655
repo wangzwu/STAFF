@@ -1,8 +1,0 @@
-=== Trace 0 ===
-Process: setup.cgi
-  [00] inode: 40966, pc: 0x000387d0, module: libc.so.0
-  [01] inode: 40966, pc: 0x000465d8, module: libc.so.0
-  [02] inode: 57718, pc: 0x0000ccc0, module: setup.cgi
-  [03] inode: 57671, pc: 0x00018f2c, module: mini_httpd
-  [04] inode: 40966, pc: 0x00049d4c, module: libc.so.0
-

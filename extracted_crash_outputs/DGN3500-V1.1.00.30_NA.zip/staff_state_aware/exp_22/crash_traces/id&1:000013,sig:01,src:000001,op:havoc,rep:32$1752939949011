@@ -1,8 +1,0 @@
-=== Trace 0 ===
-Process: setup.cgi
-  [00] inode: 57671, pc: 0x00017970, module: mini_httpd
-  [01] inode: 57671, pc: 0x0000e184, module: mini_httpd
-  [02] inode: 40966, pc: 0x000499e0, module: libc.so.0
-  [03] inode: 40966, pc: 0x000499fc, module: libc.so.0
-  [04] inode: 57671, pc: 0x0000e19c, module: mini_httpd
-

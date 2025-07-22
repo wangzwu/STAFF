@@ -1,8 +1,0 @@
-=== Trace 2 ===
-Process: xgi
-  [00] inode: 24580, pc: 0x0004ac2c, module: libc.so.0
-  [01] inode: 24580, pc: 0x0004abfc, module: libc.so.0
-  [02] inode: 24580, pc: 0x0002dc20, module: libc.so.0
-  [03] inode: 24580, pc: 0x0002dc2c, module: libc.so.0
-  [04] inode: 24580, pc: 0x0002debc, module: libc.so.0
-
