@@ -1229,10 +1229,12 @@ def crash_analysis(_=None):
 
                             existing = set(os.listdir(dest)) if os.path.isdir(dest) else set()
                             move_dir_contents(os.path.join(work_dir, "crash_analysis"), dest)
+                            shutil.copy(os.path.join(work_dir, "qemu.final.serial.log"), dest)
                             new_files = set(os.listdir(dest)) - existing
 
                             for fn in new_files:
-                                annotate_log_file(os.path.join(dest, fn), extract_dir)
+                                if "qemu" not in fn:
+                                    annotate_log_file(os.path.join(dest, fn), extract_dir)
 
         finally:
             shutil.rmtree(extract_dir, ignore_errors=True)
