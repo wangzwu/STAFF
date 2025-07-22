@@ -2840,57 +2840,69 @@ static void cull_queue(void) {
 
   struct queue_entry* q;
   static u8 temp_v[MAP_SIZE >> 3];
-  u32 i;
 
   if (dumb_mode || !score_changed) return;
 
+  struct timespec ts_start, ts_end;
+  if (debug) clock_gettime(CLOCK_MONOTONIC, &ts_start);
+
   score_changed = 0;
 
-  memset(temp_v, 255, MAP_SIZE >> 3);
+  memset(temp_v, 0xFF, MAP_SIZE >> 3);
 
   queued_favored  = 0;
   pending_favored = 0;
 
-  q = queue;
-
-  while (q) {
+  for (q = queue; q; q = q->next) {
     if (!q->is_initial_seed)
       q->favored = 0;
-    q = q->next;
   }
 
-  /* Let's see if anything in the bitmap isn't captured in temp_v.
-     If yes, and if it has a top_rated[] contender, let's use it. */
+  const u32 target_idx = get_state_index(target_state_id);
+  const size_t chunks = (MAP_SIZE >> 3) / sizeof(u64);
 
-  for (i = 0; i < MAP_SIZE; i++)
-    if (top_rated[i] && (temp_v[i >> 3] & (1 << (i & 7)))) {
+  for (u32 i = 0; i < MAP_SIZE; i++) {
 
-      u32 j = MAP_SIZE >> 3;
+    struct queue_entry* tq = top_rated[i];
+    if (__builtin_expect(!tq, 1)) continue;
 
-      /* Remove all bits belonging to the current entry from temp_v. */
+    if (temp_v[i >> 3] & (1 << (i & 7))) {
 
-      while (j--)
-        if (top_rated[i]->trace_mini[j])
-          temp_v[j] &= ~top_rated[i]->trace_mini[j];
+      u64 *restrict tv64 = (u64 *)temp_v;
+      const u64 *restrict tr64 = (const u64 *)tq->trace_mini;
 
-      top_rated[i]->favored = 1;
+      for (size_t j = 0; j < chunks; j++) {
+        u64 bits = tr64[j];
+        if (__builtin_expect(bits != 0, 0)) {
+          tv64[j] &= ~bits;
+        }
+      }
+
+      tq->favored = 1;
       queued_favored++;
 
-      //if (!top_rated[i]->was_fuzzed) pending_favored++;
-      /* AFLNet takes into account more information to make this decision */
-      if ((top_rated[i]->generating_state_id == target_state_id || top_rated[i]->is_initial_seed) && (was_fuzzed_map[get_state_index(target_state_id)][top_rated[i]->index] == 0)) pending_favored++;
-
+      if ((tq->generating_state_id == target_state_id || tq->is_initial_seed) &&
+          (was_fuzzed_map[target_idx][tq->index] == 0)) {
+        pending_favored++;
+      }
     }
-
-  q = queue;
-
-  while (q) {
-    mark_as_redundant(q, !q->favored);
-    q = q->next;
   }
 
-}
+  for (q = queue; q; q = q->next) {
+    mark_as_redundant(q, !q->favored);
+  }
 
+  if (debug) {
+    clock_gettime(CLOCK_MONOTONIC, &ts_end);
+    double elapsed = (ts_end.tv_sec - ts_start.tv_sec) +
+                     (ts_end.tv_nsec - ts_start.tv_nsec) / 1e9;
+    FILE *logf = fopen("debug/fuzzing.log", "a");
+    if (logf) {
+      fprintf(logf, "[DEBUG] cull_queue() full scan took %.6f sec\n", elapsed);
+      fclose(logf);
+    }
+  }
+}
 
 /* Configure shared memory and virgin_bits. This is called at startup. */
 
