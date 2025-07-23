@@ -18,7 +18,7 @@ import tempfile
 import angr
 import tarfile
 from FirmAE.sources.extractor.extractor import Extractor
-from typing import Dict, Optional
+from typing import Dict, Optional, Tuple, List
 
 patterns = [
     "FirmAE/scratch/staff*",
@@ -1050,6 +1050,8 @@ def pre_analysis():
 
                     taint(work_dir, "run", os.path.join(os.path.basename(brand), os.path.basename(device)), sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
 
+import bisect
+
 def crash_analysis(_=None):
     global config
 
@@ -1058,7 +1060,9 @@ def crash_analysis(_=None):
     PC_RE      = re.compile(r"pc:\s*(0x[0-9A-Fa-f]+)")
     SYMBOL_TAG = ", symbol:"
 
-    module_cache: Dict[str, angr.Project] = {}
+    # Cache: module_path -> (angr.Project, sorted_symbol_ranges)
+    # symbol_ranges = [(start, end, name), ...] sorted by start
+    module_cache: Dict[str, tuple[angr.Project, list[tuple[int, int, str]]]] = {}
 
     def set_permissions_recursive(path: str, mode: int = 0o777) -> None:
         for root, dirs, files in os.walk(path):
@@ -1091,33 +1095,65 @@ def crash_analysis(_=None):
                 idx[os.path.basename(fn)] = os.path.join(d, fn)
         return idx
 
+    def is_angr_loadable(binary_path: str) -> bool:
+        try:
+            angr.Project(binary_path, auto_load_libs=False)
+            return True
+        except Exception:
+            return False
+
     def find_module_path(extract_dir: str, module_name: str) -> Optional[str]:
         for d, _, files in os.walk(extract_dir):
             if module_name in files:
-                return os.path.join(d, module_name)
+                candidate = os.path.join(d, module_name)
+                if is_angr_loadable(candidate):
+                    return candidate
+        return None
+
+    def load_symbols_once(module_path: str) -> Tuple[angr.Project, List[Tuple[int, int, str]]]:
+
+        proj = angr.Project(module_path, auto_load_libs=False)
+        mobj = proj.loader.main_object
+        base = getattr(mobj, "rebased_addr", None) \
+             or getattr(mobj, "mapped_base", None) \
+             or getattr(mobj, "linked_base", 0)
+
+        symbol_ranges = []
+        for sym in mobj.symbols:
+            if sym.is_function:
+                start = sym.rebased_addr - base
+                end   = start + (sym.size or 1)
+                symbol_ranges.append((start, end, sym.name))
+
+        symbol_ranges.sort(key=lambda x: x[0])
+        return proj, symbol_ranges
+
+    def fast_symbol_lookup(symbol_ranges: List[Tuple[int, int, str]], addr: int) -> Optional[str]:
+        starts = [s[0] for s in symbol_ranges]
+        idx = bisect.bisect_right(starts, addr) - 1
+        if idx >= 0:
+            start, end, name = symbol_ranges[idx]
+            if start <= addr < end:
+                return name
         return None
 
     def lookup_symbol(module_path: str, addr: int) -> Optional[str]:
-        proj = module_cache.get(module_path)
-        if proj is None:
-            proj = angr.Project(module_path, auto_load_libs=False)
-            module_cache[module_path] = proj
+        cached = module_cache.get(module_path)
+        if cached is None:
+            try:
+                proj, ranges = load_symbols_once(module_path)
+            except Exception:
+                return None
+            module_cache[module_path] = (proj, ranges)
+            cached = (proj, ranges)
+
+        proj, symbol_ranges = cached
 
         sym = proj.loader.find_symbol(addr)
         if sym and sym.name:
             return sym.name
 
-        mobj = proj.loader.main_object
-        base = getattr(mobj, "rebased_addr", None) \
-             or getattr(mobj, "mapped_base", None) \
-             or getattr(mobj, "linked_base", 0)
-        for f in mobj.symbols:
-            if f.is_function:
-                start = f.rebased_addr - base
-                end   = start + (f.size or 1)
-                if start <= addr < end:
-                    return f.name
-        return None
+        return fast_symbol_lookup(symbol_ranges, addr)
 
     def annotate_log_file(path: str, extract_dir: str) -> None:
         with open(path, "r") as f:
@@ -1198,9 +1234,10 @@ def crash_analysis(_=None):
                 tar.extractall(path=extract_dir)
 
             for crash_file in files:
+                
                 crash_file_path = os.path.join(root, crash_file)
 
-                if os.path.isdir(crash_file_path) or "README" in crash_file:
+                if "README" in crash_file:
                     continue
 
                 if (os.path.isfile(crash_file_path.replace("crashes", "crash_traces"))):
@@ -1219,21 +1256,21 @@ def crash_analysis(_=None):
                         ))
                         work_dir = os.path.join(FIRMAE_DIR, "scratch", "run", iid)
                         if "true" in open(os.path.join(work_dir, "web_check")).read():
-                            replay_firmware(
-                                os.path.join(os.path.dirname(config["GENERAL"]["firmware"]), base_fw),
-                                work_dir, True,
-                                crash_file_path,
-                                m.group(1)
-                            )
+                            if "seed" not in crash_trace:
+                                replay_firmware(
+                                    os.path.join(os.path.dirname(config["GENERAL"]["firmware"]), base_fw),
+                                    work_dir, True,
+                                    crash_file_path,
+                                    m.group(1)
+                                )
                             dest = os.path.join(crash_file_path.replace("crashes", "crash_traces"))
 
-                            existing = set(os.listdir(dest)) if os.path.isdir(dest) else set()
-                            move_dir_contents(os.path.join(work_dir, "crash_analysis"), dest)
-                            shutil.copy(os.path.join(work_dir, "qemu.final.serial.log"), dest)
-                            new_files = set(os.listdir(dest)) - existing
+                            if "seed" not in crash_trace:
+                                move_dir_contents(os.path.join(work_dir, "crash_analysis"), dest)
+                                shutil.copy(os.path.join(work_dir, "qemu.final.serial.log"), dest)
 
-                            for fn in new_files:
-                                if "qemu" not in fn:
+                            for fn in os.listdir(dest):
+                                if "qemu" not in fn or "seed" not in fn:
                                     annotate_log_file(os.path.join(dest, fn), extract_dir)
 
         finally:

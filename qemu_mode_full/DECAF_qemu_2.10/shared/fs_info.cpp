@@ -418,8 +418,10 @@ void copy_inode_trace_to_shmem(int pid, char proc_name[MAX_PROCESS_NAME_LENGTH],
     const auto &trace_vec = storage.inode_pc_trace_vec[pid];
     int count = 0;
 
-    for (const auto &[inode, pc, is_lib] : trace_vec) {
+    for (auto it = trace_vec.rbegin(); it != trace_vec.rend(); ++it) {
         if (count >= TRACE_LEN) break;
+
+        const auto &[inode, pc, is_lib] = *it;
 
         trace_element_t &el = target.trace[count];
         el.inode = inode;
@@ -437,16 +439,23 @@ void copy_inode_trace_to_shmem(int pid, char proc_name[MAX_PROCESS_NAME_LENGTH],
 
 static void dump_trace(FILE *f, int tid, const char *header) {
     fprintf(f, "--- %s PID %d Trace ---\n", header, tid);
+
     const auto &tvec = storage.inode_pc_trace_vec[tid];
+    int total = (int)tvec.size();
     int cnt = 0;
-    for (auto &[inode, pc, is_lib] : tvec) {
+
+    for (auto it = tvec.rbegin(); it != tvec.rend(); ++it) {
+        const auto &[inode, pc, is_lib] = *it;
         char buf[MAX_MODULE_NAME_LENGTH] = {0};
+
         if (!get_module_name_from_inode(tid, inode, buf))
             strncpy(buf, "unknown", MAX_MODULE_NAME_LENGTH - 1);
+
         fprintf(f, "  [%03d] inode: %lu, pc: 0x%08lx, module: %s\n",
                 cnt++, inode, (unsigned long)pc, buf);
     }
-    fprintf(f, "Total %s trace elements: %d\n\n", header, cnt);
+
+    fprintf(f, "Total %s trace elements: %d\n\n", header, total);
 }
 
 void dump_pid_trace_to_file(int pid) {
