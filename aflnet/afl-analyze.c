@@ -115,7 +115,7 @@ static u8 count_class_lookup[256] = {
 
 static void classify_counts(u8* mem) {
 
-  u32 i = MAP_SIZE;
+  u32 i = MAX_MAP_SIZE;
 
   if (edges_only) {
 
@@ -141,7 +141,7 @@ static void classify_counts(u8* mem) {
 static inline u8 anything_set(void) {
 
   u32* ptr = (u32*)trace_bits;
-  u32  i   = (MAP_SIZE >> 2);
+  u32  i   = (MAX_MAP_SIZE >> 2);
 
   while (i--) if (*(ptr++)) return 1;
 
@@ -166,7 +166,7 @@ static void setup_shm(void) {
 
   u8* shm_str;
 
-  shm_id = shmget(IPC_PRIVATE, MAP_SIZE, IPC_CREAT | IPC_EXCL | 0600);
+  shm_id = shmget(IPC_PRIVATE, MAX_MAP_SIZE, IPC_CREAT | IPC_EXCL | 0600);
 
   if (shm_id < 0) PFATAL("shmget() failed");
 
@@ -254,7 +254,7 @@ static u32 run_target(char** argv, u8* mem, u32 len, u8 first_run) {
   s32 prog_in_fd;
   u32 cksum;
 
-  memset(trace_bits, 0, MAP_SIZE);
+  memset(trace_bits, 0, MAX_MAP_SIZE);
   MEM_BARRIER();
 
   prog_in_fd = write_to_file(prog_in, mem, len);
@@ -347,7 +347,7 @@ static u32 run_target(char** argv, u8* mem, u32 len, u8 first_run) {
 
   }
 
-  cksum = hash32(trace_bits, MAP_SIZE, HASH_CONST);
+  cksum = hash32(trace_bits, MAX_MAP_SIZE, HASH_CONST);
 
   /* We don't actually care if the target is crashing or not,
      except that when it does, the checksum should be different. */

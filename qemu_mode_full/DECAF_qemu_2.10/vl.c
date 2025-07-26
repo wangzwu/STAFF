@@ -63,6 +63,7 @@ unsigned char *afl_area_ptr = NULL, *afl_area_ptr_eval = NULL;
 int debug = 0, debug_fuzz = 0, debug_taint = 0, debug_fs_trace = 0, shm_fd;
 int callstack_trace = 0;
 int fuzz = 0;
+unsigned int map_size = MAX_MAP_SIZE;
 enum EXEC_MODE exec_mode = RUN;
 int child_tmout = 3600;
 int target_pid = 0;
@@ -3310,6 +3311,11 @@ int main(int argc, char **argv, char **envp)
     }
 
     if (fuzz) {
+        env_var = getenv("MAP_SIZE_POW2");
+        if (env_var) {
+            map_size = (1 << atoi(env_var));
+        }
+
         if (exec_mode != TRIFORCE) {
             shm_fd = shm_open(SHARED_MEM_NAME, O_RDWR, 0666);
             if (shm_fd == -1) {

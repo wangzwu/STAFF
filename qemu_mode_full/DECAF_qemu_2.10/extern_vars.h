@@ -39,6 +39,7 @@ extern int debug, debug_taint, debug_fuzz, debug_fs_trace;
 extern int callstack_trace;
 extern int child_tmout;
 extern int fuzz;
+extern unsigned int map_size;
 extern enum EXEC_MODE exec_mode;
 extern int target_pid;
 extern int target_fd;

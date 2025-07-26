@@ -83,7 +83,7 @@ unsigned int afl_forksrv_pid;
 
 /* Instrumentation ratio: */
 
-static unsigned int afl_inst_rms = MAP_SIZE;
+static unsigned int afl_inst_rms = MAX_MAP_SIZE;
 
 /* Function declarations. */
 
@@ -129,7 +129,7 @@ static void afl_setup(void) {
     if (r > 100) r = 100;
     if (!r) r = 1;
 
-    afl_inst_rms = MAP_SIZE * r / 100;
+    afl_inst_rms = MAX_MAP_SIZE * r / 100;
 
   }
 
@@ -248,7 +248,7 @@ static inline void afl_maybe_log(abi_ulong cur_loc) {
      the value to get something quasi-uniform. */
 
   cur_loc  = (cur_loc >> 4) ^ (cur_loc << 8);
-  cur_loc &= MAP_SIZE - 1;
+  cur_loc &= MAX_MAP_SIZE - 1;
 
   /* Implement probabilistic instrumentation by looking at scrambled block
      address. This keeps the instrumented locations stable across runs. */

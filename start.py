@@ -19,6 +19,8 @@ import angr
 import tarfile
 from FirmAE.sources.extractor.extractor import Extractor
 from typing import Dict, Optional, Tuple, List
+import bisect
+
 
 patterns = [
     "FirmAE/scratch/staff*",
@@ -50,6 +52,7 @@ DEFAULT_CONFIG = {
         "include_libraries": (1, int)
     },
     "GENERAL_FUZZING": {
+        "map_size_pow2": (25, int),
         "fuzz_tmout": (86400, int),
         "timeout": (120, int),
         "afl_no_arith": (1, int),
@@ -853,6 +856,8 @@ def fuzz(out_dir, container_name, replay_exp):
     prev_dir = os.getcwd()
     os.chdir(work_dir)
 
+    env["MAP_SIZE_POW2"] = str(config["GENERAL_FUZZING"]["map_size_pow2"])
+
     command = ["sudo", "-E"]
     # command += ["gdb", "--args"]
     command += ["./afl-fuzz"]
@@ -1050,8 +1055,6 @@ def pre_analysis():
 
                     taint(work_dir, "run", os.path.join(os.path.basename(brand), os.path.basename(device)), sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
 
-import bisect
-
 def crash_analysis(_=None):
     global config
 
@@ -1060,8 +1063,6 @@ def crash_analysis(_=None):
     PC_RE      = re.compile(r"pc:\s*(0x[0-9A-Fa-f]+)")
     SYMBOL_TAG = ", symbol:"
 
-    # Cache: module_path -> (angr.Project, sorted_symbol_ranges)
-    # symbol_ranges = [(start, end, name), ...] sorted by start
     module_cache: Dict[str, tuple[angr.Project, list[tuple[int, int, str]]]] = {}
 
     def set_permissions_recursive(path: str, mode: int = 0o777) -> None:

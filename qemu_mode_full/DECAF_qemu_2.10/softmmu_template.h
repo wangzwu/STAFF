@@ -310,12 +310,12 @@ WORD_TYPE helper_le_ld_name(CPUArchState *env, target_ulong addr,
                                 if (fp) {
                                     fprintf(fp, "procname %s, mod_name %s, inode 0x%lx, adjusted_pc 0x%lx: %d\n",
                                             procname, mod_name, inode_num, adjusted_pc,
-                                            (adjusted_pc ^ inode_num) & (MAP_SIZE - 1));
+                                            (adjusted_pc ^ inode_num) & (map_size - 1));
                                     fclose(fp);
                                 }
                             }
                             target_ulong pair[2] = { adjusted_pc, inode_num };
-                            uint32_t loc = XXH32(pair, sizeof(pair), pid) & MAP_SIZE;
+                            uint32_t loc = XXH32(pair, sizeof(pair), pid) & map_size;
                             afl_area_ptr[loc]++;
                         }
                         else if (coverage_tracing == TAINT_EDGE) {
@@ -553,12 +553,12 @@ WORD_TYPE helper_be_ld_name(CPUArchState *env, target_ulong addr,
                                 if (fp) {
                                     fprintf(fp, "procname %s, mod_name %s, inode 0x%lx, adjusted_pc 0x%lx: %d\n",
                                             procname, mod_name, inode_num, adjusted_pc,
-                                            (adjusted_pc ^ inode_num) & (MAP_SIZE - 1));
+                                            (adjusted_pc ^ inode_num) & (map_size - 1));
                                     fclose(fp);
                                 }
                             }
                             target_ulong pair[2] = { adjusted_pc, inode_num };
-                            uint32_t loc = XXH32(pair, sizeof(pair), pid) & MAP_SIZE;
+                            uint32_t loc = XXH32(pair, sizeof(pair), pid) & map_size;
                             afl_area_ptr[loc]++;
                         }
                         else if (coverage_tracing == TAINT_EDGE) {
@@ -800,12 +800,12 @@ void helper_le_st_name(CPUArchState *env, target_ulong addr, DATA_TYPE val,
                                 if (fp) {
                                     fprintf(fp, "procname %s, mod_name %s, inode 0x%lx, adjusted_pc 0x%lx: %d\n",
                                             procname, mod_name, inode_num, adjusted_pc,
-                                            (adjusted_pc ^ inode_num) & (MAP_SIZE - 1));
+                                            (adjusted_pc ^ inode_num) & (map_size - 1));
                                     fclose(fp);
                                 }
                             }
                             target_ulong pair[2] = { adjusted_pc, inode_num };
-                            uint32_t loc = XXH32(pair, sizeof(pair), pid) & MAP_SIZE;
+                            uint32_t loc = XXH32(pair, sizeof(pair), pid) & map_size;
                             afl_area_ptr[loc]++;
                         }
                         else if (coverage_tracing == TAINT_EDGE) {
@@ -1018,12 +1018,12 @@ void helper_be_st_name(CPUArchState *env, target_ulong addr, DATA_TYPE val,
                                 if (fp) {
                                     fprintf(fp, "procname %s, mod_name %s, inode 0x%lx, adjusted_pc 0x%lx: %d\n",
                                             procname, mod_name, inode_num, adjusted_pc,
-                                            (adjusted_pc ^ inode_num) & (MAP_SIZE - 1));
+                                            (adjusted_pc ^ inode_num) & (map_size - 1));
                                     fclose(fp);
                                 }
                             }
                             target_ulong pair[2] = { adjusted_pc, inode_num };
-                            uint32_t loc = XXH32(pair, sizeof(pair), pid) & MAP_SIZE;
+                            uint32_t loc = XXH32(pair, sizeof(pair), pid) & map_size;
                             afl_area_ptr[loc]++;
                         }
                         else if (coverage_tracing == TAINT_EDGE) {

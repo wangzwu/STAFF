@@ -18,3 +18,4 @@ schedule.csv
 config.ini
 plot_params.ini
 extracted
+extracted_crash_outputs_old*

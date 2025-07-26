@@ -113,7 +113,7 @@ static const u8 count_class_binary[256] = {
 
 static void classify_counts(u8* mem, const u8* map) {
 
-  u32 i = MAP_SIZE;
+  u32 i = MAX_MAP_SIZE;
 
   if (edges_only) {
 
@@ -149,7 +149,7 @@ static void setup_shm(void) {
 
   u8* shm_str;
 
-  shm_id = shmget(IPC_PRIVATE, MAP_SIZE, IPC_CREAT | IPC_EXCL | 0600);
+  shm_id = shmget(IPC_PRIVATE, MAX_MAP_SIZE, IPC_CREAT | IPC_EXCL | 0600);
 
   if (shm_id < 0) PFATAL("shmget() failed");
 
@@ -198,10 +198,10 @@ static u32 write_results(void) {
 
   if (binary_mode) {
 
-    for (i = 0; i < MAP_SIZE; i++)
+    for (i = 0; i < MAX_MAP_SIZE; i++)
       if (trace_bits[i]) ret++;
     
-    ck_write(fd, trace_bits, MAP_SIZE, out_file);
+    ck_write(fd, trace_bits, MAX_MAP_SIZE, out_file);
     close(fd);
 
   } else {
@@ -210,7 +210,7 @@ static u32 write_results(void) {
 
     if (!f) PFATAL("fdopen() failed");
 
-    for (i = 0; i < MAP_SIZE; i++) {
+    for (i = 0; i < MAX_MAP_SIZE; i++) {
 
       if (!trace_bits[i]) continue;
       ret++;

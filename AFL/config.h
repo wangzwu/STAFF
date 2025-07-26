@@ -320,14 +320,15 @@
 
 #define CAL_CHANCES         3
 
-/* Map size for the traced binary (2^MAP_SIZE_POW2). Must be greater than
+/* Map size for the traced binary (2^MAX_MAP_SIZE_POW2). Must be greater than
    2; you probably want to keep it under 18 or so for performance reasons
    (adjusting AFL_INST_RATIO when compiling is probably a better way to solve
    problems with complex programs). You need to recompile the target binary
    after changing this - otherwise, SEGVs may ensue. */
 
-#define MAP_SIZE_POW2       22
-#define MAP_SIZE            (1 << MAP_SIZE_POW2)
+#define AFL_MAP_SIZE_POW2       16
+#define MAX_MAP_SIZE_POW2       25
+#define MAX_MAP_SIZE            (1 << MAX_MAP_SIZE_POW2)
 
 /* Maximum allocator request size (keep well under INT_MAX): */
 

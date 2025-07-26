@@ -310,7 +310,7 @@
 
 #define CAL_CHANCES         3
 
-/* Map size for the traced binary (2^MAP_SIZE_POW2). Must be greater than
+/* Map size for the traced binary (2^MAX_MAP_SIZE_POW2). Must be greater than
    2; you probably want to keep it under 18 or so for performance reasons
    (adjusting AFL_INST_RATIO when compiling is probably a better way to solve
    problems with complex programs). You need to recompile the target binary

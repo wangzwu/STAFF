@@ -125,7 +125,7 @@ bool AFLCoverage::runOnModule(Module &M) {
 
       /* Make up cur_loc */
 
-      unsigned int cur_loc = AFL_R(MAP_SIZE);
+      unsigned int cur_loc = AFL_R(MAX_MAP_SIZE);
 
       ConstantInt *CurLoc = ConstantInt::get(Int32Ty, cur_loc);
 

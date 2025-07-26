@@ -76,7 +76,7 @@ uint32_t update_cov_xxhash(uint32_t pid,
     pair[0] = adjusted_pc;
     pair[1] = inode_num;
 
-    uint32_t cur_loc = XXH32(pair, sizeof(pair), pid) & (MAP_SIZE - 1);
+    uint32_t cur_loc = XXH32(pair, sizeof(pair), pid) & (map_size - 1);
 
     target_ulong prev_loc = get_coverage_value(pid, "xxhash", 0);
     insert_coverage_value(pid, "xxhash", cur_loc ^ prev_loc, 1);
@@ -87,7 +87,7 @@ uint32_t update_cov_xxhash(uint32_t pid,
 
 uint32_t update_cov_orig(uint32_t pid, target_ulong cur_loc) {
     int cur_loc_tmp = (cur_loc >> 4) ^ (cur_loc << 8);
-    cur_loc_tmp &= MAP_SIZE - 1;
+    cur_loc_tmp &= map_size - 1;
 
     /* Implement probabilistic instrumentation by looking at the scrambled block
        address. This keeps the instrumented locations stable across runs. */
@@ -103,7 +103,7 @@ uint32_t update_cov_orig(uint32_t pid, target_ulong cur_loc) {
 //     static target_ulong prev_loc[MAX_PID];
 
 //     int cur_loc_tmp  = (cur_loc >> 4) ^ (cur_loc << 8);
-//     cur_loc_tmp &= MAP_SIZE - 1;
+//     cur_loc_tmp &= map_size - 1;
 //     /* Implement probabilistic instrumentation by looking at scrambled block
 //         address. This keeps the instrumented locations stable across runs. */
 
@@ -121,7 +121,7 @@ uint32_t update_cov_sha1(uint32_t pid, target_ulong cur_loc) {
     SHA1((unsigned char*)&cur_loc, sizeof(cur_loc), hash);
 
     int cur_loc_tmp = *(uint32_t*)hash;
-    cur_loc_tmp &= MAP_SIZE - 1;
+    cur_loc_tmp &= map_size - 1;
 
     /* Implement probabilistic instrumentation by looking at the scrambled block
        address. This keeps the instrumented locations stable across runs. */
@@ -141,7 +141,7 @@ uint32_t update_cov_sha1(uint32_t pid, target_ulong cur_loc) {
 
 //     SHA1((unsigned char*)&cur_loc, sizeof(cur_loc), hash);
 
-//     int cur_loc_tmp = *(uint32_t*)hash & (MAP_SIZE - 1);
+//     int cur_loc_tmp = *(uint32_t*)hash & (map_size - 1);
 
 //     /* Implement probabilistic instrumentation by looking at the scrambled block
 //        address. This keeps the instrumented locations stable across runs. */
@@ -1193,7 +1193,7 @@ tcg_target_ulong cpu_tb_exec(CPUState *cpu, TranslationBlock *itb)
                             }
                             else if (coverage_tracing == BLOCK) {
                                 target_ulong pair[2] = { adjusted_pc, inode_num };
-                                uint32_t loc = XXH32(pair, sizeof(pair), pid) & MAP_SIZE;
+                                uint32_t loc = XXH32(pair, sizeof(pair), pid) & map_size;
                                 afl_area_ptr[loc]++;
                             }
                         }
