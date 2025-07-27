@@ -2,7 +2,7 @@
 #define CONFIG2_H
 
 #define AFL_MAP_SIZE_POW2       16
-#define MAX_MAP_SIZE_POW2       25
+#define MAX_MAP_SIZE_POW2       27
 #define MAX_MAP_SIZE            (1 << MAX_MAP_SIZE_POW2)
 #define SHARED_MEM_NAME "/START_FORK"
 #define SHARED_CHILD_RETVAL "/CHILD_RETVAL"
