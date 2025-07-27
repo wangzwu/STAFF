@@ -43,6 +43,7 @@
 #include "alloc-inl.h"
 #include "hash.h"
 
+#include <poll.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -2256,6 +2257,80 @@ static void destroy_extras(void) {
 int file_exists(const char *filename) {
   struct stat buffer;
   return (stat(filename, &buffer) == 0);
+}
+
+int safe_poll(struct pollfd *fds, nfds_t nfds, int timeout) {
+  for (nfds_t i = 0; i < nfds; i++) {
+    if (fds[i].fd < 0) {
+      fprintf(stderr, "safe_poll: invalid fd[%ld] = %d\n", i, fds[i].fd);
+      return -1;
+    }
+  }
+  return poll(fds, nfds, timeout);
+}
+
+int net_send(int sockfd, struct timeval timeout, char *mem, unsigned int len) {
+  if (sockfd < 0) {
+    fprintf(stderr, "Invalid socket fd in net_send.\n");
+    return -1;
+  }
+
+  unsigned int byte_count = 0;
+  struct pollfd pfd[1];
+  pfd[0].fd = sockfd;
+  pfd[0].events = POLLOUT;
+
+  setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout));
+  int timeout_ms = timeout.tv_sec * 1000 + timeout.tv_usec / 1000;
+
+  struct timeval start_time;
+  gettimeofday(&start_time, NULL);
+
+  while (byte_count < len) {
+    struct timeval current_time;
+    gettimeofday(&current_time, NULL);
+    
+    long elapsed_time_ms = (current_time.tv_sec - start_time.tv_sec) * 1000 + (current_time.tv_usec - start_time.tv_usec) / 1000;
+    int remaining_timeout_ms = timeout_ms - elapsed_time_ms;
+
+    if (remaining_timeout_ms <= 0) {
+      fprintf(stderr, "Send timeout.\n");
+      return -1;
+    }
+
+    int rv = safe_poll(pfd, 1, remaining_timeout_ms);
+    if (rv <= 0) {
+      fprintf(stderr, "Poll timed out or error while sending (rv: %d, errno: %d).\n", rv, errno);
+      return -1;
+    }
+
+    if (!(pfd[0].revents & POLLOUT)) {
+      fprintf(stderr, "Socket not ready for sending.\n");
+      return -1;
+    }
+
+    int n;
+    do {
+      n = send(sockfd, &mem[byte_count], len - byte_count, MSG_NOSIGNAL);
+      gettimeofday(&current_time, NULL);
+
+      elapsed_time_ms = (current_time.tv_sec - start_time.tv_sec) * 1000 + (current_time.tv_usec - start_time.tv_usec) / 1000;
+      remaining_timeout_ms = timeout_ms - elapsed_time_ms;
+    } while (n < 0 && errno == EINTR && remaining_timeout_ms > 0);
+
+    if (n <= 0) {
+      if (errno == EAGAIN || errno == EWOULDBLOCK) {
+        fprintf(stderr, "Send would block.\n");
+        return -1;
+      }
+      fprintf(stderr, "Error sending data (errno: %d).\n", errno);
+      return -1;
+    }
+
+    byte_count += n;
+  }
+
+  return byte_count;
 }
 
 void *send_requests(void *arg) {

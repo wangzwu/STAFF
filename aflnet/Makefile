@@ -28,7 +28,7 @@ PROGS       = afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl
 SH_PROGS    = afl-plot afl-cmin afl-whatsup
 
 CFLAGS     ?= -funroll-loops
-CFLAGS     += -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result \
+CFLAGS     += -Wall -fno-common -mcmodel=large -no-pie -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result \
 	      -DAFL_PATH=\"$(HELPER_PATH)\" -DDOC_PATH=\"$(DOC_PATH)\" \
 	      -DBIN_PATH=\"$(BIN_PATH)\" -D_GNU_SOURCE 
 

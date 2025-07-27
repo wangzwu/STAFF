@@ -28,7 +28,7 @@ PROGS       = afl-gcc afl-fuzz afl-showmap afl-tmin afl-gotcpu afl-analyze
 SH_PROGS    = afl-plot afl-cmin afl-whatsup
 
 CFLAGS     ?= -funroll-loops
-CFLAGS     += -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign \
+CFLAGS     += -Wall -fno-common -mcmodel=large -no-pie -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign \
 	      -DAFL_PATH=\"$(HELPER_PATH)\" -DDOC_PATH=\"$(DOC_PATH)\" \
 	      -DBIN_PATH=\"$(BIN_PATH)\"
 
@@ -69,9 +69,9 @@ afl-as: afl-as.c afl-as.h $(COMM_HDR) | test_x86
 	$(CC) $(CFLAGS) $@.c -o $@ $(LDFLAGS)
 	ln -sf afl-as as
 
-afl-fuzz: afl-fuzz.c trace.cpp $(COMM_HDR) ../aflnet/aflnet.o ../aflnet/aflnet.h | test_x86
+afl-fuzz: afl-fuzz.c trace.cpp $(COMM_HDR) | test_x86
 	$(CXX) -g -O0 -std=c++17 -fpermissive -c trace.cpp -o trace.o
-	$(CC) -g -O0 $(CFLAGS) $@.c trace.o ../aflnet/aflnet.o -o $@ $(LDFLAGS) -lstdc++
+	$(CC) -g -O0 $(CFLAGS) $@.c trace.o -o $@ $(LDFLAGS) -lstdc++
 
 afl-showmap: afl-showmap.c $(COMM_HDR) | test_x86
 	$(CC) $(CFLAGS) $@.c -o $@ $(LDFLAGS)
