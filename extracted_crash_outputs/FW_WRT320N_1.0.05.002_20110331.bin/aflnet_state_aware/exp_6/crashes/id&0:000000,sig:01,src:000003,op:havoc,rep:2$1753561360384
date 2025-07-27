@@ -1,0 +1,80 @@
+GET / HTTP/1.1
+Host: 192.168.1.1
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Sec-Purpose: prefetch;prerender
+Purpose: prefetch
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET / HTTP/1.1
+Host: 192.168.1.1
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) ApplIWhbKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET / HTTP/1.1
+Host: 192.168.1.1
+Connection: keep-alive
+Cache-Control: max-age=0
+Authorization: Basic YWRtaW46YWRtaW4=
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /Filters.asp HTTP/1.1
+Host: 192.168.1.1
+Connection: keep-alive
+Authorization: Basic YWRtaW46YWRtaW4=
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.1.1/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /FilterIPMAC.asp HTTP/1.1
+Host: 192.168.1.1
+Connection: keep-alive
+Authorization: Basic YWRtaW46YWRtaW4=
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.1.1/Filters.asp
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /apply.cgi HTTP/1.1
+Host: 192.168.1.1
+Connection: keep-alive
+Content-Length: 756
+Cache-Control: max-age=0
+Authorization: Basic YWRtaW46YWRtaW4=
+Origin: http://192.168.1.1
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.1.1/Filters.asp
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+submit_button=Filters&change_action=&submit_type=save&action=Apply&blocked_service=&filter_web=&filter_policy=&f_status=0&services_array=53%3A53%3A17%3ADNS%28%26nbsp%3B%290%3A0%3A1%3APing%28%26nbsp%3B%2921%3A21%3A6%3AFTP%28%26nbsp%3B%2980%3A84%3A6%3AHTTP%28%26nbsp%3B%29443%3A443%3A6%3AHTTPS%28%26nbsp%3B%29&services_length=3&service_applist=&blocked_service0=HTTP&blocked_service1=HTTPS&blocked_service2=&wait_time=3&f_id=1&f_name=fgxdfgzdf&f_status1=disable&f_status2=allow&week0=1&week1=1&week2=1&time_all=1&host0=http%3A%2F%2Fexample.com%2Ffak&host2=&host1=https%3A%2F%2Ffakestore.fake&host3=&url0=efsef&url2=qwertyu&url1=efwefukiyuk&url3=ss&blockstart=&Add_Service_Name=HTTP&Add_Service_Port_S=80&Add_Service_Port_E=84&Add_Service_Protocol=6&blockend=GET /getconnst.asp HTTP/1.1
+Host: 192.168.1.1
+Connection: keep-alive
+Authorization: Basic YWRtaW46YWRtaW4=
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.1.1/apply.cgi
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+

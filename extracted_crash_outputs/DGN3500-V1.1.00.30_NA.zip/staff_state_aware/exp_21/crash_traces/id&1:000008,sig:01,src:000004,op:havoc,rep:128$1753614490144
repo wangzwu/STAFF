@@ -1,0 +1,8 @@
+=== Trace 1 ===
+Process: setup.cgi
+  [00] inode: 40966, pc: 0x0000b9f0, module: libc.so.0
+  [01] inode: 57718, pc: 0x00025e9c, module: setup.cgi
+  [02] inode: 57718, pc: 0x00025e84, module: setup.cgi
+  [03] inode: 41005, pc: 0x00001a98, module: libscnvram.so
+  [04] inode: 57718, pc: 0x00025e70, module: setup.cgi
+

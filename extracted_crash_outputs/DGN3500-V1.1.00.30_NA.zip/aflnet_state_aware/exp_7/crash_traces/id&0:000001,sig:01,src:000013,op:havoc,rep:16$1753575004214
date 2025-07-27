@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: rc
+  [00] inode: 57705, pc: 0x0001cbe0, module: rc
+  [01] inode: 40966, pc: 0x00048a7c, module: libc.so.0
+  [02] inode: 57705, pc: 0x0001cbbc, module: rc
+  [03] inode: 57705, pc: 0x0001e294, module: rc
+  [04] inode: 57705, pc: 0x0001e258, module: rc
+

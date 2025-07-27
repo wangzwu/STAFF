@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: upnp
+  [00] inode: 24667, pc: 0x00012054, module: upnp
+  [01] inode: 40963, pc: 0x0003ba60, module: libc.so.6
+  [02] inode: 24667, pc: 0x00012034, module: upnp
+  [03] inode: 40963, pc: 0x00034c10, module: libc.so.6
+  [04] inode: 24667, pc: 0x00012000, module: upnp
+

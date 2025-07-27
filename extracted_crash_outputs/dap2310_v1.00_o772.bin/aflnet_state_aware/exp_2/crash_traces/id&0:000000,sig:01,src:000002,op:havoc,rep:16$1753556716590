@@ -1,0 +1,8 @@
+=== Trace 2 ===
+Process: neaps_array
+  [00] inode: 24578, pc: 0x0000484c, module: ld-uClibc.so.0
+  [01] inode: 24681, pc: 0x000035f0, module: neaps_array
+  [02] inode: 24580, pc: 0x0002f630, module: libc.so.0
+  [03] inode: 24681, pc: 0x000035d4, module: neaps_array
+  [04] inode: 24580, pc: 0x0002f630, module: libc.so.0
+

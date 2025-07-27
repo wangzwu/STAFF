@@ -1,0 +1,81 @@
+GET / HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Sec-Purpose: prefetch;prerender
+Purpose: prefetch
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/head_02.gif HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.1/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /set_temp_nodes.php HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+Content-Length: 934
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Origin: http://192.168.0.1
+Referer: http://192.168.0.1/adv_routing.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TEMP_NODES=/runtime/post/session_1&data=5&start=1&d_1_0=1&d_1_1=WAN&d_1_2=192.68.0.34&d_1_3=255.255.255.255&d_1_4=192.68.0.89&d_2_0=1&d_2_1=WAN&d_2_2=192.68.0.55&d_2_3=255.255.255.255&d_2_4=192.68.0.90&d_3_0=1&d_3_1=WAN&d_3_2=192.68.0.12&d_3_3=255.255.255.255&d_3_4=192.68.0.64&d_4_0=&d_4_1=&d_4_2=&d_4_3=&d_4_4=&d_5_0=&d_5_1=&d_5_2=&d_5_3=&d_5_4=&d_6_0=&d_6_1=&d_6_2=&d_6_3=&d_6_4=&d_7_0=&d_7_1=&d_7_2=&d_7_3=&d_7_4=&d_8_0=&d_8_1=&d_8_2=&d_8_3=&d_8_4=&d_9_0=&d_9_1=&d_9_2=&d_9_3=&d_9_4=&d_10_0=&d_10_1=&d_10_2=&d_10_3=&d_10_4=&d_11_0=&d_11_1=&d_11_2=&d_11_3=&d_11_4=&d_12_0=&d_12_1=&d_12_2=&d_12_3=&d_12_4=&d_13_0=&d_13_1=&d_13_2=&d_13_3=&d_13_4=&d_14_0=&d_14_1=&d_14_2=&d_14_3=&d_14_4=&d_15_0=&d_15_1=&d_15_2=&d_15_3=&d_15_4=&d_16_0=&d_16_1=&d_16_2=&d_16_3=&d_16_4=&d_17_0=&d_17_1=&d_17_2=&d_17_3=&d_17_4=&d_18_0=&d_18_1=&d_18_2=&d_18_3=&d_18_4=&d_19_0=&d_19_1=&d_19_2=&d_19_3=&d_19_4=&d_20_0=&d_20_1=&d_20_2=&d_20_3=&d_20_4=&end=20POST /set_temp_nodes.php HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+Content-Length: 857
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Origin: http://192.168.0.1
+Referer: http://192.168.0.1/adv_routing.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TEMP_NODES=/runtime/post/session_1&data=5&start=21&d_21_0=&d_21_1=&d_21_2=&d_21_3=&d_21_4=&d_22_0=&d_22_1=&d_22_2=&d_22_3=&d_22_4=&d_23_0=&d_23_1=&d_23_2=&d_23_3=&d_23_4=&d_24_0=&d_24_1=&d_24_2=&d_24_3=&d_24_4=&d_25_0=&d_25_1=&d_25_2=&d_25_3=&d_25_4=&d_26_0=&d_26_1=&d_26_2=&d_26_3=&d_26_4=&d_27_0=&d_27_1=&d_27_2=&d_27_3=&d_27_4=&d_28_0=&d_28_1=&d_28_2=&d_28_3=&d_28_4=&d_29_0=&d_29_1=&d_29_2=&d_29_3=&d_29_4=&d_30_0=&d_30_1=&d_30_2=&d_30_3=&d_30_4=&d_31_0=&d_31_1=&d_31_2=&d_31_3=&d_31_4=&d_32_0=&d_32_1=&d_32_2=&d_32_3=&d_32_4=&d_33_0=&d_33_1=&d_33_2=&d_33_3=&d_33_4=&d_34_0=&d_34_1=&d_34_2=&d_34_3=&d_34_4=&d_35_0=&d_35_1=&d_35_2=&d_35_3=&d_35_4=&d_36_0=&d_36_1=&d_36_2=&d_36_3=&d_36_4=&d_37_0=&d_37_1=&d_37_2=&d_37_3=&d_37_4=&d_38_0=&d_38_1=&d_38_2=&d_38_3=&d_38_4=&d_39_0=&d_39_1=&d_39_2=&d_39_3=&d_39_4=&d_40_0=&d_40_1=&d_40_2=&d_40_3=&d_40_4=&end=40POST /set_temp_nodes.php HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+Content-Length: 857
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Origin: http://192.168.0.1
+Referer: http://192.168.0.1/adv_routing.php?uptime=120&random_num=2025.5.22.15.43.46
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TEMP_NODES=/runtime/post/session_1&data=5&start=21&d_21_0=&d_21_1=&d_21_2=&d_21_3=&d_21_4=&d_22_0=&d_22_1=&d_22_2=&d_22_3=&d_22_4=&d_23_0=&d_23_1=&d_23_2=&d_23_3=&d_23_4=&d_24_0=&d_24_1=&d_24_2=&d_24_3=&d_24_4=&d_25_0=&d_25_1=&d_25_2=&d_25_3=&d_25_4=&d_26_0=&d_26_1=&d_26_2=&d_26_3=&d_26_4=&d_27_0=&d_27_1=&d_27_2=&d_27_3=&d_27_4=&d_28_0=&d_28_1=&d_28_2=&d_28_3=&d_28_4=&d_29_0=&d_29_1=&d_29_2=&d_29_3=&d_29_4=&d_30_0=&d_30_1=&d_30_2=&d_30_3=&d_30_4=&d_31_0=&d_31_1=&d_31_2=&d_31_3=&d_31_4=&d_32_0=&d_32_1=&d_32_2=&d_32_3=&d_32_4=&d_33_0=&d_33_1=&d_33_2=&d_33_3=&d_33_4=&d_34_0=&d_34_1=&d_34_2=&d_34_3=&d_34_4=&d_35_0=&d_35_1=&d_35_2=&d_35_3=&d_35_4=&d_36_0=&d_36_1=&d_36_2=&d_36_3=&d_36_4=&d_37_0=&d_37_1=&d_37_2=&d_37_3=&d_37_4=&d_38_0=&d_38_1=&d_38_2=&d_38_3=&d_38_4=&d_39_0=&d_39_1=&d_39_2=&d_39_3=&d_39_4=&d_40_0=&d_40_1=&d_40_2=&d_40_3=&d_40_4=&end=40POST /set_temp_nodes.php HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+Content-Length: 1398
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Origin: http://192.168.0.1
+Referer: http://192.168.0.1/adv_firewall.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TEMP_NODES=/runtime/post/session_1&data=16&start=11&d_11_0=&d_11_1=&d_11_2=&d_11_3=&d_11_4=&d_11_5=&d_11_6=&d_11_7=&d_11_8=&d_11_9=&d_11_10=&d_11_11=&d_11_12=&d_11_13=&d_11_14=&d_11_15=&d_12_0=&d_12_1=&d_12_2=&d_12_3=&d_12_4=&d_12_5=&d_12_6=&d_12_7=&d_12_8=&d_12_9=&d_12_10=&d_12_11=&d_12_12=&d_12_13=&d_12_14=&d_12_15=&d_13_0=&d_13_1=&d_13_2=&d_13_3=&d_13_4=&d_13_5=&d_13_6=&d_13_7=&d_13_8=&d_13_9=&d_13_10=&d_13_11=&d_13_12=&d_13_13=&d_13_14=&d_13_15=&d_14_0=&d_14_1=&d_14_2=&d_14_3=&d_14_4=&d_14_5=&d_14_6=&d_14_7=&d_14_8=&d_14_9=&d_14_10=&d_14_11=&d_14_12=&d_14_13=&d_14_14=&d_14_15=&d_15_0=&d_15_1=&d_15_2=&d_15_3=&d_15_4=&d_15_5=&d_15_6=&d_15_7=&d_15_8=&d_15_9=&d_15_10=&d_15_11=&d_15_12=&d_15_13=&d_15_14=&d_15_15=&d_16_0=&d_16_1=&d_16_2=&d_16_3=&d_16_4=&d_16_5=&d_16_6=&d_16_7=&d_16_8=&d_16_9=&d_16_10=&d_16_11=&d_16_12=&d_16_13=&d_16_14=&d_16_15=&d_17_0=&d_17_1=&d_17_2=&d_17_3=&d_17_4=&d_17_5=&d_17_6=&d_17_7=&d_17_8=&d_17_9=&d_17_10=&d_17_11=&d_17_12=&d_17_13=&d_17_14=&d_17_15=&d_18_0=&d_18_1=&d_18_2=&d_18_3=&d_18_4=&d_18_5=&d_18_6=&d_18_7=&d_18_8=&d_18_9=&d_18_10=&d_18_11=&d_18_12=&d_18_13=&d_18_14=&d_18_15=&d_19_0=&d_19_1=&d_19_2=&d_19_3=&d_19_4=&d_19_5=&d_19_6=&d_19_7=&d_19_8=&d_19_9=&d_19_10=&d_19_11=&d_19_12=&d_19_13=&d_19_14=&d_19_15=&d_20_0=&d_20_1=&d_20_2=&d_20_3=&d_20_4=&d_20_5=&d_20_6=&d_20_7=&d_20_8=&d_20_9=&d_20_10=&d_20_11=&d_20_12=&d_20_13=&d_20_14=&d_20_15=&end=20POST /set_temp_nodes.php HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+Content-Length: 1398
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Origin: http://192.168.0.1
+Referer: http://192.168.0.1/adv_firewall.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TEMP_NODES=/runtime/post/session_1&data=16&start=21&d_21_0=&d_21_1=&d_21_2=&d_21_3=&d_21_4=&d_21_5=&d_21_6=&d_21_7=&d_21_8=&d_21_9=&d_21_10=&d_21_11=&d_21_12=&d_21_13=&d_21_14=&d_21_15=&d_22_0=&d_22_1=&d_22_2=&d_22_3=&d_22_4=&d_22_5=&d_22_6=&d_22_7=&d_22_8=&d_22_9=&d_22_10=&d_22_11=&d_22_12=&d_22_13=&d_22_14=&d_22_15=&d_23_0=&d_23_1=&d_23_2=&d_23_3=&d_23_4=&d_23_5=&d_23_6=&d_23_7=&d_23_8=&d_23_9=&d_23_10=&d_23_11=&d_23_12=&d_23_13=&d_23_14=&d_23_15=&d_24_0=&d_24_1=&d_24_2=&d_24_3=&d_24_4=&d_24_5=&d_24_6=&d_24_7=&d_24_8=&d_24_9=&d_24_10=&d_24_11=&d_24_12=&d_24_13=&d_24_14=&d_24_15=&d_25_0=&d_25_1=&d_25_2=&d_25_3=&d_25_4=&d_25_5=&d_25_6=&d_25_7=&d_25_8=&d_25_9=&d_25_10=&d_25_11=&d_25_12=&d_25_13=&d_25_14=&d_25_15=&d_26_0=&d_26_1=&d_26_2=&d_26_3=&d_26_4=&d_26_5=&d_26_6=&d_26_7=&d_26_8=&d_26_9=&d_26_10=&d_26_11=&d_26_12=&d_26_13=&d_26_14=&d_26_15=&d_27_0=&d_27_1=&d_27_2=&d_27_3=&d_27_4=&d_27_5=&d_27_6=&d_27_7=&d_27_8=&d_27_9=&d_27_10=&d_27_11=&d_27_12=&d_27_13=&d_27_14=&d_27_15=&d_28_0=&d_28_1=&d_28_2=&d_28_3=&d_28_4=&d_28_5=&d_28_6=&d_28_7=&d_28_8=&d_28_9=&d_28_10=&d_28_11=&d_28_12=&d_28_13=&d_28_14=&d_28_15=&d_29_0=&d_29_1=&d_29_2=&d_29_3=&d_29_4=&d_29_5=&d_29_6=&d_29_7=&d_29_8=&d_29_9=&d_29_10=&d_29_11=&d_29_12=&d_29_13=&d_29_14=&d_29_15=&d_30_0=&d_30_1=&d_30_2=&d_30_3=&d_30_4=&d_30_5=&d_30_6=&d_30_7=&d_30_8=&d_30_9=&d_30_10=&d_30_11=&d_30_12=&d_30_13=&d_30_14=&d_30_15=&end=30

@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: xgi
+  [00] inode: 16389, pc: 0x00004158, module: atp
+  [01] inode: 16389, pc: 0x00004130, module: atp
+  [02] inode: 16389, pc: 0x000044ac, module: atp
+  [03] inode: 24603, pc: 0x00000adc, module: ld-uClibc.so.0
+  [04] inode: 16389, pc: 0x00001660, module: atp
+

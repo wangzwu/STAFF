@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: alphapd
+  [00] inode: 16386, pc: 0x00035258, module: alphapd
+  [01] inode: 16386, pc: 0x00035148, module: alphapd
+  [02] inode: 16386, pc: 0x000350e0, module: alphapd
+  [03] inode: 16386, pc: 0x000350cc, module: alphapd
+  [04] inode: 8228, pc: 0x000487d0, module: libuClibc-0.9.28.so
+

@@ -1,0 +1,96 @@
+GET / HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Sec-Purpose: prefetch;prerender
+Purpose: prefetch
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/head_02.gif HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.1/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /set_temp_nodes.php HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+Content-Length: 934
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Origin: http://192.168.0.1
+Referer: http://192.168.0.1/adv_routing.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TEMP_NODES=/runtime/post/session_1&data=5&start=1&d_1_0=1&d_1_1=WAN&d_1_2=192.68.0.34&d_1_3=255.255.255.255&d_1_4=192.68.0.89&d_2_0=1&d_2_1=WAN&d_2_2=192.68.0.55&d_2_3=255.255.255.255&d_2_4=192.68.0.90&d_3_0=1&d_3_1=WAN&d_3_2=192.68.0.12&d_3_3=255.255.255.255&d_3_4=192.68.0.64&d_4_0=&d_4_1=&d_4_2=&d_4_3=&d_4_4=&d_5_0=&d_5_1=&d_5_2=&d_5_3=&d_5_4=&d_6_0=&d_6_1=&d_6_2=&d_6_3=&d_6_4=&d_7_0=&d_7_1=&d_7_2=&d_7_3=&d_7_4=&d_8_0=&d_8_1=&d_8_2=&d_8_3=&d_8_4=&d_9_0=&d_9_1=&d_9_2=&d_9_3=&d_9_4=&d_10_0=&d_10_1=&d_10_2=&d_10_3=&d_10_4=&d_11_0=&d_11_1=&d_11_2=&d_11_3=&d_11_4=&d_12_0=&d_12_1=&d_12_2=&d_12_3=&d_12_4=&d_13_0=&d_13_1=&d_13_2=&d_13_3=&d_13_4=&d_14_0=&d_14_1=&d_14_2=&d_14_3=&d_14_4=&d_15_0=&d_15_1=&d_15_2=&d_15_3=&d_15_4=&d_16_0=&d_16_1=&d_16_2=&d_16_3=&d_16_4=&d_17_0=&d_17_1=&d_17_2=&d_17_3=&d_17_4=&d_18_0=&d_18_1=&d_18_2=&d_18_3=&d_18_4=&d_19_0=&d_19_1=&d_19_2=&d_19_3=&d_19_4=&d_20_0=&d_20_1=&d_20_2=&d_20_3=&d_20_4=&end=20POST /set_temp_nodes.php HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+Content-Length: 857
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Origin: http://192.168.0.1
+Referer: http://192.168.0.1/adv_routing.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TEMP_NODES=/runtime/post/session_1&data=5&start=21&d_21_0=&d_21_1=&d_21_2=&d_21_3=&d_21_4=&d_22_0=&d_22_1=&d_22_2=&d_22_3=&d_22_4=&d_23_0=&d_23_1=&d_23_2=&d_23_3=&d_23_4=&d_24_0=&d_24_1=&d_24_2=&d_24_3=&d_24_4=&d_25_0=&d_25_1=&d_25_2=&d_25_3=&d_25_4=&d_26_0=&d_26_1=&d_26_2=&d_26_3=&d_26_4=&d_27_0=&d_27_1=&d_27_2=&d_27_3=&d_27_4=&d_28_0=&d_28_1=&d_28_2=&d_28_3=&d_28_4=&d_29_0=&d_29_1=&d_29_2=&d_29_3=&d_29_4=&d_30_0=&d_30_1=&d_30_2=&d_30_3=&d_30_4=&d_31_0=&d_31_1=&d_31_2=&d_31_3=&d_31_4=&d_32_0=&d_32_1=&d_32_2=&d_32_3=&d_32_4=&d_33_0=&d_33_1=&d_33_2=&d_33_3=&d_33_4=&d_34_0=&d_34_1=&d_34_2=&d_34_3=&d_34_4=&d_35_0=&d_35_1=&d_35_2=&d_35_3=&d_35_4=&d_36_0=&d_36_1=&d_36_2=&d_36_3=&d_36_4=&d_37_0=&d_37_1=&d_37_2=&d_37_3=&d_37_4=&d_38_0=&d_38_1=&d_38_2=&d_38_3=&d_38_4=&d_39_0=&d_39_1=&d_39_2=&d_39_3=&d_39_4=&d_40_0=&d_40_1=&d_40_2=&d_40_3=&d_40_4=&end=40POST /set_temp_nodes.php HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+Content-Length: 857
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Origin: http://192.168.0.1
+Referer: http://192.168.0.1/adv_routing.php?uptime=120&random_num=2025.5.22.15.43.46
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TEMP_NODES=/runtime/post/session_1&data=5&start=21&d_21_0=&d_21_1=&d_21_2=&d_21_3=&d_21_4=&d_22_0=&d_22_1=&d_22_2=&d_22_3=&d_22_4=&d_23_0=&d_23_1=&d_23_2=&d_23_3=&d_23_4=&d_24_0=&d_24_1=&d_24_2=&d_24_3=&d_24_4=&d_25_0=&d_25_1=&d_25_2=&d_25_3=&d_25_4=&d_26_0=&d_26_1=&d_26_2=&d_26_3=&d_26_4=&d_27_0=&d_27_1=&d_27_2=&d_27_3=&d_27_4=&d_28_0=&d_28_1=&d_28_2=&d_28_3=&d_28_4=&d_29_0=&d_29_1=&d_29_2=&d_29_3=&d_29_4=&d_30_0=&d_30_1=&d_30_2=&d_30_3=&d_30_4=&d_31_0=&d_31_1=&d_31_2=&d_31_3=&d_31_4=&d_32_0=&d_32_1=&d_32_2=&d_32_3=&d_32_4=&d_33_0=&d_33_1=&d_33_2=&d_33_3=&d_33_4=&d_34_0=&d_34_1=&d_34_2=&d_34_3=&d_34_4=&d_35_0=&d_35_1=&d_35_2=&d_35_3=&d_35_4=&d_36_0=&d_36_1=&d_36_2=&d_36_3=&d_36_4=&d_37_0=&d_37_1=&d_37_2=&d_37_3=&d_37_4=&d_38_0=&d_38_1=&d_38_2=&d_38_3=&d_38_4=&d_39_0=&d_39_1=&d_39_2=&d_39_3=&d_39_4=&d_40_0=&d_40_1=&d_40_2=&d_40_3=&d_40_4=&end=40GET /model/__ajax_wan_conninfo.php?r=2025.5.22.15.44.45 HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: */*
+Referer: http://192.168.0.1/tools_sch.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /model/__ajax_wan_conninfo.php?r=2025.5.22.15.44.48 HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: */*
+Referer: http://192.168.0.1/tools_sch.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /model/__ajax_wan_conninfo.php?r=2025.5.22.15.45.25 HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: */*
+Referer: http://192.168.0.1/adv_firewall.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /set_temp_nodes.php HTTP/1.1
+Host: 192.168.0.1
+Connection: keep-alive
+Content-Length: 1253
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Origin: http://192.168.0.1
+Referer: http://192.168.0.1/adv_firewall.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TEMP_NODES=/runtime/post/session_1&data=16&start=1&d_1_0=&d_1_1=&d_1_2=&d_1_3=&d_1_4=&d_1_5=&d_1_6=&d_1_7=&d_1_8=&d_1_9=&d_1_10=&d_1_11=&d_1_12=&d_1_13=&d_1_14=&d_1_15=&d_2_0=&d_2_1=&d_2_2=&d_2_3=&d_2_4=&d_2_5=&d_2_6=&d_2_7=&d_2_8=&d_2_9=&d_2_10=&d_2_11=&d_2_12=&d_2_13=&d_2_14=&d_2_15=&d_3_0=&d_3_1=&d_3_2=&d_3_3=&d_3_4=&d_3_5=&d_3_6=&d_3_7=&d_3_8=&d_3_9=&d_3_10=&d_3_11=&d_3_12=&d_3_13=&d_3_14=&d_3_15=&d_4_0=&d_4_1=&d_4_2=&d_4_3=&d_4_4=&d_4_5=&d_4_6=&d_4_7=&d_4_8=&d_4_9=&d_4_10=&d_4_11=&d_4_12=&d_4_13=&d_4_14=&d_4_15=&d_5_0=&d_5_1=&d_5_2=&d_5_3=&d_5_4=&d_5_5=&d_5_6=&d_5_7=&d_5_8=&d_5_9=&d_5_10=&d_5_11=&d_5_12=&d_5_13=&d_5_14=&d_5_15=&d_6_0=&d_6_1=&d_6_2=&d_6_3=&d_6_4=&d_6_5=&d_6_6=&d_6_7=&d_6_8=&d_6_9=&d_6_10=&d_6_11=&d_6_12=&d_6_13=&d_6_14=&d_6_15=&d_7_0=&d_7_1=&d_7_2=&d_7_3=&d_7_4=&d_7_5=&d_7_6=&d_7_7=&d_7_8=&d_7_9=&d_7_10=&d_7_11=&d_7_12=&d_7_13=&d_7_14=&d_7_15=&d_8_0=&d_8_1=&d_8_2=&d_8_3=&d_8_4=&d_8_5=&d_8_6=&d_8_7=&d_8_8=&d_8_9=&d_8_10=&d_8_11=&d_8_12=&d_8_13=&d_8_14=&d_8_15=&d_9_0=&d_9_1=&d_9_2=&d_9_3=&d_9_4=&d_9_5=&d_9_6=&d_9_7=&d_9_8=&d_9_9=&d_9_10=&d_9_11=&d_9_12=&d_9_13=&d_9_14=&d_9_15=&d_10_0=&d_10_1=&d_10_2=&d_10_3=&d_10_4=&d_10_5=&d_10_6=&d_10_7=&d_10_8=&d_10_9=&d_10_10=&d_10_11=&d_10_12=&d_10_13=&d_10_14=&d_10_15=&end=10

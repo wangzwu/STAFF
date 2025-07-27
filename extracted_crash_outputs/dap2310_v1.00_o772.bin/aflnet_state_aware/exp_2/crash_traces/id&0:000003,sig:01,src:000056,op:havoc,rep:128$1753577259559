@@ -1,0 +1,8 @@
+=== Trace 1 ===
+Process: ethlink
+  [00] inode: 24578, pc: 0x00004810, module: ld-uClibc.so.0
+  [01] inode: 24664, pc: 0x00000b88, module: ethlink
+  [02] inode: 24578, pc: 0x00004810, module: ld-uClibc.so.0
+  [03] inode: 24664, pc: 0x00000b68, module: ethlink
+  [04] inode: 24578, pc: 0x0000484c, module: ld-uClibc.so.0
+

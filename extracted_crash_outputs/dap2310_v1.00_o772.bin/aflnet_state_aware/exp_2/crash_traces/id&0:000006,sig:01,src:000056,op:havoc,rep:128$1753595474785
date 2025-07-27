@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: sh
+  [00] inode: 24578, pc: 0x00004810, module: ld-uClibc.so.0
+  [01] inode: 24644, pc: 0x0000336c, module: aparraymsg
+  [02] inode: 24580, pc: 0x0002f630, module: libc.so.0
+  [03] inode: 24644, pc: 0x00003350, module: aparraymsg
+  [04] inode: 24580, pc: 0x0002f630, module: libc.so.0
+

@@ -1,0 +1,21 @@
+=== Trace 0 ===
+Process: mini_httpd
+  [00] inode: 57671, pc: 0x0001178c, module: mini_httpd
+  [01] inode: 16401, pc: 0x00004054, module: libnvram_ioctl.so
+  [02] inode: 57671, pc: 0x00011768, module: mini_httpd
+  [03] inode: 57671, pc: 0x000116d4, module: mini_httpd
+  [04] inode: 40966, pc: 0x0004af74, module: libc.so.0
+
+=== Trace 1 ===
+Process: mini_httpd
+  [00] inode: 57671, pc: 0x0001178c, module: mini_httpd
+  [01] inode: 40966, pc: 0x00050374, module: libc.so.0
+
+=== Trace 2 ===
+Process: mini_httpd
+  [00] inode: 57671, pc: 0x0001178c, module: mini_httpd
+  [01] inode: 16401, pc: 0x00004064, module: libnvram_ioctl.so
+  [02] inode: 57671, pc: 0x00011768, module: mini_httpd
+  [03] inode: 57671, pc: 0x000116d4, module: mini_httpd
+  [04] inode: 40966, pc: 0x0004af74, module: libc.so.0
+
