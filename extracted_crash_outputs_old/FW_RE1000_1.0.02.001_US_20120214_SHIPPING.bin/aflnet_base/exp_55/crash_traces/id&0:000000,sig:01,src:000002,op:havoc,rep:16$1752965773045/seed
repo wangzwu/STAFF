@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: upnp
+  [00] inode: 24579, pc: 0x0001641c, module: libc.so.0
+  [01] inode: 24579, pc: 0x0001438c, module: libc.so.0, symbol: pthread_cond_signal
+  [02] inode: 24579, pc: 0x0001642c, module: libc.so.0
+  [03] inode: 24579, pc: 0x00016400, module: libc.so.0
+  [04] inode: 41035, pc: 0x000049f0, module: upnp
+

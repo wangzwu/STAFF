@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: httpd
+  [00] inode: 24580, pc: 0x0002e4b4, module: libc.so.0, symbol: strcat
+  [01] inode: 24580, pc: 0x0002e4b4, module: libc.so.0, symbol: strcat
+  [02] inode: 24580, pc: 0x0002e4b4, module: libc.so.0, symbol: strcat
+  [03] inode: 24580, pc: 0x0002e4b4, module: libc.so.0, symbol: strcat
+  [04] inode: 24580, pc: 0x0002e4b4, module: libc.so.0, symbol: strcat
+

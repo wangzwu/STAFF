@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: setup.cgi
+  [00] inode: 57671, pc: 0x00018d1c, module: mini_httpd
+  [01] inode: 57671, pc: 0x00017960, module: mini_httpd
+  [02] inode: 57671, pc: 0x00017970, module: mini_httpd
+  [03] inode: 57671, pc: 0x0000d404, module: mini_httpd
+  [04] inode: 57671, pc: 0x0000d440, module: mini_httpd
+

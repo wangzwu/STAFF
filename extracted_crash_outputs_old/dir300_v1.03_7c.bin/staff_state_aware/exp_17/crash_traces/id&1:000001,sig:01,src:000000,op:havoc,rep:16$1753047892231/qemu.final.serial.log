@@ -1,0 +1,1042 @@
+[    0.000000] Linux version 4.1.17+ (alessio@pc) (gcc version 5.5.0 20171010 (Ubuntu 5.5.0-12ubuntu1) ) #1 Mon May 15 23:04:08 CEST 2023
+[    0.000000] earlycon: Early serial console at I/O port 0x3f8 (options '38400n8')
+[    0.000000] bootconsole [uart0] enabled
+[    0.000000] CPU0 revision is: 00019300 (MIPS 24Kc)
+[    0.000000] FPU revision is: 00739300
+[    0.000000] Software DMA cache coherency enabled
+[    0.000000] Determined physical RAM map:
+[    0.000000]  memory: 00001000 @ 00000000 (reserved)
+[    0.000000]  memory: 000ef000 @ 00001000 (ROM data)
+[    0.000000]  memory: 00798000 @ 000f0000 (reserved)
+[    0.000000]  memory: 0f777000 @ 00888000 (usable)
+[    0.000000] debug: ignoring loglevel setting.
+[    0.000000] Wasting 69888 bytes for tracking 2184 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000000000000-0x0000000000ffffff]
+[    0.000000]   Normal   [mem 0x0000000001000000-0x000000000fffefff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x000000000fffefff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x000000000fffefff]
+[    0.000000] On node 0 totalpages: 65535
+[    0.000000] free_area_init_node: node 0, pgdat 8081d5b0, node_mem_map 81000000
+[    0.000000]   DMA zone: 32 pages used for memmap
+[    0.000000]   DMA zone: 0 pages reserved
+[    0.000000]   DMA zone: 4096 pages, LIFO batch:0
+[    0.000000]   Normal zone: 480 pages used for memmap
+[    0.000000]   Normal zone: 61439 pages, LIFO batch:15
+[    0.000000] Primary instruction cache 2kB, VIPT, 2-way, linesize 16 bytes.
+[    0.000000] Primary data cache 2kB, 2-way, VIPT, no aliases, linesize 16 bytes
+[    0.000000] pcpu-alloc: s0 r0 d32768 u32768 alloc=1*32768
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 65023
+[    0.000000] Kernel command line: root=/dev/sda1 console=ttyS0 nandsim.parts=64,64,64,64,64,64,64,64,64,64 rdinit=/firmadyne/preInit.sh rw debug ignore_loglevel print-fatal-signals=1 FIRMAE_NET=true FIRMAE_NVRAM=true FIRMAE_KERNEL=true FIRMAE_ETC=true user_debug=0 firmadyne.syscall=1 noka
+[    0.000000] found FIRMAE_KERNEL=t
+[    0.000000] set the LD_PRELOAD=/firmadyne/libnvram_ioctl.so
+[    0.000000] PID hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.000000] Dentry cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Inode-cache hash table entries: 16384 (order: 4, 65536 bytes)
+[    0.000000] Writing ErrCtl register=00000000
+[    0.000000] Readback ErrCtl register=00000000
+[    0.000000] Memory: 251112K/262140K available (5360K kernel code, 244K rwdata, 1676K rodata, 260K init, 158K bss, 11028K reserved, 0K cma-reserved)
+[    0.000000] NR_IRQS:256
+[    0.000000] CPU frequency 200.01 MHz
+[    0.000000] clocksource MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112089011 ns
+[    0.000219] sched_clock: 32 bits at 100MHz, resolution 9ns, wraps every 21474256891ns
+[    0.016301] Console: colour dummy device 80x25
+[    0.017465] Calibrating delay loop... 22.78 BogoMIPS (lpj=45568)
+[    0.073417] pid_max: default: 32768 minimum: 301
+[    0.078159] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.078715] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.149596] clocksource jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.161613] NET: Registered protocol family 16
+[    0.471270] clocksource pit: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1601818034827 ns
+[    0.641764] vgaarb: loaded
+[    0.648063] SCSI subsystem initialized
+[    0.650851] libata version 3.00 loaded.
+[    0.655806] usbcore: registered new interface driver usbfs
+[    0.657374] usbcore: registered new interface driver hub
+[    0.658794] usbcore: registered new device driver usb
+[    0.661713] pps_core: LinuxPPS API ver. 1 registered
+[    0.662337] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.663380] PTP clock support registered
+[    0.668633] PCI host bridge to bus 0000:00
+[    0.669427] pci_bus 0000:00: root bus resource [mem 0x10000000-0x17ffffff]
+[    0.670087] pci_bus 0000:00: root bus resource [io  0x1000-0x1fffff]
+[    0.670918] pci_bus 0000:00: root bus resource [??? 0x00000000 flags 0x0]
+[    0.671550] pci_bus 0000:00: No busn resource found for root bus, will use [bus 00-ff]
+[    0.672926] pci 0000:00:00.0: [11ab:4620] type 00 class 0x060000
+[    0.673912] pci 0000:00:00.0: [Firmware Bug]: reg 0x14: invalid BAR (can't size)
+[    0.674549] pci 0000:00:00.0: [Firmware Bug]: reg 0x18: invalid BAR (can't size)
+[    0.675391] pci 0000:00:00.0: [Firmware Bug]: reg 0x1c: invalid BAR (can't size)
+[    0.676020] pci 0000:00:00.0: [Firmware Bug]: reg 0x20: invalid BAR (can't size)
+[    0.676710] pci 0000:00:00.0: [Firmware Bug]: reg 0x24: invalid BAR (can't size)
+[    0.681165] pci 0000:00:0a.0: [8086:7110] type 00 class 0x060100
+[    0.685073] pci 0000:00:0a.1: [8086:7111] type 00 class 0x010180
+[    0.685904] pci 0000:00:0a.1: reg 0x20: [io  0x0000-0x000f]
+[    0.686549] pci 0000:00:0a.1: legacy IDE quirk: reg 0x10: [io  0x01f0-0x01f7]
+[    0.687170] pci 0000:00:0a.1: legacy IDE quirk: reg 0x14: [io  0x03f6]
+[    0.687964] pci 0000:00:0a.1: legacy IDE quirk: reg 0x18: [io  0x0170-0x0177]
+[    0.688590] pci 0000:00:0a.1: legacy IDE quirk: reg 0x1c: [io  0x0376]
+[    0.692251] pci 0000:00:0a.2: [8086:7112] type 00 class 0x0c0300
+[    0.692985] pci 0000:00:0a.2: reg 0x20: [io  0x0000-0x001f]
+[    0.696622] pci 0000:00:0a.3: [8086:7113] type 00 class 0x068000
+[    0.698115] pci 0000:00:0a.3: quirk: [io  0x1000-0x103f] claimed by PIIX4 ACPI
+[    0.698785] pci 0000:00:0a.3: quirk: [io  0x1100-0x110f] claimed by PIIX4 SMB
+[    0.702380] pci 0000:00:12.0: [1013:00b8] type 00 class 0x030000
+[    0.703044] pci 0000:00:12.0: reg 0x10: [mem 0x00000000-0x01ffffff pref]
+[    0.703667] pci 0000:00:12.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[    0.704522] pci 0000:00:12.0: reg 0x30: [mem 0x00000000-0x0000ffff pref]
+[    0.707399] vgaarb: device added: PCI:0000:00:12.0,decodes=io+mem,owns=none,locks=none
+[    0.708897] pci 0000:00:13.0: [8086:100e] type 00 class 0x020000
+[    0.709557] pci 0000:00:13.0: reg 0x10: [mem 0x00000000-0x0001ffff]
+[    0.710151] pci 0000:00:13.0: reg 0x14: [io  0x0000-0x003f]
+[    0.710813] pci 0000:00:13.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[    0.714255] pci 0000:00:14.0: [8086:100e] type 00 class 0x020000
+[    0.714900] pci 0000:00:14.0: reg 0x10: [mem 0x00000000-0x0001ffff]
+[    0.715494] pci 0000:00:14.0: reg 0x14: [io  0x0000-0x003f]
+[    0.716156] pci 0000:00:14.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[    0.719728] pci 0000:00:15.0: [8086:100e] type 00 class 0x020000
+[    0.720374] pci 0000:00:15.0: reg 0x10: [mem 0x00000000-0x0001ffff]
+[    0.721141] pci 0000:00:15.0: reg 0x14: [io  0x0000-0x003f]
+[    0.721807] pci 0000:00:15.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[    0.725252] pci 0000:00:16.0: [8086:100e] type 00 class 0x020000
+[    0.725897] pci 0000:00:16.0: reg 0x10: [mem 0x00000000-0x0001ffff]
+[    0.726524] pci 0000:00:16.0: reg 0x14: [io  0x0000-0x003f]
+[    0.727202] pci 0000:00:16.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[    0.730950] pci_bus 0000:00: busn_res: [bus 00-ff] end is updated to 00
+[    0.732572] pci 0000:00:12.0: BAR 0: assigned [mem 0x10000000-0x11ffffff pref]
+[    0.733538] pci 0000:00:13.0: BAR 6: assigned [mem 0x12000000-0x1203ffff pref]
+[    0.734278] pci 0000:00:14.0: BAR 6: assigned [mem 0x12040000-0x1207ffff pref]
+[    0.734959] pci 0000:00:15.0: BAR 6: assigned [mem 0x12080000-0x120bffff pref]
+[    0.735646] pci 0000:00:16.0: BAR 6: assigned [mem 0x120c0000-0x120fffff pref]
+[    0.736312] pci 0000:00:13.0: BAR 0: assigned [mem 0x12100000-0x1211ffff]
+[    0.736966] pci 0000:00:14.0: BAR 0: assigned [mem 0x12120000-0x1213ffff]
+[    0.737795] pci 0000:00:15.0: BAR 0: assigned [mem 0x12140000-0x1215ffff]
+[    0.738470] pci 0000:00:16.0: BAR 0: assigned [mem 0x12160000-0x1217ffff]
+[    0.739148] pci 0000:00:12.0: BAR 6: assigned [mem 0x12180000-0x1218ffff pref]
+[    0.739819] pci 0000:00:12.0: BAR 1: assigned [mem 0x12190000-0x12190fff]
+[    0.740486] pci 0000:00:13.0: BAR 1: assigned [io  0x1040-0x107f]
+[    0.741097] pci 0000:00:14.0: BAR 1: assigned [io  0x1080-0x10bf]
+[    0.741857] pci 0000:00:15.0: BAR 1: assigned [io  0x10c0-0x10ff]
+[    0.742486] pci 0000:00:16.0: BAR 1: assigned [io  0x1400-0x143f]
+[    0.743104] pci 0000:00:0a.2: BAR 4: assigned [io  0x1440-0x145f]
+[    0.743720] pci 0000:00:0a.1: BAR 4: assigned [io  0x1460-0x146f]
+[    0.763039] cfg80211: Calling CRDA to update world regulatory domain
+[    0.778107] Switched to clocksource MIPS
+[    0.906832] NET: Registered protocol family 2
+[    0.920641] TCP established hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.921920] TCP bind hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.923383] TCP: Hash tables configured (established 2048 bind 2048)
+[    0.924583] UDP hash table entries: 256 (order: 0, 4096 bytes)
+[    0.925360] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes)
+[    0.929858] NET: Registered protocol family 1
+[    0.931926] PCI: Enabling device 0000:00:0a.2 (0000 -> 0001)
+[    0.933567] PCI: CLS 0 bytes, default 16
+[    0.969413] futex hash table entries: 256 (order: -1, 3072 bytes)
+[    0.988152] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.991076] jffs2: version 2.2. (NAND) © 2001-2006 Red Hat, Inc.
+[    0.994996] romfs: ROMFS MTD (C) 2007 Red Hat, Inc.
+[    1.021986] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 251)
+[    1.022903] io scheduler noop registered
+[    1.023693] io scheduler cfq registered (default)
+[    1.024796] firmadyne: devfs: 1, execute: 1, procfs: 1, syscall: 1
+[    1.031521] firmadyne: Cannot register character device: gpio, 0xfc, 0x0!
+[    1.041048] firmadyne: Cannot register character device: watchdog, 0xa, 0x82!
+[    1.041592] firmadyne: Cannot register character device: wdt, 0xfd, 0x0!
+[    2.954509] strName = 4.1.17+
+[    2.954509] init_task_addr  = 2155778944
+[    2.954509] init_task_size  = 1296
+[    2.954509] ts_tasks        = 292
+[    2.954509] ts_pid          = 408
+[    2.954509] ts_tgid         = 412
+[    2.954509] ts_group_leader = 440
+[    2.954509] ts_thread_group = 496
+[    2.954509] ts_real_parent  = 416
+[    2.954509] ts_mm           = 300
+[    2.954509] ts_stack        = 4
+[    2.957067] module_name   = 12
+[    2.957067] module_size   = 208
+[    2.957067] module_init   = 200
+[    2.957067] module_list   = 4
+[    2.958132] ts_real_cred    = 624
+[    2.958132] ts_cred         = 628
+[    2.958132] ts_comm         = 632
+[    2.958132] cred_uid        = 4
+[    2.958132] cred_gid        = 8
+[    2.958132] cred_euid       = 20
+[    2.958132] cred_egid       = 24
+[    2.959956] mm_mmap         = 0
+[    2.959956] mm_pgd          = 32
+[    2.959956] mm_arg_start    = 136
+[    2.959956] mm_start_brk    = 124
+[    2.959956] mm_brk          = 128
+[    2.959956] mm_start_stack  = 132
+[    2.961416] vma_vm_start    = 0
+[    2.961416] vma_vm_end      = 4
+[    2.961416] vma_vm_next     = 8
+[    2.961416] vma_vm_file     = 80
+[    2.961416] vma_vm_flags    = 40
+[    2.961416] vma_vm_pgoff    = 76
+[    2.963146] file_dentry     = 12
+[    2.963146] file_inode      = 40
+[    2.963146] dentry_d_name   = 24
+[    2.963146] dentry_d_iname  = 44
+[    2.963146] dentry_d_parent = 16
+[    2.963146] ti_task         = 0
+[    2.963146] inode_ino   = 28
+[    4.158010] proc_fork_connector  = 2151078840
+[    4.158563] proc_exit_connector  = 2151080432
+[    4.158915] proc_exec_connector  = 2151079052
+[    4.159253] vma_link  = 2149124372
+[    4.159549] vma_adjust  = 2149124540
+[    4.159850] remove_vma  = 2149122188
+[    4.160155] modules  = 2155833724
+[    4.160450] trim_init_extable  = 2150545316
+[    4.161851] cfg80211: Calling CRDA to update world regulatory domain
+[    4.165854] PCI: Enabling device 0000:00:12.0 (0000 -> 0002)
+[    4.167597] cirrusfb 0000:00:12.0: Cirrus Logic chipset on PCI bus, RAM (4096 kB) at 0x10000000
+[    4.406608] Console: switching to colour frame buffer device 80x30
+[    4.486580] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    4.503009] console [ttyS0] disabled
+[    4.530385] serial8250.0: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+[    4.531667] console [ttyS0] enabled
+[    4.531667] console [ttyS0] enabled
+[    4.532310] bootconsole [uart0] disabled
+[    4.532310] bootconsole [uart0] disabled
+[    4.562844] serial8250.0: ttyS1 at I/O 0x2f8 (irq = 3, base_baud = 115200) is a 16550A
+[    4.702739] brd: module loaded
+[    4.775084] loop: module loaded
+[    4.782985] ata_piix 0000:00:0a.1: version 2.13
+[    4.783639] PCI: Enabling device 0000:00:0a.1 (0000 -> 0001)
+[    4.813618] scsi host0: ata_piix
+[    4.820277] scsi host1: ata_piix
+[    4.824751] ata1: PATA max UDMA/33 cmd 0x1f0 ctl 0x3f6 bmdma 0x1460 irq 14
+[    4.825356] ata2: PATA max UDMA/33 cmd 0x170 ctl 0x376 bmdma 0x1468 irq 15
+[    4.833147] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.833868] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.834763] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.835419] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.836070] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.836713] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.837567] nand: device found, Manufacturer ID: 0x98, Chip ID: 0x39
+[    4.838233] nand: Toshiba NAND 128MiB 1,8V 8-bit
+[    4.838698] nand: 128 MiB, SLC, erase size: 16 KiB, page size: 512, OOB size: 16
+[    4.840571] flash size: 128 MiB
+[    4.840871] page size: 512 bytes
+[    4.841173] OOB area size: 16 bytes
+[    4.841479] sector size: 16 KiB
+[    4.841766] pages number: 262144
+[    4.842243] pages per sector: 32
+[    4.842537] bus width: 8
+[    4.842796] bits in sector size: 14
+[    4.843106] bits in page size: 9
+[    4.843404] bits in OOB size: 4
+[    4.843701] flash size with OOB: 135168 KiB
+[    4.844044] page address bytes: 4
+[    4.844341] sector address bytes: 3
+[    4.844645] options: 0x42
+[    4.943291] Scanning device for bad blocks
+[    6.366677] ata1.01: NODEV after polling detection
+[    6.367733] ata2.01: NODEV after polling detection
+[    6.369953] ata2.00: ATAPI: QEMU DVD-ROM, 2.5+, max UDMA/100
+[    6.372940] ata1.00: ATA-7: QEMU HARDDISK, 2.5+, max UDMA/100
+[    6.373476] ata1.00: 2097152 sectors, multi 16: LBA48 
+[    6.380680] ata2.00: configured for UDMA/33
+[    6.383430] ata1.00: configured for UDMA/33
+[    6.393521] scsi 0:0:0:0: Direct-Access     ATA      QEMU HARDDISK    2.5+ PQ: 0 ANSI: 5
+[    6.412119] sd 0:0:0:0: [sda] 2097152 512-byte logical blocks: (1.07 GB/1.00 GiB)
+[    6.413968] scsi 1:0:0:0: CD-ROM            QEMU     QEMU DVD-ROM     2.5+ PQ: 0 ANSI: 5
+[    6.429006] sd 0:0:0:0: [sda] Write Protect is off
+[    6.429604] sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
+[    6.431564] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    6.444677]  sda: sda1
+[    6.459015] sd 0:0:0:0: [sda] Attached SCSI disk
+[    6.459651] Creating 11 MTD partitions on "NAND 128MiB 1,8V 8-bit":
+[    6.460423] 0x000000000000-0x000000100000 : "NAND simulator partition 0"
+[    6.473335] 0x000000100000-0x000000200000 : "NAND simulator partition 1"
+[    6.485604] 0x000000200000-0x000000300000 : "NAND simulator partition 2"
+[    6.498616] 0x000000300000-0x000000400000 : "NAND simulator partition 3"
+[    6.511291] 0x000000400000-0x000000500000 : "NAND simulator partition 4"
+[    6.523961] 0x000000500000-0x000000600000 : "NAND simulator partition 5"
+[    6.536960] 0x000000600000-0x000000700000 : "NAND simulator partition 6"
+[    6.550040] 0x000000700000-0x000000800000 : "NAND simulator partition 7"
+[    6.563296] 0x000000800000-0x000000900000 : "NAND simulator partition 8"
+[    6.575531] 0x000000900000-0x000000a00000 : "NAND simulator partition 9"
+[    6.587889] 0x000000a00000-0x000008000000 : "NAND simulator partition 10"
+[    6.641445] tun: Universal TUN/TAP device driver, 1.6
+[    6.641906] tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+[    6.646421] pcnet32: pcnet32.c:v1.35 21.Apr.2008 tsbogend@alpha.franken.de
+[    6.647977] e1000: Intel(R) PRO/1000 Network Driver - version 7.3.21-k8-NAPI
+[    6.648500] e1000: Copyright (c) 1999-2006 Intel Corporation.
+[    6.649645] PCI: Enabling device 0000:00:13.0 (0000 -> 0003)
+[    6.965449] e1000 0000:00:13.0 eth0: (PCI:33MHz:32-bit) 52:54:00:12:34:56
+[    6.966427] e1000 0000:00:13.0 eth0: Intel(R) PRO/1000 Network Connection
+[    6.967289] PCI: Enabling device 0000:00:14.0 (0000 -> 0003)
+[    7.292012] e1000 0000:00:14.0 eth1: (PCI:33MHz:32-bit) 52:54:00:12:34:57
+[    7.292702] e1000 0000:00:14.0 eth1: Intel(R) PRO/1000 Network Connection
+[    7.293586] PCI: Enabling device 0000:00:15.0 (0000 -> 0003)
+[    7.306510] cfg80211: Calling CRDA to update world regulatory domain
+[    7.603574] e1000 0000:00:15.0 eth2: (PCI:33MHz:32-bit) 52:54:00:12:34:58
+[    7.604227] e1000 0000:00:15.0 eth2: Intel(R) PRO/1000 Network Connection
+[    7.605067] PCI: Enabling device 0000:00:16.0 (0000 -> 0003)
+[    7.928901] e1000 0000:00:16.0 eth3: (PCI:33MHz:32-bit) 52:54:00:12:34:59
+[    7.929603] e1000 0000:00:16.0 eth3: Intel(R) PRO/1000 Network Connection
+[    7.931620] e1000e: Intel(R) PRO/1000 Network Driver - 2.3.2-k
+[    7.932118] e1000e: Copyright(c) 1999 - 2014 Intel Corporation.
+[    7.938308] PPP generic driver version 2.4.2
+[    7.940967] PPP Deflate Compression module registered
+[    7.941769] PPP MPPE Compression module registered
+[    7.942468] NET: Registered protocol family 24
+[    7.943368] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    7.943996] ehci-pci: EHCI PCI platform driver
+[    7.945440] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    7.946206] ohci-pci: OHCI PCI platform driver
+[    7.947639] uhci_hcd: USB Universal Host Controller Interface driver
+[    7.949590] uhci_hcd 0000:00:0a.2: UHCI Host Controller
+[    7.950786] uhci_hcd 0000:00:0a.2: new USB bus registered, assigned bus number 1
+[    7.952075] uhci_hcd 0000:00:0a.2: irq 11, io base 0x00001440
+[    7.966012] hub 1-0:1.0: USB hub found
+[    7.967250] hub 1-0:1.0: 2 ports detected
+[    7.980462] usbcore: registered new interface driver usb-storage
+[    7.986198] mousedev: PS/2 mouse device common for all mice
+[    7.994308] rtc_cmos rtc_cmos: rtc core: registered rtc_cmos as rtc0
+[    7.995268] rtc_cmos rtc_cmos: alarms up to one day, 242 bytes nvram
+[    7.997064] i2c /dev entries driver
+[    7.998773] piix4_smbus 0000:00:0a.3: SMBus Host Controller at 0x1100, revision 0
+[    8.004723] sdhci: Secure Digital Host Controller Interface driver
+[    8.005186] sdhci: Copyright(c) Pierre Ossman
+[    8.008355] hidraw: raw HID events driver (C) Jiri Kosina
+[    8.032602] usbcore: registered new interface driver usbhid
+[    8.033038] usbhid: USB HID core driver
+[    8.034595] Netfilter messages via NETLINK v0.30.
+[    8.036303] nf_conntrack version 0.5.0 (3923 buckets, 15692 max)
+[    8.040666] ctnetlink v0.93: registering with nfnetlink.
+[    8.048464] ipip: IPv4 over IPv4 tunneling driver
+[    8.065080] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    8.068722] arp_tables: (C) 2002 David S. Miller
+[    8.071207] Initializing XFRM netlink socket
+[    8.072684] NET: Registered protocol family 10
+[    8.100282] ip6_tables: (C) 2000-2006 Netfilter Core Team
+[    8.105062] sit: IPv6 over IPv4 tunneling driver
+[    8.127379] NET: Registered protocol family 17
+[    8.128525] bridge: automatic filtering via arp/ip/ip6tables has been deprecated. Update your scripts to load br_netfilter if you need this.
+[    8.129886] Bridge firewalling registered
+[    8.130605] Ebtables v2.0 registered
+[    8.133351] 8021q: 802.1Q VLAN Support v1.8
+[    8.161195] rtc_cmos rtc_cmos: setting system clock to 2025-07-23 02:18:18 UTC (1753237098)
+[    8.189300] EXT2-fs (sda1): warning: mounting unchecked fs, running e2fsck is recommended
+[    8.191967] VFS: Mounted root (ext2 filesystem) on device 8:1.
+[    8.203555] Freeing YAMON memory: 956k freed
+[    8.216959] Freeing unused kernel memory: 260K (8081f000 - 80860000)
+[    8.222477] spurious 8259A interrupt: IRQ7.
+[    8.261830] firmadyne: sys_reboot[PID: 48 (init)]: magic1:fee1dead, magic2:28121969, cmd:0
+init started:  BusyBox v1.00 (2007.12.04-12:53+0000) multi-call binary
+Starting pid 50, console /dev/tts/0: '/etc/init.d/rcS'
+[    8.429567] firmadyne: do_execve: /firmadyne/console
+[    8.430557] OFFSETS: offset of pid: 0x198 offset of comm: 0x278
+[/etc/init.d/S03config.sh]
+Mounting proc and var ...
+[    9.148791] firmadyne: sys_socket[PID: 71 (wps)]: family:1, type:1, protocol:0
+[    9.162708] firmadyne: sys_socket[PID: 71 (wps)]: family:1, type:1, protocol:0
+[    9.180061] random: wps urandom read with 90 bits of entropy available
+[    9.205659] firmadyne: sys_socket[PID: 71 (wps)]: family:1, type:1, protocol:0
+[   10.221005] firmadyne: sys_socket[PID: 71 (wps)]: family:1, type:1, protocol:0
+[   10.452309] cfg80211: Calling CRDA to update world regulatory domain
+[   11.240582] firmadyne: sys_socket[PID: 71 (wps)]: family:1, type:1, protocol:0
+[   12.261326] firmadyne: sys_socket[PID: 71 (wps)]: family:1, type:1, protocol:0
+[   12.276017] firmadyne: sys_socket[PID: 71 (wps)]: family:1, type:1, protocol:0
+Start xmldb ...
+[   12.523083] firmadyne: sys_socket[PID: 74 (xmldb)]: family:1, type:2, protocol:0
+[/etc/scripts/misc/profile.sh] get ...
+[   13.598760] cfg80211: Calling CRDA to update world regulatory domain
+Can't get config from nvram, generate default!
+[/etc/scripts/misc/profile.sh] reset ...
+[   14.155385] firmadyne: sys_socket[PID: 92 (rgdb)]: family:1, type:2, protocol:0
+[   14.224317] random: nonblocking pool is initialized
+[/etc/scripts/misc/defnodes.sh] ...
+[/etc/defnodes/S10setext.sh] ...
+[   14.515955] firmadyne: sys_socket[PID: 100 (xmldbc)]: family:1, type:2, protocol:0
+[   14.582972] firmadyne: sys_socket[PID: 101 (xmldbc)]: family:1, type:2, protocol:0
+[   14.648045] firmadyne: sys_socket[PID: 102 (xmldbc)]: family:1, type:2, protocol:0
+[   14.714088] firmadyne: sys_socket[PID: 103 (xmldbc)]: family:1, type:2, protocol:0
+[   14.780266] firmadyne: sys_socket[PID: 104 (xmldbc)]: family:1, type:2, protocol:0
+[   14.846616] firmadyne: sys_socket[PID: 105 (xmldbc)]: family:1, type:2, protocol:0
+[   14.911193] firmadyne: sys_socket[PID: 106 (xmldbc)]: family:1, type:2, protocol:0
+[   14.976012] firmadyne: sys_socket[PID: 107 (xmldbc)]: family:1, type:2, protocol:0
+[   15.040829] firmadyne: sys_socket[PID: 108 (xmldbc)]: family:1, type:2, protocol:0
+[   15.104973] firmadyne: sys_socket[PID: 109 (xmldbc)]: family:1, type:2, protocol:0
+[   15.172481] firmadyne: sys_socket[PID: 110 (xmldbc)]: family:1, type:2, protocol:0
+[   15.237856] firmadyne: sys_socket[PID: 111 (xmldbc)]: family:1, type:2, protocol:0
+[   15.303475] firmadyne: sys_socket[PID: 112 (xmldbc)]: family:1, type:2, protocol:0
+[   15.367822] firmadyne: sys_socket[PID: 113 (xmldbc)]: family:1, type:2, protocol:0
+[   15.433849] firmadyne: sys_socket[PID: 114 (xmldbc)]: family:1, type:2, protocol:0
+[   15.499288] firmadyne: sys_socket[PID: 115 (xmldbc)]: family:1, type:2, protocol:0
+[   15.564570] firmadyne: sys_socket[PID: 116 (xmldbc)]: family:1, type:2, protocol:0
+[   15.631474] firmadyne: sys_socket[PID: 117 (xmldbc)]: family:1, type:2, protocol:0
+[   15.696163] firmadyne: sys_socket[PID: 118 (xmldbc)]: family:1, type:2, protocol:0
+[   15.762646] firmadyne: sys_socket[PID: 119 (xmldbc)]: family:1, type:2, protocol:0
+[   15.828726] firmadyne: sys_socket[PID: 120 (xmldbc)]: family:1, type:2, protocol:0
+[   15.892928] firmadyne: sys_socket[PID: 121 (xmldbc)]: family:1, type:2, protocol:0
+[   15.956978] firmadyne: sys_socket[PID: 122 (xmldbc)]: family:1, type:2, protocol:0
+[   16.021921] firmadyne: sys_socket[PID: 123 (xmldbc)]: family:1, type:2, protocol:0
+PHP [/etc/defnodes/S11setnodes.php] ...
+[   16.145283] firmadyne: sys_socket[PID: 126 (rgdb)]: family:1, type:2, protocol:0
+PHP [/etc/defnodes/S12features.php] ...
+[   16.742544] cfg80211: Calling CRDA to update world regulatory domain
+[   16.766469] firmadyne: sys_socket[PID: 137 (rgdb)]: family:1, type:2, protocol:0
+PHP [/etc/defnodes/S13flashspeed.php] ...
+[   16.904305] firmadyne: sys_socket[PID: 140 (rgdb)]: family:1, type:2, protocol:0
+PHP [/etc/defnodes/S20setnodes.php] ...
+[   17.146508] firmadyne: sys_socket[PID: 145 (rgdb)]: family:1, type:2, protocol:0
+[   17.316982] firmadyne: sys_socket[PID: 149 (xmldbc)]: family:1, type:2, protocol:0
+[   17.495484] firmadyne: sys_socket[PID: 152 (xmldbc)]: family:1, type:2, protocol:0
+[   17.648364] firmadyne: sys_socket[PID: 156 (xmldbc)]: family:1, type:2, protocol:0
+[   17.811695] firmadyne: sys_socket[PID: 159 (xmldbc)]: family:1, type:2, protocol:0
+[   17.943615] firmadyne: sys_socket[PID: 162 (xmldbc)]: family:1, type:2, protocol:0
+[   18.009591] firmadyne: sys_socket[PID: 163 (xmldbc)]: family:1, type:2, protocol:0
+[   18.075558] firmadyne: sys_socket[PID: 164 (xmldbc)]: family:1, type:2, protocol:0
+[   18.141190] firmadyne: sys_socket[PID: 165 (xmldbc)]: family:1, type:2, protocol:0
+[   18.211581] firmadyne: sys_socket[PID: 166 (xmldbc)]: family:1, type:2, protocol:0
+[   18.278102] firmadyne: sys_socket[PID: 167 (xmldbc)]: family:1, type:2, protocol:0
+[   18.343549] firmadyne: sys_socket[PID: 168 (xmldbc)]: family:1, type:2, protocol:0
+[   18.508339] EXT3-fs (mtdblock6): error: can't find ext3 filesystem on dev mtdblock6.
+[   18.515662] EXT2-fs (mtdblock6): error: can't find an ext2 filesystem on dev mtdblock6.
+[   18.522848] EXT4-fs (mtdblock6): VFS: Can't find ext4 filesystem
+[   18.537780] cramfs: wrong magic
+[   18.545160] squashfs: SQUASHFS error: Can't find a SQUASHFS superblock on mtdblock6
+[   18.552349] FAT-fs (mtdblock6): bogus logical sector size 65535
+[   18.553061] FAT-fs (mtdblock6): Can't find a valid FAT filesystem
+[   18.564641] romfs: VFS: Can't find a romfs filesystem on dev mtdblock6.
+[   18.572898] UDF-fs: warning (device mtdblock6): udf_load_vrs: No VRS found
+[   18.573716] UDF-fs: warning (device mtdblock6): udf_fill_super: No partition found (2)
+mount: Mounting /dev/mtdblock/6 on /www/locale/alt failed: Invalid argument
+[   18.727804] firmadyne: sys_socket[PID: 177 (xmldbc)]: family:1, type:2, protocol:0
+[   18.951953] firmadyne: sys_socket[PID: 184 (xmldbc)]: family:1, type:2, protocol:0
+[   19.084077] firmadyne: sys_socket[PID: 187 (xmldbc)]: family:1, type:2, protocol:0
+[   19.148322] firmadyne: sys_socket[PID: 188 (xmldbc)]: family:1, type:2, protocol:0
+PHP [/etc/defnodes/S40brand.php] ...
+[   19.274174] firmadyne: sys_socket[PID: 191 (rgdb)]: family:1, type:2, protocol:0
+[/etc/scripts/misc/defnodes.sh] Done !!
+[/etc/scripts/misc/profile.sh] put ...
+[   19.708462] firmadyne: sys_socket[PID: 200 (rgdb)]: family:1, type:2, protocol:0
+[   19.886469] cfg80211: Calling CRDA to update world regulatory domain
+ok
+[/etc/templates/timezone.sh] ...
+[   20.293402] firmadyne: sys_socket[PID: 209 (rgdb)]: family:1, type:2, protocol:0
+[   20.500685] firmadyne: sys_socket[PID: 214 (rgdb)]: family:1, type:2, protocol:0
+[   21.219653] firmadyne: sys_socket[PID: 218 (rgdb)]: family:1, type:2, protocol:0
+[   21.317291] firmadyne: sys_socket[PID: 220 (rgdb)]: family:1, type:2, protocol:0
+[   21.411782] firmadyne: sys_socket[PID: 222 (rgdb)]: family:1, type:2, protocol:0
+[/etc/templates/logs.sh] ...
+[   21.642826] firmadyne: sys_socket[PID: 228 (rgdb)]: family:1, type:2, protocol:0
+[   21.750101] firmadyne: sys_socket[PID: 230 (rgdb)]: family:1, type:2, protocol:0
+[/var/run/logs_run.sh] ...
+[   22.111975] firmadyne: sys_socket[PID: 234 (syslogd)]: family:1, type:1, protocol:0
+Inserting modules ...
+Using /lib/modules/wlan.o
+insmod: Not configured to support old kernels
+Using /lib/modules/wlan_xauth.o
+insmod: Not configured to support old kernels
+Using /lib/modules/wlan_wep.o
+insmod: Not configured to support old kernels
+Using /lib/modules/wlan_tkip.o
+insmod: Not configured to support old kernels
+Using /lib/modules/wlan_scan_sta.o
+insmod: Not configured to support old kernels
+Using /lib/modules/wlan_scan_ap.o
+insmod: Not configured to support old kernels
+Using /lib/modules/wlan_ccmp.o
+insmod: Not configured to support old kernels
+Using /lib/modules/wlan_acl.o
+insmod: Not configured to support old kernels
+Using /lib/modules/ath_hal.o
+insmod: Not configured to support old kernels
+Using /lib/modules/ath_rate_atheros.o
+insmod: Not configured to support old kernels
+Using /lib/modules/ath_dfs.o
+insmod: Not configured to support old kernels
+[   22.930589] firmadyne: sys_socket[PID: 253 (rgdb)]: family:1, type:2, protocol:0
+[   23.030829] cfg80211: Calling CRDA to update world regulatory domain
+The countrycode is 840.
+Using /lib/modules/ath_ahb.o
+insmod: Not configured to support old kernels
+[   23.286168] firmadyne: sys_socket[PID: 260 (wlanconfig)]: family:2, type:1, protocol:0
+wlanconfig: ioctl: No such device
+[   23.488172] firmadyne: sys_socket[PID: 268 (ifconfig)]: family:2, type:1, protocol:0
+SIOCSIFHWADDR: No such device
+Using /lib/modules/ar231x_access.o
+insmod: Not configured to support old kernels
+[   23.719250] firmadyne: sys_socket[PID: 277 (ifconfig)]: family:2, type:1, protocol:0
+[   23.737181] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
+[   23.737860] 8021q: adding VLAN 0 to HW filter on device eth0
+[   23.745618] e1000: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+[   23.748009] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+[   23.820489] firmadyne: sys_socket[PID: 278 (rgdb)]: family:1, type:2, protocol:0
+[   23.907314] firmadyne: sys_socket[PID: 280 (rgdb)]: family:1, type:2, protocol:0
+[   24.019789] firmadyne: sys_socket[PID: 282 (rgdb)]: family:1, type:2, protocol:0
+[   24.113578] firmadyne: sys_socket[PID: 284 (vconfig)]: family:2, type:2, protocol:0
+Set name-type for VLAN subsystem. Should be visible in /proc/net/vlan/config
+[   24.179868] firmadyne: sys_socket[PID: 285 (vconfig)]: family:2, type:2, protocol:0
+[   24.181576] firmadyne: register_vlan_dev[PID: 285 (vconfig)]: dev:eth0.0 vlan_id:0
+[   24.263429] firmadyne: sys_socket[PID: 286 (vconfig)]: family:2, type:2, protocol:0
+[   24.264965] firmadyne: register_vlan_dev[PID: 286 (vconfig)]: dev:eth0.2 vlan_id:2
+[   24.343270] firmadyne: sys_socket[PID: 287 (brctl)]: family:2, type:2, protocol:0
+[   24.427191] firmadyne: sys_socket[PID: 288 (brctl)]: family:2, type:2, protocol:0
+[   24.433254] firmadyne: sys_socket[PID: 288 (brctl)]: family:10, type:1, protocol:0
+[   24.494410] firmadyne: sys_socket[PID: 289 (brctl)]: family:2, type:2, protocol:0
+[   24.500393] firmadyne: sys_socket[PID: 289 (brctl)]: family:10, type:1, protocol:0
+[   24.533141] firmadyne: sys_socket[PID: 290 (ifconfig)]: family:2, type:1, protocol:0
+[   24.537522] firmadyne: __inet_insert_ifa[PID: 290 (ifconfig)]: device:br0 ifa:0x00000000
+[/etc/templates/webs.sh] start ...
+[   24.729850] firmadyne: sys_socket[PID: 294 (rgdb)]: family:1, type:2, protocol:0
+[   24.879116] firmadyne: sys_socket[PID: 295 (rgdb)]: family:1, type:2, protocol:0
+[/var/run/webs_start.sh] ...
+Starting HTTPD ...
+[/etc/init.d/S03config.sh] done!
+[/etc/init.d/S10system.sh]
+[   25.314692] firmadyne: sys_socket[PID: 304 (rgdb)]: family:1, type:2, protocol:0
+start scheduled ...
+[/etc/templates/scheduled.sh] start ...
+[   25.723403] firmadyne: sys_socket[PID: 309 (rgdb)]: family:1, type:2, protocol:0
+[   25.799611] firmadyne: sys_socket[PID: 312 (route)]: family:2, type:1, protocol:0
+[   25.989339] firmadyne: sys_socket[PID: 313 (httpd)]: family:2, type:2, protocol:0
+[   25.996283] firmadyne: sys_setsockopt[PID: 313 (httpd)]: fd:4, level:65535, optname:4
+[   25.997755] firmadyne: sys_setsockopt[PID: 313 (httpd)]: fd:4, level:65535, optname:25
+[   26.001143] firmadyne: inet_bind[PID: 313 (httpd)]: proto:SOCK_STREAM, port:49152
+[   26.005049] firmadyne: sys_socket[PID: 315 (xmldbc)]: family:1, type:2, protocol:0
+[   26.008718] firmadyne: sys_socket[PID: 313 (httpd)]: family:2, type:1, protocol:0
+[   26.009792] firmadyne: sys_setsockopt[PID: 313 (httpd)]: fd:5, level:65535, optname:4
+[   26.016441] firmadyne: sys_setsockopt[PID: 313 (httpd)]: fd:5, level:65535, optname:25
+[   26.017470] firmadyne: inet_bind[PID: 313 (httpd)]: proto:SOCK_DGRAM, port:1900
+[   26.030683] firmadyne: sys_setsockopt[PID: 313 (httpd)]: fd:5, level:0, optname:35
+[   26.032622] firmadyne: sys_socket[PID: 313 (httpd)]: family:2, type:2, protocol:0
+[   26.033700] firmadyne: sys_setsockopt[PID: 313 (httpd)]: fd:6, level:65535, optname:4
+[   26.037151] firmadyne: sys_setsockopt[PID: 313 (httpd)]: fd:6, level:65535, optname:25
+[   26.050514] firmadyne: inet_bind[PID: 313 (httpd)]: proto:SOCK_STREAM, port:80
+[   26.134124] firmadyne: sys_socket[PID: 313 (httpd)]: family:1, type:1, protocol:0
+[   26.161999] firmadyne: sys_socket[PID: 316 (xmldbc)]: family:1, type:2, protocol:0
+[   26.174500] cfg80211: Calling CRDA to update world regulatory domain
+[/var/run/scheduled_start.sh] ...
+Start scheduled ...
+setup layout ...
+[   26.435530] firmadyne: sys_socket[PID: 320 (scheduled)]: family:1, type:1, protocol:0
+[/etc/scripts/layout.sh] start ...
+[   26.573637] firmadyne: sys_socket[PID: 325 (rgdb)]: family:1, type:2, protocol:0
+[   26.740380] firmadyne: sys_socket[PID: 326 (rgdb)]: family:1, type:2, protocol:0
+[/var/run/layout_start.sh] ...
+Start router layout ...
+/proc/driver/ae531x: cannot create
+/proc/driver/ae531x: cannot create
+/proc/driver/ae531x: cannot create
+/proc/driver/ae531x: cannot create
+/proc/driver/ae531x: cannot create
+/proc/driver/ae531x: cannot create
+/proc/driver/ae531x: cannot create
+/proc/driver/ae531x: cannot create
+/proc/driver/ae531x: cannot create
+/proc/driver/ae531x: cannot create
+[   27.084654] firmadyne: sys_socket[PID: 340 (ifconfig)]: family:2, type:1, protocol:0
+[   27.115823] firmadyne: sys_socket[PID: 341 (ifconfig)]: family:2, type:1, protocol:0
+[   27.179768] firmadyne: sys_socket[PID: 342 (brctl)]: family:2, type:2, protocol:0
+[   27.185890] firmadyne: sys_socket[PID: 342 (brctl)]: family:10, type:1, protocol:0
+[   27.188871] firmadyne: sys_socket[PID: 342 (brctl)]: family:10, type:1, protocol:0
+interface ath0 does not exist!
+[   27.273968] firmadyne: sys_socket[PID: 347 (brctl)]: family:2, type:2, protocol:0
+[   27.278045] firmadyne: sys_socket[PID: 347 (brctl)]: family:10, type:1, protocol:0
+[   27.283098] firmadyne: sys_socket[PID: 347 (brctl)]: family:10, type:1, protocol:0
+[   27.284760] firmadyne: br_add_if[PID: 347 (brctl)]: br:br0 dev:eth0.0
+[   27.291835] device eth0.0 entered promiscuous mode
+[   27.292428] device eth0 entered promiscuous mode
+[   27.296162] br0: port 1(eth0.0) entered forwarding state
+[   27.297234] br0: port 1(eth0.0) entered forwarding state
+[   27.353596] firmadyne: sys_socket[PID: 348 (brctl)]: family:2, type:2, protocol:0
+[   27.357431] firmadyne: sys_socket[PID: 348 (brctl)]: family:10, type:1, protocol:0
+[   27.362876] firmadyne: sys_socket[PID: 348 (brctl)]: family:10, type:1, protocol:0
+can't find port ath0 in bridge br0
+[   27.424025] firmadyne: sys_socket[PID: 353 (ifconfig)]: family:2, type:1, protocol:0
+[   27.486397] firmadyne: sys_socket[PID: 354 (rgdb)]: family:1, type:2, protocol:0
+start LAN ...
+[/etc/templates/lan.sh] ...
+[   27.712532] firmadyne: sys_socket[PID: 359 (rgdb)]: family:1, type:2, protocol:0
+[   28.053386] firmadyne: sys_socket[PID: 360 (rgdb)]: family:1, type:2, protocol:0
+[/var/run/lan_start.sh] ...
+Start LAN (br0/192.168.0.1/255.255.255.0)...
+[   28.380137] firmadyne: sys_socket[PID: 364 (ifconfig)]: family:2, type:1, protocol:0
+[   28.382756] firmadyne: __inet_insert_ifa[PID: 364 (ifconfig)]: device:br0 ifa:0xc0a80001
+Start DHCP server (br0) ...
+[   28.444242] firmadyne: inet_accept[PID: 313 (httpd)]:
+[   28.446394] firmadyne: inet_accept[PID: 313 (httpd)]:
+[   28.644075] firmadyne: sys_socket[PID: 368 (dhcpxmlpatch)]: family:1, type:2, protocol:0
+start fresetd ...
+[   28.740685] firmadyne: sys_socket[PID: 367 (udhcpd)]: family:2, type:3, protocol:255
+enable LAN ports ...
+[   28.756182] firmadyne: sys_socket[PID: 367 (udhcpd)]: family:2, type:1, protocol:17
+[   28.757418] firmadyne: sys_setsockopt[PID: 367 (udhcpd)]: fd:5, level:65535, optname:4
+[   28.771674] firmadyne: sys_setsockopt[PID: 367 (udhcpd)]: fd:5, level:65535, optname:32
+[   28.772721] firmadyne: sys_setsockopt[PID: 367 (udhcpd)]: fd:5, level:65535, optname:25
+[   28.773757] firmadyne: inet_bind[PID: 367 (udhcpd)]: proto:SOCK_DGRAM, port:67
+Factory reset time : 5 secs
+WPS command : [/etc/templates/wps.sh pbc &]
+/proc/driver/ae531x: cannot create
+gpio_outen: can not open [/proc/ar231x/gpio_cr7] to write.
+/proc/driver/ae531x: cannot create
+/proc/driver/ae531x: cannot create
+/proc/driver/ae531x: cannot create
+start WLAN ...
+[/etc/templates/wlan.sh] start ...
+[   29.126079] firmadyne: sys_socket[PID: 383 (rgdb)]: family:1, type:2, protocol:0
+[   29.318440] cfg80211: Calling CRDA to update world regulatory domain
+[   29.646025] firmadyne: sys_socket[PID: 386 (atp)]: family:1, type:2, protocol:0
+[   29.968243] firmadyne: sys_socket[PID: 387 (rgdb)]: family:1, type:2, protocol:0
+[/var/run/wlan_start.sh] ...
+Start WLAN interface ath0 ...
+[   30.854746] firmadyne: sys_socket[PID: 391 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+[   30.916192] firmadyne: sys_socket[PID: 392 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+[   30.976483] firmadyne: sys_socket[PID: 393 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+[   31.055837] firmadyne: sys_socket[PID: 394 (brctl)]: family:2, type:2, protocol:0
+[   31.061724] firmadyne: sys_socket[PID: 394 (brctl)]: family:10, type:1, protocol:0
+[   31.065021] firmadyne: sys_socket[PID: 394 (brctl)]: family:10, type:1, protocol:0
+can't find port ath0 in bridge br0
+[   31.149419] firmadyne: sys_socket[PID: 399 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+[   31.209977] firmadyne: sys_socket[PID: 400 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+[   31.280102] firmadyne: sys_socket[PID: 401 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+[   31.341410] firmadyne: sys_socket[PID: 402 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+[   31.402060] firmadyne: sys_socket[PID: 403 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+[   31.461433] firmadyne: sys_socket[PID: 404 (iwconfig)]: family:2, type:1, protocol:0
+Error for wireless request "Set Frequency" (8B04) :
+    SET failed on device ath0 ; Invalid argument.
+[   31.553908] firmadyne: sys_socket[PID: 405 (iwconfig)]: family:2, type:1, protocol:0
+Error for wireless request "Set RTS Threshold" (8B22) :
+    SET failed on device ath0 ; Invalid argument.
+[   31.647701] firmadyne: sys_socket[PID: 406 (atp)]: family:1, type:2, protocol:0
+[   31.690559] firmadyne: sys_socket[PID: 407 (iwconfig)]: family:2, type:1, protocol:0
+Error for wireless request "Set Fragmentation Threshold" (8B24) :
+    SET failed on device ath0 ; Invalid argument.
+[   31.816777] firmadyne: sys_socket[PID: 408 (iwconfig)]: family:2, type:1, protocol:0
+Error for wireless request "Set Bit Rate" (8B20) :
+    SET failed on device ath0 ; Invalid argument.
+[   31.937317] firmadyne: sys_socket[PID: 409 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+[   32.023696] firmadyne: sys_socket[PID: 410 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+/proc/net/br_forward_br0: cannot create
+[   32.097589] firmadyne: sys_socket[PID: 412 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+[   32.156574] firmadyne: sys_socket[PID: 413 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+[   32.217543] firmadyne: sys_socket[PID: 414 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+[   32.276553] firmadyne: sys_socket[PID: 415 (iwpriv)]: family:2, type:1, protocol:0
+ath0      no private ioctls.
+
+[   32.335914] firmadyne: sys_socket[PID: 416 (iwconfig)]: family:2, type:1, protocol:0
+Error for wireless request "Set ESSID" (8B1A) :
+    SET failed on device ath0 ; Invalid argument.
+[   32.426643] firmadyne: sys_socket[PID: 419 (ifconfig)]: family:2, type:1, protocol:0
+[   32.462515] cfg80211: Calling CRDA to update world regulatory domain
+SIOCGIFFLAGS: No such device
+[   32.576487] firmadyne: sys_socket[PID: 418 (wlxmlpatch)]: family:1, type:2, protocol:0
+[   32.600593] firmadyne: sys_socket[PID: 418 (wlxmlpatch)]: family:1, type:2, protocol:0
+Configuration file: /var/run/hostapd.ath0.conf
+[   32.620904] firmadyne: sys_socket[PID: 418 (wlxmlpatch)]: family:2, type:1, protocol:0
+madwifi_poll: ioctl_get_ssid() fail, return -1 !
+[   32.637476] firmadyne: sys_socket[PID: 418 (wlxmlpatch)]: family:1, type:2, protocol:0
+[   32.680084] firmadyne: sys_socket[PID: 417 (hostapd)]: family:2, type:1, protocol:0
+[   32.745932] firmadyne: sys_socket[PID: 424 (atp)]: family:1, type:2, protocol:0
+[   32.753756] firmadyne: sys_socket[PID: 425 (usockc)]: family:1, type:1, protocol:0
+Unable to open socket file : /var/run/fresetd_unixsock
+ioctl(SIOCGIFINDEX): No such device
+madwifi driver initialization failed.
+[/etc/templates/wps.sh] setie ...
+[   32.967703] firmadyne: sys_socket[PID: 432 (xmldbc)]: family:1, type:2, protocol:0
+[   33.121130] firmadyne: sys_socket[PID: 433 (wps)]: family:1, type:1, protocol:0
+[   33.462792] firmadyne: sys_socket[PID: 434 (atp)]: family:1, type:2, protocol:0
+[   35.606538] cfg80211: Exceeded CRDA call max attempts. Not calling CRDA
+[   39.322622] firmadyne: sys_socket[PID: 433 (wps)]: family:1, type:1, protocol:0
+[   40.180049] firmadyne: sys_socket[PID: 435 (atp)]: family:1, type:2, protocol:0
+[   40.332316] firmadyne: sys_socket[PID: 433 (wps)]: family:1, type:1, protocol:0
+[   40.807855] firmadyne: sys_socket[PID: 436 (atp)]: family:1, type:2, protocol:0
+[   41.355969] firmadyne: sys_socket[PID: 433 (wps)]: family:1, type:1, protocol:0
+[   41.439075] firmadyne: sys_socket[PID: 437 (atp)]: family:1, type:2, protocol:0
+[   42.063304] firmadyne: sys_socket[PID: 438 (atp)]: family:1, type:2, protocol:0
+[   42.385199] firmadyne: sys_socket[PID: 433 (wps)]: family:1, type:1, protocol:0
+[   42.397241] firmadyne: sys_socket[PID: 433 (wps)]: family:1, type:1, protocol:0
+[   42.408285] firmadyne: sys_socket[PID: 433 (wps)]: family:1, type:1, protocol:0
+[   42.687117] firmadyne: sys_socket[PID: 439 (atp)]: family:1, type:2, protocol:0
+[   43.309965] firmadyne: sys_socket[PID: 440 (atp)]: family:1, type:2, protocol:0
+[   43.424536] firmadyne: sys_socket[PID: 433 (wps)]: family:1, type:1, protocol:0
+[   43.940401] firmadyne: sys_socket[PID: 441 (atp)]: family:1, type:2, protocol:0
+[   44.446603] firmadyne: sys_socket[PID: 433 (wps)]: family:1, type:1, protocol:0
+[   45.147204] firmadyne: sys_socket[PID: 442 (atp)]: family:1, type:2, protocol:0
+[   45.455343] firmadyne: sys_socket[PID: 433 (wps)]: family:1, type:1, protocol:0
+[   45.466905] firmadyne: sys_socket[PID: 433 (wps)]: family:1, type:1, protocol:0
+Start WLAN interface ath0 Done !!!
+start Guest Zone
+[/etc/templates/gzone.sh] ...
+[   45.754914] firmadyne: sys_socket[PID: 449 (xmldbc)]: family:1, type:2, protocol:0
+[   45.826152] firmadyne: sys_socket[PID: 450 (xmldbc)]: family:1, type:2, protocol:0
+[/etc/templates/enable_gzone.sh] ...
+start RG ...
+[   46.145818] firmadyne: sys_socket[PID: 456 (xgi)]: family:1, type:2, protocol:0
+[   46.172680] firmadyne: sys_socket[PID: 456 (xgi)]: family:1, type:2, protocol:0
+[   46.189067] 
+do_page_fault(): sending SIGSEGV to xgi for invalid read access from 79777a79
+[   46.189836] epc = 77cc3bf4 in libc.so.0[77c72000+63000]
+[   46.191210] ra  = 77cbf178 in libc.so.0[77c72000+63000]
+[   46.191978] 
+[/etc/templates/rg.sh] start ...
+[   46.202486] potentially unexpected fatal signal 11.
+[   46.203311] CPU: 0 PID: 456 Comm: xgi Not tainted 4.1.17+ #1
+[   46.204051] task: 8f1a4088 ti: 8f190000 task.ti: 8f190000
+[   46.204609] $ 0   : 00000000 77cd3374 ffffffff 00000054
+[   46.205482] $ 4   : 77cd2ee0 79777a79 00000001 77d1a56c
+[   46.206641] $ 8   : 00400f11 00000000 77d5e138 77c76f14
+[   46.207481] $12   : 00000275 0b8da995 77c79ed4 00400f09
+[   46.208318] $16   : 7fce4840 00000002 77cd2ee0 00000005
+[   46.209143] $20   : 004085f4 00000000 00000000 7fce3e08
+[   46.209986] $24   : 77c747c4 77cc3bd0                  
+[   46.211023] $28   : 77d1d460 7fce3978 00000000 77cbf178
+[   46.211882] Hi    : 000000d2
+[   46.212285] Lo    : 0002de65
+[   46.212816] epc   : 77cc3bf4 0x77cc3bf4
+[   46.213361] ra    : 77cbf178 0x77cbf178
+[   46.213818] Status: 0000a413	USER EXL IE 
+[   46.214722] Cause : 10800008
+[   46.215138] BadVA : 79777a79
+[   46.215572] PrId  : 00019300 (MIPS 24Kc)
+[   46.348062] firmadyne: sys_socket[PID: 460 (rgdb)]: family:1, type:2, protocol:0
+[   46.429841] firmadyne: sys_socket[PID: 461 (rgdb)]: family:1, type:2, protocol:0
+[   46.884799] firmadyne: sys_socket[PID: 462 (atp)]: family:1, type:2, protocol:0
+[/var/run/rg_start.sh] ...
+[   47.331129] firmadyne: sys_socket[PID: 465 (iptables)]: family:2, type:3, protocol:255
+[   47.346145] firmadyne: sys_setsockopt[PID: 465 (iptables)]: fd:3, level:0, optname:64
+[   47.348669] firmadyne: sys_setsockopt[PID: 465 (iptables)]: fd:3, level:0, optname:65
+[   47.476545] firmadyne: sys_socket[PID: 466 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   47.553724] firmadyne: sys_socket[PID: 466 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   47.716728] firmadyne: sys_socket[PID: 472 (iptables)]: family:2, type:3, protocol:255
+[   47.731155] firmadyne: sys_setsockopt[PID: 472 (iptables)]: fd:3, level:0, optname:64
+[   47.733241] firmadyne: sys_setsockopt[PID: 472 (iptables)]: fd:3, level:0, optname:65
+[   47.859509] firmadyne: sys_socket[PID: 473 (iptables)]: family:2, type:3, protocol:255
+[   47.983948] firmadyne: sys_socket[PID: 474 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   48.058553] firmadyne: sys_socket[PID: 474 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   48.220680] firmadyne: sys_socket[PID: 480 (iptables)]: family:2, type:3, protocol:255
+[   48.347833] firmadyne: sys_socket[PID: 481 (iptables)]: family:2, type:3, protocol:255
+[   48.359854] firmadyne: sys_setsockopt[PID: 481 (iptables)]: fd:3, level:0, optname:64
+[   48.361712] firmadyne: sys_setsockopt[PID: 481 (iptables)]: fd:3, level:0, optname:65
+[   48.477112] firmadyne: sys_socket[PID: 482 (iptables)]: family:2, type:3, protocol:255
+[   48.489046] firmadyne: sys_setsockopt[PID: 482 (iptables)]: fd:3, level:0, optname:64
+[   48.498701] firmadyne: sys_setsockopt[PID: 482 (iptables)]: fd:3, level:0, optname:65
+[   48.612635] firmadyne: sys_socket[PID: 483 (iptables)]: family:2, type:3, protocol:255
+[   48.624618] firmadyne: sys_setsockopt[PID: 483 (iptables)]: fd:3, level:0, optname:64
+[   48.634674] firmadyne: sys_setsockopt[PID: 483 (iptables)]: fd:3, level:0, optname:65
+[   48.751958] firmadyne: sys_socket[PID: 484 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   48.834557] firmadyne: sys_socket[PID: 484 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   49.001485] firmadyne: sys_socket[PID: 490 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   49.085288] firmadyne: sys_socket[PID: 490 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   49.267237] firmadyne: sys_socket[PID: 496 (iptables)]: family:2, type:3, protocol:255
+[   49.280612] firmadyne: sys_setsockopt[PID: 496 (iptables)]: fd:3, level:0, optname:64
+[   49.290802] firmadyne: sys_setsockopt[PID: 496 (iptables)]: fd:3, level:0, optname:65
+[   49.424103] firmadyne: sys_socket[PID: 497 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   49.497638] firmadyne: sys_socket[PID: 497 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   49.667801] firmadyne: sys_socket[PID: 503 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   49.744170] firmadyne: sys_socket[PID: 503 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   49.909624] firmadyne: sys_socket[PID: 509 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   49.985513] firmadyne: sys_socket[PID: 509 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   50.155958] firmadyne: sys_socket[PID: 515 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   50.229577] firmadyne: sys_socket[PID: 515 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   50.393744] firmadyne: sys_socket[PID: 521 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   50.473155] firmadyne: sys_socket[PID: 521 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   50.639130] firmadyne: sys_socket[PID: 527 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   50.713607] firmadyne: sys_socket[PID: 527 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   50.884538] firmadyne: sys_socket[PID: 533 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   50.957195] firmadyne: sys_socket[PID: 533 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   51.125694] firmadyne: sys_socket[PID: 539 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   51.203048] firmadyne: sys_socket[PID: 539 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   51.362894] firmadyne: sys_socket[PID: 545 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   51.436246] firmadyne: sys_socket[PID: 545 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   51.601624] firmadyne: sys_socket[PID: 551 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   51.684225] firmadyne: sys_socket[PID: 551 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   51.851467] firmadyne: sys_socket[PID: 557 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   51.925133] firmadyne: sys_socket[PID: 557 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   52.095201] firmadyne: sys_socket[PID: 563 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   52.168270] firmadyne: sys_socket[PID: 563 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   52.337226] firmadyne: sys_socket[PID: 569 (iptables)]: family:2, type:3, protocol:255
+[   52.349191] firmadyne: sys_setsockopt[PID: 569 (iptables)]: fd:3, level:0, optname:64
+[   52.358734] firmadyne: sys_setsockopt[PID: 569 (iptables)]: fd:3, level:0, optname:65
+[   52.483912] firmadyne: sys_socket[PID: 570 (iptables)]: family:2, type:3, protocol:255
+[   52.496615] firmadyne: sys_setsockopt[PID: 570 (iptables)]: fd:3, level:0, optname:64
+[   52.506721] firmadyne: sys_setsockopt[PID: 570 (iptables)]: fd:3, level:0, optname:65
+[   52.635672] firmadyne: sys_socket[PID: 571 (iptables)]: family:2, type:3, protocol:255
+[   52.648799] firmadyne: sys_setsockopt[PID: 571 (iptables)]: fd:3, level:0, optname:64
+[   52.652801] firmadyne: sys_setsockopt[PID: 571 (iptables)]: fd:3, level:0, optname:65
+[   52.777742] firmadyne: sys_socket[PID: 572 (iptables)]: family:2, type:3, protocol:255
+[   52.794650] firmadyne: sys_setsockopt[PID: 572 (iptables)]: fd:3, level:0, optname:64
+[   52.796814] firmadyne: sys_setsockopt[PID: 572 (iptables)]: fd:3, level:0, optname:65
+[   52.926177] firmadyne: sys_socket[PID: 573 (iptables)]: family:2, type:3, protocol:255
+[   52.942946] firmadyne: sys_setsockopt[PID: 573 (iptables)]: fd:3, level:0, optname:64
+[   52.945064] firmadyne: sys_setsockopt[PID: 573 (iptables)]: fd:3, level:0, optname:65
+[   53.085010] firmadyne: sys_socket[PID: 574 (iptables)]: family:2, type:3, protocol:255
+[   53.099582] firmadyne: sys_setsockopt[PID: 574 (iptables)]: fd:3, level:0, optname:64
+[   53.101749] firmadyne: sys_setsockopt[PID: 574 (iptables)]: fd:3, level:0, optname:65
+[   53.236270] firmadyne: sys_socket[PID: 575 (iptables)]: family:2, type:3, protocol:255
+[   53.251057] firmadyne: sys_setsockopt[PID: 575 (iptables)]: fd:3, level:0, optname:64
+[   53.253279] firmadyne: sys_setsockopt[PID: 575 (iptables)]: fd:3, level:0, optname:65
+[   53.419719] firmadyne: sys_socket[PID: 576 (iptables)]: family:2, type:3, protocol:255
+[   53.435359] firmadyne: sys_setsockopt[PID: 576 (iptables)]: fd:3, level:0, optname:64
+iptables: Protocol wrong type for socket
+[   53.737094] firmadyne: sys_socket[PID: 579 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   53.795824] firmadyne: sys_socket[PID: 579 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   53.899692] firmadyne: sys_socket[PID: 585 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   53.941749] firmadyne: sys_socket[PID: 585 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   54.051651] firmadyne: sys_socket[PID: 591 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   54.090765] firmadyne: sys_socket[PID: 591 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   54.185217] firmadyne: sys_socket[PID: 597 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   54.224015] firmadyne: sys_socket[PID: 597 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   54.399902] firmadyne: sys_socket[PID: 603 (iptables)]: family:2, type:3, protocol:255
+[   54.414682] firmadyne: sys_socket[PID: 604 (atp)]: family:1, type:2, protocol:0
+modprobe: could not parse modules.dep
+
+[   54.484145] firmadyne: sys_socket[PID: 603 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   54.660842] firmadyne: sys_socket[PID: 610 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   54.741092] firmadyne: sys_socket[PID: 610 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   54.956878] firmadyne: sys_socket[PID: 616 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   55.033262] firmadyne: sys_socket[PID: 616 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   55.245179] firmadyne: sys_socket[PID: 622 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   55.322980] firmadyne: sys_socket[PID: 622 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   55.529760] firmadyne: sys_socket[PID: 628 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   55.605102] firmadyne: sys_socket[PID: 628 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   55.773675] firmadyne: sys_socket[PID: 634 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   55.813065] firmadyne: sys_socket[PID: 634 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   55.929699] firmadyne: sys_socket[PID: 640 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   55.974603] firmadyne: sys_socket[PID: 640 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   56.087787] firmadyne: sys_socket[PID: 646 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   56.128789] firmadyne: sys_socket[PID: 646 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   56.242049] firmadyne: sys_socket[PID: 652 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   56.316782] firmadyne: sys_socket[PID: 652 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   56.410534] firmadyne: sys_socket[PID: 656 (atp)]: family:1, type:2, protocol:0
+[   56.519364] firmadyne: sys_socket[PID: 659 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   56.593620] firmadyne: sys_socket[PID: 659 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   56.812074] firmadyne: sys_socket[PID: 665 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   56.889137] firmadyne: sys_socket[PID: 665 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   57.092208] firmadyne: sys_socket[PID: 671 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   57.165724] firmadyne: sys_socket[PID: 671 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   57.385103] firmadyne: sys_socket[PID: 677 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   57.461092] firmadyne: sys_socket[PID: 677 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   57.656583] firmadyne: sys_socket[PID: 683 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   57.729541] firmadyne: sys_socket[PID: 683 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   57.863898] firmadyne: sys_socket[PID: 689 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   57.903577] firmadyne: sys_socket[PID: 689 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   58.011806] firmadyne: sys_socket[PID: 695 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   58.052045] firmadyne: sys_socket[PID: 695 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   58.165830] firmadyne: sys_socket[PID: 701 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   58.208648] firmadyne: sys_socket[PID: 701 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   58.376031] firmadyne: sys_socket[PID: 707 (iptables)]: family:2, type:3, protocol:255
+[   58.394152] firmadyne: sys_socket[PID: 708 (atp)]: family:1, type:2, protocol:0
+modprobe: could not parse modules.dep
+
+[   58.453541] firmadyne: sys_socket[PID: 707 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   58.657635] firmadyne: sys_socket[PID: 714 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   58.738973] firmadyne: sys_socket[PID: 714 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   58.927250] firmadyne: sys_socket[PID: 720 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   59.005470] firmadyne: sys_socket[PID: 720 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   59.167100] firmadyne: sys_socket[PID: 726 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   59.208978] firmadyne: sys_socket[PID: 726 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   59.318986] firmadyne: sys_socket[PID: 732 (iptables)]: family:2, type:3, protocol:255
+modprobe: could not parse modules.dep
+
+[   59.359920] firmadyne: sys_socket[PID: 732 (iptables)]: family:2, type:3, protocol:255
+iptables v1.2.9: can't initialize iptables table `nat': Table does not exist (do you need to insmod?)
+Perhaps iptables or your kernel needs to be upgraded.
+[   59.511591] firmadyne: sys_socket[PID: 738 (portt)]: family:1, type:1, protocol:0
+Using /lib/modules/sw_tcpip.o
+insmod: Not configured to support old kernels
+Using /lib/modules/ifresetcnt.o
+insmod: Not configured to support old kernels
+[   59.733585] firmadyne: sys_socket[PID: 744 (atp)]: family:1, type:2, protocol:0
+Using /lib/modules/ipt_string.o
+insmod: Not configured to support old kernels
+[   59.966109] firmadyne: sys_socket[PID: 748 (rgdb)]: family:1, type:2, protocol:0
+/proc/sys/net/ipv4/ip_conntrack_max: cannot create

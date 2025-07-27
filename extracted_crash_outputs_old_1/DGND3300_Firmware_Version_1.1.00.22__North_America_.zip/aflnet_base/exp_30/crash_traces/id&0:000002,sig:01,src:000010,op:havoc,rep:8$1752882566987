@@ -1,0 +1,8 @@
+=== Trace 1 ===
+Process: mini_httpd
+  [00] inode: 32774, pc: 0x0002f994, module: libc.so.0
+  [01] inode: 32774, pc: 0x0002f980, module: libc.so.0
+  [02] inode: 32774, pc: 0x0002f994, module: libc.so.0
+  [03] inode: 32774, pc: 0x0002f9a0, module: libc.so.0
+  [04] inode: 24746, pc: 0x00029df8, module: setup.cgi
+

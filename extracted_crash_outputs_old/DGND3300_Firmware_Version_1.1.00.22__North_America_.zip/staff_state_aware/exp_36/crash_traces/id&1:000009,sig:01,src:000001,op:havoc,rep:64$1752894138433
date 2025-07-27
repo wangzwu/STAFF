@@ -1,0 +1,8 @@
+=== Trace 1 ===
+Process: sh
+  [00] inode: 8207, pc: 0x00002868, module: libnvram_ioctl.so
+  [01] inode: 8207, pc: 0x0000288c, module: libnvram_ioctl.so
+  [02] inode: 8207, pc: 0x0000285c, module: libnvram_ioctl.so
+  [03] inode: 8207, pc: 0x00002868, module: libnvram_ioctl.so
+  [04] inode: 8207, pc: 0x0000288c, module: libnvram_ioctl.so
+

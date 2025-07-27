@@ -1,0 +1,1712 @@
+GET / HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Sec-Purpose: prefetch;prerender
+Purpose: prefetch
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Sec-Purpose: prefetch;prerender
+Purpose: prefetch
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /session_login.php?reload=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /login.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/session_login.php?reload=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /model/router.css HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/css,*/*;q=0.1
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/dlink.jpg HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/banner.jpg HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /login.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 83
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=LOGIN&f_date=&f_time=&LOGIN_USER=admin&LOGIN_PASSWD=admin&login=+Login+GET /login_fail.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /login.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login_fail.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /login.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 83
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=LOGIN&f_date=&f_time=&LOGIN_USER=admin&LOGIN_PASSWD=admin&login=+Login+GET /login_fail.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keems_priority2=0&ms_wmm2=1&ms_ciphts: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /login.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login_fail.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /login.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 78
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=LOGIN&f_date=&f_time=&LOGIN_USER=admin&LOGIN_PASSWD=&login=+Login+GET /index.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/tool_bar.jpg HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,kmage/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/home.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/tool_bar_v.jpg HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/tool.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/triangle.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /home_sys.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/line.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/plus.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/help.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/file.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/plusbottom.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/monitor.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/logout.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/sys.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/config.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/text.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/join.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/joinbottom.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/themespacer.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/minus.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/open_file.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_ap_array.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/save1.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/adv_ap_array.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/save2.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/adv_ap_array.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_ap_array.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 702
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_ap_array.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_ap_array&f_ap_array_enable=1&f_role=1&f_scan_value=&f_wlmode=&ap_array_enable=1&role=1&ap_array_name=d-linkeeeee&ap_array_pwd=wdAWdwdas&basic_setting=1&bsc_network_name=1&bsc_ssid_visibility=0&bsc_auto_chann=0&bsc_channel_width=0&bsc_security=1&bsc_band=0&adv_setting=1&adv_data_rate=0&adv_beacon_interval=0&adv_dtim=0&adv_transmit_power=0&adv_wmm_wifi=1&adv_ack_timeout=0&adv_acl=0&adv_short_gi=0&adv_link_integrity=1&adv_conn_limit=0&adv_igmp=0&mssid_vlan=1&mssid=0&mssid_visibility=0&msecurity=1&mwmm=0&vlan=0&adv_func=1&schedule_settings=0&qos_setting=0&log_setting=0&time_date=0&dhcp_svr_setting=0&admin_setting=1&sys_name_setting=0&snmp_setting=0&login_setting=1&console_setting=0GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_ap_array.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.40.1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_ap_array.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.40.1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/minusbottom.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.40.1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.40.1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/add1.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/add2.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 191
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_acl&f_wlmode=&f_acl_del=&hacl_mac=DA%3ADB%3A77%3ACA%3A99%3A12&f_client_info_mac_add=&f_add=1&acl_type=1&acl_mac1=DA&acl_mac2=DB&acl_mac3=77&acl_mac4=CA&acl_mac5=99&acl_mac6=12GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, lik0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.40.25 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.40.25
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/delete.jpg HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 191
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_acl&f_wlmode=&f_acl_del=&hacl_mac=12%3AAD%3AED%3A34%3ADA%3A89&f_cPient_info_mac_add=&f_add=1&acl_type=1&acl_mac1=12&acl_mac2=AD&acl_mac3=ED&acl_mac4=34&acl_mac5=DA&acl_mac6=89GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.40.42 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.40.42
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 152
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_acl&f_wlmode=&f_acl_del=1&hacl_mac=&f_client_info_mac_add=&f_add=&acl_type=1&acl_mac1=&acl_mac2=&acl_mac3=&acl_mac4=&acl_mac5=&acl_mac6=GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.40.48 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.40.48
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /upload_acl._int HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 320
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarys4t2jufhZ1nQcTDA
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+------WebKitFormBoundarys4t2jufhZ1nQcTDA
+Content-Disposition: form-data; name="macacl"; filename="dgzergzs.acl"
+Content-Type: application/octet-stream
+
+wdawfeaWFEVFWSD
+------WebKitFormBoundarys4t2jufhZ1nQcTDA
+Content-Disposition: form-data; name="acl_load"
+
+ Upload 
+------WebKitFormBoundarys4t2jufhZ1nQcTDA--
+GET /sys_stunnel_process.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/upload_acl._int
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/sys_stunnel_process.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 3503
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_mssid&f_mssid_del=&f_ssid_select=3&f_mssid_enable=1&f_priority_enable=0&f_wpa_mode=0&f_auth=0&f_cipher=1&f_encrypt=1&f_add=1&f_enable_rekey=&f_time_interuol=&f_start_time=&f_start_week=&mssid_enable=1&index=3&ssid=dlink3&ap_hidden=0&auth=0&auth_wds=0&auth_wds_mssid=0&wmm=1&encrypt=1&keytype=2&keysize=64&defkey=1&key=1234567890&confirm_key=1234567890&wpa_mode=0&wpa_mode_wds=0&cipher=4&cipher_wds=4&gkui=1800&kui=300&enable_rekey=0&sweek=Sun&shour=00&smin=00&time_interuol=1&passphrase=&confirm_passphrase=&radius_srv_1=&radius_port_1=1812&radius_sec_1=&ms_ssid1=dlink1&ms_ssid_hidden1=0&ms_auth1=0&ms_priority1=0&ms_wmm1=1&ms_cipher1=0&ms_key_idx1=1&ms_gkui1=1800&ms_kui1=300&ms_radius_type1=&ms_passphrase1=&ms_enable_rekey1=0&ms_rekey1=&ms_radius_srv_11=&ms_radius_port_11=1812&ms_radius_sec_11=&ms_radius_srv_21=&ms_radius_port_21=1812&ms_radius_sec_21=&ms_acc_mode1=0&ms_acc_srv_11=&ms_acc_port_11=1813&ms_acc_sec_11=&ms_acc_srv_21=&ms_acc_port_21=1813&ms_acc_sec_21=&ms_ssid2=dlink2&ms_ssid_hidden2=0&ms_auth2=0&ms_priority2=0&ms_wmm2=1&ms_cipher2=0&ms_key_idx2=1&ms_gkui2=1800&ms_kui2=300&ms_radius_type2=&ms_passphrase2=&ms_enable_rekey2=0&ms_rekey2=&ms_radius_srv_12=&ms_radius_port_12=1812&ms_radius_sec_12=&ms_radius_srv_22=&ms_radius_port_22=1812&ms_radius_sec_22=&ms_acc_mode2=0&ms_acc_srv_12=&ms_acc_port_12=1813&ms_acc_sec_12=&ms_acc_srv_22=&ms_acc_port_22=1813&ms_acc_sec_22=&ms_ssid3=dlink3&ms_ssid_hidden3=0&ms_auth3=0&ms_priority3=0&ms_wmm3=1&ms_cipher3=0&ms_key_idx3=1&ms_gkui3=1800&ms_kui3=300&ms_radius_type3=&ms_passphrase3=&ms_enable_rekey3=0&ms_rekey3=&ms_radius_srv_13=&ms_radius_port_13=1812&ms_radius_sec_13=&ms_radius_srv_23=&ms_radius_port_23=1812&ms_radius_sec_23=&ms_acc_mode3=0&ms_acc_srv_13=&ms_acc_port_13=1813&ms_acc_sec_13=&ms_acc_srv_23=&ms_acc_port_23=1813&ms_acc_sec_23=&ms_ssid4=dlink4&ms_ssid_hidden4=0&ms_auth4=0&ms_priority4=0&ms_wmm4=1&ms_cipher4=0&ms_key_idx4=1&ms_gkui4=1800&ms_kui4=300&ms_radius_type4=&ms_passphrase4=&ms_enable_rekey4=0&ms_rekey4=&ms_radius_srv_14=&ms_radius_port_14=1812&ms_radius_sec_14=&ms_radius_srv_24=&ms_radius_port_24=1812&ms_radius_sec_24=&ms_acc_mode4=0&ms_acc_srv_14=&ms_acc_port_14=1813&ms_acc_sec_14=&ms_acc_srv_24=&ms_acc_port_24=1813&ms_acc_sec_24=&ms_ssid5=dlink5&ms_ssid_hidden5=0&ms_auth5=0&ms_priority5=0&ms_wmm5=1&ms_cipher5=0&ms_key_idx5=1&ms_gkui5=1800&ms_kui5=300&ms_radius_type5=&ms_passphrase5=&ms_enable_rekey5=0&ms_rekey5=&ms_radius_srv_15=&ms_radius_port_15=1812&ms_radius_sec_15=&ms_radius_srv_25=&ms_radius_port_25=1812&ms_radius_sec_25=&ms_acc_mode5=0&ms_acc_srv_15=&ms_acc_port_15=1813&ms_acc_sec_15=&ms_acc_srv_25=&ms_acc_port_25=1813&ms_acc_sec_25=&ms_ssid6=dlink6&ms_ssid_hidden6=0&ms_auth6=0&ms_priority6=0&ms_wmm6=1&ms_cipher6=0&ms_key_idx6=1&ms_gkui6=1800&ms_kui6=300&ms_radius_type6=&ms_passphrase6=&ms_enable_rekey6=0&ms_rekey6=&ms_radius_srv_16=&ms_radius_port_16=1812&ms_radius_sec_16=&ms_radius_srv_26=&ms_radius_port_26=1812&ms_radius_sec_26=&ms_acc_mode6=0&ms_acc_srv_16=&ms_acc_port_16=1813&ms_acc_sec_16=&ms_acc_srv_26=&ms_acc_port_26=1813&ms_acc_sec_26=&ms_ssid7=dlink7&ms_ssid_hidden7=0&ms_auth7=0&ms_priority7=0&ms_wmm7=1&ms_cipher7=0&ms_key_idx7=1&ms_gkui7=1800&ms_kui7=300&ms_radius_type7=&ms_passphrase7=&ms_enable_rekey7=0&ms_rekey7=&ms_radius_srv_17=&ms_radius_port_17=1812&ms_radius_sec_17=&ms_radius_srv_27=&ms_radius_port_27=1812&ms_radius_sec_27=&ms_acc_mode7=0&ms_acc_srv_17=&ms_acc_port_17=1813&ms_acc_sec_17=&ms_acc_srv_27=&ms_acc_port_27=1813&ms_acc_sec_27=GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.42.20 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/aviˆ,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.42.20
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 3435
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_mssid&f_mssid_del=&f_ssid_select=5&f_mssid_enable=1&f_priority_enable=0&f_wpa_mode=0&f_auth=0&f_cipher=0&f_encrypt=0&f_add=1&f_enable_rekey=&f_time_interuol=&f_start_time=&f_start_week=&mssid_enable=1&index=5&ssid=dlink5&ap_hidden=0&auth=0&auth_wds=0&auth_wds_mssid=0&wmm=1&encrypt=0&wpa_mode=0&wpa_mode_wds=0&cipher=4&cipher_wds=4&gkui=1800&kui=300&enable_rekey=0&sweek=Sun&shour=00&smin=00&time_interuol=1&passphrase=&confirm_passphrase=&radius_srv_1=&radius_port_1=1812&radius_sec_1=&ms_ssid1=dlink1&ms_ssid_hidden1=0&ms_auth1=0&ms_priority1=0&ms_wmm1=1&ms_cipher1=0&ms_key_idx1=1&ms_gkui1=1800&ms_kui1=300&ms_radius_type1=&ms_passphrase1=&ms_enable_rekey1=0&ms_rekey1=&ms_radius_srv_11=&ms_radius_port_11=1812&ms_radius_sec_11=&ms_radius_srv_21=&ms_radius_port_21=1812&ms_radius_sec_21=&ms_acc_mode1=0&ms_acc_srv_11=&ms_acc_port_11=1813&ms_acc_sec_11=&ms_acc_srv_21=&ms_acc_port_21=1813&ms_acc_sec_21=&ms_ssid2=dlink2&ms_ssid_hidden2=0&ms_auth2=0&ms_priority2=0&ms_wmm2=1&ms_cipher2=0&ms_key_idx2=1&ms_gkui2=1800&ms_kui2=300&ms_radius_type2=&ms_passphrase2=&ms_enable_rekey2=0&ms_rekey2=&ms_radius_srv_12=&ms_radius_port_12=1812&ms_radius_sec_12=&ms_radius_srv_22=&ms_radius_port_22=1812&ms_radius_sec_22=&ms_acc_mode2=0&ms_acc_srv_12=&ms_acc_port_12=1813&ms_acc_sec_12=&ms_acc_srv_22=&ms_acc_port_22=1813&ms_acc_sec_22=&ms_ssid3=dlink3&ms_ssid_hidden3=0&ms_auth3=0&ms_priority3=0&ms_wmm3=1&ms_cipher3=1&ms_key_idx3=1&ms_gkui3=1800&ms_kui3=300&ms_radius_type3=&ms_passphrase3=&ms_enable_rekey3=0&ms_rekey3=&ms_radius_srv_13=&ms_radius_port_13=1812&ms_radius_sec_13=&ms_radius_srv_23=&ms_radius_port_23=1812&ms_radius_sec_23=&ms_acc_mode3=0&ms_acc_srv_13=&ms_acc_port_13=1813&ms_acc_sec_13=&ms_acc_srv_23=&ms_acc_port_23=1813&ms_acc_sec_23=&ms_ssid4=dlink4&ms_ssid_hidden4=0&ms_auth4=0&ms_priority4=0&ms_wmm4=1&ms_cipher4=0&ms_key_idx4=1&ms_gkui4=1800&ms_kui4=300&ms_radius_type4=&ms_passphrase4=&ms_enable_rekey4=0&ms_rekey4=&ms_radius_srv_14=&ms_radius_port_14=1812&ms_radius_sec_14=&ms_radius_srv_24=&ms_radius_port_24=1812&ms_radius_sec_24=&ms_acc_mode4=0&ms_acc_srv_14=&ms_acc_port_14=1813&ms_acc_sec_14=&ms_acc_srv_24=&ms_acc_port_24=1813&ms_acc_sec_24=&ms_ssid5=dlink5&ms_ssid_hidden5=0&ms_auth5=0&ms_priority5=0&ms_wmm5=1&ms_cipher5zywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzyw=0&ms_key_idx5=1&ms_gkui5=1800&ms_kui5=300&ms_radius_type5=&ms_passphrase5=&ms_enable_rekey5=0&ms_rekey5=&ms_radius_srv_15=&ms_radius_port_15=1812&ms_radius_sec_15=&ms_radius_srv_25=&ms_radius_port_25=1812&ms_radius_sec_25=&ms_acc_mode5=0&ms_acc_srv_15=&ms_acc_port_15=1813&ms_acc_sec_15=&ms_acc_srv_25=&ms_acc_port_25=1813&ms_acc_sec_25=&ms_ssid6=dlink6&ms_ssid_hidden6=0&ms_auth6=0&ms_priority6=0&ms_wmm6=1&ms_cipher6=0&ms_key_idx6=1&ms_gkui6=1800&ms_kui6=300&ms_radius_type6=&ms_passphrase6=&ms_enable_rekey6=0&ms_rekey6=&ms_radius_srv_16=&ms_radius_port_16=1812&ms_radius_sec_16=&ms_radius_srv_26=&ms_radius_port_26=1812&ms_radius_sec_26=&ms_acc_mode6=0&ms_acc_srv_16=&ms_acc_port_16=1813&ms_acc_sec_16=&ms_acc_srv_26=&ms_acc_port_26=1813&ms_acc_sec_26=&ms_ssid7=dlink7&ms_ssid_hidden7=0&ms_auth7=0&ms_priority7=0&ms_wmm7=1&ms_cipher7=0&ms_key_idx7=1&ms_gkui7=1800&ms_kui7=300&ms_radius_type7=&ms_passphrase7=&ms_enable_rekey7=0&ms_rekey7=&ms_radius_srv_17=&ms_radius_port_17=1812&ms_radius_sec_17=&ms_radius_srv_27=&ms_radius_port_27=1812&ms_radius_sec_27=&ms_acc_mode7=0&ms_acc_srv_17=&ms_acc_port_17=1813&ms_acc_sec_17=&ms_acc_srv_27=&ms_acc_port_27=1813&ms_acc_sec_27=GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, dezywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywInsecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_mssid&f_mssid_del=3&f_ssid_select=&f_mssid_enable=&f_priority_enable=&f_wpa_mode=&f_auth=&f_cipher=&f_encrypt=&f_add=&f_enable_rekey=&f_time_interuol=&f_start_time=&f_start_week=&mssid_enable=1&index=0&auth_wds=0&auth_wds_mssid=0&wpa_mode_wds=0&cipher_wds=4&ms_ssid1=dlink1&ms_ssid_hidden1=0&ms_auth1=0&ms_priority1=0&ms_wmm1=1&ms_cipher1=0&ms_key_idx1=1&ms_gkui1=1800&ms_kui1=300&ms_radius_type1=&ms_passphrase1=&ms_enable_rekey1=0&ms_rekey1=&ms_radius_srv_11=&ms_radius_port_11=1812&ms_radius_sec_11=&ms_radius_srv_21=&ms_radius_port_21=1812&ms_radius_sec_21=&ms_acc_mode1=0&ms_acc_srv_11=&ms_acc_port_11=1813&ms_acc_sec_11=&ms_acc_srv_21=&ms_acc_port_21=1813&ms_acc_sec_21=&ms_ssid2=dlink2&ms_ssid_hidden2=0&ms_auth2=0&ms_priority2=0&ms_wmm2=1&ms_cipher2=0&ms_key_idx2=1&ms_gkui2=1800&ms_kui2=300&ms_radius_type2=&ms_passphrase2=&ms_enable_rekey2=0&ms_rekey2=&ms_radius_srv_12=&ms_radius_port_12=1812&ms_radius_sec_12=&ms_radius_srv_22=&ms_radius_port_22=1812&ms_radius_sec_22=&ms_acc_mode2=0&ms_acc_srv_12=&ms_acc_port_12=1813&ms_acc_sec_12=&ms_acc_srv_22=&ms_acc_port_22=1813&ms_acc_sec_22=&ms_ssid3=dlink3&ms_ssid_hidden3=0&ms_auth3=0&ms_priority3=0&ms_wmm3=1&ms_cipher3=1&ms_key_idx3=1&ms_gkui3=1800&ms_kui3=300&ms_radius_type3=&ms_passphrase3=&ms_enable_rekey3=0&ms_rekey3=&ms_radius_srv_13=&ms_radius_port_13=1812&ms_radius_sec_13=&ms_radius_srv_23=&ms_radius_port_23=1812&ms_radius_sec_23=&ms_acc_mode3=0&ms_acc_srv_13=&ms_acc_port_13=1813&ms_acc_sec_13=&ms_acc_srv_23=&ms_acc_port_23=1813&ms_acc_sec_23=&ms_ssid4=dlink4&ms_ssid_hidden4=0&ms_auth4=0&ms_priority4=0&ms_wmm4=1&ms_cipher4=0&ms_key_idx4=1&ms_gkui4=1800&ms_kui4=300&ms_radius_type4=&ms_passphrase4=&ms_enable_rekey4=0&ms_rekey4=&ms_radius_srv_14=&ms_radius_port_14=1812&ms_radius_sec_14=&ms_radius_srv_24=&ms_radius_port_24=1812&ms_radius_sec_24=&ms_acc_mode4=0&ms_acc_srv_14=&ms_acc_port_14=1813&ms_acc_sec_14=&ms_acc_srv_24=&ms_acc_port_24=1813&ms_acc_sec_24=&ms_ssid5=dlink5&ms_ssid_hidden5=0&ms_auth5=0&ms_priority5=0&ms_wmm5=1&ms_cipher5=0&ms_key_idx5=1&ms_gkui5=1800&ms_kui5=300&ms_radius_type5=&ms_passphrase5=&ms_enable_rekey5=0&ms_rekey5=&ms_radius_srv_15=&ms_radius_port_15=1812&ms_radius_sec_15=&ms_radius_srv_25=&ms_radius_port_25=1812&ms_radius_sec_25=&ms_acc_mode5=0&ms_acc_srv_15=&ms_acc_port_15=1813&ms_acc_sec_15=&ms_acc_srv_25=&ms_acc_port_25=1813&ms_acc_sec_25=&ms_ssid6=dlink6&ms_ssid_hidden6=0&ms_auth6=0&ms_priority6=0&ms_wmm6=1&ms_cipher6=0&ms_key_idx6=1&ms_gkui6=1800&ms_kui6=300&ms_radius_type6=&ms_passphrase6=&ms_enable_rekey6=0&ms_rekey6=&ms_radius_srv_16=&ms_radius_port_16=1812&ms_radius_sec_16=&ms_radius_srv_26=&ms_radius_port_26=1812&ms_radius_sec_26=&ms_acc_mode6=0&ms_acc_srv_16=&ms_acc_port_16=1813&ms_acc_sec_16=&ms_acc_srv_26=&ms_acc_port_26=1813&ms_acc_sec_26=&ms_ssid7=dlink7&ms_ssid_hidden7=0&ms_auth7=0&ms_priority7=0&ms_wmm7=1&ms_cipher7=0&ms_key_idx7=1&ms_gkui7=1800&ms_kui7=300&ms_radius_type7=&ms_passphrase7=&ms_enable_rekey7=0&ms_rekey7=&ms_radius_srv_17=&ms_radius_port_17=1812&ms_radius_sec_17=&ms_radius_srv_27=&ms_radius_port_27=1812&ms_radius_sec_27=&ms_acc_mode7=0&ms_acc_srv_17=&ms_acc_port_17=1813&ms_acc_sec_17=&ms_acc_srv_27=&ms_acc_port_27=1813&ms_acc_sec_27=GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.42.40 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.42.40
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 3205
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_mssid&f_mssid_del=&f_ssid_select=&f_mssid_enable=&f_priority_enable=&f_wpa_mode=&f_auth=&f_cipher=&f_encrypt=&f_add=&f_enable_rekey=&f_time_interuol=&f_start_time=&f_start_week=&mssid_enable=1&index=0&auth_wds=0&auth_wds_mssid=0&wpa_mode_wds=0&cipher_wds=4&ms_ssid1=dlink1&ms_ssid_hidden1=0&ms_auth1=0&ms_priority1=0&ms_wmm1=1&ms_cipher1=0&ms_key_idx1=1&ms_gkui1=1800&ms_kui1=300&ms_radius_type1=&ms_passphrase1=&ms_enable_rekey1=0&ms_rekey1=&ms_radius_srv_11=&ms_radius_port_11=1812&ms_radius_sec_11=&ms_radius_srv_21=&ms_radius_port_21=1812&ms_radius_sec_21=&ms_acc_mode1=0&ms_acc_srv_11=&ms_acc_port_11=1813&ms_acc_sec_11=&ms_acc_srv_21=&ms_acc_port_21=1813&ms_acc_sec_21=&ms_ssid2=dlink2&ms_ssid_hidden2=0&ms_auth2=0&ms_priority2=0&ms_wmm2=1&ms_cipher2=0&ms_key_idx2=1&ms_gkui2=1800&ms_kui2=300&ms_radius_type2=&ms_passphrase2=&ms_enable_rekey2=0&ms_rekey2=&ms_radius_srv_12=&ms_radius_port_12=1812&ms_radius_sec_12=&ms_radius_srv_22=&ms_radius_port_22=1812&ms_radius_sec_22=&ms_acc_mode2=0&ms_acc_srv_12=&ms_acc_port_12=1813&ms_acc_sec_12=&ms_acc_srv_22=&ms_acc_port_22=1813&ms_acc_sec_22=&ms_ssid3=dlink3&ms_ssid_hidden3=0&ms_auth3=0&ms_priority3=0&ms_wmm3=1&ms_cipher3=1&ms_key_idx3=1&ms_gkui3=1800&ms_kui3=300&ms_radius_type3=&ms_passphrase3=&ms_enable_rekey3=0&ms_rekey3=&ms_radius_srv_13=&ms_radius_port_13=1812&ms_radius_sec_13=&ms_radius_srv_23=&ms_radius_port_23=1812&ms_radius_sec_23=&ms_acc_mode3=0&ms_acc_srv_13=&ms_acc_port_13=1813&ms_acc_sec_13=&ms_acc_srv_23=&ms_acc_port_23=1813&ms_acc_sec_23=&ms_ssid4=dlink4&ms_ssid_hidden4=0&ms_auth4=0&ms_priority4=0&ms_wmm4=1&ms_cipher4=0&ms_key_idx4=1&ms_gkui4=1800&ms_kui4=300&ms_radius_type4=&ms_passphrase4=&ms_enable_rekey4=0&ms_rekey4=&ms_radius_srv_14=&ms_radius_port_14=1812&ms_radius_sec_14=&ms_radius_srv_24=&ms_radius_port_24=1812&ms_radius_sec_24=&ms_acc_mode4=0&ms_acc_srv_14=&ms_acc_port_14=1813&ms_acc_sec_14=&ms_acc_srv_24=&ms_acc_port_24=1813&ms_acc_sec_24=&ms_ssid5=dlink5&ms_ssid_hidden5=0&ms_auth5=0&ms_priority5=0&ms_wmm5=1&ms_cipher5=0&ms_key_idx5=1&ms_gkui5=1800&ms_kui5=300&ms_radius_type5=&ms_passphrase5=&ms_enable_rekey5=0&ms_rekey5=&ms_radius_srv_15=&ms_radius_port_15=1812&ms_radius_sec_15=&ms_radius_srv_25=&ms_radius_port_25=1812&ms_radius_sec_25=&ms_acc_mode5=0&ms_acc_srv_15=&ms_acc_port_15=1813&ms_acc_sec_15=&ms_acc_srv_25=&ms_acc_port_25=1813&ms_acc_sec_25=&ms_ssid6=dlink6&ms_ssid_hidden6=0&ms_auth6=0&ms_priority6=0&ms_wmm6=1&ms_cipher6=0&ms_key_idx6=1&ms_gkui6=1800&ms_kui6=300&ms_radius_type6=&ms_passphrase6=&ms_enable_rekey6=0&ms_rekey6=&ms_radius_srv_16=&ms_radius_port_16=1812&ms_radius_sec_16=&ms_radius_srv_26=&ms_radius_port_26=1812&ms_radius_sec_26=&ms_acc_mode6=0&ms_acc_srv_16=&ms_acc_port_16=1813&ms_acc_sec_16=&ms_acc_srv_26=&ms_acc_port_26=1813&ms_acc_sec_26=&ms_ssid7=dlink7&ms_ssid_hidden7=0&ms_auth7=0&ms_priority7=0&ms_wmm7=1&ms_cipher7=0&ms_key_idx7=1&ms_gkui7=1800&ms_kui7=300&ms_radius_type7=&ms_passphrase7=&ms_enable_rekey7=0&ms_rekey7=&ms_radius_srv_17=&ms_radius_port_17=1812&ms_radius_sec_17=&ms_radius_srv_27=&ms_radius_port_27=1812&ms_radius_sec_27=&ms_acc_mode7=0&ms_acc_srv_17=&ms_acc_port_17=1813&ms_acc_sec_17=&ms_acc_srv_27=&ms_acc_port_27=1813&ms_acc_sec_27=GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.42.47 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.42.47
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /__action.php?ACTION_POST=sys_setting HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.42.47
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /cfg_valid.xgi?random=2025.5.8.16.42.59&exeshell=submit%20COMMIT&exeshell=submit%20WLAN&exeshell=submit%20Limit&exeshell=submit%20AP_ARRAY&exeshell=submit%20COMMIT&flag=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__action.php?ACTION_POST=sys_setting
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /cfg_valid.php?uptime=320&random=2025.5.8.16.42.59&flag=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__action.php?ACTION_POST=sys_setting
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/cfg_valid.php?uptime=320&random=2025.5.8.16.42.59&flag=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /home_sys.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Sec-Purpose: prefetch;prerender
+Purpose: prefetch
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /session_login.php?reload=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /login.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/session_login.php?reload=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /model/router.css HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/css,*/*;q=0.1
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/dlink.jpg HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/banner.jpg HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /login.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 83
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=LOGIN&f_date=&f_time=&LOGIN_USER=admin&LOGIN_PASSWD=admin&login=+Login+GET /login_fail.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /login.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login_fail.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /login.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 83
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=LOGIN&f_date=&f_time=&LOGIN_USER=admin&LOGIN_PASSWD=admin&login=+Login+GET /login_fail.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keems_priority2=0&ms_wmm2=1&ms_ciphts: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /login.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login_fail.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /login.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 78
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=LOGIN&f_date=&f_time=&LOGIN_USER=admin&LOGIN_PASSWD=&login=+Login+GET /index.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/login.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/tool_bar.jpg HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,kmage/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/home.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/tool_bar_v.jpg HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/tool.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/triangle.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /home_sys.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/line.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/plus.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/help.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/file.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/plusbottom.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/monitor.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/logout.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/sys.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/config.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/text.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/join.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/joinbottom.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/themespacer.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/minus.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/open_file.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_ap_array.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/save1.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/adv_ap_array.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/save2.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/adv_ap_array.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_ap_array.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 702
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_ap_array.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_ap_array&f_ap_array_enable=1&f_role=1&f_scan_value=&f_wlmode=&ap_array_enable=1&role=1&ap_array_name=d-linkeeeee&ap_array_pwd=wdAWdwdas&basic_setting=1&bsc_network_name=1&bsc_ssid_visibility=0&bsc_auto_chann=0&bsc_channel_width=0&bsc_security=1&bsc_band=0&adv_setting=1&adv_data_rate=0&adv_beacon_interval=0&adv_dtim=0&adv_transmit_power=0&adv_wmm_wifi=1&adv_ack_timeout=0&adv_acl=0&adv_short_gi=0&adv_link_integrity=1&adv_conn_limit=0&adv_igmp=0&mssid_vlan=1&mssid=0&mssid_visibility=0&msecurity=1&mwmm=0&vlan=0&adv_func=1&schedule_settings=0&qos_setting=0&log_setting=0&time_date=0&dhcp_svr_setting=0&admin_setting=1&sys_name_setting=0&snmp_setting=0&login_setting=1&console_setting=0GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_ap_array.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.40.1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_ap_array.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.40.1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/minusbottom.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.40.1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.40.1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/add1.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/add2.gif HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 191
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_acl&f_wlmode=&f_acl_del=&hacl_mac=DA%3ADB%3A77%3ACA%3A99%3A12&f_client_info_mac_add=&f_add=1&acl_type=1&acl_mac1=DA&acl_mac2=DB&acl_mac3=77&acl_mac4=CA&acl_mac5=99&acl_mac6=12GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, lik0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.40.25 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.40.25
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /pic/delete.jpg HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 191
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_acl&f_wlmode=&f_acl_del=&hacl_mac=12%3AAD%3AED%3A34%3ADA%3A89&f_cPient_info_mac_add=&f_add=1&acl_type=1&acl_mac1=12&acl_mac2=AD&acl_mac3=ED&acl_mac4=34&acl_mac5=DA&acl_mac6=89GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.40.42 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.40.42
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 152
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_acl&f_wlmode=&f_acl_del=1&hacl_mac=&f_client_info_mac_add=&f_add=&acl_type=1&acl_mac1=&acl_mac2=&acl_mac3=&acl_mac4=&acl_mac5=&acl_mac6=GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.40.48 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.40.48
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /upload_acl._int HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 320
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarys4t2jufhZ1nQcTDA
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_acl.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+------WebKitFormBoundarys4t2jufhZ1nQcTDA
+Content-Disposition: form-data; name="macacl"; filename="dgzergzs.acl"
+Content-Type: application/octet-stream
+
+wdawfeaWFEVFWSD
+------WebKitFormBoundarys4t2jufhZ1nQcTDA
+Content-Disposition: form-data; name="acl_load"
+
+ Upload 
+------WebKitFormBoundarys4t2jufhZ1nQcTDA--
+GET /sys_stunnel_process.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/upload_acl._int
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/sys_stunnel_process.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_acl.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 3503
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_mssid&f_mssid_del=&f_ssid_select=3&f_mssid_enable=1&f_priority_enable=0&f_wpa_mode=0&f_auth=0&f_cipher=1&f_encrypt=1&f_add=1&f_enable_rekey=&f_time_interuol=&f_start_time=&f_start_week=&mssid_enable=1&index=3&ssid=dlink3&ap_hidden=0&auth=0&auth_wds=0&auth_wds_mssid=0&wmm=1&encrypt=1&keytype=2&keysize=64&defkey=1&key=1234567890&confirm_key=1234567890&wpa_mode=0&wpa_mode_wds=0&cipher=4&cipher_wds=4&gkui=1800&kui=300&enable_rekey=0&sweek=Sun&shour=00&smin=00&time_interuol=1&passphrase=&confirm_passphrase=&radius_srv_1=&radius_port_1=1812&radius_sec_1=&ms_ssid1=dlink1&ms_ssid_hidden1=0&ms_auth1=0&ms_priority1=0&ms_wmm1=1&ms_cipher1=0&ms_key_idx1=1&ms_gkui1=1800&ms_kui1=300&ms_radius_type1=&ms_passphrase1=&ms_enable_rekey1=0&ms_rekey1=&ms_radius_srv_11=&ms_radius_port_11=1812&ms_radius_sec_11=&ms_radius_srv_21=&ms_radius_port_21=1812&ms_radius_sec_21=&ms_acc_mode1=0&ms_acc_srv_11=&ms_acc_port_11=1813&ms_acc_sec_11=&ms_acc_srv_21=&ms_acc_port_21=1813&ms_acc_sec_21=&ms_ssid2=dlink2&ms_ssid_hidden2=0&ms_auth2=0&ms_priority2=0&ms_wmm2=1&ms_cipher2=0&ms_key_idx2=1&ms_gkui2=1800&ms_kui2=300&ms_radius_type2=&ms_passphrase2=&ms_enable_rekey2=0&ms_rekey2=&ms_radius_srv_12=&ms_radius_port_12=1812&ms_radius_sec_12=&ms_radius_srv_22=&ms_radius_port_22=1812&ms_radius_sec_22=&ms_acc_mode2=0&ms_acc_srv_12=&ms_acc_port_12=1813&ms_acc_sec_12=&ms_acc_srv_22=&ms_acc_port_22=1813&ms_acc_sec_22=&ms_ssid3=dlink3&ms_ssid_hidden3=0&ms_auth3=0&ms_priority3=0&ms_wmm3=1&ms_cipher3=0&ms_key_idx3=1&ms_gkui3=1800&ms_kui3=300&ms_radius_type3=&ms_passphrase3=&ms_enable_rekey3=0&ms_rekey3=&ms_radius_srv_13=&ms_radius_port_13=1812&ms_radius_sec_13=&ms_radius_srv_23=&ms_radius_port_23=1812&ms_radius_sec_23=&ms_acc_mode3=0&ms_acc_srv_13=&ms_acc_port_13=1813&ms_acc_sec_13=&ms_acc_srv_23=&ms_acc_port_23=1813&ms_acc_sec_23=&ms_ssid4=dlink4&ms_ssid_hidden4=0&ms_auth4=0&ms_priority4=0&ms_wmm4=1&ms_cipher4=0&ms_key_idx4=1&ms_gkui4=1800&ms_kui4=300&ms_radius_type4=&ms_passphrase4=&ms_enable_rekey4=0&ms_rekey4=&ms_radius_srv_14=&ms_radius_port_14=1812&ms_radius_sec_14=&ms_radius_srv_24=&ms_radius_port_24=1812&ms_radius_sec_24=&ms_acc_mode4=0&ms_acc_srv_14=&ms_acc_port_14=1813&ms_acc_sec_14=&ms_acc_srv_24=&ms_acc_port_24=1813&ms_acc_sec_24=&ms_ssid5=dlink5&ms_ssid_hidden5=0&ms_auth5=0&ms_priority5=0&ms_wmm5=1&ms_cipher5=0&ms_key_idx5=1&ms_gkui5=1800&ms_kui5=300&ms_radius_type5=&ms_passphrase5=&ms_enable_rekey5=0&ms_rekey5=&ms_radius_srv_15=&ms_radius_port_15=1812&ms_radius_sec_15=&ms_radius_srv_25=&ms_radius_port_25=1812&ms_radius_sec_25=&ms_acc_mode5=0&ms_acc_srv_15=&ms_acc_port_15=1813&ms_acc_sec_15=&ms_acc_srv_25=&ms_acc_port_25=1813&ms_acc_sec_25=&ms_ssid6=dlink6&ms_ssid_hidden6=0&ms_auth6=0&ms_priority6=0&ms_wmm6=1&ms_cipher6=0&ms_key_idx6=1&ms_gkui6=1800&ms_kui6=300&ms_radius_type6=&ms_passphrase6=&ms_enable_rekey6=0&ms_rekey6=&ms_radius_srv_16=&ms_radius_port_16=1812&ms_radius_sec_16=&ms_radius_srv_26=&ms_radius_port_26=1812&ms_radius_sec_26=&ms_acc_mode6=0&ms_acc_srv_16=&ms_acc_port_16=1813&ms_acc_sec_16=&ms_acc_srv_26=&ms_acc_port_26=1813&ms_acc_sec_26=&ms_ssid7=dlink7&ms_ssid_hidden7=0&ms_auth7=0&ms_priority7=0&ms_wmm7=1&ms_cipher7=0&ms_key_idx7=1&ms_gkui7=1800&ms_kui7=300&ms_radius_type7=&ms_passphrase7=&ms_enable_rekey7=0&ms_rekey7=&ms_radius_srv_17=&ms_radius_port_17=1812&ms_radius_sec_17=&ms_radius_srv_27=&ms_radius_port_27=1812&ms_radius_sec_27=&ms_acc_mode7=0&ms_acc_srv_17=&ms_acc_port_17=1813&ms_acc_sec_17=&ms_acc_srv_27=&ms_acc_port_27=1813&ms_acc_sec_27=GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.42.20 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/aviˆ,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.42.20
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 3435
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_mssid&f_mssid_del=&f_ssid_select=5&f_mssid_enable=1&f_priority_enable=0&f_wpa_mode=0&f_auth=0&f_cipher=0&f_encrypt=0&f_add=1&f_enable_rekey=&f_time_interuol=&f_start_time=&f_start_week=&mssid_enable=1&index=5&ssid=dlink5&ap_hidden=0&auth=0&auth_wds=0&auth_wds_mssid=0&wmm=1&encrypt=0&wpa_mode=0&wpa_mode_wds=0&cipher=4&cipher_wds=4&gkui=1800&kui=300&enable_rekey=0&sweek=Sun&shour=00&smin=00&time_interuol=1&passphrase=&confirm_passphrase=&radius_srv_1=&radius_port_1=1812&radius_sec_1=&ms_ssid1=dlink1&ms_ssid_hidden1=0&ms_auth1=0&ms_priority1=0&ms_wmm1=1&ms_cipher1=0&ms_key_idx1=1&ms_gkui1=1800&ms_kui1=300&ms_radius_type1=&ms_passphrase1=&ms_enable_rekey1=0&ms_rekey1=&ms_radius_srv_11=&ms_radius_port_11=1812&ms_radius_sec_11=&ms_radius_srv_21=&ms_radius_port_21=1812&ms_radius_sec_21=&ms_acc_mode1=0&ms_acc_srv_11=&ms_acc_port_11=1813&ms_acc_sec_11=&ms_acc_srv_21=&ms_acc_port_21=1813&ms_acc_sec_21=&ms_ssid2=dlink2&ms_ssid_hidden2=0&ms_auth2=0&ms_priority2=0&ms_wmm2=1&ms_cipher2=0&ms_key_idx2=1&ms_gkui2=1800&ms_kui2=300&ms_radius_type2=&ms_passphrase2=&ms_enable_rekey2=0&ms_rekey2=&ms_radius_srv_12=&ms_radius_port_12=1812&ms_radius_sec_12=&ms_radius_srv_22=&ms_radius_port_22=1812&ms_radius_sec_22=&ms_acc_mode2=0&ms_acc_srv_12=&ms_acc_port_12=1813&ms_acc_sec_12=&ms_acc_srv_22=&ms_acc_port_22=1813&ms_acc_sec_22=&ms_ssid3=dlink3&ms_ssid_hidden3=0&ms_auth3=0&ms_priority3=0&ms_wmm3=1&ms_cipher3=1&ms_key_idx3=1&ms_gkui3=1800&ms_kui3=300&ms_radius_type3=&ms_passphrase3=&ms_enable_rekey3=0&ms_rekey3=&ms_radius_srv_13=&ms_radius_port_13=1812&ms_radius_sec_13=&ms_radius_srv_23=&ms_radius_port_23=1812&ms_radius_sec_23=&ms_acc_mode3=0&ms_acc_srv_13=&ms_acc_port_13=1813&ms_acc_sec_13=&ms_acc_srv_23=&ms_acc_port_23=1813&ms_acc_sec_23=&ms_ssid4=dlink4&ms_ssid_hidden4=0&ms_auth4=0&ms_priority4=0&ms_wmm4=1&ms_cipher4=0&ms_key_idx4=1&ms_gkui4=1800&ms_kui4=300&ms_radius_type4=&ms_passphrase4=&ms_enable_rekey4=0&ms_rekey4=&ms_radius_srv_14=&ms_radius_port_14=1812&ms_radius_sec_14=&ms_radius_srv_24=&ms_radius_port_24=1812&ms_radius_sec_24=&ms_acc_mode4=0&ms_acc_srv_14=&ms_acc_port_14=1813&ms_acc_sec_14=&ms_acc_srv_24=&ms_acc_port_24=1813&ms_acc_sec_24=&ms_ssid5=dlink5&ms_ssid_hidden5=0&ms_auth5=0&ms_priority5=0&ms_wmm5=1&ms_cipher5zywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzyw=0&ms_key_idx5=1&ms_gkui5=1800&ms_kui5=300&ms_radius_type5=&ms_passphrase5=&ms_enable_rekey5=0&ms_rekey5=&ms_radius_srv_15=&ms_radius_port_15=1812&ms_radius_sec_15=&ms_radius_srv_25=&ms_radius_port_25=1812&ms_radius_sec_25=&ms_acc_mode5=0&ms_acc_srv_15=&ms_acc_port_15=1813&ms_acc_sec_15=&ms_acc_srv_25=&ms_acc_port_25=1813&ms_acc_sec_25=&ms_ssid6=dlink6&ms_ssid_hidden6=0&ms_auth6=0&ms_priority6=0&ms_wmm6=1&ms_cipher6=0&ms_key_idx6=1&ms_gkui6=1800&ms_kui6=300&ms_radius_type6=&ms_passphrase6=&ms_enable_rekey6=0&ms_rekey6=&ms_radius_srv_16=&ms_radius_port_16=1812&ms_radius_sec_16=&ms_radius_srv_26=&ms_radius_port_26=1812&ms_radius_sec_26=&ms_acc_mode6=0&ms_acc_srv_16=&ms_acc_port_16=1813&ms_acc_sec_16=&ms_acc_srv_26=&ms_acc_port_26=1813&ms_acc_sec_26=&ms_ssid7=dlink7&ms_ssid_hidden7=0&ms_auth7=0&ms_priority7=0&ms_wmm7=1&ms_cipher7=0&ms_key_idx7=1&ms_gkui7=1800&ms_kui7=300&ms_radius_type7=&ms_passphrase7=&ms_enable_rekey7=0&ms_rekey7=&ms_radius_srv_17=&ms_radius_port_17=1812&ms_radius_sec_17=&ms_radius_srv_27=&ms_radius_port_27=1812&ms_radius_sec_27=&ms_acc_mode7=0&ms_acc_srv_17=&ms_acc_port_17=1813&ms_acc_sec_17=&ms_acc_srv_27=&ms_acc_port_27=1813&ms_acc_sec_27=GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, dezywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywInsecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_mssid&f_mssid_del=3&f_ssid_select=&f_mssid_enable=&f_priority_enable=&f_wpa_mode=&f_auth=&f_cipher=&f_encrypt=&f_add=&f_enable_rekey=&f_time_interuol=&f_start_time=&f_start_week=&mssid_enable=1&index=0&auth_wds=0&auth_wds_mssid=0&wpa_mode_wds=0&cipher_wds=4&ms_ssid1=dlink1&ms_ssid_hidden1=0&ms_auth1=0&ms_priority1=0&ms_wmm1=1&ms_cipher1=0&ms_key_idx1=1&ms_gkui1=1800&ms_kui1=300&ms_radius_type1=&ms_passphrase1=&ms_enable_rekey1=0&ms_rekey1=&ms_radius_srv_11=&ms_radius_port_11=1812&ms_radius_sec_11=&ms_radius_srv_21=&ms_radius_port_21=1812&ms_radius_sec_21=&ms_acc_mode1=0&ms_acc_srv_11=&ms_acc_port_11=1813&ms_acc_sec_11=&ms_acc_srv_21=&ms_acc_port_21=1813&ms_acc_sec_21=&ms_ssid2=dlink2&ms_ssid_hidden2=0&ms_auth2=0&ms_priority2=0&ms_wmm2=1&ms_cipher2=0&ms_key_idx2=1&ms_gkui2=1800&ms_kui2=300&ms_radius_type2=&ms_passphrase2=&ms_enable_rekey2=0&ms_rekey2=&ms_radius_srv_12=&ms_radius_port_12=1812&ms_radius_sec_12=&ms_radius_srv_22=&ms_radius_port_22=1812&ms_radius_sec_22=&ms_acc_mode2=0&ms_acc_srv_12=&ms_acc_port_12=1813&ms_acc_sec_12=&ms_acc_srv_22=&ms_acc_port_22=1813&ms_acc_sec_22=&ms_ssid3=dlink3&ms_ssid_hidden3=0&ms_auth3=0&ms_priority3=0&ms_wmm3=1&ms_cipher3=1&ms_key_idx3=1&ms_gkui3=1800&ms_kui3=300&ms_radius_type3=&ms_passphrase3=&ms_enable_rekey3=0&ms_rekey3=&ms_radius_srv_13=&ms_radius_port_13=1812&ms_radius_sec_13=&ms_radius_srv_23=&ms_radius_port_23=1812&ms_radius_sec_23=&ms_acc_mode3=0&ms_acc_srv_13=&ms_acc_port_13=1813&ms_acc_sec_13=&ms_acc_srv_23=&ms_acc_port_23=1813&ms_acc_sec_23=&ms_ssid4=dlink4&ms_ssid_hidden4=0&ms_auth4=0&ms_priority4=0&ms_wmm4=1&ms_cipher4=0&ms_key_idx4=1&ms_gkui4=1800&ms_kui4=300&ms_radius_type4=&ms_passphrase4=&ms_enable_rekey4=0&ms_rekey4=&ms_radius_srv_14=&ms_radius_port_14=1812&ms_radius_sec_14=&ms_radius_srv_24=&ms_radius_port_24=1812&ms_radius_sec_24=&ms_acc_mode4=0&ms_acc_srv_14=&ms_acc_port_14=1813&ms_acc_sec_14=&ms_acc_srv_24=&ms_acc_port_24=1813&ms_acc_sec_24=&ms_ssid5=dlink5&ms_ssid_hidden5=0&ms_auth5=0&ms_priority5=0&ms_wmm5=1&ms_cipher5=0&ms_key_idx5=1&ms_gkui5=1800&ms_kui5=300&ms_radius_type5=&ms_passphrase5=&ms_enable_rekey5=0&ms_rekey5=&ms_radius_srv_15=&ms_radius_port_15=1812&ms_radius_sec_15=&ms_radius_srv_25=&ms_radius_port_25=1812&ms_radius_sec_25=&ms_acc_mode5=0&ms_acc_srv_15=&ms_acc_port_15=1813&ms_acc_sec_15=&ms_acc_srv_25=&ms_acc_port_25=1813&ms_acc_sec_25=&ms_ssid6=dlink6&ms_ssid_hidden6=0&ms_auth6=0&ms_priority6=0&ms_wmm6=1&ms_cipher6=0&ms_key_idx6=1&ms_gkui6=1800&ms_kui6=300&ms_radius_type6=&ms_passphrase6=&ms_enable_rekey6=0&ms_rekey6=&ms_radius_srv_16=&ms_radius_port_16=1812&ms_radius_sec_16=&ms_radius_srv_26=&ms_radius_port_26=1812&ms_radius_sec_26=&ms_acc_mode6=0&ms_acc_srv_16=&ms_acc_port_16=1813&ms_acc_sec_16=&ms_acc_srv_26=&ms_acc_port_26=1813&ms_acc_sec_26=&ms_ssid7=dlink7&ms_ssid_hidden7=0&ms_auth7=0&ms_priority7=0&ms_wmm7=1&ms_cipher7=0&ms_key_idx7=1&ms_gkui7=1800&ms_kui7=300&ms_radius_type7=&ms_passphrase7=&ms_enable_rekey7=0&ms_rekey7=&ms_radius_srv_17=&ms_radius_port_17=1812&ms_radius_sec_17=&ms_radius_srv_27=&ms_radius_port_27=1812&ms_radius_sec_27=&ms_acc_mode7=0&ms_acc_srv_17=&ms_acc_port_17=1813&ms_acc_sec_17=&ms_acc_srv_27=&ms_acc_port_27=1813&ms_acc_sec_27=GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.42.40 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.42.40
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+POST /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Content-Length: 3205
+Cache-Control: max-age=0
+Origin: http://192.168.0.50
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+ACTION_POST=adv_mssid&f_mssid_del=&f_ssid_select=&f_mssid_enable=&f_priority_enable=&f_wpa_mode=&f_auth=&f_cipher=&f_encrypt=&f_add=&f_enable_rekey=&f_time_interuol=&f_start_time=&f_start_week=&mssid_enable=1&index=0&auth_wds=0&auth_wds_mssid=0&wpa_mode_wds=0&cipher_wds=4&ms_ssid1=dlink1&ms_ssid_hidden1=0&ms_auth1=0&ms_priority1=0&ms_wmm1=1&ms_cipher1=0&ms_key_idx1=1&ms_gkui1=1800&ms_kui1=300&ms_radius_type1=&ms_passphrase1=&ms_enable_rekey1=0&ms_rekey1=&ms_radius_srv_11=&ms_radius_port_11=1812&ms_radius_sec_11=&ms_radius_srv_21=&ms_radius_port_21=1812&ms_radius_sec_21=&ms_acc_mode1=0&ms_acc_srv_11=&ms_acc_port_11=1813&ms_acc_sec_11=&ms_acc_srv_21=&ms_acc_port_21=1813&ms_acc_sec_21=&ms_ssid2=dlink2&ms_ssid_hidden2=0&ms_auth2=0&ms_priority2=0&ms_wmm2=1&ms_cipher2=0&ms_key_idx2=1&ms_gkui2=1800&ms_kui2=300&ms_radius_type2=&ms_passphrase2=&ms_enable_rekey2=0&ms_rekey2=&ms_radius_srv_12=&ms_radius_port_12=1812&ms_radius_sec_12=&ms_radius_srv_22=&ms_radius_port_22=1812&ms_radius_sec_22=&ms_acc_mode2=0&ms_acc_srv_12=&ms_acc_port_12=1813&ms_acc_sec_12=&ms_acc_srv_22=&ms_acc_port_22=1813&ms_acc_sec_22=&ms_ssid3=dlink3&ms_ssid_hidden3=0&ms_auth3=0&ms_priority3=0&ms_wmm3=1&ms_cipher3=1&ms_key_idx3=1&ms_gkui3=1800&ms_kui3=300&ms_radius_type3=&ms_passphrase3=&ms_enable_rekey3=0&ms_rekey3=&ms_radius_srv_13=&ms_radius_port_13=1812&ms_radius_sec_13=&ms_radius_srv_23=&ms_radius_port_23=1812&ms_radius_sec_23=&ms_acc_mode3=0&ms_acc_srv_13=&ms_acc_port_13=1813&ms_acc_sec_13=&ms_acc_srv_23=&ms_acc_port_23=1813&ms_acc_sec_23=&ms_ssid4=dlink4&ms_ssid_hidden4=0&ms_auth4=0&ms_priority4=0&ms_wmm4=1&ms_cipher4=0&ms_key_idx4=1&ms_gkui4=1800&ms_kui4=300&ms_radius_type4=&ms_passphrase4=&ms_enable_rekey4=0&ms_rekey4=&ms_radius_srv_14=&ms_radius_port_14=1812&ms_radius_sec_14=&ms_radius_srv_24=&ms_radius_port_24=1812&ms_radius_sec_24=&ms_acc_mode4=0&ms_acc_srv_14=&ms_acc_port_14=1813&ms_acc_sec_14=&ms_acc_srv_24=&ms_acc_port_24=1813&ms_acc_sec_24=&ms_ssid5=dlink5&ms_ssid_hidden5=0&ms_auth5=0&ms_priority5=0&ms_wmm5=1&ms_cipher5=0&ms_key_idx5=1&ms_gkui5=1800&ms_kui5=300&ms_radius_type5=&ms_passphrase5=&ms_enable_rekey5=0&ms_rekey5=&ms_radius_srv_15=&ms_radius_port_15=1812&ms_radius_sec_15=&ms_radius_srv_25=&ms_radius_port_25=1812&ms_radius_sec_25=&ms_acc_mode5=0&ms_acc_srv_15=&ms_acc_port_15=1813&ms_acc_sec_15=&ms_acc_srv_25=&ms_acc_port_25=1813&ms_acc_sec_25=&ms_ssid6=dlink6&ms_ssid_hidden6=0&ms_auth6=0&ms_priority6=0&ms_wmm6=1&ms_cipher6=0&ms_key_idx6=1&ms_gkui6=1800&ms_kui6=300&ms_radius_type6=&ms_passphrase6=&ms_enable_rekey6=0&ms_rekey6=&ms_radius_srv_16=&ms_radius_port_16=1812&ms_radius_sec_16=&ms_radius_srv_26=&ms_radius_port_26=1812&ms_radius_sec_26=&ms_acc_mode6=0&ms_acc_srv_16=&ms_acc_port_16=1813&ms_acc_sec_16=&ms_acc_srv_26=&ms_acc_port_26=1813&ms_acc_sec_26=&ms_ssid7=dlink7&ms_ssid_hidden7=0&ms_auth7=0&ms_priority7=0&ms_wmm7=1&ms_cipher7=0&ms_key_idx7=1&ms_gkui7=1800&ms_kui7=300&ms_radius_type7=&ms_passphrase7=&ms_enable_rekey7=0&ms_rekey7=&ms_radius_srv_17=&ms_radius_port_17=1812&ms_radius_sec_17=&ms_radius_srv_27=&ms_radius_port_27=1812&ms_radius_sec_27=&ms_acc_mode7=0&ms_acc_srv_17=&ms_acc_port_17=1813&ms_acc_sec_17=&ms_acc_srv_27=&ms_acc_port_27=1813&ms_acc_sec_27=GET /__saving.php?DOSAVE=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/adv_mssid.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php?random=2025.5.8.16.42.47 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__saving.php?DOSAVE=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /adv_mssid.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.42.47
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /__action.php?ACTION_POST=sys_setting HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php?random=2025.5.8.16.42.47
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /cfg_valid.xgi?random=2025.5.8.16.42.59&exeshell=submit%20COMMIT&exeshell=submit%20WLAN&exeshell=submit%20Limit&exeshell=submit%20AP_ARRAY&exeshell=submit%20COMMIT&flag=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__action.php?ACTION_POST=sys_setting
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /cfg_valid.php?uptime=320&random=2025.5.8.16.42.59&flag=1 HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/__action.php?ACTION_POST=sys_setting
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /index.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/cfg_valid.php?uptime=320&random=2025.5.8.16.42.59&flag=1
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+GET /home_sys.php HTTP/1.1
+Host: 192.168.0.50
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.0.50/index.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+

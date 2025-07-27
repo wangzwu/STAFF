@@ -1,0 +1,795 @@
+[    0.000000] Linux version 4.1.17+ (alessio@pc) (gcc version 5.5.0 20171010 (Ubuntu 5.5.0-12ubuntu1) ) #1 Mon May 15 23:04:08 CEST 2023
+[    0.000000] earlycon: Early serial console at I/O port 0x3f8 (options '38400n8')
+[    0.000000] bootconsole [uart0] enabled
+[    0.000000] CPU0 revision is: 00019300 (MIPS 24Kc)
+[    0.000000] FPU revision is: 00739300
+[    0.000000] Software DMA cache coherency enabled
+[    0.000000] Determined physical RAM map:
+[    0.000000]  memory: 00001000 @ 00000000 (reserved)
+[    0.000000]  memory: 000ef000 @ 00001000 (ROM data)
+[    0.000000]  memory: 00798000 @ 000f0000 (reserved)
+[    0.000000]  memory: 0f777000 @ 00888000 (usable)
+[    0.000000] debug: ignoring loglevel setting.
+[    0.000000] Wasting 69888 bytes for tracking 2184 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000000000000-0x0000000000ffffff]
+[    0.000000]   Normal   [mem 0x0000000001000000-0x000000000fffefff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x000000000fffefff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x000000000fffefff]
+[    0.000000] On node 0 totalpages: 65535
+[    0.000000] free_area_init_node: node 0, pgdat 8081d5b0, node_mem_map 81000000
+[    0.000000]   DMA zone: 32 pages used for memmap
+[    0.000000]   DMA zone: 0 pages reserved
+[    0.000000]   DMA zone: 4096 pages, LIFO batch:0
+[    0.000000]   Normal zone: 480 pages used for memmap
+[    0.000000]   Normal zone: 61439 pages, LIFO batch:15
+[    0.000000] Primary instruction cache 2kB, VIPT, 2-way, linesize 16 bytes.
+[    0.000000] Primary data cache 2kB, 2-way, VIPT, no aliases, linesize 16 bytes
+[    0.000000] pcpu-alloc: s0 r0 d32768 u32768 alloc=1*32768
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 65023
+[    0.000000] Kernel command line: root=/dev/sda1 console=ttyS0 nandsim.parts=64,64,64,64,64,64,64,64,64,64 rdinit=/firmadyne/preInit.sh rw debug ignore_loglevel print-fatal-signals=1 FIRMAE_NET=true FIRMAE_NVRAM=true FIRMAE_KERNEL=true FIRMAE_ETC=true user_debug=0 firmadyne.syscall=1 noka
+[    0.000000] found FIRMAE_KERNEL=t
+[    0.000000] set the LD_PRELOAD=/firmadyne/libnvram_ioctl.so
+[    0.000000] PID hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.000000] Dentry cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Inode-cache hash table entries: 16384 (order: 4, 65536 bytes)
+[    0.000000] Writing ErrCtl register=00000000
+[    0.000000] Readback ErrCtl register=00000000
+[    0.000000] Memory: 251112K/262140K available (5360K kernel code, 244K rwdata, 1676K rodata, 260K init, 158K bss, 11028K reserved, 0K cma-reserved)
+[    0.000000] NR_IRQS:256
+[    0.000000] CPU frequency 200.01 MHz
+[    0.000000] clocksource MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19111894843 ns
+[    0.000216] sched_clock: 32 bits at 100MHz, resolution 9ns, wraps every 21474038779ns
+[    0.016291] Console: colour dummy device 80x25
+[    0.017471] Calibrating delay loop... 23.07 BogoMIPS (lpj=46144)
+[    0.069279] pid_max: default: 32768 minimum: 301
+[    0.074027] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.074582] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.145844] clocksource jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.157895] NET: Registered protocol family 16
+[    0.463294] clocksource pit: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1601818034827 ns
+[    0.633606] vgaarb: loaded
+[    0.639885] SCSI subsystem initialized
+[    0.642640] libata version 3.00 loaded.
+[    0.647496] usbcore: registered new interface driver usbfs
+[    0.649036] usbcore: registered new interface driver hub
+[    0.650407] usbcore: registered new device driver usb
+[    0.653298] pps_core: LinuxPPS API ver. 1 registered
+[    0.653734] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.654959] PTP clock support registered
+[    0.660216] PCI host bridge to bus 0000:00
+[    0.661027] pci_bus 0000:00: root bus resource [mem 0x10000000-0x17ffffff]
+[    0.661691] pci_bus 0000:00: root bus resource [io  0x1000-0x1fffff]
+[    0.662334] pci_bus 0000:00: root bus resource [??? 0x00000000 flags 0x0]
+[    0.663158] pci_bus 0000:00: No busn resource found for root bus, will use [bus 00-ff]
+[    0.664570] pci 0000:00:00.0: [11ab:4620] type 00 class 0x060000
+[    0.665565] pci 0000:00:00.0: [Firmware Bug]: reg 0x14: invalid BAR (can't size)
+[    0.666195] pci 0000:00:00.0: [Firmware Bug]: reg 0x18: invalid BAR (can't size)
+[    0.666821] pci 0000:00:00.0: [Firmware Bug]: reg 0x1c: invalid BAR (can't size)
+[    0.667665] pci 0000:00:00.0: [Firmware Bug]: reg 0x20: invalid BAR (can't size)
+[    0.668309] pci 0000:00:00.0: [Firmware Bug]: reg 0x24: invalid BAR (can't size)
+[    0.672787] pci 0000:00:0a.0: [8086:7110] type 00 class 0x060100
+[    0.676719] pci 0000:00:0a.1: [8086:7111] type 00 class 0x010180
+[    0.677582] pci 0000:00:0a.1: reg 0x20: [io  0x0000-0x000f]
+[    0.678224] pci 0000:00:0a.1: legacy IDE quirk: reg 0x10: [io  0x01f0-0x01f7]
+[    0.678847] pci 0000:00:0a.1: legacy IDE quirk: reg 0x14: [io  0x03f6]
+[    0.679452] pci 0000:00:0a.1: legacy IDE quirk: reg 0x18: [io  0x0170-0x0177]
+[    0.680264] pci 0000:00:0a.1: legacy IDE quirk: reg 0x1c: [io  0x0376]
+[    0.683770] pci 0000:00:0a.2: [8086:7112] type 00 class 0x0c0300
+[    0.684695] pci 0000:00:0a.2: reg 0x20: [io  0x0000-0x001f]
+[    0.688157] pci 0000:00:0a.3: [8086:7113] type 00 class 0x068000
+[    0.689891] pci 0000:00:0a.3: quirk: [io  0x1000-0x103f] claimed by PIIX4 ACPI
+[    0.690589] pci 0000:00:0a.3: quirk: [io  0x1100-0x110f] claimed by PIIX4 SMB
+[    0.694295] pci 0000:00:12.0: [1013:00b8] type 00 class 0x030000
+[    0.694976] pci 0000:00:12.0: reg 0x10: [mem 0x00000000-0x01ffffff pref]
+[    0.695616] pci 0000:00:12.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[    0.696327] pci 0000:00:12.0: reg 0x30: [mem 0x00000000-0x0000ffff pref]
+[    0.699444] vgaarb: device added: PCI:0000:00:12.0,decodes=io+mem,owns=none,locks=none
+[    0.700824] pci 0000:00:13.0: [8086:100e] type 00 class 0x020000
+[    0.701702] pci 0000:00:13.0: reg 0x10: [mem 0x00000000-0x0001ffff]
+[    0.702313] pci 0000:00:13.0: reg 0x14: [io  0x0000-0x003f]
+[    0.703013] pci 0000:00:13.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[    0.706559] pci 0000:00:14.0: [8086:100e] type 00 class 0x020000
+[    0.707222] pci 0000:00:14.0: reg 0x10: [mem 0x00000000-0x0001ffff]
+[    0.707832] pci 0000:00:14.0: reg 0x14: [io  0x0000-0x003f]
+[    0.708513] pci 0000:00:14.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[    0.712215] pci 0000:00:15.0: [8086:100e] type 00 class 0x020000
+[    0.712882] pci 0000:00:15.0: reg 0x10: [mem 0x00000000-0x0001ffff]
+[    0.713491] pci 0000:00:15.0: reg 0x14: [io  0x0000-0x003f]
+[    0.714379] pci 0000:00:15.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[    0.717775] pci 0000:00:16.0: [8086:100e] type 00 class 0x020000
+[    0.718627] pci 0000:00:16.0: reg 0x10: [mem 0x00000000-0x0001ffff]
+[    0.719243] pci 0000:00:16.0: reg 0x14: [io  0x0000-0x003f]
+[    0.719924] pci 0000:00:16.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[    0.723701] pci_bus 0000:00: busn_res: [bus 00-ff] end is updated to 00
+[    0.725369] pci 0000:00:12.0: BAR 0: assigned [mem 0x10000000-0x11ffffff pref]
+[    0.726205] pci 0000:00:13.0: BAR 6: assigned [mem 0x12000000-0x1203ffff pref]
+[    0.727154] pci 0000:00:14.0: BAR 6: assigned [mem 0x12040000-0x1207ffff pref]
+[    0.727864] pci 0000:00:15.0: BAR 6: assigned [mem 0x12080000-0x120bffff pref]
+[    0.728568] pci 0000:00:16.0: BAR 6: assigned [mem 0x120c0000-0x120fffff pref]
+[    0.729257] pci 0000:00:13.0: BAR 0: assigned [mem 0x12100000-0x1211ffff]
+[    0.729940] pci 0000:00:14.0: BAR 0: assigned [mem 0x12120000-0x1213ffff]
+[    0.730621] pci 0000:00:15.0: BAR 0: assigned [mem 0x12140000-0x1215ffff]
+[    0.731519] pci 0000:00:16.0: BAR 0: assigned [mem 0x12160000-0x1217ffff]
+[    0.732231] pci 0000:00:12.0: BAR 6: assigned [mem 0x12180000-0x1218ffff pref]
+[    0.732929] pci 0000:00:12.0: BAR 1: assigned [mem 0x12190000-0x12190fff]
+[    0.733613] pci 0000:00:13.0: BAR 1: assigned [io  0x1040-0x107f]
+[    0.734235] pci 0000:00:14.0: BAR 1: assigned [io  0x1080-0x10bf]
+[    0.734859] pci 0000:00:15.0: BAR 1: assigned [io  0x10c0-0x10ff]
+[    0.735666] pci 0000:00:16.0: BAR 1: assigned [io  0x1400-0x143f]
+[    0.736303] pci 0000:00:0a.2: BAR 4: assigned [io  0x1440-0x145f]
+[    0.736941] pci 0000:00:0a.1: BAR 4: assigned [io  0x1460-0x146f]
+[    0.757994] cfg80211: Calling CRDA to update world regulatory domain
+[    0.774927] Switched to clocksource MIPS
+[    0.908268] NET: Registered protocol family 2
+[    0.922274] TCP established hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.923783] TCP bind hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.925022] TCP: Hash tables configured (established 2048 bind 2048)
+[    0.926243] UDP hash table entries: 256 (order: 0, 4096 bytes)
+[    0.927212] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes)
+[    0.931874] NET: Registered protocol family 1
+[    0.933775] PCI: Enabling device 0000:00:0a.2 (0000 -> 0001)
+[    0.935717] PCI: CLS 0 bytes, default 16
+[    0.972739] futex hash table entries: 256 (order: -1, 3072 bytes)
+[    0.992450] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.995468] jffs2: version 2.2. (NAND) © 2001-2006 Red Hat, Inc.
+[    0.999484] romfs: ROMFS MTD (C) 2007 Red Hat, Inc.
+[    1.027632] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 251)
+[    1.028378] io scheduler noop registered
+[    1.029185] io scheduler cfq registered (default)
+[    1.030319] firmadyne: devfs: 1, execute: 1, procfs: 1, syscall: 1
+[    1.037149] firmadyne: Cannot register character device: gpio, 0xfc, 0x0!
+[    1.047133] firmadyne: Cannot register character device: watchdog, 0xa, 0x82!
+[    1.047700] firmadyne: Cannot register character device: wdt, 0xfd, 0x0!
+[    3.024597] strName = 4.1.17+
+[    3.024597] init_task_addr  = 2155778944
+[    3.024597] init_task_size  = 1296
+[    3.024597] ts_tasks        = 292
+[    3.024597] ts_pid          = 408
+[    3.024597] ts_tgid         = 412
+[    3.024597] ts_group_leader = 440
+[    3.024597] ts_thread_group = 496
+[    3.024597] ts_real_parent  = 416
+[    3.024597] ts_mm           = 300
+[    3.024597] ts_stack        = 4
+[    3.027677] module_name   = 12
+[    3.027677] module_size   = 208
+[    3.027677] module_init   = 200
+[    3.027677] module_list   = 4
+[    3.028804] ts_real_cred    = 624
+[    3.028804] ts_cred         = 628
+[    3.028804] ts_comm         = 632
+[    3.028804] cred_uid        = 4
+[    3.028804] cred_gid        = 8
+[    3.028804] cred_euid       = 20
+[    3.028804] cred_egid       = 24
+[    3.030625] mm_mmap         = 0
+[    3.030625] mm_pgd          = 32
+[    3.030625] mm_arg_start    = 136
+[    3.030625] mm_start_brk    = 124
+[    3.030625] mm_brk          = 128
+[    3.030625] mm_start_stack  = 132
+[    3.032704] vma_vm_start    = 0
+[    3.032704] vma_vm_end      = 4
+[    3.032704] vma_vm_next     = 8
+[    3.032704] vma_vm_file     = 80
+[    3.032704] vma_vm_flags    = 40
+[    3.032704] vma_vm_pgoff    = 76
+[    3.034299] file_dentry     = 12
+[    3.034299] file_inode      = 40
+[    3.034299] dentry_d_name   = 24
+[    3.034299] dentry_d_iname  = 44
+[    3.034299] dentry_d_parent = 16
+[    3.034299] ti_task         = 0
+[    3.034299] inode_ino   = 28
+[    4.262071] proc_fork_connector  = 2151078840
+[    4.262517] proc_exit_connector  = 2151080432
+[    4.263087] proc_exec_connector  = 2151079052
+[    4.263479] vma_link  = 2149124372
+[    4.263806] vma_adjust  = 2149124540
+[    4.264142] remove_vma  = 2149122188
+[    4.264476] modules  = 2155833724
+[    4.264798] trim_init_extable  = 2150545316
+[    4.266279] cfg80211: Calling CRDA to update world regulatory domain
+[    4.270330] PCI: Enabling device 0000:00:12.0 (0000 -> 0002)
+[    4.272067] cirrusfb 0000:00:12.0: Cirrus Logic chipset on PCI bus, RAM (4096 kB) at 0x10000000
+[    4.520891] Console: switching to colour frame buffer device 80x30
+[    4.601196] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    4.617785] console [ttyS0] disabled
+[    4.646068] serial8250.0: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+[    4.647548] console [ttyS0] enabled
+[    4.647548] console [ttyS0] enabled
+[    4.648206] bootconsole [uart0] disabled
+[    4.648206] bootconsole [uart0] disabled
+[    4.679978] serial8250.0: ttyS1 at I/O 0x2f8 (irq = 3, base_baud = 115200) is a 16550A
+[    4.821937] brd: module loaded
+[    4.901234] loop: module loaded
+[    4.909726] ata_piix 0000:00:0a.1: version 2.13
+[    4.910395] PCI: Enabling device 0000:00:0a.1 (0000 -> 0001)
+[    4.941409] scsi host0: ata_piix
+[    4.948217] scsi host1: ata_piix
+[    4.952822] ata1: PATA max UDMA/33 cmd 0x1f0 ctl 0x3f6 bmdma 0x1460 irq 14
+[    4.953428] ata2: PATA max UDMA/33 cmd 0x170 ctl 0x376 bmdma 0x1468 irq 15
+[    4.961425] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.962114] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.962812] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.963646] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.964304] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.964974] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.965852] nand: device found, Manufacturer ID: 0x98, Chip ID: 0x39
+[    4.966351] nand: Toshiba NAND 128MiB 1,8V 8-bit
+[    4.966858] nand: 128 MiB, SLC, erase size: 16 KiB, page size: 512, OOB size: 16
+[    4.968952] flash size: 128 MiB
+[    4.969263] page size: 512 bytes
+[    4.969575] OOB area size: 16 bytes
+[    4.969893] sector size: 16 KiB
+[    4.970187] pages number: 262144
+[    4.970492] pages per sector: 32
+[    4.970967] bus width: 8
+[    4.971266] bits in sector size: 14
+[    4.971591] bits in page size: 9
+[    4.971898] bits in OOB size: 4
+[    4.972203] flash size with OOB: 135168 KiB
+[    4.972556] page address bytes: 4
+[    4.972860] sector address bytes: 3
+[    4.973173] options: 0x42
+[    5.073550] Scanning device for bad blocks
+[    6.525654] ata2.01: NODEV after polling detection
+[    6.527865] ata2.00: ATAPI: QEMU DVD-ROM, 2.5+, max UDMA/100
+[    6.529502] ata1.01: NODEV after polling detection
+[    6.531521] ata1.00: ATA-7: QEMU HARDDISK, 2.5+, max UDMA/100
+[    6.532069] ata1.00: 2097152 sectors, multi 16: LBA48 
+[    6.539177] ata2.00: configured for UDMA/33
+[    6.542810] ata1.00: configured for UDMA/33
+[    6.552154] scsi 0:0:0:0: Direct-Access     ATA      QEMU HARDDISK    2.5+ PQ: 0 ANSI: 5
+[    6.571185] sd 0:0:0:0: [sda] 2097152 512-byte logical blocks: (1.07 GB/1.00 GiB)
+[    6.573062] scsi 1:0:0:0: CD-ROM            QEMU     QEMU DVD-ROM     2.5+ PQ: 0 ANSI: 5
+[    6.588641] sd 0:0:0:0: [sda] Write Protect is off
+[    6.589247] sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
+[    6.591240] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    6.604743]  sda: sda1
+[    6.619602] sd 0:0:0:0: [sda] Attached SCSI disk
+[    6.620262] Creating 11 MTD partitions on "NAND 128MiB 1,8V 8-bit":
+[    6.621024] 0x000000000000-0x000000100000 : "NAND simulator partition 0"
+[    6.634301] 0x000000100000-0x000000200000 : "NAND simulator partition 1"
+[    6.647003] 0x000000200000-0x000000300000 : "NAND simulator partition 2"
+[    6.659988] 0x000000300000-0x000000400000 : "NAND simulator partition 3"
+[    6.672906] 0x000000400000-0x000000500000 : "NAND simulator partition 4"
+[    6.685960] 0x000000500000-0x000000600000 : "NAND simulator partition 5"
+[    6.699430] 0x000000600000-0x000000700000 : "NAND simulator partition 6"
+[    6.712842] 0x000000700000-0x000000800000 : "NAND simulator partition 7"
+[    6.726294] 0x000000800000-0x000000900000 : "NAND simulator partition 8"
+[    6.738849] 0x000000900000-0x000000a00000 : "NAND simulator partition 9"
+[    6.751643] 0x000000a00000-0x000008000000 : "NAND simulator partition 10"
+[    6.806514] tun: Universal TUN/TAP device driver, 1.6
+[    6.807145] tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+[    6.811486] pcnet32: pcnet32.c:v1.35 21.Apr.2008 tsbogend@alpha.franken.de
+[    6.813028] e1000: Intel(R) PRO/1000 Network Driver - version 7.3.21-k8-NAPI
+[    6.813559] e1000: Copyright (c) 1999-2006 Intel Corporation.
+[    6.814696] PCI: Enabling device 0000:00:13.0 (0000 -> 0003)
+[    7.142371] e1000 0000:00:13.0 eth0: (PCI:33MHz:32-bit) 52:54:00:12:34:56
+[    7.143396] e1000 0000:00:13.0 eth0: Intel(R) PRO/1000 Network Connection
+[    7.144281] PCI: Enabling device 0000:00:14.0 (0000 -> 0003)
+[    7.411336] cfg80211: Calling CRDA to update world regulatory domain
+[    7.466360] e1000 0000:00:14.0 eth1: (PCI:33MHz:32-bit) 52:54:00:12:34:57
+[    7.467281] e1000 0000:00:14.0 eth1: Intel(R) PRO/1000 Network Connection
+[    7.468227] PCI: Enabling device 0000:00:15.0 (0000 -> 0003)
+[    7.796050] e1000 0000:00:15.0 eth2: (PCI:33MHz:32-bit) 52:54:00:12:34:58
+[    7.796737] e1000 0000:00:15.0 eth2: Intel(R) PRO/1000 Network Connection
+[    7.797605] PCI: Enabling device 0000:00:16.0 (0000 -> 0003)
+[    8.125162] e1000 0000:00:16.0 eth3: (PCI:33MHz:32-bit) 52:54:00:12:34:59
+[    8.125855] e1000 0000:00:16.0 eth3: Intel(R) PRO/1000 Network Connection
+[    8.127819] e1000e: Intel(R) PRO/1000 Network Driver - 2.3.2-k
+[    8.128301] e1000e: Copyright(c) 1999 - 2014 Intel Corporation.
+[    8.134175] PPP generic driver version 2.4.2
+[    8.137080] PPP Deflate Compression module registered
+[    8.137927] PPP MPPE Compression module registered
+[    8.138449] NET: Registered protocol family 24
+[    8.139543] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    8.140183] ehci-pci: EHCI PCI platform driver
+[    8.141672] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    8.142289] ohci-pci: OHCI PCI platform driver
+[    8.143973] uhci_hcd: USB Universal Host Controller Interface driver
+[    8.146039] uhci_hcd 0000:00:0a.2: UHCI Host Controller
+[    8.147245] uhci_hcd 0000:00:0a.2: new USB bus registered, assigned bus number 1
+[    8.148572] uhci_hcd 0000:00:0a.2: irq 11, io base 0x00001440
+[    8.163283] hub 1-0:1.0: USB hub found
+[    8.164260] hub 1-0:1.0: 2 ports detected
+[    8.176801] usbcore: registered new interface driver usb-storage
+[    8.182391] mousedev: PS/2 mouse device common for all mice
+[    8.190768] rtc_cmos rtc_cmos: rtc core: registered rtc_cmos as rtc0
+[    8.191878] rtc_cmos rtc_cmos: alarms up to one day, 242 bytes nvram
+[    8.193736] i2c /dev entries driver
+[    8.195502] piix4_smbus 0000:00:0a.3: SMBus Host Controller at 0x1100, revision 0
+[    8.201679] sdhci: Secure Digital Host Controller Interface driver
+[    8.202156] sdhci: Copyright(c) Pierre Ossman
+[    8.205371] hidraw: raw HID events driver (C) Jiri Kosina
+[    8.230191] usbcore: registered new interface driver usbhid
+[    8.230638] usbhid: USB HID core driver
+[    8.232224] Netfilter messages via NETLINK v0.30.
+[    8.233928] nf_conntrack version 0.5.0 (3923 buckets, 15692 max)
+[    8.238284] ctnetlink v0.93: registering with nfnetlink.
+[    8.245856] ipip: IPv4 over IPv4 tunneling driver
+[    8.262082] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    8.265869] arp_tables: (C) 2002 David S. Miller
+[    8.268417] Initializing XFRM netlink socket
+[    8.269971] NET: Registered protocol family 10
+[    8.300928] ip6_tables: (C) 2000-2006 Netfilter Core Team
+[    8.305740] sit: IPv6 over IPv4 tunneling driver
+[    8.328536] NET: Registered protocol family 17
+[    8.329646] bridge: automatic filtering via arp/ip/ip6tables has been deprecated. Update your scripts to load br_netfilter if you need this.
+[    8.331204] Bridge firewalling registered
+[    8.331748] Ebtables v2.0 registered
+[    8.334591] 8021q: 802.1Q VLAN Support v1.8
+[    8.362701] rtc_cmos rtc_cmos: setting system clock to 2025-07-23 01:49:48 UTC (1753235388)
+[    8.390078] EXT2-fs (sda1): warning: mounting unchecked fs, running e2fsck is recommended
+[    8.392793] VFS: Mounted root (ext2 filesystem) on device 8:1.
+[    8.404612] Freeing YAMON memory: 956k freed
+[    8.418390] Freeing unused kernel memory: 260K (8081f000 - 80860000)
+[    8.468385] firmadyne: sys_reboot[PID: 49 (init)]: magic1:fee1dead, magic2:28121969, cmd:0
+[    8.475276] spurious 8259A interrupt: IRQ7.
+[    8.486007] firmadyne: sys_socket[PID: 1 (init)]: family:1, type:1, protocol:0
+[    8.494664] firmadyne: sys_socket[PID: 1 (init)]: family:1, type:2, protocol:0
+init started: BusyBox v1.13.4 (2013-01-08 14:28:07 CST)
+[    8.524912] firmadyne: sys_socket[PID: 50 (init)]: family:1, type:1, protocol:0
+[    8.526644] firmadyne: sys_socket[PID: 50 (init)]: family:1, type:2, protocol:0
+[    8.627261] firmadyne: do_execve: /firmadyne/console
+[    8.628015] OFFSETS: offset of pid: 0x198 offset of comm: 0x278
+$Starting bkcfg:---->
+illegal cfg sign
+RestoreConfig(): illegal filesize=-1
+[    9.558492] random: cfg urandom read with 100 bits of entropy available
+$Starting save config by bkcfg:---->
+remember to reboot your camera...
+set time zone from city:[(GMT-08:00) Pacific Time(US & Canada); Tijuana]
+[   10.555301] cfg80211: Calling CRDA to update world regulatory domain
+
+$Insert kernel module: ---->
+[   10.695461] random: nonblocking pool is initialized
+$Insert driver module: ---->
+[   11.372115] firmadyne: sys_socket[PID: 93 (ifconfig)]: family:2, type:1, protocol:0
+[   11.376540] firmadyne: __inet_insert_ifa[PID: 93 (ifconfig)]: device:lo ifa:0x7f000001
+[   11.381108] firmadyne: __inet_insert_ifa[PID: 93 (ifconfig)]: device:lo ifa:0x7f000001
+[   11.436709] firmadyne: sys_socket[PID: 94 (brctl)]: family:2, type:2, protocol:0
+MAC=00:12:34:56:78:90
+racfg: Wireless Exist: 0
+[   11.582543] firmadyne: sys_socket[PID: 96 (ifconfig)]: family:2, type:1, protocol:0
+[   11.585803] firmadyne: __inet_insert_ifa[PID: 96 (ifconfig)]: device:eth0 ifa:0x00000000
+[   11.599687] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
+[   11.600355] 8021q: adding VLAN 0 to HW filter on device eth0
+[   11.606167] e1000: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+[   11.608662] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+[   11.637504] firmadyne: sys_socket[PID: 97 (ifconfig)]: family:2, type:1, protocol:0
+[   11.692270] firmadyne: sys_socket[PID: 98 (brctl)]: family:2, type:2, protocol:0
+[   11.695951] firmadyne: sys_socket[PID: 98 (brctl)]: family:2, type:1, protocol:0
+[   11.699651] firmadyne: sys_socket[PID: 98 (brctl)]: family:2, type:1, protocol:0
+[   11.701343] firmadyne: br_add_if[PID: 98 (brctl)]: br:br0 dev:eth0
+[   11.708224] device eth0 entered promiscuous mode
+[   11.760268] firmadyne: sys_socket[PID: 99 (brctl)]: family:2, type:2, protocol:0
+[   11.763976] firmadyne: sys_socket[PID: 99 (brctl)]: family:2, type:1, protocol:0
+[   11.817259] firmadyne: sys_socket[PID: 100 (brctl)]: family:2, type:2, protocol:0
+[   11.820842] firmadyne: sys_socket[PID: 100 (brctl)]: family:2, type:1, protocol:0
+Launch hw monitor...
+hwmon.c: IRLED, LSENS, Enable
+hwmon.c: open hwmon node fail!
+Set Date&Time to 2011/01/01 00:00:00
+Sat Jan  1 00:00:00 PST 2011
+
+$Starting audio adjusting ---->
+
+Starting DHCP Client ....
+[   13.699398] cfg80211: Calling CRDA to update world regulatory domain
+[   13.885233] firmadyne: sys_socket[PID: 119 (ifconfig)]: family:2, type:1, protocol:0
+[   13.919685] firmadyne: sys_socket[PID: 120 (udhcpc)]: family:2, type:3, protocol:255
+udhcpc (v1.13.4) started
+[   14.048740] firmadyne: sys_socket[PID: 123 (ifconfig)]: family:2, type:1, protocol:0
+[   14.051703] firmadyne: __inet_insert_ifa[PID: 123 (ifconfig)]: device:br0 ifa:0x00000000
+[   14.053338] br0: port 1(eth0) entered forwarding state
+[   14.054341] br0: port 1(eth0) entered forwarding state
+[   14.067867] firmadyne: sys_socket[PID: 120 (udhcpc)]: family:17, type:1, protocol:2048
+[   14.069290] firmadyne: sys_setsockopt[PID: 120 (udhcpc)]: fd:5, level:65535, optname:26
+Sending discover...
+[   14.075575] firmadyne: sys_socket[PID: 120 (udhcpc)]: family:17, type:1, protocol:2048
+Sending select for 10.0.2.15...
+[   14.090239] firmadyne: sys_socket[PID: 120 (udhcpc)]: family:17, type:1, protocol:2048
+Lease of 10.0.2.15 obtained, lease time 86400
+[   14.225801] firmadyne: sys_socket[PID: 126 (ifconfig)]: family:2, type:1, protocol:0
+[   14.228781] firmadyne: __inet_insert_ifa[PID: 126 (ifconfig)]: device:br0 ifa:0x0a00020f
+[   14.234256] firmadyne: __inet_insert_ifa[PID: 126 (ifconfig)]: device:br0 ifa:0x0a00020f
+deleting routers
+[   14.261514] firmadyne: sys_socket[PID: 127 (route)]: family:2, type:1, protocol:0
+route: SIOCDELRT: No such process
+[   14.325551] firmadyne: sys_socket[PID: 128 (iff_get)]: family:2, type:1, protocol:0
+[   14.370368] firmadyne: sys_socket[PID: 129 (logger)]: family:1, type:1, protocol:0
+[   14.372531] firmadyne: sys_socket[PID: 129 (logger)]: family:1, type:2, protocol:0
+[   14.396811] firmadyne: sys_socket[PID: 130 (route)]: family:2, type:1, protocol:0
+adding dns 10.0.2.3
+[   15.052336] br0: port 1(eth0) entered forwarding state
+[   15.678743] firmadyne: sys_socket[PID: 135 (udhcpc)]: family:2, type:3, protocol:255
+udhcpc (v1.13.4) started
+[   15.812262] firmadyne: sys_socket[PID: 138 (ifconfig)]: family:2, type:1, protocol:0
+[   15.816346] firmadyne: __inet_insert_ifa[PID: 138 (ifconfig)]: device:br0 ifa:0x00000000
+[   15.824825] firmadyne: sys_socket[PID: 135 (udhcpc)]: family:17, type:1, protocol:2048
+[   15.826027] firmadyne: sys_setsockopt[PID: 135 (udhcpc)]: fd:5, level:65535, optname:26
+Sending discover...
+[   15.830474] firmadyne: sys_socket[PID: 135 (udhcpc)]: family:17, type:1, protocol:2048
+Sending select for 10.0.2.15...
+[   15.837007] firmadyne: sys_socket[PID: 135 (udhcpc)]: family:17, type:1, protocol:2048
+Lease of 10.0.2.15 obtained, lease time 86400
+[   15.969741] firmadyne: sys_socket[PID: 141 (ifconfig)]: family:2, type:1, protocol:0
+[   15.972725] firmadyne: __inet_insert_ifa[PID: 141 (ifconfig)]: device:br0 ifa:0x0a00020f
+[   15.977477] firmadyne: __inet_insert_ifa[PID: 141 (ifconfig)]: device:br0 ifa:0x0a00020f
+deleting routers
+[   16.003921] firmadyne: sys_socket[PID: 142 (route)]: family:2, type:1, protocol:0
+route: SIOCDELRT: No such process
+[   16.064530] firmadyne: sys_socket[PID: 143 (iff_get)]: family:2, type:1, protocol:0
+[   16.106547] firmadyne: sys_socket[PID: 144 (logger)]: family:1, type:1, protocol:0
+[   16.108727] firmadyne: sys_socket[PID: 144 (logger)]: family:1, type:2, protocol:0
+[   16.132825] firmadyne: sys_socket[PID: 145 (route)]: family:2, type:1, protocol:0
+adding dns 10.0.2.3
+[   16.177594] firmadyne: sys_socket[PID: 147 (logger)]: family:1, type:1, protocol:0
+[   16.179675] firmadyne: sys_socket[PID: 147 (logger)]: family:1, type:2, protocol:0
+[   16.207597] firmadyne: sys_socket[PID: 148 (route)]: family:2, type:1, protocol:0
+racfg: Wireless Exist: 0
+Setting Hostname: TV-IP121-001234567890
+[   16.843884] cfg80211: Calling CRDA to update world regulatory domain
+[   16.864140] firmadyne: sys_socket[PID: 174 (ifconfig)]: family:2, type:1, protocol:0
+[   16.865938] firmadyne: sys_socket[PID: 174 (ifconfig)]: family:2, type:1, protocol:0
+br0       Link encap:Ethernet  HWaddr 00:12:34:56:78:90  
+          inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
+          inet6 addr: fec0::212:34ff:fe56:7890/64 Scope:Site
+          inet6 addr: fe80::212:34ff:fe56:7890/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:5 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:2400 (2.3 KiB)  TX bytes:2946 (2.8 KiB)
+
+[   16.896859] firmadyne: sys_socket[PID: 174 (ifconfig)]: family:2, type:1, protocol:0
+eth0      Link encap:Ethernet  HWaddr 00:12:34:56:78:90  
+          inet6 addr: fe80::5054:ff:fe12:3456/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:6 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:17 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:2580 (2.5 KiB)  TX bytes:3454 (3.3 KiB)
+
+[   16.918201] firmadyne: sys_socket[PID: 174 (ifconfig)]: family:2, type:1, protocol:0
+eth1      Link encap:Ethernet  HWaddr 52:54:00:12:34:57  
+          BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+[   16.936540] firmadyne: sys_socket[PID: 174 (ifconfig)]: family:2, type:1, protocol:0
+eth2      Link encap:Ethernet  HWaddr 52:54:00:12:34:58  
+          BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+[   16.954569] firmadyne: sys_socket[PID: 174 (ifconfig)]: family:2, type:1, protocol:0
+eth3      Link encap:Ethernet  HWaddr 52:54:00:12:34:59  
+          BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+[   16.972895] firmadyne: sys_socket[PID: 174 (ifconfig)]: family:2, type:1, protocol:0
+ip6tnl0   Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  
+          NOARP  MTU:1452  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+[   16.992125] firmadyne: sys_socket[PID: 174 (ifconfig)]: family:2, type:1, protocol:0
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+[   17.012868] firmadyne: sys_socket[PID: 174 (ifconfig)]: family:2, type:1, protocol:0
+sit0      Link encap:IPv6-in-IPv4  
+          NOARP  MTU:1480  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+[   17.029526] firmadyne: sys_socket[PID: 174 (ifconfig)]: family:2, type:1, protocol:0
+tunl0     Link encap:UNSPEC  HWaddr 00-00-00-00-AB-2C-00-4A-00-00-00-00-00-00-00-00  
+          NOARP  MTU:1480  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+
+[   17.136632] firmadyne: sys_socket[PID: 177 (syslogd)]: family:1, type:1, protocol:0
+Sensor: Initial UVC device!
+Sensor: Caon't open device!
+Sensor: Init v4L2 failed!
+camsvr: Initial sensor fail!
+Sound: Unable to open device file /dev/dsp0
+camsvr: not support audio!
+rinbuf: ftp - rbInitial: semaphore create fail!
+camsvr: ftp attach ring buffer fail
+rinbuf: motion - rbInitial: semaphore create fail!
+camsvr: motion attach ring buffer fail
+Psensor: Caon't open device!
+Psensor: Caon't open device!
+Psensor: Caon't open device!
+Psensor: Caon't open device!
+Psensor: Caon't open device!
+HWmon update
+cammsger: Send Inform...
+[   19.987334] cfg80211: Calling CRDA to update world regulatory domain
+tls=0
+ttls=
+[   21.165425] firmadyne: sys_socket[PID: 259 (logger)]: family:1, type:1, protocol:0
+Setting Iptables Ruleset
+[   21.310319] firmadyne: sys_socket[PID: 261 (iptables)]: family:2, type:3, protocol:255
+[   21.317272] firmadyne: sys_setsockopt[PID: 261 (iptables)]: fd:3, level:0, optname:64
+[   21.319923] firmadyne: sys_setsockopt[PID: 261 (iptables)]: fd:3, level:0, optname:65
+[   21.404386] firmadyne: sys_socket[PID: 262 (iptables)]: family:2, type:3, protocol:255
+[   21.410372] firmadyne: sys_setsockopt[PID: 262 (iptables)]: fd:3, level:0, optname:64
+[   21.412678] firmadyne: sys_setsockopt[PID: 262 (iptables)]: fd:3, level:0, optname:65
+[   21.498240] firmadyne: sys_socket[PID: 263 (iptables)]: family:2, type:3, protocol:255
+[   21.504466] firmadyne: sys_setsockopt[PID: 263 (iptables)]: fd:3, level:0, optname:64
+[   21.506476] firmadyne: sys_setsockopt[PID: 263 (iptables)]: fd:3, level:0, optname:65
+[   21.588372] firmadyne: sys_socket[PID: 264 (iptables)]: family:2, type:3, protocol:255
+[   21.595261] firmadyne: sys_setsockopt[PID: 264 (iptables)]: fd:3, level:0, optname:64
+[   21.597286] firmadyne: sys_setsockopt[PID: 264 (iptables)]: fd:3, level:0, optname:65
+[   21.680793] firmadyne: sys_socket[PID: 265 (iptables)]: family:2, type:3, protocol:255
+[   21.769125] firmadyne: sys_socket[PID: 266 (iptables)]: family:2, type:3, protocol:255
+[   21.775989] firmadyne: sys_setsockopt[PID: 266 (iptables)]: fd:3, level:0, optname:64
+[   21.777969] firmadyne: sys_setsockopt[PID: 266 (iptables)]: fd:3, level:0, optname:65
+Setting Ip6tables Ruleset
+[   21.984341] firmadyne: sys_socket[PID: 269 (ip6tables)]: family:10, type:3, protocol:255
+[   21.990935] firmadyne: sys_setsockopt[PID: 269 (ip6tables)]: fd:3, level:41, optname:64
+[   21.993647] firmadyne: sys_setsockopt[PID: 269 (ip6tables)]: fd:3, level:41, optname:65
+[   22.075940] firmadyne: sys_socket[PID: 270 (ip6tables)]: family:10, type:3, protocol:255
+[   22.081997] firmadyne: sys_setsockopt[PID: 270 (ip6tables)]: fd:3, level:41, optname:64
+[   22.085870] firmadyne: sys_setsockopt[PID: 270 (ip6tables)]: fd:3, level:41, optname:65
+[   22.167705] firmadyne: sys_socket[PID: 271 (ip6tables)]: family:10, type:3, protocol:255
+[   22.174186] firmadyne: sys_setsockopt[PID: 271 (ip6tables)]: fd:3, level:41, optname:64
+[   22.176655] firmadyne: sys_setsockopt[PID: 271 (ip6tables)]: fd:3, level:41, optname:65
+[   22.272919] firmadyne: sys_socket[PID: 272 (ip6tables)]: family:10, type:3, protocol:255
+[   22.280421] firmadyne: sys_setsockopt[PID: 272 (ip6tables)]: fd:3, level:41, optname:64
+[   22.282547] firmadyne: sys_setsockopt[PID: 272 (ip6tables)]: fd:3, level:41, optname:65
+[   22.365193] firmadyne: sys_socket[PID: 273 (ip6tables)]: family:10, type:3, protocol:255
+[   22.454724] firmadyne: sys_socket[PID: 274 (ip6tables)]: family:10, type:3, protocol:255
+[   22.461625] firmadyne: sys_setsockopt[PID: 274 (ip6tables)]: fd:3, level:41, optname:64
+[   22.464039] firmadyne: sys_setsockopt[PID: 274 (ip6tables)]: fd:3, level:41, optname:65
+[   23.133101] cfg80211: Calling CRDA to update world regulatory domain
+Starting UPNP ....
+Starting wanipd.sh ....
+racfg: Wireless Exist: 0
+Starting IPFind...
+Starting boa web server...
+[   24.445393] firmadyne: sys_socket[PID: 283 (ipfind)]: family:2, type:1, protocol:0
+[   24.463442] firmadyne: sys_setsockopt[PID: 283 (ipfind)]: fd:3, level:65535, optname:25
+[   24.464664] firmadyne: sys_setsockopt[PID: 283 (ipfind)]: fd:3, level:65535, optname:4
+[   24.465930] firmadyne: inet_bind[PID: 283 (ipfind)]: proto:SOCK_DGRAM, port:62720
+[   25.389083] firmadyne: sys_socket[PID: 297 (ddns)]: family:2, type:2, protocol:0
+[   25.436028] firmadyne: sys_socket[PID: 297 (ddns)]: family:2, type:1, protocol:17
+[   25.691991] firmadyne: sys_socket[PID: 287 (boa)]: family:10, type:2, protocol:6
+[   25.693813] firmadyne: sys_setsockopt[PID: 287 (boa)]: fd:4, level:65535, optname:4
+[   26.279332] cfg80211: Calling CRDA to update world regulatory domain
+[   26.580039] firmadyne: inet_accept[PID: 301 (boa)]:
+[   26.585526] firmadyne: inet_accept[PID: 301 (boa)]:
+[   27.764793] firmadyne: inet_accept[PID: 301 (boa)]:
+[   27.766805] firmadyne: inet_accept[PID: 301 (boa)]:
+[   29.318399] firmadyne: inet_accept[PID: 301 (boa)]:
+[   29.320633] firmadyne: inet_accept[PID: 301 (boa)]:
+[   29.424134] cfg80211: Calling CRDA to update world regulatory domain
+[   30.870195] firmadyne: inet_accept[PID: 301 (boa)]:
+[   30.872406] firmadyne: inet_accept[PID: 301 (boa)]:
+[   31.269425] firmadyne: sys_socket[PID: 316 (logger)]: family:1, type:1, protocol:0
+[   32.426469] firmadyne: inet_accept[PID: 301 (boa)]:
+[   32.428824] firmadyne: inet_accept[PID: 301 (boa)]:
+[   32.569259] cfg80211: Calling CRDA to update world regulatory domain
+Get Inform msg: 106
+	Param: 0
+[   35.715263] cfg80211: Exceeded CRDA call max attempts. Not calling CRDA
+[   36.285589] firmadyne: inet_accept[PID: 301 (boa)]:
+[   36.294510] firmadyne: inet_accept[PID: 301 (boa)]:
+[   37.295731] firmadyne: inet_accept[PID: 301 (boa)]:
+[   37.297713] firmadyne: inet_accept[PID: 301 (boa)]:
+check:0 ddns_check:0
+[   37.631629] firmadyne: sys_socket[PID: 332 (ddns)]: family:2, type:2, protocol:0
+[   37.641921] firmadyne: sys_socket[PID: 332 (ddns)]: family:2, type:1, protocol:17
+[   38.812037] firmadyne: inet_accept[PID: 301 (boa)]:
+[   38.814591] firmadyne: inet_accept[PID: 301 (boa)]:
+[   39.837709] firmadyne: inet_accept[PID: 301 (boa)]:
+[   39.840729] firmadyne: inet_accept[PID: 301 (boa)]:
+[   41.379839] firmadyne: inet_accept[PID: 301 (boa)]:
+[   41.382093] firmadyne: inet_accept[PID: 301 (boa)]:
+[   41.757538] firmadyne: sys_socket[PID: 334 (busybox)]: family:2, type:2, protocol:0
+[   41.769728] firmadyne: sys_socket[PID: 334 (busybox)]: family:1, type:524289, protocol:0
+[   41.780680] firmadyne: sys_socket[PID: 334 (busybox)]: family:1, type:524289, protocol:0
+check:0 ddns_check:0
+[   44.098369] firmadyne: inet_accept[PID: 301 (boa)]:
+[   44.108610] firmadyne: inet_accept[PID: 301 (boa)]:
+[   46.288767] firmadyne: inet_accept[PID: 301 (boa)]:
+[   46.295471] firmadyne: inet_accept[PID: 301 (boa)]:
+[   46.971674] firmadyne: sys_socket[PID: 344 (busybox)]: family:16, type:3, protocol:0
+[   46.997838] firmadyne: sys_socket[PID: 344 (busybox)]: family:1, type:524289, protocol:0
+[   47.008514] firmadyne: sys_socket[PID: 344 (busybox)]: family:2, type:2, protocol:0
+[   47.075195] firmadyne: sys_socket[PID: 348 (busybox)]: family:2, type:1, protocol:0
+[   47.114691] firmadyne: sys_socket[PID: 349 (busybox)]: family:2, type:1, protocol:0
+[   47.118596] firmadyne: __inet_insert_ifa[PID: 349 (busybox)]: device:eth0 ifa:0x00000000
+[   48.465840] firmadyne: inet_accept[PID: 301 (boa)]:
+[   48.472383] firmadyne: inet_accept[PID: 301 (boa)]:
+[   50.644399] firmadyne: inet_accept[PID: 301 (boa)]:
+[   50.650356] firmadyne: inet_accept[PID: 301 (boa)]:
+[   53.658828] firmadyne: inet_accept[PID: 301 (boa)]:
+[   53.665403] firmadyne: inet_accept[PID: 301 (boa)]:
+[   55.580630] firmadyne: inet_accept[PID: 301 (boa)]:
+[   55.587833] firmadyne: inet_accept[PID: 301 (boa)]:
+[   60.573884] firmadyne: inet_accept[PID: 301 (boa)]:
+[   60.580843] firmadyne: inet_accept[PID: 301 (boa)]:
+[   63.649600] firmadyne: inet_accept[PID: 301 (boa)]:
+[   63.656565] firmadyne: inet_accept[PID: 301 (boa)]:
+[   65.574208] firmadyne: inet_accept[PID: 301 (boa)]:
+[   65.581678] firmadyne: inet_accept[PID: 301 (boa)]:
+Starting ddns:disabled
+[   67.497013] firmadyne: inet_accept[PID: 301 (boa)]:
+[   67.506011] firmadyne: inet_accept[PID: 301 (boa)]:
+[   70.960807] firmadyne: sys_socket[PID: 382 (ntpclient)]: family:2, type:1, protocol:17
+[   70.962205] firmadyne: inet_bind[PID: 382 (ntpclient)]: proto:SOCK_DGRAM, port:0
+Get Inform msg: 101
+	Param: 0
+[   76.656780] firmadyne: inet_accept[PID: 301 (boa)]:
+[   76.662787] firmadyne: inet_accept[PID: 301 (boa)]:
+[   78.503682] firmadyne: sys_socket[PID: 396 (ntpclient)]: family:2, type:1, protocol:17
+[   78.537418] firmadyne: sys_socket[PID: 396 (ntpclient)]: family:2, type:1, protocol:17
+[   78.538669] firmadyne: inet_bind[PID: 396 (ntpclient)]: proto:SOCK_DGRAM, port:0
+[   78.826098] firmadyne: sys_socket[PID: 400 (logger)]: family:1, type:1, protocol:0
+[   78.882618] firmadyne: sys_socket[PID: 401 (ntpclient)]: family:2, type:1, protocol:17
+[   78.884227] firmadyne: inet_bind[PID: 401 (ntpclient)]: proto:SOCK_DGRAM, port:0
+wan_s:[IP]
+Starting UPNP Port Forwarding....
+disabled
+UPnP ControlPoint 1.0 for IGD
+Use service:urn:schemas-upnp-org:service:WANIPConnection:1
+10.0.2.2
+[   80.501241] firmadyne: sys_socket[PID: 409 (upnp_igd)]: family:2, type:1, protocol:0
+[   80.513444] firmadyne: sys_socket[PID: 409 (upnp_igd)]: family:2, type:1, protocol:0
+[   80.517456] firmadyne: sys_socket[PID: 409 (upnp_igd)]: family:2, type:1, protocol:17
+[   80.520308] firmadyne: sys_socket[PID: 409 (upnp_igd)]: family:2, type:1, protocol:0
+[   80.521538] firmadyne: sys_socket[PID: 409 (upnp_igd)]: family:2, type:1, protocol:0
+[   80.523503] firmadyne: inet_bind[PID: 409 (upnp_igd)]: proto:SOCK_DGRAM, port:59178
+[   80.524656] firmadyne: sys_setsockopt[PID: 409 (upnp_igd)]: fd:5, level:0, optname:33
+[   80.525738] firmadyne: sys_setsockopt[PID: 409 (upnp_igd)]: fd:4, level:65535, optname:4
+[   80.526770] firmadyne: inet_bind[PID: 409 (upnp_igd)]: proto:SOCK_DGRAM, port:1900
+[   80.528316] firmadyne: sys_setsockopt[PID: 409 (upnp_igd)]: fd:4, level:0, optname:35
+[   80.530217] firmadyne: sys_setsockopt[PID: 409 (upnp_igd)]: fd:5, level:0, optname:32
+[   80.539449] firmadyne: sys_socket[PID: 409 (upnp_igd)]: family:2, type:1, protocol:17
+[   80.542309] firmadyne: sys_socket[PID: 409 (upnp_igd)]: family:2, type:2, protocol:0
+[   80.543804] firmadyne: inet_bind[PID: 409 (upnp_igd)]: proto:SOCK_STREAM, port:59178
+Get Inform msg: 101
+	Param: 0
+[   84.437538] firmadyne: inet_accept[PID: 301 (boa)]:
+[   84.444196] firmadyne: inet_accept[PID: 301 (boa)]:
+[   86.354415] firmadyne: inet_accept[PID: 301 (boa)]:
+[   86.362136] firmadyne: inet_accept[PID: 301 (boa)]:
+[   88.268289] firmadyne: inet_accept[PID: 301 (boa)]:
+[   88.274194] firmadyne: inet_accept[PID: 301 (boa)]:
+[   91.748788] firmadyne: sys_socket[PID: 426 (logger)]: family:1, type:1, protocol:0
+[   92.306302] firmadyne: inet_accept[PID: 301 (boa)]:
+[   92.308844] firmadyne: inet_accept[PID: 301 (boa)]:
+[   93.844729] firmadyne: inet_accept[PID: 301 (boa)]:
+[   93.847753] firmadyne: inet_accept[PID: 301 (boa)]:
+[   93.971638] firmadyne: sys_socket[PID: 429 (ntpclient)]: family:2, type:1, protocol:17
+[   93.977777] firmadyne: sys_socket[PID: 429 (ntpclient)]: family:2, type:1, protocol:17
+[   93.979239] firmadyne: inet_bind[PID: 429 (ntpclient)]: proto:SOCK_DGRAM, port:0
+[   95.380965] firmadyne: inet_accept[PID: 301 (boa)]:
+[   95.383260] firmadyne: inet_accept[PID: 301 (boa)]:
+[   96.915645] firmadyne: inet_accept[PID: 301 (boa)]:
+[   96.917685] firmadyne: inet_accept[PID: 301 (boa)]:
+[  101.052205] firmadyne: inet_accept[PID: 301 (boa)]:
+[  101.054457] firmadyne: inet_accept[PID: 301 (boa)]:
+[  104.012659] firmadyne: inet_accept[PID: 301 (boa)]:
+[  104.015202] firmadyne: inet_accept[PID: 301 (boa)]:
+/sbin/iptables
+Bad argument `flush'
+Try `iptables -h' or 'iptables --help' for more information.
+[  107.843284] firmadyne: sys_socket[PID: 452 (iptables)]: family:2, type:3, protocol:255
+[  107.869614] firmadyne: sys_setsockopt[PID: 452 (iptables)]: fd:3, level:0, optname:64
+[  107.883654] firmadyne: sys_setsockopt[PID: 452 (iptables)]: fd:3, level:0, optname:65
+[  108.092683] firmadyne: sys_socket[PID: 456 (iptables)]: family:2, type:3, protocol:255
+[  108.102863] firmadyne: sys_setsockopt[PID: 456 (iptables)]: fd:3, level:0, optname:64
+[  108.111653] firmadyne: sys_setsockopt[PID: 456 (iptables)]: fd:3, level:0, optname:65
+[  108.603494] firmadyne: inet_accept[PID: 301 (boa)]:
+[  108.608416] firmadyne: inet_accept[PID: 301 (boa)]:
+[  109.047688] firmadyne: sys_socket[PID: 460 (logger)]: family:1, type:1, protocol:0
+[  111.543965] firmadyne: inet_accept[PID: 301 (boa)]:
+[  111.546208] firmadyne: inet_accept[PID: 301 (boa)]:
+/sbin/iptables
+Bad argument `flush'
+Try `iptables -h' or 'iptables --help' for more information.
+[  113.418816] firmadyne: sys_socket[PID: 473 (iptables)]: family:2, type:3, protocol:255
+[  113.425749] firmadyne: sys_setsockopt[PID: 473 (iptables)]: fd:3, level:0, optname:64
+[  113.428060] firmadyne: sys_setsockopt[PID: 473 (iptables)]: fd:3, level:0, optname:65
+[  113.537086] firmadyne: sys_socket[PID: 475 (iptables)]: family:2, type:3, protocol:255
+[  113.543483] firmadyne: sys_setsockopt[PID: 475 (iptables)]: fd:3, level:0, optname:64
+[  113.545568] firmadyne: sys_setsockopt[PID: 475 (iptables)]: fd:3, level:0, optname:65
+[  115.673212] firmadyne: inet_accept[PID: 301 (boa)]:
+[  115.675795] firmadyne: inet_accept[PID: 301 (boa)]:
+[  118.377137] firmadyne: inet_accept[PID: 301 (boa)]:
+[  118.379718] firmadyne: inet_accept[PID: 301 (boa)]:
+/sbin/iptables
+Bad argument `flush'
+Try `iptables -h' or 'iptables --help' for more information.
+[  118.865839] firmadyne: sys_socket[PID: 496 (iptables)]: family:2, type:3, protocol:255
+[  118.873556] firmadyne: sys_setsockopt[PID: 496 (iptables)]: fd:3, level:0, optname:64
+[  118.875911] firmadyne: sys_setsockopt[PID: 496 (iptables)]: fd:3, level:0, optname:65
+[  118.983417] firmadyne: sys_socket[PID: 498 (iptables)]: family:2, type:3, protocol:255
+[  118.989435] firmadyne: sys_setsockopt[PID: 498 (iptables)]: fd:3, level:0, optname:64
+[  118.991768] firmadyne: sys_setsockopt[PID: 498 (iptables)]: fd:3, level:0, optname:65
+[  122.513319] firmadyne: inet_accept[PID: 301 (boa)]:
+[  122.515880] firmadyne: inet_accept[PID: 301 (boa)]:
+/sbin/iptables
+Bad argument `flush'
+Try `iptables -h' or 'iptables --help' for more information.
+[  124.516518] firmadyne: sys_socket[PID: 513 (iptables)]: family:2, type:3, protocol:255
+[  124.531901] firmadyne: sys_setsockopt[PID: 513 (iptables)]: fd:3, level:0, optname:64
+[  124.533937] firmadyne: sys_setsockopt[PID: 513 (iptables)]: fd:3, level:0, optname:65
+[  124.732294] firmadyne: sys_socket[PID: 515 (iptables)]: family:2, type:3, protocol:255
+[  124.742458] firmadyne: sys_setsockopt[PID: 515 (iptables)]: fd:3, level:0, optname:64
+[  124.751656] firmadyne: sys_setsockopt[PID: 515 (iptables)]: fd:3, level:0, optname:65
+[  125.909504] firmadyne: inet_accept[PID: 301 (boa)]:
+[  125.912110] firmadyne: inet_accept[PID: 301 (boa)]:
+/sbin/iptables
+Bad argument `flush'
+Try `iptables -h' or 'iptables --help' for more information.
+[  130.293333] firmadyne: sys_socket[PID: 534 (iptables)]: family:2, type:3, protocol:255
+[  130.323615] firmadyne: sys_setsockopt[PID: 534 (iptables)]: fd:3, level:0, optname:64
+[  130.325682] firmadyne: sys_setsockopt[PID: 534 (iptables)]: fd:3, level:0, optname:65
+[  130.364114] firmadyne: inet_accept[PID: 301 (boa)]:
+[  130.366341] firmadyne: inet_accept[PID: 301 (boa)]:
+[  130.453101] firmadyne: sys_socket[PID: 537 (iptables)]: family:2, type:3, protocol:255
+[  130.459394] firmadyne: sys_setsockopt[PID: 537 (iptables)]: fd:3, level:0, optname:64
+[  130.461474] firmadyne: sys_setsockopt[PID: 537 (iptables)]: fd:3, level:0, optname:65
+[  133.057079] firmadyne: inet_accept[PID: 301 (boa)]:
+[  133.059730] firmadyne: inet_accept[PID: 301 (boa)]:
+/sbin/iptables
+[  135.636423] firmadyne: sys_socket[PID: 409 (upnp_igd)]: family:2, type:1, protocol:0
+Return Code = 501
+upnpigd=0
+Bad argument `flush'
+Try `iptables -h' or 'iptables --help' for more information.
+[  135.887222] firmadyne: sys_socket[PID: 551 (iptables)]: family:2, type:3, protocol:255
+[  135.906209] firmadyne: sys_setsockopt[PID: 551 (iptables)]: fd:3, level:0, optname:64
+[  135.908599] firmadyne: sys_setsockopt[PID: 551 (iptables)]: fd:3, level:0, optname:65
+[  136.112098] firmadyne: sys_socket[PID: 554 (iptables)]: family:2, type:3, protocol:255
+[  136.118462] firmadyne: sys_setsockopt[PID: 554 (iptables)]: fd:3, level:0, optname:64
+[  136.127857] firmadyne: sys_setsockopt[PID: 554 (iptables)]: fd:3, level:0, optname:65
+[  137.499997] firmadyne: inet_accept[PID: 301 (boa)]:
+[  137.502227] firmadyne: inet_accept[PID: 301 (boa)]:
+[  138.955892] firmadyne: sys_socket[PID: 565 (ntpclient)]: family:2, type:1, protocol:17
+[  138.957218] firmadyne: inet_bind[PID: 565 (ntpclient)]: proto:SOCK_DGRAM, port:0
+[  140.538600] firmadyne: inet_accept[PID: 301 (boa)]:
+[  140.541115] firmadyne: inet_accept[PID: 301 (boa)]:
+/sbin/iptables
+Bad argument `flush'
+Try `iptables -h' or 'iptables --help' for more information.
+[  141.452110] firmadyne: sys_socket[PID: 579 (iptables)]: family:2, type:3, protocol:255
+[  141.458797] firmadyne: sys_setsockopt[PID: 579 (iptables)]: fd:3, level:0, optname:64
+[  141.461036] firmadyne: sys_setsockopt[PID: 579 (iptables)]: fd:3, level:0, optname:65
+[  141.568500] firmadyne: sys_socket[PID: 581 (iptables)]: family:2, type:3, protocol:255
+[  141.574513] firmadyne: sys_setsockopt[PID: 581 (iptables)]: fd:3, level:0, optname:64
+[  141.576867] firmadyne: sys_setsockopt[PID: 581 (iptables)]: fd:3, level:0, optname:65

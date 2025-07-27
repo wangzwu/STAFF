@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: u2ec
+  [00] inode: 16388, pc: 0x00027e84, module: libc.so.0, symbol: free
+  [01] inode: 16388, pc: 0x00027ed0, module: libc.so.0, symbol: free
+  [02] inode: 16388, pc: 0x00027edc, module: libc.so.0, symbol: free
+  [03] inode: 16388, pc: 0x00027f24, module: libc.so.0, symbol: free
+  [04] inode: 16388, pc: 0x00027f3c, module: libc.so.0, symbol: free
+

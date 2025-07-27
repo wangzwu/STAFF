@@ -1,0 +1,16 @@
+=== Trace 0 ===
+Process: potcounter
+  [00] inode: 24728, pc: 0x000007c4, module: potcounter
+  [01] inode: 24728, pc: 0x000006f0, module: potcounter
+  [02] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0
+  [03] inode: 24728, pc: 0x0000070c, module: potcounter
+  [04] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0
+
+=== Trace 1 ===
+Process: setup.cgi
+  [00] inode: 24746, pc: 0x0000f058, module: setup.cgi
+  [01] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0
+  [02] inode: 24746, pc: 0x0000f06c, module: setup.cgi
+  [03] inode: 24746, pc: 0x00012234, module: setup.cgi
+  [04] inode: 32774, pc: 0x0002fdcc, module: libc.so.0
+

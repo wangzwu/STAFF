@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: potcounter
+  [00] inode: 24728, pc: 0x000007c4, module: potcounter
+  [01] inode: 24728, pc: 0x000006e0, module: potcounter
+  [02] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0
+  [03] inode: 24728, pc: 0x0000070c, module: potcounter
+  [04] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0
+

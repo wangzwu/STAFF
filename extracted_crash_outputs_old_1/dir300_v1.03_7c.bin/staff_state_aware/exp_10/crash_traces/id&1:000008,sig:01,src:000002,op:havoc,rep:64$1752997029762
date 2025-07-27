@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: xgi
+  [00] inode: 24605, pc: 0x00051c3c, module: libc.so.0
+  [01] inode: 24605, pc: 0x0003e83c, module: libc.so.0
+  [02] inode: 24605, pc: 0x0003f078, module: libc.so.0
+  [03] inode: 24605, pc: 0x0004e6e0, module: libc.so.0
+  [04] inode: 16390, pc: 0x0000483c, module: httpd
+

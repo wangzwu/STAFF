@@ -1,0 +1,8 @@
+=== Trace 3 ===
+Process: S10system.sh
+  [00] inode: 24578, pc: 0x000010d0, module: ld-uClibc.so.0, symbol: _dl_lookup_hash
+  [01] inode: 24578, pc: 0x000010ec, module: ld-uClibc.so.0, symbol: _dl_lookup_hash
+  [02] inode: 24578, pc: 0x00001e3c, module: ld-uClibc.so.0, symbol: __dl_runtime_resolve
+  [03] inode: 24578, pc: 0x00001e88, module: ld-uClibc.so.0, symbol: __dl_runtime_resolve
+  [04] inode: 24578, pc: 0x00004858, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+

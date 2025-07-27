@@ -1,0 +1,2485 @@
+[    0.000000] Linux version 4.1.17+ (alessio@pc) (gcc version 5.5.0 20171010 (Ubuntu 5.5.0-12ubuntu1) ) #1 Mon May 15 23:04:08 CEST 2023
+[    0.000000] earlycon: Early serial console at I/O port 0x3f8 (options '38400n8')
+[    0.000000] bootconsole [uart0] enabled
+[    0.000000] CPU0 revision is: 00019300 (MIPS 24Kc)
+[    0.000000] FPU revision is: 00739300
+[    0.000000] Software DMA cache coherency enabled
+[    0.000000] Determined physical RAM map:
+[    0.000000]  memory: 00001000 @ 00000000 (reserved)
+[    0.000000]  memory: 000ef000 @ 00001000 (ROM data)
+[    0.000000]  memory: 00798000 @ 000f0000 (reserved)
+[    0.000000]  memory: 0f777000 @ 00888000 (usable)
+[    0.000000] debug: ignoring loglevel setting.
+[    0.000000] Wasting 69888 bytes for tracking 2184 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000000000000-0x0000000000ffffff]
+[    0.000000]   Normal   [mem 0x0000000001000000-0x000000000fffefff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x000000000fffefff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x000000000fffefff]
+[    0.000000] On node 0 totalpages: 65535
+[    0.000000] free_area_init_node: node 0, pgdat 8081d5b0, node_mem_map 81000000
+[    0.000000]   DMA zone: 32 pages used for memmap
+[    0.000000]   DMA zone: 0 pages reserved
+[    0.000000]   DMA zone: 4096 pages, LIFO batch:0
+[    0.000000]   Normal zone: 480 pages used for memmap
+[    0.000000]   Normal zone: 61439 pages, LIFO batch:15
+[    0.000000] Primary instruction cache 2kB, VIPT, 2-way, linesize 16 bytes.
+[    0.000000] Primary data cache 2kB, 2-way, VIPT, no aliases, linesize 16 bytes
+[    0.000000] pcpu-alloc: s0 r0 d32768 u32768 alloc=1*32768
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 65023
+[    0.000000] Kernel command line: root=/dev/sda1 console=ttyS0 nandsim.parts=64,64,64,64,64,64,64,64,64,64 rdinit=/firmadyne/preInit.sh rw debug ignore_loglevel print-fatal-signals=1 FIRMAE_NET=true FIRMAE_NVRAM=true FIRMAE_KERNEL=true FIRMAE_ETC=true user_debug=0 firmadyne.syscall=1 noka
+[    0.000000] found FIRMAE_KERNEL=t
+[    0.000000] set the LD_PRELOAD=/firmadyne/libnvram_ioctl.so
+[    0.000000] PID hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.000000] Dentry cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Inode-cache hash table entries: 16384 (order: 4, 65536 bytes)
+[    0.000000] Writing ErrCtl register=00000000
+[    0.000000] Readback ErrCtl register=00000000
+[    0.000000] Memory: 251112K/262140K available (5360K kernel code, 244K rwdata, 1676K rodata, 260K init, 158K bss, 11028K reserved, 0K cma-reserved)
+[    0.000000] NR_IRQS:256
+[    0.000000] CPU frequency 200.01 MHz
+[    0.000000] clocksource MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19111950459 ns
+[    0.000217] sched_clock: 32 bits at 100MHz, resolution 9ns, wraps every 21474101243ns
+[    0.016379] Console: colour dummy device 80x25
+[    0.017531] Calibrating delay loop... 24.22 BogoMIPS (lpj=48448)
+[    0.069234] pid_max: default: 32768 minimum: 301
+[    0.073828] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.074389] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.143006] clocksource jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.154679] NET: Registered protocol family 16
+[    0.451606] clocksource pit: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1601818034827 ns
+[    0.616323] vgaarb: loaded
+[    0.622582] SCSI subsystem initialized
+[    0.625062] libata version 3.00 loaded.
+[    0.630012] usbcore: registered new interface driver usbfs
+[    0.631520] usbcore: registered new interface driver hub
+[    0.632661] usbcore: registered new device driver usb
+[    0.635649] pps_core: LinuxPPS API ver. 1 registered
+[    0.636083] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.637078] PTP clock support registered
+[    0.642344] PCI host bridge to bus 0000:00
+[    0.643134] pci_bus 0000:00: root bus resource [mem 0x10000000-0x17ffffff]
+[    0.643783] pci_bus 0000:00: root bus resource [io  0x1000-0x1fffff]
+[    0.644417] pci_bus 0000:00: root bus resource [??? 0x00000000 flags 0x0]
+[    0.645022] pci_bus 0000:00: No busn resource found for root bus, will use [bus 00-ff]
+[    0.646554] pci 0000:00:00.0: [11ab:4620] type 00 class 0x060000
+[    0.647538] pci 0000:00:00.0: [Firmware Bug]: reg 0x14: invalid BAR (can't size)
+[    0.648161] pci 0000:00:00.0: [Firmware Bug]: reg 0x18: invalid BAR (can't size)
+[    0.648782] pci 0000:00:00.0: [Firmware Bug]: reg 0x1c: invalid BAR (can't size)
+[    0.649399] pci 0000:00:00.0: [Firmware Bug]: reg 0x20: invalid BAR (can't size)
+[    0.650017] pci 0000:00:00.0: [Firmware Bug]: reg 0x24: invalid BAR (can't size)
+[    0.654416] pci 0000:00:0a.0: [8086:7110] type 00 class 0x060100
+[    0.658265] pci 0000:00:0a.1: [8086:7111] type 00 class 0x010180
+[    0.659251] pci 0000:00:0a.1: reg 0x20: [io  0x0000-0x000f]
+[    0.659887] pci 0000:00:0a.1: legacy IDE quirk: reg 0x10: [io  0x01f0-0x01f7]
+[    0.660497] pci 0000:00:0a.1: legacy IDE quirk: reg 0x14: [io  0x03f6]
+[    0.661094] pci 0000:00:0a.1: legacy IDE quirk: reg 0x18: [io  0x0170-0x0177]
+[    0.661695] pci 0000:00:0a.1: legacy IDE quirk: reg 0x1c: [io  0x0376]
+[    0.665288] pci 0000:00:0a.2: [8086:7112] type 00 class 0x0c0300
+[    0.666008] pci 0000:00:0a.2: reg 0x20: [io  0x0000-0x001f]
+[    0.669558] pci 0000:00:0a.3: [8086:7113] type 00 class 0x068000
+[    0.671080] pci 0000:00:0a.3: quirk: [io  0x1000-0x103f] claimed by PIIX4 ACPI
+[    0.671987] pci 0000:00:0a.3: quirk: [io  0x1100-0x110f] claimed by PIIX4 SMB
+[    0.675530] pci 0000:00:12.0: [1013:00b8] type 00 class 0x030000
+[    0.676410] pci 0000:00:12.0: reg 0x10: [mem 0x00000000-0x01ffffff pref]
+[    0.677055] pci 0000:00:12.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[    0.677773] pci 0000:00:12.0: reg 0x30: [mem 0x00000000-0x0000ffff pref]
+[    0.680918] vgaarb: device added: PCI:0000:00:12.0,decodes=io+mem,owns=none,locks=none
+[    0.682309] pci 0000:00:13.0: [8086:100e] type 00 class 0x020000
+[    0.682984] pci 0000:00:13.0: reg 0x10: [mem 0x00000000-0x0001ffff]
+[    0.683603] pci 0000:00:13.0: reg 0x14: [io  0x0000-0x003f]
+[    0.684318] pci 0000:00:13.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[    0.687875] pci 0000:00:14.0: [8086:100e] type 00 class 0x020000
+[    0.688574] pci 0000:00:14.0: reg 0x10: [mem 0x00000000-0x0001ffff]
+[    0.689345] pci 0000:00:14.0: reg 0x14: [io  0x0000-0x003f]
+[    0.690026] pci 0000:00:14.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[    0.693749] pci 0000:00:15.0: [8086:100e] type 00 class 0x020000
+[    0.694457] pci 0000:00:15.0: reg 0x10: [mem 0x00000000-0x0001ffff]
+[    0.695068] pci 0000:00:15.0: reg 0x14: [io  0x0000-0x003f]
+[    0.695755] pci 0000:00:15.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[    0.699358] pci 0000:00:16.0: [8086:100e] type 00 class 0x020000
+[    0.700021] pci 0000:00:16.0: reg 0x10: [mem 0x00000000-0x0001ffff]
+[    0.700640] pci 0000:00:16.0: reg 0x14: [io  0x0000-0x003f]
+[    0.701489] pci 0000:00:16.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[    0.705147] pci_bus 0000:00: busn_res: [bus 00-ff] end is updated to 00
+[    0.706968] pci 0000:00:12.0: BAR 0: assigned [mem 0x10000000-0x11ffffff pref]
+[    0.707804] pci 0000:00:13.0: BAR 6: assigned [mem 0x12000000-0x1203ffff pref]
+[    0.708569] pci 0000:00:14.0: BAR 6: assigned [mem 0x12040000-0x1207ffff pref]
+[    0.709299] pci 0000:00:15.0: BAR 6: assigned [mem 0x12080000-0x120bffff pref]
+[    0.710167] pci 0000:00:16.0: BAR 6: assigned [mem 0x120c0000-0x120fffff pref]
+[    0.710862] pci 0000:00:13.0: BAR 0: assigned [mem 0x12100000-0x1211ffff]
+[    0.711550] pci 0000:00:14.0: BAR 0: assigned [mem 0x12120000-0x1213ffff]
+[    0.712231] pci 0000:00:15.0: BAR 0: assigned [mem 0x12140000-0x1215ffff]
+[    0.712921] pci 0000:00:16.0: BAR 0: assigned [mem 0x12160000-0x1217ffff]
+[    0.713778] pci 0000:00:12.0: BAR 6: assigned [mem 0x12180000-0x1218ffff pref]
+[    0.714487] pci 0000:00:12.0: BAR 1: assigned [mem 0x12190000-0x12190fff]
+[    0.715176] pci 0000:00:13.0: BAR 1: assigned [io  0x1040-0x107f]
+[    0.715803] pci 0000:00:14.0: BAR 1: assigned [io  0x1080-0x10bf]
+[    0.716438] pci 0000:00:15.0: BAR 1: assigned [io  0x10c0-0x10ff]
+[    0.717073] pci 0000:00:16.0: BAR 1: assigned [io  0x1400-0x143f]
+[    0.717862] pci 0000:00:0a.2: BAR 4: assigned [io  0x1440-0x145f]
+[    0.718516] pci 0000:00:0a.1: BAR 4: assigned [io  0x1460-0x146f]
+[    0.738521] cfg80211: Calling CRDA to update world regulatory domain
+[    0.754054] Switched to clocksource MIPS
+[    0.885283] NET: Registered protocol family 2
+[    0.899329] TCP established hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.900632] TCP bind hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.901866] TCP: Hash tables configured (established 2048 bind 2048)
+[    0.903308] UDP hash table entries: 256 (order: 0, 4096 bytes)
+[    0.904093] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes)
+[    0.908811] NET: Registered protocol family 1
+[    0.910883] PCI: Enabling device 0000:00:0a.2 (0000 -> 0001)
+[    0.912542] PCI: CLS 0 bytes, default 16
+[    0.948975] futex hash table entries: 256 (order: -1, 3072 bytes)
+[    0.967708] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.970579] jffs2: version 2.2. (NAND) © 2001-2006 Red Hat, Inc.
+[    0.974458] romfs: ROMFS MTD (C) 2007 Red Hat, Inc.
+[    1.001486] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 251)
+[    1.002423] io scheduler noop registered
+[    1.003215] io scheduler cfq registered (default)
+[    1.004318] firmadyne: devfs: 1, execute: 1, procfs: 1, syscall: 1
+[    1.010713] firmadyne: Cannot register character device: gpio, 0xfc, 0x0!
+[    1.020298] firmadyne: Cannot register character device: watchdog, 0xa, 0x82!
+[    1.020845] firmadyne: Cannot register character device: wdt, 0xfd, 0x0!
+[    2.917798] strName = 4.1.17+
+[    2.917798] init_task_addr  = 2155778944
+[    2.917798] init_task_size  = 1296
+[    2.917798] ts_tasks        = 292
+[    2.917798] ts_pid          = 408
+[    2.917798] ts_tgid         = 412
+[    2.917798] ts_group_leader = 440
+[    2.917798] ts_thread_group = 496
+[    2.917798] ts_real_parent  = 416
+[    2.917798] ts_mm           = 300
+[    2.917798] ts_stack        = 4
+[    2.920793] module_name   = 12
+[    2.920793] module_size   = 208
+[    2.920793] module_init   = 200
+[    2.920793] module_list   = 4
+[    2.921799] ts_real_cred    = 624
+[    2.921799] ts_cred         = 628
+[    2.921799] ts_comm         = 632
+[    2.921799] cred_uid        = 4
+[    2.921799] cred_gid        = 8
+[    2.921799] cred_euid       = 20
+[    2.921799] cred_egid       = 24
+[    2.923844] mm_mmap         = 0
+[    2.923844] mm_pgd          = 32
+[    2.923844] mm_arg_start    = 136
+[    2.923844] mm_start_brk    = 124
+[    2.923844] mm_brk          = 128
+[    2.923844] mm_start_stack  = 132
+[    2.925279] vma_vm_start    = 0
+[    2.925279] vma_vm_end      = 4
+[    2.925279] vma_vm_next     = 8
+[    2.925279] vma_vm_file     = 80
+[    2.925279] vma_vm_flags    = 40
+[    2.925279] vma_vm_pgoff    = 76
+[    2.926943] file_dentry     = 12
+[    2.926943] file_inode      = 40
+[    2.926943] dentry_d_name   = 24
+[    2.926943] dentry_d_iname  = 44
+[    2.926943] dentry_d_parent = 16
+[    2.926943] ti_task         = 0
+[    2.926943] inode_ino   = 28
+[    4.091072] proc_fork_connector  = 2151078840
+[    4.091471] proc_exit_connector  = 2151080432
+[    4.091828] proc_exec_connector  = 2151079052
+[    4.092181] vma_link  = 2149124372
+[    4.092482] vma_adjust  = 2149124540
+[    4.092791] remove_vma  = 2149122188
+[    4.093103] modules  = 2155833724
+[    4.093404] trim_init_extable  = 2150545316
+[    4.094931] cfg80211: Calling CRDA to update world regulatory domain
+[    4.098614] PCI: Enabling device 0000:00:12.0 (0000 -> 0002)
+[    4.099925] cirrusfb 0000:00:12.0: Cirrus Logic chipset on PCI bus, RAM (4096 kB) at 0x10000000
+[    4.340074] Console: switching to colour frame buffer device 80x30
+[    4.417376] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    4.432917] console [ttyS0] disabled
+[    4.460672] serial8250.0: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+[    4.461878] console [ttyS0] enabled
+[    4.461878] console [ttyS0] enabled
+[    4.462715] bootconsole [uart0] disabled
+[    4.462715] bootconsole [uart0] disabled
+[    4.493423] serial8250.0: ttyS1 at I/O 0x2f8 (irq = 3, base_baud = 115200) is a 16550A
+[    4.625226] brd: module loaded
+[    4.694868] loop: module loaded
+[    4.702247] ata_piix 0000:00:0a.1: version 2.13
+[    4.702871] PCI: Enabling device 0000:00:0a.1 (0000 -> 0001)
+[    4.731222] scsi host0: ata_piix
+[    4.737427] scsi host1: ata_piix
+[    4.741636] ata1: PATA max UDMA/33 cmd 0x1f0 ctl 0x3f6 bmdma 0x1460 irq 14
+[    4.742459] ata2: PATA max UDMA/33 cmd 0x170 ctl 0x376 bmdma 0x1468 irq 15
+[    4.749676] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.750537] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.751169] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.751785] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.752413] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.753034] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0
+[    4.753844] nand: device found, Manufacturer ID: 0x98, Chip ID: 0x39
+[    4.754519] nand: Toshiba NAND 128MiB 1,8V 8-bit
+[    4.754968] nand: 128 MiB, SLC, erase size: 16 KiB, page size: 512, OOB size: 16
+[    4.756806] flash size: 128 MiB
+[    4.757118] page size: 512 bytes
+[    4.757415] OOB area size: 16 bytes
+[    4.757724] sector size: 16 KiB
+[    4.758195] pages number: 262144
+[    4.758496] pages per sector: 32
+[    4.758789] bus width: 8
+[    4.759055] bits in sector size: 14
+[    4.759360] bits in page size: 9
+[    4.759656] bits in OOB size: 4
+[    4.759959] flash size with OOB: 135168 KiB
+[    4.760299] page address bytes: 4
+[    4.760596] sector address bytes: 3
+[    4.760902] options: 0x42
+[    4.857338] Scanning device for bad blocks
+[    6.213661] ata1.01: NODEV after polling detection
+[    6.214890] ata2.01: NODEV after polling detection
+[    6.217073] ata2.00: ATAPI: QEMU DVD-ROM, 2.5+, max UDMA/100
+[    6.219965] ata1.00: ATA-7: QEMU HARDDISK, 2.5+, max UDMA/100
+[    6.220472] ata1.00: 2097152 sectors, multi 16: LBA48 
+[    6.226890] ata2.00: configured for UDMA/33
+[    6.229439] ata1.00: configured for UDMA/33
+[    6.239606] scsi 0:0:0:0: Direct-Access     ATA      QEMU HARDDISK    2.5+ PQ: 0 ANSI: 5
+[    6.257136] sd 0:0:0:0: [sda] 2097152 512-byte logical blocks: (1.07 GB/1.00 GiB)
+[    6.259391] scsi 1:0:0:0: CD-ROM            QEMU     QEMU DVD-ROM     2.5+ PQ: 0 ANSI: 5
+[    6.273478] sd 0:0:0:0: [sda] Write Protect is off
+[    6.274236] sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
+[    6.275904] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    6.288611]  sda: sda1
+[    6.303206] sd 0:0:0:0: [sda] Attached SCSI disk
+[    6.303821] Creating 11 MTD partitions on "NAND 128MiB 1,8V 8-bit":
+[    6.304533] 0x000000000000-0x000000100000 : "NAND simulator partition 0"
+[    6.317196] 0x000000100000-0x000000200000 : "NAND simulator partition 1"
+[    6.329025] 0x000000200000-0x000000300000 : "NAND simulator partition 2"
+[    6.341054] 0x000000300000-0x000000400000 : "NAND simulator partition 3"
+[    6.353007] 0x000000400000-0x000000500000 : "NAND simulator partition 4"
+[    6.365050] 0x000000500000-0x000000600000 : "NAND simulator partition 5"
+[    6.377937] 0x000000600000-0x000000700000 : "NAND simulator partition 6"
+[    6.390866] 0x000000700000-0x000000800000 : "NAND simulator partition 7"
+[    6.416501] 0x000000800000-0x000000900000 : "NAND simulator partition 8"
+[    6.428494] 0x000000900000-0x000000a00000 : "NAND simulator partition 9"
+[    6.440494] 0x000000a00000-0x000008000000 : "NAND simulator partition 10"
+[    6.492399] tun: Universal TUN/TAP device driver, 1.6
+[    6.492805] tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+[    6.496819] pcnet32: pcnet32.c:v1.35 21.Apr.2008 tsbogend@alpha.franken.de
+[    6.498419] e1000: Intel(R) PRO/1000 Network Driver - version 7.3.21-k8-NAPI
+[    6.498914] e1000: Copyright (c) 1999-2006 Intel Corporation.
+[    6.499970] PCI: Enabling device 0000:00:13.0 (0000 -> 0003)
+[    6.816895] e1000 0000:00:13.0 eth0: (PCI:33MHz:32-bit) 52:54:00:12:34:56
+[    6.817703] e1000 0000:00:13.0 eth0: Intel(R) PRO/1000 Network Connection
+[    6.818716] PCI: Enabling device 0000:00:14.0 (0000 -> 0003)
+[    7.132538] e1000 0000:00:14.0 eth1: (PCI:33MHz:32-bit) 52:54:00:12:34:57
+[    7.133177] e1000 0000:00:14.0 eth1: Intel(R) PRO/1000 Network Connection
+[    7.134151] PCI: Enabling device 0000:00:15.0 (0000 -> 0003)
+[    7.412248] cfg80211: Calling CRDA to update world regulatory domain
+[    7.469227] e1000 0000:00:15.0 eth2: (PCI:33MHz:32-bit) 52:54:00:12:34:58
+[    7.469969] e1000 0000:00:15.0 eth2: Intel(R) PRO/1000 Network Connection
+[    7.471052] PCI: Enabling device 0000:00:16.0 (0000 -> 0003)
+[    7.798713] e1000 0000:00:16.0 eth3: (PCI:33MHz:32-bit) 52:54:00:12:34:59
+[    7.799340] e1000 0000:00:16.0 eth3: Intel(R) PRO/1000 Network Connection
+[    7.800878] e1000e: Intel(R) PRO/1000 Network Driver - 2.3.2-k
+[    7.801310] e1000e: Copyright(c) 1999 - 2014 Intel Corporation.
+[    7.806902] PPP generic driver version 2.4.2
+[    7.809425] PPP Deflate Compression module registered
+[    7.810342] PPP MPPE Compression module registered
+[    7.810837] NET: Registered protocol family 24
+[    7.811687] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    7.812281] ehci-pci: EHCI PCI platform driver
+[    7.813652] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    7.814414] ohci-pci: OHCI PCI platform driver
+[    7.815780] uhci_hcd: USB Universal Host Controller Interface driver
+[    7.817625] uhci_hcd 0000:00:0a.2: UHCI Host Controller
+[    7.818781] uhci_hcd 0000:00:0a.2: new USB bus registered, assigned bus number 1
+[    7.820001] uhci_hcd 0000:00:0a.2: irq 11, io base 0x00001440
+[    7.833645] hub 1-0:1.0: USB hub found
+[    7.834719] hub 1-0:1.0: 2 ports detected
+[    7.846741] usbcore: registered new interface driver usb-storage
+[    7.851942] mousedev: PS/2 mouse device common for all mice
+[    7.859596] rtc_cmos rtc_cmos: rtc core: registered rtc_cmos as rtc0
+[    7.860495] rtc_cmos rtc_cmos: alarms up to one day, 242 bytes nvram
+[    7.862362] i2c /dev entries driver
+[    7.863848] piix4_smbus 0000:00:0a.3: SMBus Host Controller at 0x1100, revision 0
+[    7.869486] sdhci: Secure Digital Host Controller Interface driver
+[    7.870146] sdhci: Copyright(c) Pierre Ossman
+[    7.872981] hidraw: raw HID events driver (C) Jiri Kosina
+[    7.895876] usbcore: registered new interface driver usbhid
+[    7.896312] usbhid: USB HID core driver
+[    7.897589] Netfilter messages via NETLINK v0.30.
+[    7.899327] nf_conntrack version 0.5.0 (3923 buckets, 15692 max)
+[    7.903388] ctnetlink v0.93: registering with nfnetlink.
+[    7.910493] ipip: IPv4 over IPv4 tunneling driver
+[    7.925209] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    7.928692] arp_tables: (C) 2002 David S. Miller
+[    7.931113] Initializing XFRM netlink socket
+[    7.932534] NET: Registered protocol family 10
+[    7.960628] ip6_tables: (C) 2000-2006 Netfilter Core Team
+[    7.965176] sit: IPv6 over IPv4 tunneling driver
+[    7.986532] NET: Registered protocol family 17
+[    7.987635] bridge: automatic filtering via arp/ip/ip6tables has been deprecated. Update your scripts to load br_netfilter if you need this.
+[    7.988938] Bridge firewalling registered
+[    7.989430] Ebtables v2.0 registered
+[    7.992220] 8021q: 802.1Q VLAN Support v1.8
+[    8.018322] rtc_cmos rtc_cmos: setting system clock to 2025-07-23 04:17:18 UTC (1753244238)
+[    8.044832] EXT2-fs (sda1): warning: mounting unchecked fs, running e2fsck is recommended
+[    8.047328] VFS: Mounted root (ext2 filesystem) on device 8:1.
+[    8.058948] Freeing YAMON memory: 956k freed
+[    8.071851] Freeing unused kernel memory: 260K (8081f000 - 80860000)
+[    8.108455] firmadyne: sys_reboot[PID: 1 (init)]: magic1:fee1dead, magic2:28121969, cmd:0
+init started: BusyBox v1.14.1 (2024-07-07 02:43:58 CEST)
+starting pid 48, tty '': '/etc/init.d/rcS'
+[    8.206653] spurious 8259A interrupt: IRQ7.
+[    8.210996] firmadyne: do_execve: /firmadyne/console
+[    8.211664] OFFSETS: offset of pid: 0x198 offset of comm: 0x278
+[/etc/init.d/S03config.sh]
+Mounting proc and var ...
+[   10.554426] cfg80211: Calling CRDA to update world regulatory domain
+SymbLink /dev/mtdblock/0
+SymbLink /dev/mtdblock/1
+SymbLink /dev/mtdblock/10
+SymbLink /dev/mtdblock/2
+SymbLink /dev/mtdblock/3
+SymbLink /dev/mtdblock/4
+[   13.698467] cfg80211: Calling CRDA to update world regulatory domain
+SymbLink /dev/mtdblock/5
+SymbLink /dev/mtdblock/6
+SymbLink /dev/mtdblock/7
+SymbLink /dev/mtdblock/8
+SymbLink /dev/mtdblock/9
+Inserting kernel modules ...
+Inserting Rebootm ...
+Inserting atheros ethernet ...
+Inserting gpio ...
+done.
+Start xmldb ...
+[   15.171922] firmadyne: sys_socket[PID: 147 (xmldb)]: family:1, type:2, protocol:0
+[   16.231917] random: nonblocking pool is initialized
+[/etc/scripts/misc/profile.sh] get ...
+DEVCONF: unable to read config data (ret=-3) !
+CAN NOT get devive config, generate default!
+[/etc/scripts/misc/profile.sh] reset ...
+[   16.906331] cfg80211: Calling CRDA to update world regulatory domain
+[   16.910662] firmadyne: sys_socket[PID: 159 (rgdb)]: family:1, type:2, protocol:0
+[/etc/scripts/misc/defnodes.sh] ...
+[/etc/defnodes/S10setext.sh] ...
+[   17.339245] firmadyne: sys_socket[PID: 166 (xmldbc)]: family:1, type:2, protocol:0
+[   17.398435] firmadyne: sys_socket[PID: 167 (xmldbc)]: family:1, type:2, protocol:0
+[   17.600393] firmadyne: sys_socket[PID: 168 (xmldbc)]: family:1, type:2, protocol:0
+[   17.659780] firmadyne: sys_socket[PID: 169 (xmldbc)]: family:1, type:2, protocol:0
+[   17.718031] firmadyne: sys_socket[PID: 170 (xmldbc)]: family:1, type:2, protocol:0
+[   17.776509] firmadyne: sys_socket[PID: 171 (xmldbc)]: family:1, type:2, protocol:0
+[   17.970816] firmadyne: sys_socket[PID: 172 (xmldbc)]: family:1, type:2, protocol:0
+[   18.031129] firmadyne: sys_socket[PID: 173 (xmldbc)]: family:1, type:2, protocol:0
+[   18.089929] firmadyne: sys_socket[PID: 174 (xmldbc)]: family:1, type:2, protocol:0
+[   18.148292] firmadyne: sys_socket[PID: 175 (xmldbc)]: family:1, type:2, protocol:0
+[   18.343945] firmadyne: sys_socket[PID: 176 (xmldbc)]: family:1, type:2, protocol:0
+[   18.404654] firmadyne: sys_socket[PID: 177 (xmldbc)]: family:1, type:2, protocol:0
+[   18.464316] firmadyne: sys_socket[PID: 178 (xmldbc)]: family:1, type:2, protocol:0
+[   18.525396] firmadyne: sys_socket[PID: 179 (xmldbc)]: family:1, type:2, protocol:0
+[   18.723267] firmadyne: sys_socket[PID: 180 (xmldbc)]: family:1, type:2, protocol:0
+[   18.785847] firmadyne: sys_socket[PID: 181 (xmldbc)]: family:1, type:2, protocol:0
+[   18.846835] firmadyne: sys_socket[PID: 182 (xmldbc)]: family:1, type:2, protocol:0
+[   18.905651] firmadyne: sys_socket[PID: 183 (xmldbc)]: family:1, type:2, protocol:0
+[   19.102485] firmadyne: sys_socket[PID: 184 (xmldbc)]: family:1, type:2, protocol:0
+[   19.163965] firmadyne: sys_socket[PID: 185 (xmldbc)]: family:1, type:2, protocol:0
+[   19.224894] firmadyne: sys_socket[PID: 186 (xmldbc)]: family:1, type:2, protocol:0
+[   19.284375] firmadyne: sys_socket[PID: 187 (rgdb)]: family:1, type:2, protocol:0
+[   19.479889] firmadyne: sys_socket[PID: 188 (rgdb)]: family:1, type:2, protocol:0
+[   19.543185] firmadyne: sys_socket[PID: 189 (rgdb)]: family:1, type:2, protocol:0
+[   19.603959] firmadyne: sys_socket[PID: 190 (rgdb)]: family:1, type:2, protocol:0
+[   19.663767] firmadyne: sys_socket[PID: 191 (rgdb)]: family:1, type:2, protocol:0
+[   19.860581] firmadyne: sys_socket[PID: 192 (rgdb)]: family:1, type:2, protocol:0
+[   19.919991] firmadyne: sys_socket[PID: 193 (rgdb)]: family:1, type:2, protocol:0
+[   19.979473] firmadyne: sys_socket[PID: 194 (rgdb)]: family:1, type:2, protocol:0
+[   20.040329] firmadyne: sys_socket[PID: 195 (rgdb)]: family:1, type:2, protocol:0
+[   20.054738] cfg80211: Calling CRDA to update world regulatory domain
+[   20.249325] firmadyne: sys_socket[PID: 197 (rgdb)]: family:1, type:2, protocol:0
+[   20.308440] firmadyne: sys_socket[PID: 198 (rgdb)]: family:1, type:2, protocol:0
+[   20.367084] firmadyne: sys_socket[PID: 199 (rgdb)]: family:1, type:2, protocol:0
+[   20.430992] firmadyne: sys_socket[PID: 200 (rgdb)]: family:1, type:2, protocol:0
+[   20.602972] firmadyne: sys_socket[PID: 201 (rgdb)]: family:1, type:2, protocol:0
+[   20.735783] firmadyne: sys_socket[PID: 203 (xmldbc)]: family:1, type:2, protocol:0
+[   20.795649] firmadyne: sys_socket[PID: 204 (xmldbc)]: family:1, type:2, protocol:0
+[   20.857772] firmadyne: sys_socket[PID: 205 (xmldbc)]: family:1, type:2, protocol:0
+[   21.106575] firmadyne: sys_socket[PID: 206 (xmldbc)]: family:1, type:2, protocol:0
+[   21.165621] firmadyne: sys_socket[PID: 207 (xmldbc)]: family:1, type:2, protocol:0
+[   21.226673] firmadyne: sys_socket[PID: 208 (xmldbc)]: family:1, type:2, protocol:0
+[   21.422753] firmadyne: sys_socket[PID: 209 (xmldbc)]: family:1, type:2, protocol:0
+[   21.483670] firmadyne: sys_socket[PID: 210 (xmldbc)]: family:1, type:2, protocol:0
+[   21.543339] firmadyne: sys_socket[PID: 211 (xmldbc)]: family:1, type:2, protocol:0
+[   21.605292] firmadyne: sys_socket[PID: 212 (xmldbc)]: family:1, type:2, protocol:0
+[   21.802375] firmadyne: sys_socket[PID: 213 (xmldbc)]: family:1, type:2, protocol:0
+[   21.864716] firmadyne: sys_socket[PID: 214 (xmldbc)]: family:1, type:2, protocol:0
+[   21.924253] firmadyne: sys_socket[PID: 215 (xmldbc)]: family:1, type:2, protocol:0
+[   21.985117] firmadyne: sys_socket[PID: 216 (xmldbc)]: family:1, type:2, protocol:0
+[   22.180909] firmadyne: sys_socket[PID: 217 (xmldbc)]: family:1, type:2, protocol:0
+[   22.240958] firmadyne: sys_socket[PID: 218 (xmldbc)]: family:1, type:2, protocol:0
+[   22.300432] firmadyne: sys_socket[PID: 219 (xmldbc)]: family:1, type:2, protocol:0
+[   22.359612] firmadyne: sys_socket[PID: 220 (xmldbc)]: family:1, type:2, protocol:0
+[   22.711346] firmadyne: sys_socket[PID: 225 (xmldbc)]: family:1, type:2, protocol:0
+[   22.771589] firmadyne: sys_socket[PID: 226 (xmldbc)]: family:1, type:2, protocol:0
+[   22.831352] firmadyne: sys_socket[PID: 227 (xmldbc)]: family:1, type:2, protocol:0
+[   22.891055] firmadyne: sys_socket[PID: 228 (xmldbc)]: family:1, type:2, protocol:0
+[   23.091436] firmadyne: sys_socket[PID: 229 (xmldbc)]: family:1, type:2, protocol:0
+[   23.151482] firmadyne: sys_socket[PID: 230 (xmldbc)]: family:1, type:2, protocol:0
+[   23.198412] cfg80211: Calling CRDA to update world regulatory domain
+[   23.225304] firmadyne: sys_socket[PID: 231 (xmldbc)]: family:1, type:2, protocol:0
+[   23.283541] firmadyne: sys_socket[PID: 233 (xmldbc)]: family:1, type:2, protocol:0
+[   23.477469] firmadyne: sys_socket[PID: 234 (xmldbc)]: family:1, type:2, protocol:0
+[   23.537211] firmadyne: sys_socket[PID: 235 (xmldbc)]: family:1, type:2, protocol:0
+[   23.598424] firmadyne: sys_socket[PID: 236 (xmldbc)]: family:1, type:2, protocol:0
+[   23.657543] firmadyne: sys_socket[PID: 237 (xmldbc)]: family:1, type:2, protocol:0
+[   23.988183] firmadyne: sys_socket[PID: 238 (xmldbc)]: family:1, type:2, protocol:0
+[   24.046801] firmadyne: sys_socket[PID: 239 (xmldbc)]: family:1, type:2, protocol:0
+[   24.105630] firmadyne: sys_socket[PID: 240 (xmldbc)]: family:1, type:2, protocol:0
+[   24.165805] firmadyne: sys_socket[PID: 241 (xmldbc)]: family:1, type:2, protocol:0
+[   24.362089] firmadyne: sys_socket[PID: 242 (xmldbc)]: family:1, type:2, protocol:0
+[   24.421109] firmadyne: sys_socket[PID: 243 (xmldbc)]: family:1, type:2, protocol:0
+[   24.480290] firmadyne: sys_socket[PID: 244 (xmldbc)]: family:1, type:2, protocol:0
+[   24.626053] firmadyne: sys_socket[PID: 248 (xmldbc)]: family:1, type:2, protocol:0
+[   24.828527] firmadyne: sys_socket[PID: 249 (xmldbc)]: family:1, type:2, protocol:0
+[   24.888478] firmadyne: sys_socket[PID: 250 (xmldbc)]: family:1, type:2, protocol:0
+[   24.948264] firmadyne: sys_socket[PID: 251 (xmldbc)]: family:1, type:2, protocol:0
+[   25.008421] firmadyne: sys_socket[PID: 252 (xmldbc)]: family:1, type:2, protocol:0
+[   25.220395] firmadyne: sys_socket[PID: 253 (xmldbc)]: family:1, type:2, protocol:0
+[   25.280406] firmadyne: sys_socket[PID: 254 (xmldbc)]: family:1, type:2, protocol:0
+[   25.339139] firmadyne: sys_socket[PID: 255 (xmldbc)]: family:1, type:2, protocol:0
+[   25.399266] firmadyne: sys_socket[PID: 256 (xmldbc)]: family:1, type:2, protocol:0
+[   30.028724] cfg80211: Calling CRDA to update world regulatory domain
+[   30.096996] firmadyne: sys_socket[PID: 258 (xmldbc)]: family:1, type:2, protocol:0
+[   30.156035] firmadyne: sys_socket[PID: 259 (xmldbc)]: family:1, type:2, protocol:0
+[   30.215649] firmadyne: sys_socket[PID: 260 (xmldbc)]: family:1, type:2, protocol:0
+[   36.360085] cfg80211: Calling CRDA to update world regulatory domain
+[   36.362832] firmadyne: sys_socket[PID: 261 (xmldbc)]: family:1, type:2, protocol:0
+[   36.435450] firmadyne: sys_socket[PID: 263 (xmldbc)]: family:1, type:2, protocol:0
+[   36.494735] firmadyne: sys_socket[PID: 264 (xmldbc)]: family:1, type:2, protocol:0
+[   36.553351] firmadyne: sys_socket[PID: 265 (xmldbc)]: family:1, type:2, protocol:0
+[   57.449196] cfg80211: Calling CRDA to update world regulatory domain
+[   57.459630] firmadyne: sys_socket[PID: 266 (xmldbc)]: family:1, type:2, protocol:0
+[   57.526995] firmadyne: sys_socket[PID: 268 (xmldbc)]: family:1, type:2, protocol:0
+[   57.585952] firmadyne: sys_socket[PID: 269 (xmldbc)]: family:1, type:2, protocol:0
+[   57.726760] firmadyne: sys_socket[PID: 273 (xmldbc)]: family:1, type:2, protocol:0
+[   70.356354] cfg80211: Exceeded CRDA call max attempts. Not calling CRDA
+[   70.359739] firmadyne: sys_socket[PID: 274 (xmldbc)]: family:1, type:2, protocol:0
+[   70.419589] firmadyne: sys_socket[PID: 275 (xmldbc)]: family:1, type:2, protocol:0
+[   70.478647] firmadyne: sys_socket[PID: 276 (xmldbc)]: family:1, type:2, protocol:0
+[   70.536923] firmadyne: sys_socket[PID: 277 (xmldbc)]: family:1, type:2, protocol:0
+[   89.709611] firmadyne: sys_socket[PID: 278 (xmldbc)]: family:1, type:2, protocol:0
+[   89.771096] firmadyne: sys_socket[PID: 279 (xmldbc)]: family:1, type:2, protocol:0
+[   89.830536] firmadyne: sys_socket[PID: 280 (xmldbc)]: family:1, type:2, protocol:0
+[   89.889674] firmadyne: sys_socket[PID: 281 (xmldbc)]: family:1, type:2, protocol:0
+[  116.892717] firmadyne: sys_socket[PID: 282 (xmldbc)]: family:1, type:2, protocol:0
+[  116.954937] firmadyne: sys_socket[PID: 283 (xmldbc)]: family:1, type:2, protocol:0
+[  117.014998] firmadyne: sys_socket[PID: 284 (xmldbc)]: family:1, type:2, protocol:0
+[  117.076545] firmadyne: sys_socket[PID: 285 (xmldbc)]: family:1, type:2, protocol:0
+[  121.956418] firmadyne: sys_socket[PID: 286 (xmldbc)]: family:1, type:2, protocol:0
+[  122.017050] firmadyne: sys_socket[PID: 287 (xmldbc)]: family:1, type:2, protocol:0
+[  122.076298] firmadyne: sys_socket[PID: 288 (xmldbc)]: family:1, type:2, protocol:0
+[  122.135667] firmadyne: sys_socket[PID: 289 (xmldbc)]: family:1, type:2, protocol:0
+[  129.699926] firmadyne: sys_socket[PID: 290 (xmldbc)]: family:1, type:2, protocol:0
+[  129.763528] firmadyne: sys_socket[PID: 291 (xmldbc)]: family:1, type:2, protocol:0
+[  129.904278] firmadyne: sys_socket[PID: 295 (xmldbc)]: family:1, type:2, protocol:0
+[  129.963348] firmadyne: sys_socket[PID: 296 (xmldbc)]: family:1, type:2, protocol:0
+[  137.328702] firmadyne: sys_socket[PID: 297 (xmldbc)]: family:1, type:2, protocol:0
+[  137.388359] firmadyne: sys_socket[PID: 298 (xmldbc)]: family:1, type:2, protocol:0
+[  137.455355] firmadyne: sys_socket[PID: 299 (xmldbc)]: family:1, type:2, protocol:0
+[  137.516826] firmadyne: sys_socket[PID: 300 (xmldbc)]: family:1, type:2, protocol:0
+[  152.953754] firmadyne: sys_socket[PID: 301 (xmldbc)]: family:1, type:2, protocol:0
+[  153.017615] firmadyne: sys_socket[PID: 302 (xmldbc)]: family:1, type:2, protocol:0
+[  153.076484] firmadyne: sys_socket[PID: 303 (xmldbc)]: family:1, type:2, protocol:0
+[  153.137386] firmadyne: sys_socket[PID: 304 (xmldbc)]: family:1, type:2, protocol:0
+[  154.242599] firmadyne: sys_socket[PID: 305 (xmldbc)]: family:1, type:2, protocol:0
+[  154.302672] firmadyne: sys_socket[PID: 306 (xmldbc)]: family:1, type:2, protocol:0
+[  154.362596] firmadyne: sys_socket[PID: 307 (xmldbc)]: family:1, type:2, protocol:0
+[  154.423011] firmadyne: sys_socket[PID: 308 (xmldbc)]: family:1, type:2, protocol:0
+[  154.482998] firmadyne: sys_socket[PID: 309 (xmldbc)]: family:1, type:2, protocol:0
+[  154.541634] firmadyne: sys_socket[PID: 310 (xmldbc)]: family:1, type:2, protocol:0
+[  154.600247] firmadyne: sys_socket[PID: 311 (xmldbc)]: family:1, type:2, protocol:0
+[  154.660240] firmadyne: sys_socket[PID: 312 (xmldbc)]: family:1, type:2, protocol:0
+[  154.720017] firmadyne: sys_socket[PID: 313 (xmldbc)]: family:1, type:2, protocol:0
+[  154.862950] firmadyne: sys_socket[PID: 317 (xmldbc)]: family:1, type:2, protocol:0
+[  154.921266] firmadyne: sys_socket[PID: 318 (xmldbc)]: family:1, type:2, protocol:0
+[  154.979887] firmadyne: sys_socket[PID: 319 (xmldbc)]: family:1, type:2, protocol:0
+[  155.042798] firmadyne: sys_socket[PID: 320 (xmldbc)]: family:1, type:2, protocol:0
+[  155.102514] firmadyne: sys_socket[PID: 321 (xmldbc)]: family:1, type:2, protocol:0
+[  155.161505] firmadyne: sys_socket[PID: 322 (xmldbc)]: family:1, type:2, protocol:0
+[  155.221559] firmadyne: sys_socket[PID: 323 (xmldbc)]: family:1, type:2, protocol:0
+[  155.283294] firmadyne: sys_socket[PID: 324 (xmldbc)]: family:1, type:2, protocol:0
+[  155.342536] firmadyne: sys_socket[PID: 325 (xmldbc)]: family:1, type:2, protocol:0
+[  155.401167] firmadyne: sys_socket[PID: 326 (xmldbc)]: family:1, type:2, protocol:0
+[  155.461984] firmadyne: sys_socket[PID: 327 (xmldbc)]: family:1, type:2, protocol:0
+[  155.522499] firmadyne: sys_socket[PID: 328 (xmldbc)]: family:1, type:2, protocol:0
+[  155.577642] firmadyne: sys_socket[PID: 329 (xmldbc)]: family:1, type:2, protocol:0
+[  155.638014] firmadyne: sys_socket[PID: 330 (xmldbc)]: family:1, type:2, protocol:0
+[  155.697020] firmadyne: sys_socket[PID: 331 (xmldbc)]: family:1, type:2, protocol:0
+[  155.756160] firmadyne: sys_socket[PID: 332 (xmldbc)]: family:1, type:2, protocol:0
+[  155.815651] firmadyne: sys_socket[PID: 333 (xmldbc)]: family:1, type:2, protocol:0
+[  155.869407] firmadyne: sys_socket[PID: 334 (xmldbc)]: family:1, type:2, protocol:0
+[  155.926946] firmadyne: sys_socket[PID: 335 (xmldbc)]: family:1, type:2, protocol:0
+[  156.069528] firmadyne: sys_socket[PID: 339 (xmldbc)]: family:1, type:2, protocol:0
+[  156.128557] firmadyne: sys_socket[PID: 340 (xmldbc)]: family:1, type:2, protocol:0
+[  156.186803] firmadyne: sys_socket[PID: 341 (xmldbc)]: family:1, type:2, protocol:0
+[  156.247500] firmadyne: sys_socket[PID: 342 (xmldbc)]: family:1, type:2, protocol:0
+[  156.305898] firmadyne: sys_socket[PID: 343 (xmldbc)]: family:1, type:2, protocol:0
+[  156.365385] firmadyne: sys_socket[PID: 344 (xmldbc)]: family:1, type:2, protocol:0
+[  156.425692] firmadyne: sys_socket[PID: 345 (xmldbc)]: family:1, type:2, protocol:0
+[  156.485561] firmadyne: sys_socket[PID: 346 (xmldbc)]: family:1, type:2, protocol:0
+[  156.544994] firmadyne: sys_socket[PID: 347 (xmldbc)]: family:1, type:2, protocol:0
+[  156.604718] firmadyne: sys_socket[PID: 348 (xmldbc)]: family:1, type:2, protocol:0
+[  156.665455] firmadyne: sys_socket[PID: 349 (xmldbc)]: family:1, type:2, protocol:0
+[  156.724441] firmadyne: sys_socket[PID: 350 (xmldbc)]: family:1, type:2, protocol:0
+[  156.784010] firmadyne: sys_socket[PID: 351 (xmldbc)]: family:1, type:2, protocol:0
+[  156.846087] firmadyne: sys_socket[PID: 352 (xmldbc)]: family:1, type:2, protocol:0
+[  156.905384] firmadyne: sys_socket[PID: 353 (xmldbc)]: family:1, type:2, protocol:0
+[  156.964316] firmadyne: sys_socket[PID: 354 (xmldbc)]: family:1, type:2, protocol:0
+[  157.025255] firmadyne: sys_socket[PID: 355 (xmldbc)]: family:1, type:2, protocol:0
+[  157.087784] firmadyne: sys_socket[PID: 356 (xmldbc)]: family:1, type:2, protocol:0
+[  157.146835] firmadyne: sys_socket[PID: 357 (xmldbc)]: family:1, type:2, protocol:0
+[  157.288484] firmadyne: sys_socket[PID: 361 (xmldbc)]: family:1, type:2, protocol:0
+[  157.346617] firmadyne: sys_socket[PID: 362 (xmldbc)]: family:1, type:2, protocol:0
+[  157.406026] firmadyne: sys_socket[PID: 363 (xmldbc)]: family:1, type:2, protocol:0
+[  157.467252] firmadyne: sys_socket[PID: 364 (xmldbc)]: family:1, type:2, protocol:0
+[  157.527631] firmadyne: sys_socket[PID: 365 (xmldbc)]: family:1, type:2, protocol:0
+[  157.587542] firmadyne: sys_socket[PID: 366 (xmldbc)]: family:1, type:2, protocol:0
+[  157.648500] firmadyne: sys_socket[PID: 367 (xmldbc)]: family:1, type:2, protocol:0
+[  157.706433] firmadyne: sys_socket[PID: 368 (xmldbc)]: family:1, type:2, protocol:0
+[  157.764525] firmadyne: sys_socket[PID: 369 (xmldbc)]: family:1, type:2, protocol:0
+[  157.824254] firmadyne: sys_socket[PID: 370 (xmldbc)]: family:1, type:2, protocol:0
+[  157.883513] firmadyne: sys_socket[PID: 371 (xmldbc)]: family:1, type:2, protocol:0
+[  157.942848] firmadyne: sys_socket[PID: 372 (xmldbc)]: family:1, type:2, protocol:0
+[  158.001280] firmadyne: sys_socket[PID: 373 (xmldbc)]: family:1, type:2, protocol:0
+[  158.067008] firmadyne: sys_socket[PID: 374 (xmldbc)]: family:1, type:2, protocol:0
+[  158.126812] firmadyne: sys_socket[PID: 375 (xmldbc)]: family:1, type:2, protocol:0
+[  158.185183] firmadyne: sys_socket[PID: 376 (xmldbc)]: family:1, type:2, protocol:0
+[  158.245979] firmadyne: sys_socket[PID: 377 (xmldbc)]: family:1, type:2, protocol:0
+[  158.304571] firmadyne: sys_socket[PID: 378 (xmldbc)]: family:1, type:2, protocol:0
+[  158.363878] firmadyne: sys_socket[PID: 379 (xmldbc)]: family:1, type:2, protocol:0
+[  158.503498] firmadyne: sys_socket[PID: 383 (xmldbc)]: family:1, type:2, protocol:0
+[  158.562507] firmadyne: sys_socket[PID: 384 (xmldbc)]: family:1, type:2, protocol:0
+[  158.622449] firmadyne: sys_socket[PID: 385 (xmldbc)]: family:1, type:2, protocol:0
+[  158.681723] firmadyne: sys_socket[PID: 386 (xmldbc)]: family:1, type:2, protocol:0
+[  158.741002] firmadyne: sys_socket[PID: 387 (xmldbc)]: family:1, type:2, protocol:0
+[  158.800958] firmadyne: sys_socket[PID: 388 (xmldbc)]: family:1, type:2, protocol:0
+[  158.861286] firmadyne: sys_socket[PID: 389 (xmldbc)]: family:1, type:2, protocol:0
+[  158.920400] firmadyne: sys_socket[PID: 390 (xmldbc)]: family:1, type:2, protocol:0
+[  158.979545] firmadyne: sys_socket[PID: 391 (xmldbc)]: family:1, type:2, protocol:0
+[  159.039434] firmadyne: sys_socket[PID: 392 (xmldbc)]: family:1, type:2, protocol:0
+[  159.100675] firmadyne: sys_socket[PID: 393 (xmldbc)]: family:1, type:2, protocol:0
+[  159.160720] firmadyne: sys_socket[PID: 394 (xmldbc)]: family:1, type:2, protocol:0
+[  159.221203] firmadyne: sys_socket[PID: 395 (xmldbc)]: family:1, type:2, protocol:0
+[  159.281519] firmadyne: sys_socket[PID: 396 (xmldbc)]: family:1, type:2, protocol:0
+[  159.340580] firmadyne: sys_socket[PID: 397 (xmldbc)]: family:1, type:2, protocol:0
+[  159.399086] firmadyne: sys_socket[PID: 398 (xmldbc)]: family:1, type:2, protocol:0
+[  159.459239] firmadyne: sys_socket[PID: 399 (xmldbc)]: family:1, type:2, protocol:0
+[  159.517682] firmadyne: sys_socket[PID: 400 (xmldbc)]: family:1, type:2, protocol:0
+[  159.578352] firmadyne: sys_socket[PID: 401 (xmldbc)]: family:1, type:2, protocol:0
+[  159.717516] firmadyne: sys_socket[PID: 405 (xmldbc)]: family:1, type:2, protocol:0
+[  159.775284] firmadyne: sys_socket[PID: 406 (xmldbc)]: family:1, type:2, protocol:0
+[  159.835191] firmadyne: sys_socket[PID: 407 (xmldbc)]: family:1, type:2, protocol:0
+[  159.893365] firmadyne: sys_socket[PID: 408 (xmldbc)]: family:1, type:2, protocol:0
+[  159.951183] firmadyne: sys_socket[PID: 409 (xmldbc)]: family:1, type:2, protocol:0
+[  160.010795] firmadyne: sys_socket[PID: 410 (xmldbc)]: family:1, type:2, protocol:0
+[  160.070767] firmadyne: sys_socket[PID: 411 (xmldbc)]: family:1, type:2, protocol:0
+[  160.131819] firmadyne: sys_socket[PID: 412 (xmldbc)]: family:1, type:2, protocol:0
+[  160.190601] firmadyne: sys_socket[PID: 413 (xmldbc)]: family:1, type:2, protocol:0
+[  160.252058] firmadyne: sys_socket[PID: 414 (xmldbc)]: family:1, type:2, protocol:0
+[  160.311818] firmadyne: sys_socket[PID: 415 (xmldbc)]: family:1, type:2, protocol:0
+[  160.371783] firmadyne: sys_socket[PID: 416 (xmldbc)]: family:1, type:2, protocol:0
+[  160.432415] firmadyne: sys_socket[PID: 417 (xmldbc)]: family:1, type:2, protocol:0
+[  160.491276] firmadyne: sys_socket[PID: 418 (xmldbc)]: family:1, type:2, protocol:0
+[  160.550016] firmadyne: sys_socket[PID: 419 (xmldbc)]: family:1, type:2, protocol:0
+[  160.611253] firmadyne: sys_socket[PID: 420 (xmldbc)]: family:1, type:2, protocol:0
+[  160.671073] firmadyne: sys_socket[PID: 421 (xmldbc)]: family:1, type:2, protocol:0
+[  160.729658] firmadyne: sys_socket[PID: 422 (xmldbc)]: family:1, type:2, protocol:0
+[  160.788133] firmadyne: sys_socket[PID: 423 (xmldbc)]: family:1, type:2, protocol:0
+[  160.928483] firmadyne: sys_socket[PID: 427 (xmldbc)]: family:1, type:2, protocol:0
+[  160.987230] firmadyne: sys_socket[PID: 428 (xmldbc)]: family:1, type:2, protocol:0
+[  161.042106] firmadyne: sys_socket[PID: 429 (xmldbc)]: family:1, type:2, protocol:0
+[  161.103891] firmadyne: sys_socket[PID: 430 (xmldbc)]: family:1, type:2, protocol:0
+[  161.162478] firmadyne: sys_socket[PID: 431 (xmldbc)]: family:1, type:2, protocol:0
+[  161.215969] firmadyne: sys_socket[PID: 432 (xmldbc)]: family:1, type:2, protocol:0
+[  161.276063] firmadyne: sys_socket[PID: 433 (xmldbc)]: family:1, type:2, protocol:0
+[  161.333997] firmadyne: sys_socket[PID: 434 (xmldbc)]: family:1, type:2, protocol:0
+[  161.391864] firmadyne: sys_socket[PID: 435 (xmldbc)]: family:1, type:2, protocol:0
+[  161.451865] firmadyne: sys_socket[PID: 436 (xmldbc)]: family:1, type:2, protocol:0
+[  161.511165] firmadyne: sys_socket[PID: 437 (xmldbc)]: family:1, type:2, protocol:0
+[  161.565304] firmadyne: sys_socket[PID: 438 (xmldbc)]: family:1, type:2, protocol:0
+[  161.625293] firmadyne: sys_socket[PID: 439 (xmldbc)]: family:1, type:2, protocol:0
+[  161.678617] firmadyne: sys_socket[PID: 440 (xmldbc)]: family:1, type:2, protocol:0
+[  161.736649] firmadyne: sys_socket[PID: 441 (xmldbc)]: family:1, type:2, protocol:0
+[  161.793677] firmadyne: sys_socket[PID: 442 (xmldbc)]: family:1, type:2, protocol:0
+[  161.854970] firmadyne: sys_socket[PID: 443 (xmldbc)]: family:1, type:2, protocol:0
+[  161.913532] firmadyne: sys_socket[PID: 444 (xmldbc)]: family:1, type:2, protocol:0
+[  161.972022] firmadyne: sys_socket[PID: 445 (xmldbc)]: family:1, type:2, protocol:0
+[  162.115867] firmadyne: sys_socket[PID: 449 (xmldbc)]: family:1, type:2, protocol:0
+[  162.175721] firmadyne: sys_socket[PID: 450 (xmldbc)]: family:1, type:2, protocol:0
+[  162.235889] firmadyne: sys_socket[PID: 451 (xmldbc)]: family:1, type:2, protocol:0
+[  162.294077] firmadyne: sys_socket[PID: 452 (xmldbc)]: family:1, type:2, protocol:0
+[  162.352284] firmadyne: sys_socket[PID: 453 (xmldbc)]: family:1, type:2, protocol:0
+[  162.412773] firmadyne: sys_socket[PID: 454 (xmldbc)]: family:1, type:2, protocol:0
+[  162.466324] firmadyne: sys_socket[PID: 455 (xmldbc)]: family:1, type:2, protocol:0
+[  162.524331] firmadyne: sys_socket[PID: 456 (xmldbc)]: family:1, type:2, protocol:0
+[  162.582476] firmadyne: sys_socket[PID: 457 (xmldbc)]: family:1, type:2, protocol:0
+[  162.642416] firmadyne: sys_socket[PID: 458 (xmldbc)]: family:1, type:2, protocol:0
+[  162.701513] firmadyne: sys_socket[PID: 459 (xmldbc)]: family:1, type:2, protocol:0
+[  162.761237] firmadyne: sys_socket[PID: 460 (xmldbc)]: family:1, type:2, protocol:0
+[  162.823710] firmadyne: sys_socket[PID: 461 (xmldbc)]: family:1, type:2, protocol:0
+[  162.883142] firmadyne: sys_socket[PID: 462 (xmldbc)]: family:1, type:2, protocol:0
+[  162.937400] firmadyne: sys_socket[PID: 463 (xmldbc)]: family:1, type:2, protocol:0
+[  162.995371] firmadyne: sys_socket[PID: 464 (xmldbc)]: family:1, type:2, protocol:0
+[  163.054989] firmadyne: sys_socket[PID: 465 (xmldbc)]: family:1, type:2, protocol:0
+[  163.116323] firmadyne: sys_socket[PID: 466 (xmldbc)]: family:1, type:2, protocol:0
+[  163.176053] firmadyne: sys_socket[PID: 467 (xmldbc)]: family:1, type:2, protocol:0
+[  163.317403] firmadyne: sys_socket[PID: 471 (xmldbc)]: family:1, type:2, protocol:0
+[  163.375782] firmadyne: sys_socket[PID: 472 (xmldbc)]: family:1, type:2, protocol:0
+[  163.436275] firmadyne: sys_socket[PID: 473 (xmldbc)]: family:1, type:2, protocol:0
+[  163.495327] firmadyne: sys_socket[PID: 474 (xmldbc)]: family:1, type:2, protocol:0
+[  163.548622] firmadyne: sys_socket[PID: 475 (xmldbc)]: family:1, type:2, protocol:0
+[  163.608575] firmadyne: sys_socket[PID: 476 (xmldbc)]: family:1, type:2, protocol:0
+[  163.668683] firmadyne: sys_socket[PID: 477 (xmldbc)]: family:1, type:2, protocol:0
+[  163.723533] firmadyne: sys_socket[PID: 478 (xmldbc)]: family:1, type:2, protocol:0
+[  163.781832] firmadyne: sys_socket[PID: 479 (xmldbc)]: family:1, type:2, protocol:0
+[  163.843111] firmadyne: sys_socket[PID: 480 (xmldbc)]: family:1, type:2, protocol:0
+[  163.901551] firmadyne: sys_socket[PID: 481 (xmldbc)]: family:1, type:2, protocol:0
+[  163.961236] firmadyne: sys_socket[PID: 482 (xmldbc)]: family:1, type:2, protocol:0
+[  164.021343] firmadyne: sys_socket[PID: 483 (xmldbc)]: family:1, type:2, protocol:0
+[  164.081703] firmadyne: sys_socket[PID: 484 (xmldbc)]: family:1, type:2, protocol:0
+[  164.142006] firmadyne: sys_socket[PID: 485 (xmldbc)]: family:1, type:2, protocol:0
+[  164.200033] firmadyne: sys_socket[PID: 486 (xmldbc)]: family:1, type:2, protocol:0
+[  164.260409] firmadyne: sys_socket[PID: 487 (xmldbc)]: family:1, type:2, protocol:0
+[  164.320451] firmadyne: sys_socket[PID: 488 (xmldbc)]: family:1, type:2, protocol:0
+[  164.379404] firmadyne: sys_socket[PID: 489 (xmldbc)]: family:1, type:2, protocol:0
+[  164.519151] firmadyne: sys_socket[PID: 493 (xmldbc)]: family:1, type:2, protocol:0
+[  164.577808] firmadyne: sys_socket[PID: 494 (xmldbc)]: family:1, type:2, protocol:0
+[  164.632917] firmadyne: sys_socket[PID: 495 (xmldbc)]: family:1, type:2, protocol:0
+[  164.691904] firmadyne: sys_socket[PID: 496 (xmldbc)]: family:1, type:2, protocol:0
+[  164.749579] firmadyne: sys_socket[PID: 497 (xmldbc)]: family:1, type:2, protocol:0
+[  164.808670] firmadyne: sys_socket[PID: 498 (xmldbc)]: family:1, type:2, protocol:0
+[  164.867550] firmadyne: sys_socket[PID: 499 (xmldbc)]: family:1, type:2, protocol:0
+[  164.941034] firmadyne: sys_socket[PID: 500 (xmldbc)]: family:1, type:2, protocol:0
+[  165.003040] firmadyne: sys_socket[PID: 501 (xmldbc)]: family:1, type:2, protocol:0
+[  165.063867] firmadyne: sys_socket[PID: 502 (xmldbc)]: family:1, type:2, protocol:0
+[  165.123788] firmadyne: sys_socket[PID: 503 (xmldbc)]: family:1, type:2, protocol:0
+[  165.185372] firmadyne: sys_socket[PID: 504 (xmldbc)]: family:1, type:2, protocol:0
+[  165.246926] firmadyne: sys_socket[PID: 505 (xmldbc)]: family:1, type:2, protocol:0
+[  165.307274] firmadyne: sys_socket[PID: 506 (xmldbc)]: family:1, type:2, protocol:0
+[  165.365871] firmadyne: sys_socket[PID: 507 (xmldbc)]: family:1, type:2, protocol:0
+[  165.426950] firmadyne: sys_socket[PID: 508 (xmldbc)]: family:1, type:2, protocol:0
+[  165.480622] firmadyne: sys_socket[PID: 509 (xmldbc)]: family:1, type:2, protocol:0
+[  165.534378] firmadyne: sys_socket[PID: 510 (xmldbc)]: family:1, type:2, protocol:0
+[  165.592676] firmadyne: sys_socket[PID: 511 (xmldbc)]: family:1, type:2, protocol:0
+[  165.732000] firmadyne: sys_socket[PID: 515 (xmldbc)]: family:1, type:2, protocol:0
+[  165.791094] firmadyne: sys_socket[PID: 516 (xmldbc)]: family:1, type:2, protocol:0
+[  186.491435] firmadyne: sys_socket[PID: 517 (xmldbc)]: family:1, type:2, protocol:0
+[  186.551656] firmadyne: sys_socket[PID: 518 (xmldbc)]: family:1, type:2, protocol:0
+[  186.605858] firmadyne: sys_socket[PID: 519 (xmldbc)]: family:1, type:2, protocol:0
+[  186.665344] firmadyne: sys_socket[PID: 520 (xmldbc)]: family:1, type:2, protocol:0
+[  186.724106] firmadyne: sys_socket[PID: 521 (xmldbc)]: family:1, type:2, protocol:0
+[  200.175310] firmadyne: sys_socket[PID: 522 (xmldbc)]: family:1, type:2, protocol:0
+[  200.234682] firmadyne: sys_socket[PID: 523 (xmldbc)]: family:1, type:2, protocol:0
+[  200.293895] firmadyne: sys_socket[PID: 524 (xmldbc)]: family:1, type:2, protocol:0
+[  200.355908] firmadyne: sys_socket[PID: 525 (xmldbc)]: family:1, type:2, protocol:0
+[  218.782010] firmadyne: sys_socket[PID: 526 (xmldbc)]: family:1, type:2, protocol:0
+[  218.843863] firmadyne: sys_socket[PID: 527 (xmldbc)]: family:1, type:2, protocol:0
+[  218.904568] firmadyne: sys_socket[PID: 528 (xmldbc)]: family:1, type:2, protocol:0
+[  218.965645] firmadyne: sys_socket[PID: 529 (xmldbc)]: family:1, type:2, protocol:0
+[  219.025094] firmadyne: sys_socket[PID: 530 (xmldbc)]: family:1, type:2, protocol:0
+[  219.082830] firmadyne: sys_socket[PID: 531 (xmldbc)]: family:1, type:2, protocol:0
+[  219.143484] firmadyne: sys_socket[PID: 532 (xmldbc)]: family:1, type:2, protocol:0
+[  219.203139] firmadyne: sys_socket[PID: 533 (xmldbc)]: family:1, type:2, protocol:0
+[  219.344418] firmadyne: sys_socket[PID: 537 (xmldbc)]: family:1, type:2, protocol:0
+[  219.402880] firmadyne: sys_socket[PID: 538 (xmldbc)]: family:1, type:2, protocol:0
+[  219.456863] firmadyne: sys_socket[PID: 539 (xmldbc)]: family:1, type:2, protocol:0
+[  219.515882] firmadyne: sys_socket[PID: 540 (xmldbc)]: family:1, type:2, protocol:0
+[  219.575155] firmadyne: sys_socket[PID: 541 (xmldbc)]: family:1, type:2, protocol:0
+[  219.634461] firmadyne: sys_socket[PID: 542 (xmldbc)]: family:1, type:2, protocol:0
+[  219.694110] firmadyne: sys_socket[PID: 543 (xmldbc)]: family:1, type:2, protocol:0
+[  219.757005] firmadyne: sys_socket[PID: 544 (xmldbc)]: family:1, type:2, protocol:0
+[  219.816528] firmadyne: sys_socket[PID: 545 (xmldbc)]: family:1, type:2, protocol:0
+[  219.875723] firmadyne: sys_socket[PID: 546 (xmldbc)]: family:1, type:2, protocol:0
+[  219.936287] firmadyne: sys_socket[PID: 547 (xmldbc)]: family:1, type:2, protocol:0
+[  219.996420] firmadyne: sys_socket[PID: 548 (xmldbc)]: family:1, type:2, protocol:0
+[  220.057651] firmadyne: sys_socket[PID: 549 (xmldbc)]: family:1, type:2, protocol:0
+[  220.117801] firmadyne: sys_socket[PID: 550 (xmldbc)]: family:1, type:2, protocol:0
+[  220.177038] firmadyne: sys_socket[PID: 551 (xmldbc)]: family:1, type:2, protocol:0
+[  220.235168] firmadyne: sys_socket[PID: 552 (xmldbc)]: family:1, type:2, protocol:0
+[  220.295677] firmadyne: sys_socket[PID: 553 (xmldbc)]: family:1, type:2, protocol:0
+[  220.355914] firmadyne: sys_socket[PID: 554 (xmldbc)]: family:1, type:2, protocol:0
+[  220.415019] firmadyne: sys_socket[PID: 555 (xmldbc)]: family:1, type:2, protocol:0
+[  220.556141] firmadyne: sys_socket[PID: 559 (xmldbc)]: family:1, type:2, protocol:0
+[  220.615691] firmadyne: sys_socket[PID: 560 (xmldbc)]: family:1, type:2, protocol:0
+[  220.674717] firmadyne: sys_socket[PID: 561 (xmldbc)]: family:1, type:2, protocol:0
+[  220.743293] firmadyne: sys_socket[PID: 562 (xmldbc)]: family:1, type:2, protocol:0
+[  220.803724] firmadyne: sys_socket[PID: 563 (xmldbc)]: family:1, type:2, protocol:0
+[  220.864490] firmadyne: sys_socket[PID: 564 (xmldbc)]: family:1, type:2, protocol:0
+[  220.924662] firmadyne: sys_socket[PID: 565 (xmldbc)]: family:1, type:2, protocol:0
+[  220.984463] firmadyne: sys_socket[PID: 566 (xmldbc)]: family:1, type:2, protocol:0
+[  221.043339] firmadyne: sys_socket[PID: 567 (xmldbc)]: family:1, type:2, protocol:0
+[  221.102977] firmadyne: sys_socket[PID: 568 (xmldbc)]: family:1, type:2, protocol:0
+[  221.164177] firmadyne: sys_socket[PID: 569 (xmldbc)]: family:1, type:2, protocol:0
+[  221.223044] firmadyne: sys_socket[PID: 570 (xmldbc)]: family:1, type:2, protocol:0
+[  221.283217] firmadyne: sys_socket[PID: 571 (xmldbc)]: family:1, type:2, protocol:0
+[  221.344803] firmadyne: sys_socket[PID: 572 (xmldbc)]: family:1, type:2, protocol:0
+[  221.403375] firmadyne: sys_socket[PID: 573 (xmldbc)]: family:1, type:2, protocol:0
+[  221.462064] firmadyne: sys_socket[PID: 574 (xmldbc)]: family:1, type:2, protocol:0
+[  221.521860] firmadyne: sys_socket[PID: 575 (xmldbc)]: family:1, type:2, protocol:0
+[  221.581986] firmadyne: sys_socket[PID: 576 (xmldbc)]: family:1, type:2, protocol:0
+[  221.640825] firmadyne: sys_socket[PID: 577 (xmldbc)]: family:1, type:2, protocol:0
+[  221.779539] firmadyne: sys_socket[PID: 581 (xmldbc)]: family:1, type:2, protocol:0
+[  221.838711] firmadyne: sys_socket[PID: 582 (xmldbc)]: family:1, type:2, protocol:0
+[  221.897528] firmadyne: sys_socket[PID: 583 (xmldbc)]: family:1, type:2, protocol:0
+[  221.959255] firmadyne: sys_socket[PID: 584 (xmldbc)]: family:1, type:2, protocol:0
+[  222.019117] firmadyne: sys_socket[PID: 585 (xmldbc)]: family:1, type:2, protocol:0
+[  222.077704] firmadyne: sys_socket[PID: 586 (xmldbc)]: family:1, type:2, protocol:0
+[  222.138667] firmadyne: sys_socket[PID: 587 (xmldbc)]: family:1, type:2, protocol:0
+[  222.198909] firmadyne: sys_socket[PID: 588 (xmldbc)]: family:1, type:2, protocol:0
+[  222.257973] firmadyne: sys_socket[PID: 589 (xmldbc)]: family:1, type:2, protocol:0
+[  222.317939] firmadyne: sys_socket[PID: 590 (xmldbc)]: family:1, type:2, protocol:0
+[  222.378432] firmadyne: sys_socket[PID: 591 (xmldbc)]: family:1, type:2, protocol:0
+[  222.438440] firmadyne: sys_socket[PID: 592 (xmldbc)]: family:1, type:2, protocol:0
+[  222.497533] firmadyne: sys_socket[PID: 593 (xmldbc)]: family:1, type:2, protocol:0
+[  222.557726] firmadyne: sys_socket[PID: 594 (xmldbc)]: family:1, type:2, protocol:0
+[  222.615893] firmadyne: sys_socket[PID: 595 (xmldbc)]: family:1, type:2, protocol:0
+[  222.675604] firmadyne: sys_socket[PID: 596 (xmldbc)]: family:1, type:2, protocol:0
+[  222.736546] firmadyne: sys_socket[PID: 597 (xmldbc)]: family:1, type:2, protocol:0
+[  222.798922] firmadyne: sys_socket[PID: 598 (xmldbc)]: family:1, type:2, protocol:0
+[  222.859062] firmadyne: sys_socket[PID: 599 (xmldbc)]: family:1, type:2, protocol:0
+[  222.999969] firmadyne: sys_socket[PID: 603 (xmldbc)]: family:1, type:2, protocol:0
+[  223.058448] firmadyne: sys_socket[PID: 604 (xmldbc)]: family:1, type:2, protocol:0
+[  223.118532] firmadyne: sys_socket[PID: 605 (xmldbc)]: family:1, type:2, protocol:0
+[  223.178967] firmadyne: sys_socket[PID: 606 (xmldbc)]: family:1, type:2, protocol:0
+[  223.236966] firmadyne: sys_socket[PID: 607 (xmldbc)]: family:1, type:2, protocol:0
+[  223.296882] firmadyne: sys_socket[PID: 608 (xmldbc)]: family:1, type:2, protocol:0
+[  223.357507] firmadyne: sys_socket[PID: 609 (xmldbc)]: family:1, type:2, protocol:0
+[  223.417050] firmadyne: sys_socket[PID: 610 (xmldbc)]: family:1, type:2, protocol:0
+[  223.475774] firmadyne: sys_socket[PID: 611 (xmldbc)]: family:1, type:2, protocol:0
+[  223.535416] firmadyne: sys_socket[PID: 612 (xmldbc)]: family:1, type:2, protocol:0
+[  223.593385] firmadyne: sys_socket[PID: 613 (xmldbc)]: family:1, type:2, protocol:0
+[  223.653177] firmadyne: sys_socket[PID: 614 (xmldbc)]: family:1, type:2, protocol:0
+[  223.712643] firmadyne: sys_socket[PID: 615 (xmldbc)]: family:1, type:2, protocol:0
+[  223.777585] firmadyne: sys_socket[PID: 616 (xmldbc)]: family:1, type:2, protocol:0
+[  223.838693] firmadyne: sys_socket[PID: 617 (xmldbc)]: family:1, type:2, protocol:0
+[  223.899377] firmadyne: sys_socket[PID: 618 (xmldbc)]: family:1, type:2, protocol:0
+[  223.961047] firmadyne: sys_socket[PID: 619 (xmldbc)]: family:1, type:2, protocol:0
+[  224.020087] firmadyne: sys_socket[PID: 620 (xmldbc)]: family:1, type:2, protocol:0
+[  224.073809] firmadyne: sys_socket[PID: 621 (xmldbc)]: family:1, type:2, protocol:0
+[  224.213602] firmadyne: sys_socket[PID: 625 (xmldbc)]: family:1, type:2, protocol:0
+[  224.273572] firmadyne: sys_socket[PID: 626 (xmldbc)]: family:1, type:2, protocol:0
+[  224.335375] firmadyne: sys_socket[PID: 627 (xmldbc)]: family:1, type:2, protocol:0
+[  224.393659] firmadyne: sys_socket[PID: 628 (xmldbc)]: family:1, type:2, protocol:0
+[  224.447166] firmadyne: sys_socket[PID: 629 (xmldbc)]: family:1, type:2, protocol:0
+[  224.505422] firmadyne: sys_socket[PID: 630 (xmldbc)]: family:1, type:2, protocol:0
+[  224.567013] firmadyne: sys_socket[PID: 631 (xmldbc)]: family:1, type:2, protocol:0
+[  224.625474] firmadyne: sys_socket[PID: 632 (xmldbc)]: family:1, type:2, protocol:0
+[  224.684806] firmadyne: sys_socket[PID: 633 (xmldbc)]: family:1, type:2, protocol:0
+[  224.745052] firmadyne: sys_socket[PID: 634 (xmldbc)]: family:1, type:2, protocol:0
+[  224.801494] firmadyne: sys_socket[PID: 635 (xmldbc)]: family:1, type:2, protocol:0
+[  224.864448] firmadyne: sys_socket[PID: 636 (xmldbc)]: family:1, type:2, protocol:0
+[  224.925763] firmadyne: sys_socket[PID: 637 (xmldbc)]: family:1, type:2, protocol:0
+[  224.985725] firmadyne: sys_socket[PID: 638 (xmldbc)]: family:1, type:2, protocol:0
+[  225.040746] firmadyne: sys_socket[PID: 639 (xmldbc)]: family:1, type:2, protocol:0
+[  225.098774] firmadyne: sys_socket[PID: 640 (xmldbc)]: family:1, type:2, protocol:0
+[  225.159914] firmadyne: sys_socket[PID: 641 (xmldbc)]: family:1, type:2, protocol:0
+[  225.218925] firmadyne: sys_socket[PID: 642 (xmldbc)]: family:1, type:2, protocol:0
+[  225.278829] firmadyne: sys_socket[PID: 643 (xmldbc)]: family:1, type:2, protocol:0
+[  225.421769] firmadyne: sys_socket[PID: 647 (xmldbc)]: family:1, type:2, protocol:0
+[  225.478846] firmadyne: sys_socket[PID: 648 (xmldbc)]: family:1, type:2, protocol:0
+[  225.540901] firmadyne: sys_socket[PID: 649 (xmldbc)]: family:1, type:2, protocol:0
+[  225.599653] firmadyne: sys_socket[PID: 650 (xmldbc)]: family:1, type:2, protocol:0
+[  225.658326] firmadyne: sys_socket[PID: 651 (xmldbc)]: family:1, type:2, protocol:0
+[  225.718900] firmadyne: sys_socket[PID: 652 (xmldbc)]: family:1, type:2, protocol:0
+[  225.773143] firmadyne: sys_socket[PID: 653 (xmldbc)]: family:1, type:2, protocol:0
+[  225.835653] firmadyne: sys_socket[PID: 654 (xmldbc)]: family:1, type:2, protocol:0
+[  225.894793] firmadyne: sys_socket[PID: 655 (xmldbc)]: family:1, type:2, protocol:0
+[  225.955744] firmadyne: sys_socket[PID: 656 (xmldbc)]: family:1, type:2, protocol:0
+[  226.014826] firmadyne: sys_socket[PID: 657 (xmldbc)]: family:1, type:2, protocol:0
+[  226.074386] firmadyne: sys_socket[PID: 658 (xmldbc)]: family:1, type:2, protocol:0
+[  226.135270] firmadyne: sys_socket[PID: 659 (xmldbc)]: family:1, type:2, protocol:0
+[  226.193814] firmadyne: sys_socket[PID: 660 (xmldbc)]: family:1, type:2, protocol:0
+[  226.252464] firmadyne: sys_socket[PID: 661 (xmldbc)]: family:1, type:2, protocol:0
+[  226.306810] firmadyne: sys_socket[PID: 662 (xmldbc)]: family:1, type:2, protocol:0
+[  226.366470] firmadyne: sys_socket[PID: 663 (xmldbc)]: family:1, type:2, protocol:0
+[  226.419571] firmadyne: sys_socket[PID: 664 (xmldbc)]: family:1, type:2, protocol:0
+[  226.477674] firmadyne: sys_socket[PID: 665 (xmldbc)]: family:1, type:2, protocol:0
+[  226.620701] firmadyne: sys_socket[PID: 669 (xmldbc)]: family:1, type:2, protocol:0
+[  226.681281] firmadyne: sys_socket[PID: 670 (xmldbc)]: family:1, type:2, protocol:0
+[  226.745300] firmadyne: sys_socket[PID: 671 (xmldbc)]: family:1, type:2, protocol:0
+[  226.808176] firmadyne: sys_socket[PID: 672 (xmldbc)]: family:1, type:2, protocol:0
+[  226.867965] firmadyne: sys_socket[PID: 673 (xmldbc)]: family:1, type:2, protocol:0
+[  226.930349] firmadyne: sys_socket[PID: 674 (xmldbc)]: family:1, type:2, protocol:0
+[  226.990066] firmadyne: sys_socket[PID: 675 (xmldbc)]: family:1, type:2, protocol:0
+[  227.044460] firmadyne: sys_socket[PID: 676 (xmldbc)]: family:1, type:2, protocol:0
+[  227.099756] firmadyne: sys_socket[PID: 677 (xmldbc)]: family:1, type:2, protocol:0
+[  227.161746] firmadyne: sys_socket[PID: 678 (xmldbc)]: family:1, type:2, protocol:0
+[  227.223071] firmadyne: sys_socket[PID: 679 (xmldbc)]: family:1, type:2, protocol:0
+[  227.285241] firmadyne: sys_socket[PID: 680 (xmldbc)]: family:1, type:2, protocol:0
+[  227.347112] firmadyne: sys_socket[PID: 681 (xmldbc)]: family:1, type:2, protocol:0
+[  227.405944] firmadyne: sys_socket[PID: 682 (xmldbc)]: family:1, type:2, protocol:0
+[  227.466414] firmadyne: sys_socket[PID: 683 (xmldbc)]: family:1, type:2, protocol:0
+[  227.528262] firmadyne: sys_socket[PID: 684 (xmldbc)]: family:1, type:2, protocol:0
+[  227.588220] firmadyne: sys_socket[PID: 685 (xmldbc)]: family:1, type:2, protocol:0
+[  227.642961] firmadyne: sys_socket[PID: 686 (xmldbc)]: family:1, type:2, protocol:0
+[  227.701630] firmadyne: sys_socket[PID: 687 (xmldbc)]: family:1, type:2, protocol:0
+[  227.844744] firmadyne: sys_socket[PID: 691 (xmldbc)]: family:1, type:2, protocol:0
+[  227.905045] firmadyne: sys_socket[PID: 692 (xmldbc)]: family:1, type:2, protocol:0
+[  227.964762] firmadyne: sys_socket[PID: 693 (xmldbc)]: family:1, type:2, protocol:0
+[  228.023713] firmadyne: sys_socket[PID: 694 (xmldbc)]: family:1, type:2, protocol:0
+[  228.082097] firmadyne: sys_socket[PID: 695 (xmldbc)]: family:1, type:2, protocol:0
+[  228.143406] firmadyne: sys_socket[PID: 696 (xmldbc)]: family:1, type:2, protocol:0
+[  228.203554] firmadyne: sys_socket[PID: 697 (xmldbc)]: family:1, type:2, protocol:0
+[  228.262063] firmadyne: sys_socket[PID: 698 (xmldbc)]: family:1, type:2, protocol:0
+[  228.321316] firmadyne: sys_socket[PID: 699 (xmldbc)]: family:1, type:2, protocol:0
+[  228.379811] firmadyne: sys_socket[PID: 700 (xmldbc)]: family:1, type:2, protocol:0
+[  228.439579] firmadyne: sys_socket[PID: 701 (xmldbc)]: family:1, type:2, protocol:0
+[  228.498699] firmadyne: sys_socket[PID: 702 (xmldbc)]: family:1, type:2, protocol:0
+[  228.560445] firmadyne: sys_socket[PID: 703 (xmldbc)]: family:1, type:2, protocol:0
+[  228.619765] firmadyne: sys_socket[PID: 704 (xmldbc)]: family:1, type:2, protocol:0
+[  228.680805] firmadyne: sys_socket[PID: 705 (xmldbc)]: family:1, type:2, protocol:0
+[  228.736562] firmadyne: sys_socket[PID: 706 (xmldbc)]: family:1, type:2, protocol:0
+[  228.795336] firmadyne: sys_socket[PID: 707 (xmldbc)]: family:1, type:2, protocol:0
+[  228.857195] firmadyne: sys_socket[PID: 708 (xmldbc)]: family:1, type:2, protocol:0
+[  228.917581] firmadyne: sys_socket[PID: 709 (xmldbc)]: family:1, type:2, protocol:0
+[  229.057306] firmadyne: sys_socket[PID: 713 (xmldbc)]: family:1, type:2, protocol:0
+[  229.117865] firmadyne: sys_socket[PID: 714 (xmldbc)]: family:1, type:2, protocol:0
+[  229.177503] firmadyne: sys_socket[PID: 715 (xmldbc)]: family:1, type:2, protocol:0
+[  229.231571] firmadyne: sys_socket[PID: 716 (xmldbc)]: family:1, type:2, protocol:0
+[  229.291728] firmadyne: sys_socket[PID: 717 (xmldbc)]: family:1, type:2, protocol:0
+[  229.352683] firmadyne: sys_socket[PID: 718 (xmldbc)]: family:1, type:2, protocol:0
+[  229.411228] firmadyne: sys_socket[PID: 719 (xmldbc)]: family:1, type:2, protocol:0
+[  229.470518] firmadyne: sys_socket[PID: 720 (xmldbc)]: family:1, type:2, protocol:0
+[  229.531060] firmadyne: sys_socket[PID: 721 (xmldbc)]: family:1, type:2, protocol:0
+[  229.590947] firmadyne: sys_socket[PID: 722 (xmldbc)]: family:1, type:2, protocol:0
+[  229.650978] firmadyne: sys_socket[PID: 723 (xmldbc)]: family:1, type:2, protocol:0
+[  229.710325] firmadyne: sys_socket[PID: 724 (xmldbc)]: family:1, type:2, protocol:0
+[  229.771073] firmadyne: sys_socket[PID: 725 (xmldbc)]: family:1, type:2, protocol:0
+[  229.855289] firmadyne: sys_socket[PID: 726 (xmldbc)]: family:1, type:2, protocol:0
+[  229.944420] firmadyne: sys_socket[PID: 727 (xmldbc)]: family:1, type:2, protocol:0
+[  230.004568] firmadyne: sys_socket[PID: 728 (xmldbc)]: family:1, type:2, protocol:0
+[  230.064378] firmadyne: sys_socket[PID: 729 (xmldbc)]: family:1, type:2, protocol:0
+[  230.125389] firmadyne: sys_socket[PID: 730 (xmldbc)]: family:1, type:2, protocol:0
+[  230.185488] firmadyne: sys_socket[PID: 731 (xmldbc)]: family:1, type:2, protocol:0
+[  230.339046] firmadyne: sys_socket[PID: 735 (xmldbc)]: family:1, type:2, protocol:0
+[  230.399556] firmadyne: sys_socket[PID: 736 (xmldbc)]: family:1, type:2, protocol:0
+[  230.459101] firmadyne: sys_socket[PID: 737 (xmldbc)]: family:1, type:2, protocol:0
+[  230.520674] firmadyne: sys_socket[PID: 738 (xmldbc)]: family:1, type:2, protocol:0
+[  230.580351] firmadyne: sys_socket[PID: 739 (xmldbc)]: family:1, type:2, protocol:0
+[  230.642500] firmadyne: sys_socket[PID: 740 (xmldbc)]: family:1, type:2, protocol:0
+[  230.702086] firmadyne: sys_socket[PID: 741 (xmldbc)]: family:1, type:2, protocol:0
+[  230.765048] firmadyne: sys_socket[PID: 742 (xmldbc)]: family:1, type:2, protocol:0
+[  230.827161] firmadyne: sys_socket[PID: 743 (xmldbc)]: family:1, type:2, protocol:0
+[  230.891519] firmadyne: sys_socket[PID: 744 (xmldbc)]: family:1, type:2, protocol:0
+[  230.953431] firmadyne: sys_socket[PID: 745 (xmldbc)]: family:1, type:2, protocol:0
+[  231.013937] firmadyne: sys_socket[PID: 746 (xmldbc)]: family:1, type:2, protocol:0
+[  231.074558] firmadyne: sys_socket[PID: 747 (xmldbc)]: family:1, type:2, protocol:0
+[  231.136944] firmadyne: sys_socket[PID: 748 (xmldbc)]: family:1, type:2, protocol:0
+[  231.197718] firmadyne: sys_socket[PID: 749 (xmldbc)]: family:1, type:2, protocol:0
+[  231.257141] firmadyne: sys_socket[PID: 750 (xmldbc)]: family:1, type:2, protocol:0
+[  231.319102] firmadyne: sys_socket[PID: 751 (xmldbc)]: family:1, type:2, protocol:0
+[  231.379186] firmadyne: sys_socket[PID: 752 (xmldbc)]: family:1, type:2, protocol:0
+[  231.439882] firmadyne: sys_socket[PID: 753 (xmldbc)]: family:1, type:2, protocol:0
+[  231.581074] firmadyne: sys_socket[PID: 757 (xmldbc)]: family:1, type:2, protocol:0
+[  231.639464] firmadyne: sys_socket[PID: 758 (xmldbc)]: family:1, type:2, protocol:0
+[  231.698056] firmadyne: sys_socket[PID: 759 (xmldbc)]: family:1, type:2, protocol:0
+[  231.757481] firmadyne: sys_socket[PID: 760 (xmldbc)]: family:1, type:2, protocol:0
+[  231.815574] firmadyne: sys_socket[PID: 761 (xmldbc)]: family:1, type:2, protocol:0
+[  231.876033] firmadyne: sys_socket[PID: 762 (xmldbc)]: family:1, type:2, protocol:0
+[  231.937256] firmadyne: sys_socket[PID: 763 (xmldbc)]: family:1, type:2, protocol:0
+[  231.995666] firmadyne: sys_socket[PID: 764 (xmldbc)]: family:1, type:2, protocol:0
+[  232.054395] firmadyne: sys_socket[PID: 765 (xmldbc)]: family:1, type:2, protocol:0
+[  232.113132] firmadyne: sys_socket[PID: 766 (xmldbc)]: family:1, type:2, protocol:0
+[  232.173479] firmadyne: sys_socket[PID: 767 (xmldbc)]: family:1, type:2, protocol:0
+[  232.232191] firmadyne: sys_socket[PID: 768 (xmldbc)]: family:1, type:2, protocol:0
+[  232.291676] firmadyne: sys_socket[PID: 769 (xmldbc)]: family:1, type:2, protocol:0
+[  232.351397] firmadyne: sys_socket[PID: 770 (xmldbc)]: family:1, type:2, protocol:0
+[  232.410066] firmadyne: sys_socket[PID: 771 (xmldbc)]: family:1, type:2, protocol:0
+[  232.469934] firmadyne: sys_socket[PID: 772 (xmldbc)]: family:1, type:2, protocol:0
+[  232.531243] firmadyne: sys_socket[PID: 773 (xmldbc)]: family:1, type:2, protocol:0
+[  232.591563] firmadyne: sys_socket[PID: 774 (xmldbc)]: family:1, type:2, protocol:0
+[  232.649537] firmadyne: sys_socket[PID: 775 (xmldbc)]: family:1, type:2, protocol:0
+[  232.789084] firmadyne: sys_socket[PID: 779 (xmldbc)]: family:1, type:2, protocol:0
+[  232.848762] firmadyne: sys_socket[PID: 780 (xmldbc)]: family:1, type:2, protocol:0
+[  232.910342] firmadyne: sys_socket[PID: 781 (xmldbc)]: family:1, type:2, protocol:0
+[  232.970031] firmadyne: sys_socket[PID: 782 (xmldbc)]: family:1, type:2, protocol:0
+[  233.028132] firmadyne: sys_socket[PID: 783 (xmldbc)]: family:1, type:2, protocol:0
+[  233.086628] firmadyne: sys_socket[PID: 784 (xmldbc)]: family:1, type:2, protocol:0
+[  233.145958] firmadyne: sys_socket[PID: 785 (xmldbc)]: family:1, type:2, protocol:0
+[  233.204235] firmadyne: sys_socket[PID: 786 (xmldbc)]: family:1, type:2, protocol:0
+[  233.262499] firmadyne: sys_socket[PID: 787 (xmldbc)]: family:1, type:2, protocol:0
+[  233.322908] firmadyne: sys_socket[PID: 788 (xmldbc)]: family:1, type:2, protocol:0
+[  233.381195] firmadyne: sys_socket[PID: 789 (xmldbc)]: family:1, type:2, protocol:0
+[  233.439488] firmadyne: sys_socket[PID: 790 (xmldbc)]: family:1, type:2, protocol:0
+[  233.497883] firmadyne: sys_socket[PID: 791 (xmldbc)]: family:1, type:2, protocol:0
+[  233.559169] firmadyne: sys_socket[PID: 792 (xmldbc)]: family:1, type:2, protocol:0
+[  233.619685] firmadyne: sys_socket[PID: 793 (xmldbc)]: family:1, type:2, protocol:0
+[  233.678963] firmadyne: sys_socket[PID: 794 (xmldbc)]: family:1, type:2, protocol:0
+[  233.738930] firmadyne: sys_socket[PID: 795 (xmldbc)]: family:1, type:2, protocol:0
+[  233.797204] firmadyne: sys_socket[PID: 796 (xmldbc)]: family:1, type:2, protocol:0
+[  233.855190] firmadyne: sys_socket[PID: 797 (xmldbc)]: family:1, type:2, protocol:0
+[  233.996178] firmadyne: sys_socket[PID: 801 (xmldbc)]: family:1, type:2, protocol:0
+[  234.054845] firmadyne: sys_socket[PID: 802 (xmldbc)]: family:1, type:2, protocol:0
+[  234.113108] firmadyne: sys_socket[PID: 803 (xmldbc)]: family:1, type:2, protocol:0
+[  234.173260] firmadyne: sys_socket[PID: 804 (xmldbc)]: family:1, type:2, protocol:0
+[  234.231358] firmadyne: sys_socket[PID: 805 (xmldbc)]: family:1, type:2, protocol:0
+[  234.289938] firmadyne: sys_socket[PID: 806 (xmldbc)]: family:1, type:2, protocol:0
+[  234.349290] firmadyne: sys_socket[PID: 807 (xmldbc)]: family:1, type:2, protocol:0
+[  234.407510] firmadyne: sys_socket[PID: 808 (xmldbc)]: family:1, type:2, protocol:0
+[  234.465670] firmadyne: sys_socket[PID: 809 (xmldbc)]: family:1, type:2, protocol:0
+[  234.527637] firmadyne: sys_socket[PID: 810 (xmldbc)]: family:1, type:2, protocol:0
+[  234.586561] firmadyne: sys_socket[PID: 811 (xmldbc)]: family:1, type:2, protocol:0
+[  234.646666] firmadyne: sys_socket[PID: 812 (xmldbc)]: family:1, type:2, protocol:0
+[  234.707345] firmadyne: sys_socket[PID: 813 (xmldbc)]: family:1, type:2, protocol:0
+[  234.771069] firmadyne: sys_socket[PID: 814 (xmldbc)]: family:1, type:2, protocol:0
+[  234.831952] firmadyne: sys_socket[PID: 815 (xmldbc)]: family:1, type:2, protocol:0
+[  234.893985] firmadyne: sys_socket[PID: 816 (xmldbc)]: family:1, type:2, protocol:0
+[  234.957206] firmadyne: sys_socket[PID: 817 (xmldbc)]: family:1, type:2, protocol:0
+[  235.016597] firmadyne: sys_socket[PID: 818 (xmldbc)]: family:1, type:2, protocol:0
+[  235.075732] firmadyne: sys_socket[PID: 819 (xmldbc)]: family:1, type:2, protocol:0
+[  235.217046] firmadyne: sys_socket[PID: 823 (xmldbc)]: family:1, type:2, protocol:0
+[  235.275398] firmadyne: sys_socket[PID: 824 (xmldbc)]: family:1, type:2, protocol:0
+[  235.340741] firmadyne: sys_socket[PID: 825 (xmldbc)]: family:1, type:2, protocol:0
+[  235.399162] firmadyne: sys_socket[PID: 826 (xmldbc)]: family:1, type:2, protocol:0
+[  235.457604] firmadyne: sys_socket[PID: 827 (xmldbc)]: family:1, type:2, protocol:0
+[  235.517043] firmadyne: sys_socket[PID: 828 (xmldbc)]: family:1, type:2, protocol:0
+[  235.575439] firmadyne: sys_socket[PID: 829 (xmldbc)]: family:1, type:2, protocol:0
+[  235.634386] firmadyne: sys_socket[PID: 830 (xmldbc)]: family:1, type:2, protocol:0
+[  235.693057] firmadyne: sys_socket[PID: 831 (xmldbc)]: family:1, type:2, protocol:0
+[  235.753420] firmadyne: sys_socket[PID: 832 (xmldbc)]: family:1, type:2, protocol:0
+[  235.811902] firmadyne: sys_socket[PID: 833 (xmldbc)]: family:1, type:2, protocol:0
+[  235.871983] firmadyne: sys_socket[PID: 834 (xmldbc)]: family:1, type:2, protocol:0
+[  235.935451] firmadyne: sys_socket[PID: 835 (xmldbc)]: family:1, type:2, protocol:0
+[  235.993895] firmadyne: sys_socket[PID: 836 (xmldbc)]: family:1, type:2, protocol:0
+[  236.052924] firmadyne: sys_socket[PID: 837 (xmldbc)]: family:1, type:2, protocol:0
+[  236.106646] firmadyne: sys_socket[PID: 838 (xmldbc)]: family:1, type:2, protocol:0
+[  236.165513] firmadyne: sys_socket[PID: 839 (xmldbc)]: family:1, type:2, protocol:0
+[  236.224152] firmadyne: sys_socket[PID: 840 (xmldbc)]: family:1, type:2, protocol:0
+[  236.283474] firmadyne: sys_socket[PID: 841 (xmldbc)]: family:1, type:2, protocol:0
+[  236.422444] firmadyne: sys_socket[PID: 845 (xmldbc)]: family:1, type:2, protocol:0
+[  236.480940] firmadyne: sys_socket[PID: 846 (xmldbc)]: family:1, type:2, protocol:0
+[  236.541951] firmadyne: sys_socket[PID: 847 (xmldbc)]: family:1, type:2, protocol:0
+[  236.601559] firmadyne: sys_socket[PID: 848 (xmldbc)]: family:1, type:2, protocol:0
+[  236.660492] firmadyne: sys_socket[PID: 849 (xmldbc)]: family:1, type:2, protocol:0
+[  236.720756] firmadyne: sys_socket[PID: 850 (xmldbc)]: family:1, type:2, protocol:0
+[  236.780027] firmadyne: sys_socket[PID: 851 (xmldbc)]: family:1, type:2, protocol:0
+[  236.839263] firmadyne: sys_socket[PID: 852 (xmldbc)]: family:1, type:2, protocol:0
+[  236.899094] firmadyne: sys_socket[PID: 853 (xmldbc)]: family:1, type:2, protocol:0
+[  236.960530] firmadyne: sys_socket[PID: 854 (xmldbc)]: family:1, type:2, protocol:0
+[  237.019693] firmadyne: sys_socket[PID: 855 (xmldbc)]: family:1, type:2, protocol:0
+[  237.077458] firmadyne: sys_socket[PID: 856 (xmldbc)]: family:1, type:2, protocol:0
+[  237.137536] firmadyne: sys_socket[PID: 857 (xmldbc)]: family:1, type:2, protocol:0
+[  237.196299] firmadyne: sys_socket[PID: 858 (xmldbc)]: family:1, type:2, protocol:0
+[  237.254719] firmadyne: sys_socket[PID: 859 (xmldbc)]: family:1, type:2, protocol:0
+[  237.316538] firmadyne: sys_socket[PID: 860 (xmldbc)]: family:1, type:2, protocol:0
+[  237.375467] firmadyne: sys_socket[PID: 861 (xmldbc)]: family:1, type:2, protocol:0
+[  237.433830] firmadyne: sys_socket[PID: 862 (xmldbc)]: family:1, type:2, protocol:0
+[  237.492598] firmadyne: sys_socket[PID: 863 (xmldbc)]: family:1, type:2, protocol:0
+[  237.632240] firmadyne: sys_socket[PID: 867 (xmldbc)]: family:1, type:2, protocol:0
+[  237.691283] firmadyne: sys_socket[PID: 868 (xmldbc)]: family:1, type:2, protocol:0
+[  237.751211] firmadyne: sys_socket[PID: 869 (xmldbc)]: family:1, type:2, protocol:0
+[  237.809572] firmadyne: sys_socket[PID: 870 (xmldbc)]: family:1, type:2, protocol:0
+[  237.867603] firmadyne: sys_socket[PID: 871 (xmldbc)]: family:1, type:2, protocol:0
+[  237.929886] firmadyne: sys_socket[PID: 872 (xmldbc)]: family:1, type:2, protocol:0
+[  237.988915] firmadyne: sys_socket[PID: 873 (xmldbc)]: family:1, type:2, protocol:0
+[  238.047876] firmadyne: sys_socket[PID: 874 (xmldbc)]: family:1, type:2, protocol:0
+[  238.108389] firmadyne: sys_socket[PID: 875 (xmldbc)]: family:1, type:2, protocol:0
+[  238.168179] firmadyne: sys_socket[PID: 876 (xmldbc)]: family:1, type:2, protocol:0
+[  238.226835] firmadyne: sys_socket[PID: 877 (xmldbc)]: family:1, type:2, protocol:0
+[  238.285690] firmadyne: sys_socket[PID: 878 (xmldbc)]: family:1, type:2, protocol:0
+[  238.346445] firmadyne: sys_socket[PID: 879 (xmldbc)]: family:1, type:2, protocol:0
+[  238.404399] firmadyne: sys_socket[PID: 880 (xmldbc)]: family:1, type:2, protocol:0
+[  238.463577] firmadyne: sys_socket[PID: 881 (xmldbc)]: family:1, type:2, protocol:0
+[  238.518473] firmadyne: sys_socket[PID: 882 (xmldbc)]: family:1, type:2, protocol:0
+[  238.576915] firmadyne: sys_socket[PID: 883 (xmldbc)]: family:1, type:2, protocol:0
+[  238.635307] firmadyne: sys_socket[PID: 884 (xmldbc)]: family:1, type:2, protocol:0
+[  238.694583] firmadyne: sys_socket[PID: 885 (xmldbc)]: family:1, type:2, protocol:0
+[  238.836278] firmadyne: sys_socket[PID: 889 (xmldbc)]: family:1, type:2, protocol:0
+[  238.895835] firmadyne: sys_socket[PID: 890 (xmldbc)]: family:1, type:2, protocol:0
+[  238.957715] firmadyne: sys_socket[PID: 891 (xmldbc)]: family:1, type:2, protocol:0
+[  239.017817] firmadyne: sys_socket[PID: 892 (xmldbc)]: family:1, type:2, protocol:0
+[  239.076617] firmadyne: sys_socket[PID: 893 (xmldbc)]: family:1, type:2, protocol:0
+[  239.136442] firmadyne: sys_socket[PID: 894 (xmldbc)]: family:1, type:2, protocol:0
+[  239.196839] firmadyne: sys_socket[PID: 895 (xmldbc)]: family:1, type:2, protocol:0
+[  239.254966] firmadyne: sys_socket[PID: 896 (xmldbc)]: family:1, type:2, protocol:0
+[  239.315930] firmadyne: sys_socket[PID: 897 (xmldbc)]: family:1, type:2, protocol:0
+[  239.374950] firmadyne: sys_socket[PID: 898 (xmldbc)]: family:1, type:2, protocol:0
+[  239.433721] firmadyne: sys_socket[PID: 899 (xmldbc)]: family:1, type:2, protocol:0
+[  239.487426] firmadyne: sys_socket[PID: 900 (xmldbc)]: family:1, type:2, protocol:0
+[  239.546963] firmadyne: sys_socket[PID: 901 (xmldbc)]: family:1, type:2, protocol:0
+[  239.605665] firmadyne: sys_socket[PID: 902 (xmldbc)]: family:1, type:2, protocol:0
+[  239.665791] firmadyne: sys_socket[PID: 903 (xmldbc)]: family:1, type:2, protocol:0
+[  239.726727] firmadyne: sys_socket[PID: 904 (xmldbc)]: family:1, type:2, protocol:0
+[  239.784963] firmadyne: sys_socket[PID: 905 (xmldbc)]: family:1, type:2, protocol:0
+[  239.843950] firmadyne: sys_socket[PID: 906 (xmldbc)]: family:1, type:2, protocol:0
+[  239.906542] firmadyne: sys_socket[PID: 907 (xmldbc)]: family:1, type:2, protocol:0
+[  240.049053] firmadyne: sys_socket[PID: 911 (xmldbc)]: family:1, type:2, protocol:0
+[  240.107374] firmadyne: sys_socket[PID: 912 (xmldbc)]: family:1, type:2, protocol:0
+[  240.167174] firmadyne: sys_socket[PID: 913 (xmldbc)]: family:1, type:2, protocol:0
+[  240.226351] firmadyne: sys_socket[PID: 914 (xmldbc)]: family:1, type:2, protocol:0
+[  240.285289] firmadyne: sys_socket[PID: 915 (xmldbc)]: family:1, type:2, protocol:0
+[  240.345205] firmadyne: sys_socket[PID: 916 (xmldbc)]: family:1, type:2, protocol:0
+[  240.403352] firmadyne: sys_socket[PID: 917 (xmldbc)]: family:1, type:2, protocol:0
+[  240.462995] firmadyne: sys_socket[PID: 918 (xmldbc)]: family:1, type:2, protocol:0
+[  240.523107] firmadyne: sys_socket[PID: 919 (xmldbc)]: family:1, type:2, protocol:0
+[  240.581885] firmadyne: sys_socket[PID: 920 (xmldbc)]: family:1, type:2, protocol:0
+[  240.640033] firmadyne: sys_socket[PID: 921 (xmldbc)]: family:1, type:2, protocol:0
+[  240.699917] firmadyne: sys_socket[PID: 922 (xmldbc)]: family:1, type:2, protocol:0
+[  240.760619] firmadyne: sys_socket[PID: 923 (xmldbc)]: family:1, type:2, protocol:0
+[  240.819191] firmadyne: sys_socket[PID: 924 (xmldbc)]: family:1, type:2, protocol:0
+[  240.878556] firmadyne: sys_socket[PID: 925 (xmldbc)]: family:1, type:2, protocol:0
+[  240.938883] firmadyne: sys_socket[PID: 926 (xmldbc)]: family:1, type:2, protocol:0
+[  240.999833] firmadyne: sys_socket[PID: 927 (xmldbc)]: family:1, type:2, protocol:0
+[  241.058445] firmadyne: sys_socket[PID: 928 (xmldbc)]: family:1, type:2, protocol:0
+[  241.117960] firmadyne: sys_socket[PID: 929 (xmldbc)]: family:1, type:2, protocol:0
+[  241.307182] firmadyne: sys_socket[PID: 934 (xmldbc)]: family:1, type:2, protocol:0
+[  241.367297] firmadyne: sys_socket[PID: 935 (xmldbc)]: family:1, type:2, protocol:0
+[  241.425419] firmadyne: sys_socket[PID: 936 (xmldbc)]: family:1, type:2, protocol:0
+[  241.484262] firmadyne: sys_socket[PID: 937 (xmldbc)]: family:1, type:2, protocol:0
+[  241.544070] firmadyne: sys_socket[PID: 938 (xmldbc)]: family:1, type:2, protocol:0
+[  241.602842] firmadyne: sys_socket[PID: 939 (xmldbc)]: family:1, type:2, protocol:0
+[  241.736917] firmadyne: sys_socket[PID: 943 (xmldbc)]: family:1, type:2, protocol:0
+[  241.794646] firmadyne: sys_socket[PID: 944 (xmldbc)]: family:1, type:2, protocol:0
+[  241.852939] firmadyne: sys_socket[PID: 945 (xmldbc)]: family:1, type:2, protocol:0
+[  241.911447] firmadyne: sys_socket[PID: 946 (xmldbc)]: family:1, type:2, protocol:0
+[  241.973746] firmadyne: sys_socket[PID: 947 (xmldbc)]: family:1, type:2, protocol:0
+[  242.032492] firmadyne: sys_socket[PID: 948 (xmldbc)]: family:1, type:2, protocol:0
+[  242.209568] firmadyne: sys_socket[PID: 953 (xmldbc)]: family:1, type:2, protocol:0
+[  242.348018] firmadyne: sys_socket[PID: 957 (xmldbc)]: family:1, type:2, protocol:0
+[  242.485147] firmadyne: sys_socket[PID: 961 (xmldbc)]: family:1, type:2, protocol:0
+[  242.623613] firmadyne: sys_socket[PID: 965 (xmldbc)]: family:1, type:2, protocol:0
+[  242.763610] firmadyne: sys_socket[PID: 969 (xmldbc)]: family:1, type:2, protocol:0
+[  242.903032] firmadyne: sys_socket[PID: 973 (xmldbc)]: family:1, type:2, protocol:0
+[  243.043494] firmadyne: sys_socket[PID: 977 (xmldbc)]: family:1, type:2, protocol:0
+[  243.181129] firmadyne: sys_socket[PID: 981 (xmldbc)]: family:1, type:2, protocol:0
+[  243.327302] firmadyne: sys_socket[PID: 985 (xmldbc)]: family:1, type:2, protocol:0
+[  243.463830] firmadyne: sys_socket[PID: 989 (xmldbc)]: family:1, type:2, protocol:0
+[  243.601348] firmadyne: sys_socket[PID: 993 (xmldbc)]: family:1, type:2, protocol:0
+[  243.743527] firmadyne: sys_socket[PID: 997 (xmldbc)]: family:1, type:2, protocol:0
+[  243.881657] firmadyne: sys_socket[PID: 1001 (xmldbc)]: family:1, type:2, protocol:0
+[  244.024215] firmadyne: sys_socket[PID: 1005 (xmldbc)]: family:1, type:2, protocol:0
+[  244.162829] firmadyne: sys_socket[PID: 1009 (xmldbc)]: family:1, type:2, protocol:0
+[  244.300050] firmadyne: sys_socket[PID: 1013 (xmldbc)]: family:1, type:2, protocol:0
+[  244.433772] firmadyne: sys_socket[PID: 1017 (xmldbc)]: family:1, type:2, protocol:0
+[  244.571651] firmadyne: sys_socket[PID: 1021 (xmldbc)]: family:1, type:2, protocol:0
+[  244.709737] firmadyne: sys_socket[PID: 1025 (xmldbc)]: family:1, type:2, protocol:0
+[  244.848154] firmadyne: sys_socket[PID: 1029 (xmldbc)]: family:1, type:2, protocol:0
+[  244.987289] firmadyne: sys_socket[PID: 1033 (xmldbc)]: family:1, type:2, protocol:0
+[  245.126531] firmadyne: sys_socket[PID: 1037 (xmldbc)]: family:1, type:2, protocol:0
+[  245.263566] firmadyne: sys_socket[PID: 1041 (xmldbc)]: family:1, type:2, protocol:0
+[  245.403089] firmadyne: sys_socket[PID: 1045 (xmldbc)]: family:1, type:2, protocol:0
+[  245.540300] firmadyne: sys_socket[PID: 1049 (xmldbc)]: family:1, type:2, protocol:0
+[  245.676524] firmadyne: sys_socket[PID: 1053 (xmldbc)]: family:1, type:2, protocol:0
+[  245.815161] firmadyne: sys_socket[PID: 1057 (xmldbc)]: family:1, type:2, protocol:0
+[  245.954034] firmadyne: sys_socket[PID: 1061 (xmldbc)]: family:1, type:2, protocol:0
+[  246.093788] firmadyne: sys_socket[PID: 1065 (xmldbc)]: family:1, type:2, protocol:0
+[  246.233810] firmadyne: sys_socket[PID: 1069 (xmldbc)]: family:1, type:2, protocol:0
+[  246.373366] firmadyne: sys_socket[PID: 1073 (xmldbc)]: family:1, type:2, protocol:0
+[  246.510906] firmadyne: sys_socket[PID: 1077 (xmldbc)]: family:1, type:2, protocol:0
+[  246.649336] firmadyne: sys_socket[PID: 1081 (xmldbc)]: family:1, type:2, protocol:0
+[  246.708100] firmadyne: sys_socket[PID: 1082 (xmldbc)]: family:1, type:2, protocol:0
+[  246.769448] firmadyne: sys_socket[PID: 1083 (xmldbc)]: family:1, type:2, protocol:0
+[  246.828691] firmadyne: sys_socket[PID: 1084 (xmldbc)]: family:1, type:2, protocol:0
+[  246.887693] firmadyne: sys_socket[PID: 1085 (xmldbc)]: family:1, type:2, protocol:0
+[  246.948670] firmadyne: sys_socket[PID: 1086 (xmldbc)]: family:1, type:2, protocol:0
+[  247.008988] firmadyne: sys_socket[PID: 1087 (xmldbc)]: family:1, type:2, protocol:0
+[  247.069823] firmadyne: sys_socket[PID: 1088 (xmldbc)]: family:1, type:2, protocol:0
+[  247.132192] firmadyne: sys_socket[PID: 1089 (xmldbc)]: family:1, type:2, protocol:0
+PHP [/etc/defnodes/S11setnodes.php] ...
+[  247.248034] firmadyne: sys_socket[PID: 1092 (rgdb)]: family:1, type:2, protocol:0
+PHP [/etc/defnodes/S12features.php] ...
+[  248.111013] firmadyne: sys_socket[PID: 1105 (rgdb)]: family:1, type:2, protocol:0
+PHP [/etc/defnodes/S13flashspeed.php] ...
+[  248.242817] firmadyne: sys_socket[PID: 1108 (rgdb)]: family:1, type:2, protocol:0
+PHP [/etc/defnodes/S20setnodes.php] ...
+[  248.497865] firmadyne: sys_socket[PID: 1113 (rgdb)]: family:1, type:2, protocol:0
+[  248.961278] UDF-fs: warning (device mtdblock4): udf_fill_super: No partition found (2)
+mount: mounting /dev/mtdblock/4 on /www/locale/alt failed: Invalid argument
+PHP [/etc/defnodes/S40brand.php] ...
+[  249.076075] firmadyne: sys_socket[PID: 1125 (rgdb)]: family:1, type:2, protocol:0
+[/etc/scripts/misc/defnodes.sh] Done !!
+[/etc/scripts/misc/profile.sh] put ...
+[  249.753321] firmadyne: sys_socket[PID: 1133 (rgdb)]: family:1, type:2, protocol:0
+ok
+[  250.772542] firmadyne: sys_socket[PID: 1139 (rgdb)]: family:1, type:2, protocol:0
+[  250.851855] firmadyne: sys_socket[PID: 1141 (rgdb)]: family:1, type:2, protocol:0
+[/etc/templates/timezone.sh] ...
+[  251.031472] firmadyne: sys_socket[PID: 1146 (rgdb)]: family:1, type:2, protocol:0
+[  251.229204] firmadyne: sys_socket[PID: 1151 (rgdb)]: family:1, type:2, protocol:0
+[  255.266484] firmadyne: sys_socket[PID: 1155 (rgdb)]: family:1, type:2, protocol:0
+[  255.354623] firmadyne: sys_socket[PID: 1157 (rgdb)]: family:1, type:2, protocol:0
+[  255.438963] firmadyne: sys_socket[PID: 1159 (rgdb)]: family:1, type:2, protocol:0
+[  255.524564] firmadyne: sys_socket[PID: 1161 (rgdb)]: family:1, type:2, protocol:0
+[  255.609754] firmadyne: sys_socket[PID: 1163 (rgdb)]: family:1, type:2, protocol:0
+[  255.695249] firmadyne: sys_socket[PID: 1165 (rgdb)]: family:1, type:2, protocol:0
+[  255.780803] firmadyne: sys_socket[PID: 1167 (rgdb)]: family:1, type:2, protocol:0
+[  255.865439] firmadyne: sys_socket[PID: 1169 (rgdb)]: family:1, type:2, protocol:0
+[  255.951614] firmadyne: sys_socket[PID: 1171 (rgdb)]: family:1, type:2, protocol:0
+[  256.037071] firmadyne: sys_socket[PID: 1173 (rgdb)]: family:1, type:2, protocol:0
+[  256.125396] firmadyne: sys_socket[PID: 1175 (rgdb)]: family:1, type:2, protocol:0
+[/etc/templates/logs.sh] ...
+[  257.124567] firmadyne: sys_socket[PID: 1203 (rgdb)]: family:1, type:2, protocol:0
+[  257.225527] firmadyne: sys_socket[PID: 1205 (rgdb)]: family:1, type:2, protocol:0
+[/var/run/logs_run.sh] ...
+[  257.837779] firmadyne: sys_socket[PID: 1210 (syslogd)]: family:1, type:1, protocol:0
+[  257.992124] firmadyne: sys_socket[PID: 1215 (rgdb)]: family:1, type:2, protocol:0
+[  258.203629] firmadyne: sys_socket[PID: 1219 (ifconfig)]: family:2, type:1, protocol:0
+[  258.240865] 8021q: adding VLAN 0 to HW filter on device eth0
+[  258.247825] e1000: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+[  261.352079] firmadyne: sys_socket[PID: 1221 (rgdb)]: family:1, type:2, protocol:0
+[  261.689837] firmadyne: sys_socket[PID: 1233 (rgdb)]: family:1, type:2, protocol:0
+[  261.880329] firmadyne: sys_socket[PID: 1239 (rgdb)]: family:1, type:2, protocol:0
+[  261.905196] firmadyne: sys_socket[PID: 1240 (ifconfig)]: family:2, type:1, protocol:0
+[  261.907668] firmadyne: __inet_insert_ifa[PID: 1240 (ifconfig)]: device:lo ifa:0x7f000001
+[  261.966809] firmadyne: sys_socket[PID: 1241 (brctl)]: family:2, type:2, protocol:0
+[  262.073171] firmadyne: sys_socket[PID: 1244 (brctl)]: family:2, type:2, protocol:0
+[  262.077436] firmadyne: sys_socket[PID: 1244 (brctl)]: family:10, type:1, protocol:0
+[  262.134050] firmadyne: sys_socket[PID: 1245 (brctl)]: family:2, type:2, protocol:0
+[  262.137489] firmadyne: sys_socket[PID: 1245 (brctl)]: family:10, type:1, protocol:0
+[/etc/init.d/S03config.sh] done!
+[/etc/init.d/S10system.sh]
+start Layout ...
+[/etc/scripts/layout.sh] start ...
+[  262.529138] firmadyne: sys_socket[PID: 1255 (rgdb)]: family:1, type:2, protocol:0
+[  262.668566] firmadyne: sys_socket[PID: 1256 (rgdb)]: family:1, type:2, protocol:0
+[/var/run/layout_start.sh] ...
+Start bridge layout ...
+[  262.833250] firmadyne: sys_socket[PID: 1260 (ifconfig)]: family:2, type:1, protocol:0
+[  262.882544] firmadyne: sys_socket[PID: 1261 (brctl)]: family:2, type:2, protocol:0
+[  262.885800] firmadyne: sys_socket[PID: 1261 (brctl)]: family:10, type:1, protocol:0
+[  262.889759] firmadyne: sys_socket[PID: 1261 (brctl)]: family:10, type:1, protocol:0
+[  262.891792] firmadyne: br_add_if[PID: 1261 (brctl)]: br:br0 dev:eth0
+[  262.898423] device eth0 entered promiscuous mode
+[  262.995401] firmadyne: sys_socket[PID: 1264 (xmldbc)]: family:1, type:2, protocol:0
+[  263.083863] firmadyne: sys_socket[PID: 1267 (ifconfig)]: family:2, type:1, protocol:0
+[  263.085704] br0: port 1(eth0) entered forwarding state
+[  263.086922] br0: port 1(eth0) entered forwarding state
+[  263.141377] firmadyne: sys_socket[PID: 1268 (rgdb)]: family:1, type:2, protocol:0
+start LAN ...
+[/etc/templates/lan.sh] ...
+[  263.313393] firmadyne: sys_socket[PID: 1273 (rgdb)]: family:1, type:2, protocol:0
+[  263.469571] firmadyne: sys_socket[PID: 1276 (rgdb)]: family:1, type:2, protocol:0
+[  263.585195] firmadyne: sys_socket[PID: 1277 (rgdb)]: family:1, type:2, protocol:0
+[/var/run/lan_start.sh] ...
+Bridge mode selected, LAN is disabled !
+start web server ...
+[/etc/templates/webs.sh] start ...
+[  263.890073] firmadyne: sys_socket[PID: 1285 (rgdb)]: family:1, type:2, protocol:0
+[  263.979930] firmadyne: sys_socket[PID: 1287 (rgdb)]: family:1, type:2, protocol:0
+[  264.131313] firmadyne: sys_socket[PID: 1290 (rgdb)]: family:1, type:2, protocol:0
+[  264.299791] firmadyne: sys_socket[PID: 1291 (rgdb)]: family:1, type:2, protocol:0
+[/var/run/webs_start.sh] ...
+Starting HTTPD ...
+start eth0 vlan setup ...
+/etc/scripts/eth_vlan.sh: not found
+[  264.723883] firmadyne: sys_socket[PID: 1301 (rgdb)]: family:1, type:2, protocol:0
+[  264.746452] firmadyne: sys_socket[PID: 1302 (rgdb)]: family:1, type:2, protocol:0
+[  264.962000] firmadyne: sys_socket[PID: 1303 (rgdb)]: family:1, type:2, protocol:0
+#!/bin/sh
+echo [$0] ... > /dev/console
+
+# limitedadmin.php <<<
+
+limitedadmin.sh...
+[  265.281184] firmadyne: sys_socket[PID: 1307 (brctl)]: family:2, type:2, protocol:0
+[  265.289358] firmadyne: sys_socket[PID: 1307 (brctl)]: family:10, type:1, protocol:0
+[  265.396604] firmadyne: sys_socket[PID: 1308 (brctl)]: family:2, type:2, protocol:0
+[  265.404132] firmadyne: sys_socket[PID: 1308 (brctl)]: family:10, type:1, protocol:0
+[  265.511621] firmadyne: sys_socket[PID: 1309 (brctl)]: family:2, type:2, protocol:0
+[  265.522914] firmadyne: sys_socket[PID: 1309 (brctl)]: family:10, type:1, protocol:0
+[  265.625526] firmadyne: sys_socket[PID: 1310 (brctl)]: family:2, type:2, protocol:0
+[  265.633143] firmadyne: sys_socket[PID: 1310 (brctl)]: family:10, type:1, protocol:0
+[  265.740590] firmadyne: sys_socket[PID: 1311 (brctl)]: family:2, type:2, protocol:0
+[  265.748131] firmadyne: sys_socket[PID: 1311 (brctl)]: family:10, type:1, protocol:0
+[  265.855338] firmadyne: sys_socket[PID: 1312 (brctl)]: family:2, type:2, protocol:0
+[  265.862843] firmadyne: sys_socket[PID: 1312 (brctl)]: family:10, type:1, protocol:0
+start fresetd ...
+enable LAN ports ...
+[  266.130537] firmadyne: sys_socket[PID: 1314 (servd)]: family:1, type:2, protocol:0
+Factory reset time : 5 secs
+System reset time  : 1 secs
+WPS command : [/etc/templates/wps.sh pbc &]
+[  266.249165] firmadyne: sys_socket[PID: 1305 (httpd)]: family:10, type:2, protocol:6
+[  266.260715] firmadyne: sys_setsockopt[PID: 1305 (httpd)]: fd:4, level:65535, optname:4
+[/etc/scripts/enlan.sh] ...
+/dev/gpio: No such device or address
+[  266.316227] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:1, protocol:0
+ Generate channel table according to the country code...
+[  266.472549] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:1, protocol:0
+[  266.515445] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.523514] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.533237] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.555371] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+UNKNOW country code!! Use USA for default!!
+[  266.663549] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.670795] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.675761] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.682310] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.686489] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.692856] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.697607] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.704188] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.708902] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.716714] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.721791] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.729163] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.734640] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.741019] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.745643] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.752850] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.758069] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.765285] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.769882] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.777354] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.781765] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.788786] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.793764] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.800627] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.805691] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.812328] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.817165] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.824124] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.829206] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.835791] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.840835] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.848316] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.853148] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.863693] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.869258] firmadyne: sys_socket[PID: 1331 (getsys)]: family:1, type:2, protocol:0
+[  266.873684] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.890667] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.897165] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.907848] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.913947] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.927576] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.933864] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.942593] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.955949] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.961945] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+[  266.968138] firmadyne: sys_socket[PID: 1330 (genchanneltable)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+ Generate VLAN table according to the port...
+[  267.051761] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.059280] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.064731] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.070613] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.075899] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.081179] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.088429] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.094889] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.101244] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.107821] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.113368] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.121186] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.127777] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.133281] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.139713] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.144909] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.151817] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.157416] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.163849] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.169071] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.175662] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.181316] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.187687] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.193245] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.199937] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.205802] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.212471] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.218514] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.224796] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.231408] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.237233] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.243885] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.249129] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.255660] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.261161] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.267349] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.272714] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.278614] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.284147] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.289824] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.296479] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.302414] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.308393] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.314053] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.321677] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.328201] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.334669] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.343613] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.355588] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.361181] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.371065] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.376533] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.387863] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.393527] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.403908] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.412960] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.425441] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.432833] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.444573] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.451165] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.456725] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.469111] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.475813] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.485103] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.497834] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.505044] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.519070] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.524916] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.535261] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.541387] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.551235] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.557370] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.567137] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.576637] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.581724] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.587610] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.595129] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.597718] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.604807] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.611184] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.616176] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.622721] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.626643] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.632909] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.637676] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.644587] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.649362] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.655753] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.660597] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.667183] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.672361] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.679193] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.684109] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.690857] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.694893] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.701413] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.705636] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.712960] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.718859] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.725333] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.729601] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.736704] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.741312] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.747919] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.752691] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.759490] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.764193] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.770781] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+[  267.777822] firmadyne: sys_socket[PID: 1341 (getsys)]: family:1, type:2, protocol:0
+[  267.782601] firmadyne: sys_socket[PID: 1339 (genVLANTableByP)]: family:1, type:2, protocol:0
+start WAN ...
+/dev/gpio: No such device or address
+reset button pressed for 1 secs
+[  267.949889] firmadyne: sys_socket[PID: 1349 (rgdb)]: family:1, type:2, protocol:0
+Set WAN port media type 0
+[  268.509579] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.528050] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.534486] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.537796] firmadyne: sys_socket[PID: 1357 (rgdb)]: family:1, type:2, protocol:0
+[  268.542080] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.554799] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.688382] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.697199] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.707467] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.713680] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.727665] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.733530] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.739410] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.748616] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.758976] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.764586] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.776350] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.781850] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.795003] firmadyne: sys_socket[PID: 1355 (getsys)]: family:1, type:2, protocol:0
+[  268.824687] firmadyne: sys_socket[PID: 1358 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 2 secs
+[  269.321004] firmadyne: sys_socket[PID: 1363 (httpd)]: family:10, type:2, protocol:6
+[  269.323129] firmadyne: sys_setsockopt[PID: 1363 (httpd)]: fd:4, level:65535, optname:4
+[  269.441304] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.449109] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.454940] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.460402] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.465747] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.471337] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.476834] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.482924] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.489621] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.496044] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.501621] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.508258] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.514003] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.521886] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.527862] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.533520] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.539340] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+[  269.548124] firmadyne: sys_socket[PID: 1366 (getsys)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 3 secs
+[/etc/templates/wan.sh] start ...
+[  270.253295] firmadyne: sys_socket[PID: 1374 (rgdb)]: family:1, type:2, protocol:0
+[  270.449951] firmadyne: sys_socket[PID: 1378 (rgdb)]: family:1, type:2, protocol:0
+[  270.508507] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  270.676334] firmadyne: sys_socket[PID: 1381 (ifconfig)]: family:2, type:1, protocol:0
+[  271.022740] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.035710] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.041312] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.048747] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.059441] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.065030] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.075435] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.081463] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.087493] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.098968] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.104743] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.117407] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.123340] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.135002] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.140626] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.146510] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+[  271.161501] firmadyne: sys_socket[PID: 1383 (rgdb)]: family:1, type:2, protocol:0
+[  271.163101] firmadyne: sys_socket[PID: 1379 (getsys)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 5 secs
+[  271.306819] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:2, protocol:0
+[/var/run/wan_start.sh] ...
+Bridge mode selected !
+sendtrapbin: not found
+[  271.504948] firmadyne: sys_socket[PID: 1395 (ifconfig)]: family:2, type:1, protocol:0
+[  271.509653] firmadyne: __inet_insert_ifa[PID: 1395 (ifconfig)]: device:br0 ifa:0xc0a80032
+Start WAN(br0),192.168.0.50/255.255.255.0 ...
+[  271.585114] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  271.613081] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  271.619705] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  271.632147] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  271.637440] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  271.649639] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  271.652181] firmadyne: sys_socket[PID: 1398 (route)]: family:2, type:1, protocol:0
+[  271.659182] firmadyne: sys_socket[PID: 1396 (rgdb)]: family:1, type:2, protocol:0
+[  271.663454] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[/etc/templates/wanup.sh] ...
+[  271.949045] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  271.965166] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  271.976668] firmadyne: sys_socket[PID: 1403 (rgdb)]: family:1, type:2, protocol:0
+[  271.980140] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  271.991922] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  272.001320] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  272.015848] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  272.035636] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  272.051435] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  272.057241] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  272.067403] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  272.080485] firmadyne: sys_socket[PID: 1392 (getsys)]: family:1, type:2, protocol:0
+[  272.164702] firmadyne: sys_socket[PID: 1404 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 6 secs
+[  272.276329] firmadyne: sys_socket[PID: 1410 (rgdb)]: family:1, type:2, protocol:0
+[  272.560845] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.181377] firmadyne: sys_socket[PID: 1411 (httpd)]: family:10, type:2, protocol:6
+[  273.187113] firmadyne: sys_setsockopt[PID: 1411 (httpd)]: fd:4, level:65535, optname:4
+[  273.256334] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.267612] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.273242] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.277963] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.289496] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.296289] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.307500] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.313721] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.324787] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.332957] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.344773] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.350784] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.359734] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.365361] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.374873] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[/var/run/wan_up.sh] ...
+[  273.387528] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+[  273.401639] firmadyne: sys_socket[PID: 1413 (getsys)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 7 secs
+[  273.549110] firmadyne: inet_accept[PID: 1327 (httpd)]:
+[  273.553625] firmadyne: inet_accept[PID: 1327 (httpd)]:
+[  273.597954] firmadyne: sys_socket[PID: 1424 (rgdb)]: family:1, type:2, protocol:0
+[  273.682692] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.694993] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.700570] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.710540] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.717353] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.727003] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.732395] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.737867] firmadyne: sys_socket[PID: 1426 (xmldbc)]: family:1, type:2, protocol:0
+[  273.740679] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.753542] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.766810] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.775778] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.781509] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.789763] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.798870] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.807890] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.813507] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.821766] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.833966] firmadyne: sys_socket[PID: 1425 (getsys)]: family:1, type:2, protocol:0
+[  273.888517] firmadyne: sys_socket[PID: 1427 (xmldbc)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 7 secs
+[  273.965711] firmadyne: sys_socket[PID: 1432 (xmldbc)]: family:1, type:2, protocol:0
+[  274.025830] firmadyne: sys_socket[PID: 1433 (xmldbc)]: family:1, type:2, protocol:0
+[  274.358834] firmadyne: sys_socket[PID: 1436 (brctl)]: family:2, type:2, protocol:0
+[  274.372493] firmadyne: sys_socket[PID: 1436 (brctl)]: family:10, type:1, protocol:0
+[  274.422682] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  274.519275] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  274.542988] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  274.568977] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  274.595073] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  274.612157] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  275.023385] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  277.891937] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  277.903217] firmadyne: sys_socket[PID: 1444 (atp)]: family:1, type:2, protocol:0
+[  277.913733] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  281.921223] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  281.945525] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  281.973587] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  281.993600] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  282.017922] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  282.036866] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  282.058774] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  282.079661] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  282.093424] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  282.114209] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  282.128464] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  282.135713] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  282.141357] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  282.147923] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+[  282.156760] firmadyne: sys_socket[PID: 1442 (getsys)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 16 secs
+[  282.365792] firmadyne: sys_socket[PID: 1453 (syslogd)]: family:1, type:1, protocol:0
+[  282.407058] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.418872] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.425162] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.437419] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.443946] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.454842] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.460301] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.465619] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.475146] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.486371] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.497713] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.504702] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.517841] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.523985] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.538901] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.546915] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.554916] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+[  282.565717] firmadyne: sys_socket[PID: 1454 (getsys)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 16 secs
+[  282.725809] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:2, protocol:0
+[  283.061184] firmadyne: sys_socket[PID: 1467 (brctl)]: family:2, type:2, protocol:0
+[  283.087167] firmadyne: sys_socket[PID: 1467 (brctl)]: family:10, type:1, protocol:0
+[  283.149647] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  283.201637] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  283.219895] firmadyne: sys_socket[PID: 1470 (rgdb)]: family:1, type:2, protocol:0
+[  283.227753] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  283.252662] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  283.280580] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  283.308113] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[/etc/templates/ntp.sh] ...
+[  283.692683] firmadyne: sys_socket[PID: 1473 (atp)]: family:1, type:2, protocol:0
+[  283.712573] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  283.913254] firmadyne: sys_socket[PID: 1477 (rgdb)]: family:1, type:2, protocol:0
+[  284.371127] firmadyne: sys_socket[PID: 1447 (rgdb)]: family:1, type:2, protocol:0
+[  284.573345] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.748097] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.759385] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.773258] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.779942] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.791458] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.803395] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.816008] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.825732] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.839229] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.851493] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.863520] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.869321] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.884309] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.895057] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.908047] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.916748] firmadyne: sys_socket[PID: 1474 (getsys)]: family:1, type:2, protocol:0
+[  284.927567] firmadyne: sys_socket[PID: 1478 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 19 secs
+[  285.302106] firmadyne: sys_socket[PID: 1486 (rgdb)]: family:1, type:2, protocol:0
+[  285.587256] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  285.617858] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  285.647022] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  285.667752] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  285.676361] firmadyne: sys_socket[PID: 1490 (brctl)]: family:2, type:2, protocol:0
+[  285.689886] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  285.708591] firmadyne: sys_socket[PID: 1490 (brctl)]: family:10, type:1, protocol:0
+[  285.721412] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  285.749481] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  285.777854] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  285.804298] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  285.839804] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  285.847353] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  285.859377] firmadyne: sys_socket[PID: 1491 (rgdb)]: family:1, type:2, protocol:0
+[  285.880915] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  285.937517] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  286.176384] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  286.182292] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  286.216029] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  286.236309] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  286.247417] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  286.276605] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  286.284748] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  286.316588] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  286.323066] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  286.356370] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  286.362662] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  286.400818] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  286.415682] firmadyne: sys_socket[PID: 1488 (getsys)]: family:1, type:2, protocol:0
+[  286.426770] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  286.471494] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:1, protocol:0
+[  286.565830] firmadyne: sys_socket[PID: 1453 (syslogd)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 20 secs
+[  286.920602] firmadyne: sys_socket[PID: 1493 (xmldbc)]: family:1, type:2, protocol:0
+[  287.115523] firmadyne: sys_socket[PID: 1496 (atp)]: family:1, type:2, protocol:0
+[  287.329112] firmadyne: sys_socket[PID: 1501 (rgdb)]: family:1, type:2, protocol:0
+[  287.483009] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+killall: ntpclient: no process killed
+NTP client is disabled ...
+[  288.442695] firmadyne: sys_socket[PID: 1485 (httpd)]: family:10, type:2, protocol:6
+[  288.461061] firmadyne: sys_setsockopt[PID: 1485 (httpd)]: fd:4, level:65535, optname:4
+[/etc/templates/upnpd.sh] ...
+[  288.921838] firmadyne: sys_socket[PID: 1510 (rgdb)]: family:1, type:2, protocol:0
+[  290.941286] firmadyne: sys_socket[PID: 1512 (rgdb)]: family:1, type:2, protocol:0
+[  291.512073] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  291.955233] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  291.967990] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  291.979573] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  291.991306] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  291.996860] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  292.007372] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  292.019881] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  292.031610] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  292.039527] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  292.051892] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  292.061109] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  292.066849] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  292.083859] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  292.098961] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  292.111837] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  292.121018] firmadyne: sys_socket[PID: 1503 (getsys)]: family:1, type:2, protocol:0
+[  292.150712] firmadyne: sys_socket[PID: 1513 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 26 secs
+[  292.257101] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:2, protocol:0
+[  292.522030] firmadyne: sys_socket[PID: 1521 (xmldbc)]: family:1, type:2, protocol:0
+[  292.758985] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  292.872732] firmadyne: sys_socket[PID: 1525 (brctl)]: family:2, type:2, protocol:0
+[  292.897343] firmadyne: sys_socket[PID: 1525 (brctl)]: family:10, type:1, protocol:0
+[  292.982914] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  294.261074] firmadyne: sys_socket[PID: 1520 (httpd)]: family:10, type:2, protocol:6
+[  294.268227] firmadyne: sys_setsockopt[PID: 1520 (httpd)]: fd:4, level:65535, optname:4
+[  294.481044] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.519567] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.541274] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.562217] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  294.568632] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.586899] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.608950] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.613878] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  294.636137] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  294.644831] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.668437] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  294.675991] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.700899] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.705680] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  294.732557] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  294.739060] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.764623] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.788748] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.807622] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.830992] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.861091] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.885314] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  294.898230] firmadyne: sys_socket[PID: 1527 (xmldbc)]: family:1, type:2, protocol:0
+[  294.936550] firmadyne: sys_socket[PID: 1523 (getsys)]: family:1, type:2, protocol:0
+[  295.076759] firmadyne: sys_socket[PID: 1528 (atp)]: family:1, type:2, protocol:0
+[/var/run/upnpd_start.sh] ...
+Starting UPnP ...
+[  295.762071] firmadyne: sys_socket[PID: 1533 (xmldbc)]: family:1, type:2, protocol:0
+[  296.680628] firmadyne: sys_socket[PID: 1535 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 32 secs
+[  298.498632] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.605188] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.623554] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.635575] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.644475] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.653269] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.667462] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.676694] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.688264] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.704137] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.714915] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.720823] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.736527] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.742523] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.755509] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.771010] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.777293] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.793525] firmadyne: sys_socket[PID: 1547 (getsys)]: family:1, type:2, protocol:0
+[  298.799363] firmadyne: sys_socket[PID: 1548 (xmldbc)]: family:1, type:2, protocol:0
+[  298.806086] firmadyne: sys_socket[PID: 1549 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 33 secs
+[  299.257466] firmadyne: sys_socket[PID: 1550 (xmldbc)]: family:1, type:2, protocol:0
+[  299.267642] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:2, protocol:0
+[  299.443045] firmadyne: sys_socket[PID: 1554 (brctl)]: family:2, type:2, protocol:0
+[  299.457543] firmadyne: sys_socket[PID: 1554 (brctl)]: family:10, type:1, protocol:0
+[  299.578423] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  299.677855] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  299.709482] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  299.747058] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  299.752389] firmadyne: sys_socket[PID: 1559 (xmldbc)]: family:1, type:2, protocol:0
+[  299.775756] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  299.812540] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  300.001967] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.035446] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.063111] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.087651] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.113699] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.137269] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.165743] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.193965] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.224628] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.253885] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.281857] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.313772] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.343575] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.375083] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.401669] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.409866] firmadyne: sys_socket[PID: 1562 (atp)]: family:1, type:2, protocol:0
+[  300.431751] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  300.729567] firmadyne: sys_socket[PID: 1565 (xmldbc)]: family:1, type:2, protocol:0
+[  301.760359] firmadyne: sys_socket[PID: 1555 (httpd)]: family:10, type:2, protocol:6
+[  301.770943] firmadyne: sys_setsockopt[PID: 1555 (httpd)]: fd:4, level:65535, optname:4
+[  304.189463] firmadyne: sys_socket[PID: 1568 (rgdb)]: family:1, type:2, protocol:0
+[  304.916975] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+[  305.171349] firmadyne: sys_socket[PID: 1560 (getsys)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 39 secs
+[  305.357515] firmadyne: sys_socket[PID: 1569 (rgdb)]: family:1, type:2, protocol:0
+>>>/var/run/wan_start.sh: Start IPv6 configuration >>>
+Disable IPv6.
+[  305.614639] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  305.660531] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  305.689135] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  305.718299] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  305.745952] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  305.770062] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  305.799697] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  305.824072] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  305.853245] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  305.895386] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  305.912485] firmadyne: sys_socket[PID: 1581 (xmldbc)]: family:1, type:2, protocol:0
+[  305.917193] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  305.956751] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  305.989015] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  306.017788] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  306.047698] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  306.075717] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  306.107691] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  306.156624] firmadyne: sys_socket[PID: 1578 (getsys)]: family:1, type:2, protocol:0
+[  306.241863] firmadyne: sys_socket[PID: 1583 (brctl)]: family:2, type:2, protocol:0
+[  306.279811] firmadyne: sys_socket[PID: 1583 (brctl)]: family:10, type:1, protocol:0
+[  306.389723] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 40 secs
+[  306.467199] firmadyne: sys_socket[PID: 1584 (xmldbc)]: family:1, type:2, protocol:0
+[  306.472924] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:2, protocol:0
+[  306.487319] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  306.530148] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  306.553021] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  306.584603] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  306.612815] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  306.641922] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  306.992738] firmadyne: sys_socket[PID: 1590 (xmldbc)]: family:1, type:2, protocol:0
+[  307.145166] firmadyne: sys_socket[PID: 1591 (atp)]: family:1, type:2, protocol:0
+[  307.184189] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  307.381944] firmadyne: sys_socket[PID: 1593 (xmldbc)]: family:1, type:2, protocol:0
+[  308.243736] firmadyne: sys_socket[PID: 1580 (httpd)]: family:10, type:2, protocol:6
+[  308.245884] firmadyne: sys_setsockopt[PID: 1580 (httpd)]: fd:4, level:65535, optname:4
+[  310.671367] firmadyne: sys_socket[PID: 1596 (rgdb)]: family:1, type:2, protocol:0
+[  310.915266] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.346538] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.358036] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.371607] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.383390] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.391647] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.407395] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.413603] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.419606] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.435555] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.446931] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.452616] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.467904] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.478884] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.485779] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.497894] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.513796] firmadyne: sys_socket[PID: 1592 (getsys)]: family:1, type:2, protocol:0
+[  311.537874] firmadyne: sys_socket[PID: 1597 (xmldbc)]: family:1, type:2, protocol:0
+[  311.548071] firmadyne: sys_socket[PID: 1598 (rgdb)]: family:1, type:2, protocol:0
+<<< End of IPv6 <<<
+/dev/gpio: No such device or address
+reset button pressed for 45 secs
+start stunnel ...
+[/etc/templates/stunnel.sh] ...
+[  312.131637] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.161666] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.190952] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.216592] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.241316] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.265991] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.295750] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.323607] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.348669] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.384260] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.397406] firmadyne: sys_socket[PID: 1611 (brctl)]: family:2, type:2, protocol:0
+[  312.414246] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.435814] firmadyne: sys_socket[PID: 1611 (brctl)]: family:10, type:1, protocol:0
+[  312.444823] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.475621] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.502972] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.528841] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.559060] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.583899] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  312.604066] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.656527] firmadyne: sys_socket[PID: 1608 (getsys)]: family:1, type:2, protocol:0
+[  312.695691] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  312.719744] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  312.753710] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  312.783626] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  312.807136] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  312.818182] firmadyne: sys_socket[PID: 1613 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 46 secs
+[  313.014885] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:2, protocol:0
+[  313.336758] firmadyne: sys_socket[PID: 1618 (atp)]: family:1, type:2, protocol:0
+[  313.643042] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  314.103838] firmadyne: sys_socket[PID: 1623 (rgdb)]: family:1, type:2, protocol:0
+[  314.662273] firmadyne: sys_socket[PID: 1605 (httpd)]: family:10, type:2, protocol:6
+[  314.674951] firmadyne: sys_setsockopt[PID: 1605 (httpd)]: fd:4, level:65535, optname:4
+[  317.093839] firmadyne: sys_socket[PID: 1626 (rgdb)]: family:1, type:2, protocol:0
+[  317.737800] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  317.899875] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  317.915416] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  317.921078] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  317.935685] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  317.941241] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  317.951390] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  317.964003] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  317.973226] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  317.982911] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  317.994951] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  318.006908] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  318.016455] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  318.032007] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  318.037875] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  318.056060] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  318.069938] firmadyne: sys_socket[PID: 1621 (getsys)]: family:1, type:2, protocol:0
+[  318.079750] firmadyne: sys_socket[PID: 1627 (rgdb)]: family:1, type:2, protocol:0
+[  318.177101] firmadyne: sys_socket[PID: 1629 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 52 secs
+[  318.763337] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  318.796305] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  318.830093] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  318.849792] firmadyne: sys_socket[PID: 1639 (brctl)]: family:2, type:2, protocol:0
+[  318.860754] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  318.881915] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  318.904081] firmadyne: sys_socket[PID: 1639 (brctl)]: family:10, type:1, protocol:0
+[  318.914982] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  318.937548] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  318.961394] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  318.990709] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  319.025789] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  319.054146] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  319.065024] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  319.104730] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  319.132865] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  319.160714] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  319.180676] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  319.192398] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  319.220439] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  319.226697] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  319.260968] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  319.265736] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  319.296745] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  319.327373] firmadyne: sys_socket[PID: 1637 (getsys)]: family:1, type:2, protocol:0
+[  319.335710] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  319.347804] firmadyne: sys_socket[PID: 1642 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 53 secs
+[  319.651067] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:2, protocol:0
+[  320.041451] firmadyne: sys_socket[PID: 1649 (rgdb)]: family:1, type:2, protocol:0
+[  320.245760] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.291019] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.311069] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.333148] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.366190] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.391615] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.421613] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.446043] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.473767] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.507708] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.544288] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.569746] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.597657] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.630950] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.659325] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.687714] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[/usr/sbin/submit] COMMIT ...
+[  320.711236] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.768341] firmadyne: sys_socket[PID: 1651 (getsys)]: family:1, type:2, protocol:0
+[  320.849953] firmadyne: sys_socket[PID: 1655 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 55 secs
+[  321.327668] firmadyne: sys_socket[PID: 1663 (rgdb)]: family:1, type:2, protocol:0
+[  321.547452] firmadyne: sys_socket[PID: 1665 (rgdb)]: family:1, type:2, protocol:0
+[  321.702673] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  321.742173] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  321.769551] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  321.798005] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  321.819709] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  321.846108] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  321.871916] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  321.907928] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  321.932791] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  321.961722] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  321.995686] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  322.021619] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  322.053605] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  322.087696] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  322.115586] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  322.143472] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  322.173627] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  322.228191] firmadyne: sys_socket[PID: 1666 (getsys)]: family:1, type:2, protocol:0
+[  322.367286] firmadyne: sys_socket[PID: 1634 (httpd)]: family:10, type:2, protocol:6
+[  322.369528] firmadyne: sys_setsockopt[PID: 1634 (httpd)]: fd:4, level:65535, optname:4
+/dev/gpio: No such device or address
+reset button pressed for 56 secs
+The data destroyed. Restore the default certificate.
+[  323.103854] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.127724] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.149610] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.173440] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.193993] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.217145] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.237244] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.262079] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.286653] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.314280] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.339701] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[/etc/scripts/misc/profile.sh] put ...
+[  323.367992] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.395765] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.417810] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.441678] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.462918] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.492653] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+[  323.532572] firmadyne: sys_socket[PID: 1676 (getsys)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 57 secs
+[  323.940820] firmadyne: sys_socket[PID: 1686 (rgdb)]: family:1, type:2, protocol:0
+[  324.250944] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+The certificate has been restored.
+[  325.217272] firmadyne: sys_socket[PID: 1696 (rgdb)]: family:1, type:2, protocol:0
+[  325.362954] firmadyne: sys_socket[PID: 1698 (rgdb)]: family:1, type:2, protocol:0
+[  325.972173] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.012813] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.041731] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.072704] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.101348] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.128614] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.153210] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.181750] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.211704] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.238066] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.265625] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.295864] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.327631] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.355725] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.381850] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.413818] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.472094] firmadyne: sys_socket[PID: 1692 (getsys)]: family:1, type:2, protocol:0
+[  326.509605] firmadyne: sys_socket[PID: 1700 (rgdb)]: family:1, type:2, protocol:0
+[  326.552584] firmadyne: sys_socket[PID: 1701 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 60 secs
+[  326.713460] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:2, protocol:0
+[  327.144849] firmadyne: sys_socket[PID: 1707 (rgdb)]: family:1, type:2, protocol:0
+[  327.387093] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.415529] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.440635] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.467573] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.494113] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.527574] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.549670] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.578005] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.608705] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.637935] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[/etc/scripts/misc/profile.sh] put ...
+[  327.665811] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.703628] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.727631] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.755394] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.783663] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.809585] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.838779] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+[  327.888804] firmadyne: sys_socket[PID: 1709 (getsys)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 62 secs
+[  328.396763] firmadyne: sys_socket[PID: 1714 (rgdb)]: family:1, type:2, protocol:0
+[  328.787030] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.154111] firmadyne: sys_socket[PID: 1706 (httpd)]: family:10, type:2, protocol:6
+[  330.166988] firmadyne: sys_setsockopt[PID: 1706 (httpd)]: fd:4, level:65535, optname:4
+[  330.221566] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.235780] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.284941] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.309640] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.337875] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.368052] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.387570] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.412529] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.441998] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.469923] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.496877] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.524467] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.547257] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.569036] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+ok
+[  330.595690] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+[  330.626075] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+gzip: /var/run/rgdb.xml: No such file or directory
+[  330.669040] firmadyne: sys_socket[PID: 1718 (getsys)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 64 secs
+DEVCONF: unable to open config file (/var/run/rgdb.xml.gz) to read !
+[  331.020656] firmadyne: sys_socket[PID: 1728 (rgdb)]: family:1, type:2, protocol:0
+failed
+[  331.406875] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.439500] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.457500] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.485171] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.511754] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.531586] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.547838] firmadyne: sys_socket[PID: 1736 (rgdb)]: family:1, type:2, protocol:0
+[  331.555199] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.575809] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.601687] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.632074] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.660032] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.677761] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.703033] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.731036] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.747467] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.773626] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.795441] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+[  331.827967] firmadyne: sys_socket[PID: 1738 (rgdb)]: family:1, type:2, protocol:0
+[  331.844763] firmadyne: sys_socket[PID: 1732 (getsys)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 66 secs
+[  332.109136] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:2, protocol:0
+[  332.339585] firmadyne: sys_socket[PID: 1746 (rgdb)]: family:1, type:2, protocol:0
+[/usr/sbin/submit] DHCPD ...
+[  332.689349] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  332.724956] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  332.754942] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  332.783936] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  332.811306] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  332.839608] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  332.867598] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  332.888562] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  332.926129] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  332.959914] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  332.991652] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  333.018884] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  333.045319] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  333.073645] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  333.107575] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  333.135359] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  333.163322] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  333.190032] firmadyne: sys_socket[PID: 1754 (rgdb)]: family:1, type:2, protocol:0
+[  333.216558] firmadyne: sys_socket[PID: 1749 (getsys)]: family:1, type:2, protocol:0
+[  333.315625] firmadyne: sys_socket[PID: 1756 (rgdb)]: family:1, type:2, protocol:0
+[  333.465301] firmadyne: sys_socket[PID: 1758 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 67 secs
+[  333.969474] firmadyne: sys_socket[PID: 1760 (rgdb)]: family:1, type:2, protocol:0
+[  334.344437] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  334.372038] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  334.403762] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  334.428075] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  334.467602] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  334.488623] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  334.518047] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  334.545591] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  334.573761] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  334.597660] firmadyne: sys_socket[PID: 1766 (rgdb)]: family:1, type:2, protocol:0
+[  334.604844] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  334.637382] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  335.053558] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  335.080944] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  335.111715] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  335.137443] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  335.166864] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  335.189289] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+[  335.237639] firmadyne: sys_socket[PID: 1765 (getsys)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 69 secs
+[/etc/templates/dhcpd.sh] ...
+[  335.886941] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  335.911465] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  335.930915] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  335.949286] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  335.974034] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  335.999777] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  336.024053] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  336.039369] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  336.063905] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  336.085308] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  336.115801] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  336.132485] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  336.159657] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  336.179709] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  336.201824] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  336.222972] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  336.255779] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  336.312735] firmadyne: sys_socket[PID: 1776 (getsys)]: family:1, type:2, protocol:0
+[  336.362154] firmadyne: sys_socket[PID: 1779 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 70 secs
+[/var/run/stunnel_start.sh] ...
+Starting universal SSL tunnel: stunnel[  337.226988] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  337.244927] firmadyne: sys_socket[PID: 1789 (rgdb)]: family:1, type:2, protocol:0
+[  337.257021] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  337.611881] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  337.627448] firmadyne: sys_socket[PID: 1792 (rgdb)]: family:1, type:2, protocol:0
+[  337.634081] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  337.663270] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  337.783740] firmadyne: sys_socket[PID: 1768 (httpd)]: family:10, type:2, protocol:6
+[  337.785930] firmadyne: sys_setsockopt[PID: 1768 (httpd)]: fd:4, level:65535, optname:4
+[  338.704906] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  338.722877] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  338.741020] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  338.769872] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  338.797516] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  338.823109] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  338.843852] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  338.874972] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  338.898922] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  338.919353] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  338.946013] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  338.963281] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[  339.008978] firmadyne: sys_socket[PID: 1788 (getsys)]: family:1, type:2, protocol:0
+[/var/run/dhcpd_restart.sh] ...
+/dev/gpio: No such device or address
+reset button pressed for 73 secs
+[  339.263619] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:2, protocol:0
+Stop DHCP server (br0) ...
+[  339.658043] firmadyne: sys_socket[PID: 1804 (brctl)]: family:2, type:2, protocol:0
+[  339.684572] firmadyne: sys_socket[PID: 1804 (brctl)]: family:10, type:1, protocol:0
+[  339.747568] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  339.771107] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  339.789208] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  339.811586] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  339.835507] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  339.849222] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  339.873817] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  339.907634] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  339.930255] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  339.958870] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  339.984040] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  340.011759] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  340.047548] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  340.069686] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  340.105705] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  340.135228] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  340.168851] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+[  340.220538] firmadyne: sys_socket[PID: 1805 (getsys)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 74 secs
+[  340.631160] firmadyne: sys_socket[PID: 1808 (rgdb)]: family:1, type:2, protocol:0
+Start DHCP server (br0) ...
+[  341.196442] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  358.884856] firmadyne: sys_socket[PID: 1819 (dhcpxmlpatch)]: family:1, type:2, protocol:0
+[  359.034888] firmadyne: sys_socket[PID: 1821 (brctl)]: family:2, type:2, protocol:0
+[  359.057222] firmadyne: sys_socket[PID: 1821 (brctl)]: family:10, type:1, protocol:0
+[  359.289202] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.333188] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.357405] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.382256] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.410118] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.431725] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.457981] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.484702] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.530843] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.556182] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.581491] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.609856] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.638981] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.667741] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.695741] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.725871] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.784583] firmadyne: sys_socket[PID: 1815 (getsys)]: family:1, type:2, protocol:0
+[  359.789791] firmadyne: sys_socket[PID: 1823 (rgdb)]: family:1, type:2, protocol:0
+[/usr/sbin/submit] DELAY_LAN ...
+/dev/gpio: No such device or address
+reset button pressed for 94 secs
+[  360.571606] firmadyne: sys_socket[PID: 1833 (rgdb)]: family:1, type:2, protocol:0
+[  360.693966] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  360.737076] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  360.765455] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  360.793650] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  360.821274] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  360.851707] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  360.870058] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  360.902070] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  360.932317] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  360.959520] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  360.989762] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  361.017944] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  361.055631] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  361.083784] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  361.112639] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  361.139070] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  361.167812] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+[  361.220446] firmadyne: sys_socket[PID: 1834 (getsys)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 95 secs
+[  361.502928] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:2, protocol:0
+[  362.131094] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.172450] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.211062] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.235879] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.267270] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.277455] 
+do_page_fault(): sending SIGSEGV to xgi for invalid write access to 7fb74000
+[  362.279500] epc = 77a644c0 in libc.so.0[77a36000+58000]
+[  362.281453] ra  = 004039c0 in atp[400000+9000]
+[  362.283325] 
+[  362.308667] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.329768] potentially unexpected fatal signal 11.
+[  362.331801] CPU: 0 PID: 1645 Comm: xgi Not tainted 4.1.17+ #1
+[  362.333184] task: 8faa1558 ti: 8f1e2000 task.ti: 8f1e2000
+[  362.334657] $ 0   : 00000000 7fb71d08 0000003d 7fb74000
+[  362.336262] $ 4   : 7fb71dd0 7fb73ef2 00000001 004074a1
+[  362.337790] $ 8   : 0000000a 666c6167 00000002 00000024
+[  362.339680] $12   : 00000025 00000807 00000800 00000400
+[  362.341185] $16   : 7fb71dd0 7fb71cd0 7fb71c6c 00418140
+[  362.343146] $20   : 00000000 00418540 7fb73dcb 00420000
+[  362.344660] $24   : 00000008 77a644a0                  
+[  362.346482] $28   : 004209a0 7fb71c50 004071a0 004039c0
+[  362.348062] Hi    : 00000001
+[  362.348788] Lo    : 00000000
+[  362.349840] epc   : 77a644c0 0x77a644c0
+[  362.351333] ra    : 004039c0 0x4039c0
+[  362.352237] Status: 0000a413	USER EXL IE 
+[  362.353476] Cause : 9080000c
+[  362.354605] BadVA : 7fb74000
+[  362.355414] PrId  : 00019300 (MIPS 24Kc)
+[  362.371590] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.396782] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.432116] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.455628] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.483520] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.513054] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.560351] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.591761] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.616515] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.628181] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.647058] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[  362.671593] firmadyne: sys_socket[PID: 1841 (getsys)]: family:1, type:2, protocol:0
+[/etc/templates/lan.sh] ...
+/dev/gpio: No such device or address
+reset button pressed for 96 secs
+[  363.002971] firmadyne: sys_socket[PID: 1850 (rgdb)]: family:1, type:2, protocol:0
+[  363.096919] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.142187] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.185265] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.224018] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.247636] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.283681] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.313519] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.348711] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.385757] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.421544] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.455152] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.491705] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.525856] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.563679] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.593831] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.627740] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.662053] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.732666] firmadyne: sys_socket[PID: 1851 (getsys)]: family:1, type:2, protocol:0
+[  363.920521] firmadyne: sys_socket[PID: 1854 (brctl)]: family:2, type:2, protocol:0
+[  363.938146] firmadyne: sys_socket[PID: 1854 (brctl)]: family:10, type:1, protocol:0
+[  363.980142] firmadyne: sys_socket[PID: 1831 (httpd)]: family:10, type:2, protocol:6
+[  363.982773] firmadyne: sys_setsockopt[PID: 1831 (httpd)]: fd:4, level:65535, optname:4
+/dev/gpio: No such device or address
+reset button pressed for 98 secs
+[  364.063409] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  364.157733] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  364.187081] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  364.212030] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  364.235706] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  364.264348] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  364.545531] firmadyne: sys_socket[PID: 1796 (stunnel)]: family:1, type:1, protocol:0
+[  364.587891] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  364.608077] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  364.632413] firmadyne: sys_socket[PID: 1796 (stunnel)]: family:2, type:2, protocol:0
+[  364.637250] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  364.653400] firmadyne: sys_setsockopt[PID: 1796 (stunnel)]: fd:6, level:65535, optname:4
+[  364.656726] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  364.663256] firmadyne: sys_socket[PID: 1863 (atp)]: family:1, type:2, protocol:0
+[  364.672591] firmadyne: inet_bind[PID: 1796 (stunnel)]: proto:SOCK_STREAM, port:443
+.
+start WLAN ...
+[/etc/templates/wlan.sh] ...
+[  365.484905] firmadyne: sys_socket[PID: 1871 (rgdb)]: family:1, type:2, protocol:0
+[/var/run/lan_stop.sh] ...
+Bridge mode selected, LAN is disabled !
+[  366.704605] firmadyne: sys_socket[PID: 1877 (rgdb)]: family:1, type:2, protocol:0
+[  366.724563] firmadyne: sys_socket[PID: 1878 (rgdb)]: family:1, type:2, protocol:0
+[  367.158838] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.511594] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.531437] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.539544] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.557825] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.567506] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.582929] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.591906] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.606912] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.618994] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.630914] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.647104] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.652946] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.673794] firmadyne: sys_socket[PID: 1862 (getsys)]: family:1, type:2, protocol:0
+[  367.753711] firmadyne: sys_socket[PID: 1880 (rgdb)]: family:1, type:2, protocol:0
+[  367.774032] firmadyne: sys_socket[PID: 1882 (rgdb)]: family:1, type:2, protocol:0
+[  367.776581] firmadyne: sys_socket[PID: 1881 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 101 secs
+[  368.175494] firmadyne: sys_socket[PID: 1889 (brctl)]: family:2, type:2, protocol:0
+[  368.189513] firmadyne: sys_socket[PID: 1889 (brctl)]: family:10, type:1, protocol:0
+[  368.266979] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  368.343176] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  368.613189] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  368.649564] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  368.689068] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  368.715582] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  368.733442] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  368.765429] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  368.769220] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  368.812765] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  368.817453] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  368.853323] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  368.865099] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  368.905925] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  368.914000] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  368.956975] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  368.961798] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  369.009043] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  369.040899] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  369.068798] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  369.104779] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  369.144823] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  369.179907] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  369.216844] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[  369.280820] firmadyne: sys_socket[PID: 1890 (getsys)]: family:1, type:2, protocol:0
+[/var/run/lan_start.sh] ...
+Bridge mode selected, LAN is disabled !
+[  369.569502] firmadyne: sys_socket[PID: 1895 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 103 secs
+[  369.652021] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:2, protocol:0
+[  369.664548] firmadyne: sys_socket[PID: 1894 (atp)]: family:1, type:2, protocol:0
+[  370.254691] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  370.350136] firmadyne: sys_socket[PID: 1906 (service)]: family:1, type:2, protocol:0
+SERVD: stop service [WLAN]
+SERVD: service [WLAN] is already stopped.
+SERVD: start service [WLAN]
+ start telnet daemon ...
+[  371.810524] firmadyne: sys_socket[PID: 1915 (rgdb)]: family:1, type:2, protocol:0
+[  372.097778] firmadyne: sys_socket[PID: 1917 (xmldbc)]: family:1, type:2, protocol:0
+[  372.363736] firmadyne: sys_socket[PID: 1892 (httpd)]: family:10, type:2, protocol:6
+[  372.375379] firmadyne: sys_setsockopt[PID: 1892 (httpd)]: fd:4, level:65535, optname:4
+[  374.839890] firmadyne: sys_socket[PID: 1920 (rgdb)]: family:1, type:2, protocol:0
+[  374.935746] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.480769] firmadyne: sys_socket[PID: 1922 (rgdb)]: family:1, type:2, protocol:0
+[  375.569524] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.607660] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.619576] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.631703] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.643715] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.659426] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.672165] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.681428] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.694936] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.710944] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.724768] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.736446] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.752667] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.769024] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.778805] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.803932] firmadyne: sys_socket[PID: 1923 (xmldbc)]: family:1, type:2, protocol:0
+[  375.813315] firmadyne: sys_socket[PID: 1924 (rgdb)]: family:1, type:2, protocol:0
+[  375.816858] firmadyne: sys_socket[PID: 1905 (getsys)]: family:1, type:2, protocol:0
+[  375.900598] firmadyne: sys_socket[PID: 1926 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 110 secs
+[/etc/templates/wlan_run.sh] start ...
+[  376.673268] firmadyne: sys_socket[PID: 1935 (brctl)]: family:2, type:2, protocol:0
+[  376.715976] firmadyne: sys_socket[PID: 1935 (brctl)]: family:10, type:1, protocol:0
+Start telnetd ...
+[  376.870259] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  376.990212] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  377.032031] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  377.061813] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  377.099279] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  377.132891] firmadyne: sys_socket[PID: 1327 (httpd)]: family:1, type:2, protocol:0
+[  377.141270] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.193177] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.226212] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.257559] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.289423] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.317007] firmadyne: sys_socket[PID: 1942 (rgdb)]: family:1, type:2, protocol:0
+[  377.327631] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.366009] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.412681] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.447129] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.487659] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.517481] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.555960] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.583487] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.619623] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.650062] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.695093] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.728733] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.792439] firmadyne: sys_socket[PID: 1939 (getsys)]: family:1, type:2, protocol:0
+[  377.925102] firmadyne: sys_socket[PID: 1945 (atp)]: family:1, type:2, protocol:0
+[  378.015544] firmadyne: sys_socket[PID: 1946 (rgdb)]: family:1, type:2, protocol:0
+/dev/gpio: No such device or address
+reset button pressed for 112 secs
+[  378.143969] firmadyne: sys_socket[PID: 1317 (fresetd)]: family:1, type:2, protocol:0
+[  379.031401] firmadyne: sys_socket[PID: 1953 (rgdb)]: family:1, type:2, protocol:0
+[  379.494230] firmadyne: sys_socket[PID: 1931 (httpd)]: family:10, type:2, protocol:6
+[  379.508643] firmadyne: sys_setsockopt[PID: 1931 (httpd)]: fd:4, level:65535, optname:4

@@ -1,0 +1,24 @@
+=== Trace 1 ===
+Process: setup.cgi
+  [00] inode: 24746, pc: 0x000106cc, module: setup.cgi
+  [01] inode: 24746, pc: 0x000106d8, module: setup.cgi
+  [02] inode: 24746, pc: 0x00008384, module: setup.cgi
+  [03] inode: 24746, pc: 0x00012248, module: setup.cgi
+  [04] inode: 32774, pc: 0x0002fdcc, module: libc.so.0
+
+=== Trace 2 ===
+Process: setup.cgi
+  [00] inode: 24746, pc: 0x000106cc, module: setup.cgi
+  [01] inode: 24746, pc: 0x000106d8, module: setup.cgi
+  [02] inode: 24746, pc: 0x00008384, module: setup.cgi
+  [03] inode: 24746, pc: 0x00012244, module: setup.cgi
+  [04] inode: 32774, pc: 0x0002fdcc, module: libc.so.0
+
+=== Trace 3 ===
+Process: setup.cgi
+  [00] inode: 32774, pc: 0x0002f95c, module: libc.so.0
+  [01] inode: 32774, pc: 0x0002f968, module: libc.so.0
+  [02] inode: 32774, pc: 0x0002f970, module: libc.so.0
+  [03] inode: 24746, pc: 0x0001d5dc, module: setup.cgi
+  [04] inode: 24746, pc: 0x0001d5fc, module: setup.cgi
+

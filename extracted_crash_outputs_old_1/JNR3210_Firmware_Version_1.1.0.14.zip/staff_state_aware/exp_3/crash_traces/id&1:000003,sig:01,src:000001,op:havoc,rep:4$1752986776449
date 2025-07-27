@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: mini_httpd
+  [00] inode: 49218, pc: 0x00027270, module: libuClibc-0.9.30.so
+  [01] inode: 49218, pc: 0x000272b0, module: libuClibc-0.9.30.so
+  [02] inode: 49218, pc: 0x000272c8, module: libuClibc-0.9.30.so
+  [03] inode: 49218, pc: 0x0002eb70, module: libuClibc-0.9.30.so
+  [04] inode: 49218, pc: 0x0002ec38, module: libuClibc-0.9.30.so
+

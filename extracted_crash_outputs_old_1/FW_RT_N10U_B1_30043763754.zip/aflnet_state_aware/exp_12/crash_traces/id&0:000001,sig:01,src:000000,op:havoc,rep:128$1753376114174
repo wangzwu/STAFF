@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: u2ec
+  [00] inode: 16387, pc: 0x00004de0, module: ld-uClibc.so.0
+  [01] inode: 49367, pc: 0x0000a214, module: u2ec
+  [02] inode: 16387, pc: 0x00004de0, module: ld-uClibc.so.0
+  [03] inode: 49367, pc: 0x0000a234, module: u2ec
+  [04] inode: 16387, pc: 0x00004de0, module: ld-uClibc.so.0
+

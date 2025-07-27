@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: network.cgi
+  [00] inode: 24628, pc: 0x00031270, module: libuClibc-0.9.30.so
+  [01] inode: 24628, pc: 0x0003128c, module: libuClibc-0.9.30.so
+  [02] inode: 24628, pc: 0x00031294, module: libuClibc-0.9.30.so
+  [03] inode: 24592, pc: 0x00004aec, module: libaspfunc.so.0
+  [04] inode: 24592, pc: 0x00004b04, module: libaspfunc.so.0
+

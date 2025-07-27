@@ -1,0 +1,8 @@
+=== Trace 0 ===
+Process: xmldb
+  [00] inode: 24580, pc: 0x0002da28, module: libc.so.0, symbol: memcpy
+  [01] inode: 24580, pc: 0x0002da3c, module: libc.so.0, symbol: memcpy
+  [02] inode: 24580, pc: 0x0002f2e4, module: libc.so.0, symbol: strdup
+  [03] inode: 32770, pc: 0x000055ec, module: busybox
+  [04] inode: 32770, pc: 0x000087ec, module: busybox
+

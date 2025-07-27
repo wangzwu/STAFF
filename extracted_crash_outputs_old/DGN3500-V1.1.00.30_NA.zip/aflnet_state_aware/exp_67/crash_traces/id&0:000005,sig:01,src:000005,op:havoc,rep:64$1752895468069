@@ -1,0 +1,8 @@
+=== Trace 4 ===
+Process: mini_httpd
+  [00] inode: 57671, pc: 0x00017960, module: mini_httpd
+  [01] inode: 57671, pc: 0x00017970, module: mini_httpd
+  [02] inode: 57718, pc: 0x0000ad18, module: setup.cgi
+  [03] inode: 57671, pc: 0x00018f34, module: mini_httpd
+  [04] inode: 40966, pc: 0x00049d4c, module: libc.so.0
+
