@@ -81,7 +81,7 @@ DEFAULT_CONFIG = {
 }
 
 STAFF_DIR = os.getcwd()
-CRASH_DIR = os.path.join(STAFF_DIR, "extracted_crash_outputs_old")
+CRASH_DIR = os.path.join(STAFF_DIR, "extracted_crash_outputs")
 FIRMAE_DIR = os.path.join(STAFF_DIR, "FirmAE")
 PCAP_DIR = os.path.join(STAFF_DIR, "pcap")
 TAINT_DIR = os.path.join(STAFF_DIR, "taint_analysis")
