@@ -1432,7 +1432,7 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
                             print(f"The port for {proto.upper()} is {port}.")
                         except OSError:
                             print(f"Protocol {proto.upper()} not found.")
-                        command = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, os.path.join("/STAFF/FirmAE", work_dir, "qemu.final.serial.log"), open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
+                        command = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
                         
                         print("Current Working Directory:", os.getcwd())
                         process = subprocess.Popen(command)

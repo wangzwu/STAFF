@@ -1,0 +1,698 @@
+=== Trace for PID 776 ===
+Process: mini_httpd
+
+--- Self PID 776 Trace ---
+  [000] inode: 41301, pc: 0x00006364, module: mini_httpd
+  [001] inode: 49154, pc: 0x00004bc0, module: ld-uClibc-0.9.30.so, symbol: _dl_runtime_resolve
+  [002] inode: 41301, pc: 0x00006338, module: mini_httpd
+  [003] inode: 41301, pc: 0x000062ec, module: mini_httpd
+  [004] inode: 49218, pc: 0x0002ffa0, module: libuClibc-0.9.30.so, symbol: strstr
+  [005] inode: 41301, pc: 0x000062d4, module: mini_httpd
+  [006] inode: 41301, pc: 0x00005f40, module: mini_httpd
+  [007] inode: 41301, pc: 0x000062c8, module: mini_httpd
+  [008] inode: 41301, pc: 0x00002058, module: mini_httpd
+  [009] inode: 41301, pc: 0x00002044, module: mini_httpd
+  [010] inode: 41301, pc: 0x00002034, module: mini_httpd
+  [011] inode: 41301, pc: 0x00002020, module: mini_httpd
+  [012] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [013] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [014] inode: 41301, pc: 0x00001fe8, module: mini_httpd
+  [015] inode: 41301, pc: 0x00001fc0, module: mini_httpd
+  [016] inode: 41301, pc: 0x000062bc, module: mini_httpd
+  [017] inode: 41301, pc: 0x000061ec, module: mini_httpd
+  [018] inode: 49218, pc: 0x0002ff40, module: libuClibc-0.9.30.so, symbol: strspn
+  [019] inode: 41301, pc: 0x000061d4, module: mini_httpd
+  [020] inode: 41301, pc: 0x000061c8, module: mini_httpd
+  [021] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [022] inode: 41301, pc: 0x000061b4, module: mini_httpd
+  [023] inode: 41301, pc: 0x0000617c, module: mini_httpd
+  [024] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [025] inode: 41301, pc: 0x00006168, module: mini_httpd
+  [026] inode: 41301, pc: 0x00006130, module: mini_httpd
+  [027] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [028] inode: 41301, pc: 0x0000611c, module: mini_httpd
+  [029] inode: 41301, pc: 0x000060d8, module: mini_httpd
+  [030] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [031] inode: 41301, pc: 0x000060c4, module: mini_httpd
+  [032] inode: 41301, pc: 0x00006094, module: mini_httpd
+  [033] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [034] inode: 41301, pc: 0x00006080, module: mini_httpd
+  [035] inode: 41301, pc: 0x00006050, module: mini_httpd
+  [036] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [037] inode: 41301, pc: 0x0000603c, module: mini_httpd
+  [038] inode: 41301, pc: 0x00006004, module: mini_httpd
+  [039] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [040] inode: 41301, pc: 0x00006000, module: mini_httpd
+  [041] inode: 41301, pc: 0x00005ff0, module: mini_httpd
+  [042] inode: 41301, pc: 0x00005fac, module: mini_httpd
+  [043] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [044] inode: 41301, pc: 0x00005f98, module: mini_httpd
+  [045] inode: 41301, pc: 0x00005f60, module: mini_httpd
+  [046] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [047] inode: 41301, pc: 0x00005f4c, module: mini_httpd
+  [048] inode: 41301, pc: 0x00005f40, module: mini_httpd
+  [049] inode: 41301, pc: 0x000062c8, module: mini_httpd
+  [050] inode: 41301, pc: 0x00002058, module: mini_httpd
+  [051] inode: 41301, pc: 0x00002044, module: mini_httpd
+  [052] inode: 41301, pc: 0x00002034, module: mini_httpd
+  [053] inode: 41301, pc: 0x00002020, module: mini_httpd
+  [054] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [055] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [056] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [057] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [058] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [059] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [060] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [061] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [062] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [063] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [064] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [065] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [066] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [067] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [068] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [069] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [070] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [071] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [072] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [073] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [074] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [075] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [076] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [077] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [078] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [079] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [080] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [081] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [082] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [083] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [084] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [085] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [086] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [087] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [088] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [089] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [090] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [091] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [092] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [093] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [094] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [095] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [096] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [097] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [098] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [099] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [100] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [101] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [102] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [103] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [104] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [105] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [106] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [107] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [108] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [109] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [110] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [111] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [112] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [113] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [114] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [115] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [116] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [117] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [118] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [119] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [120] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [121] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [122] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [123] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [124] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [125] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [126] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [127] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [128] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [129] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [130] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [131] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [132] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [133] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [134] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [135] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [136] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [137] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [138] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [139] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [140] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [141] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [142] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [143] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [144] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [145] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [146] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [147] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [148] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [149] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [150] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [151] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [152] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [153] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [154] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [155] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [156] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [157] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [158] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [159] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [160] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [161] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [162] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [163] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [164] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [165] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [166] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [167] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [168] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [169] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [170] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [171] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [172] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [173] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [174] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [175] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [176] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [177] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [178] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [179] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [180] inode: 41301, pc: 0x00001fe8, module: mini_httpd
+  [181] inode: 41301, pc: 0x00001fc0, module: mini_httpd
+  [182] inode: 41301, pc: 0x000062c0, module: mini_httpd
+  [183] inode: 41301, pc: 0x00006214, module: mini_httpd
+  [184] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [185] inode: 41301, pc: 0x00006200, module: mini_httpd
+  [186] inode: 41301, pc: 0x000061c8, module: mini_httpd
+  [187] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [188] inode: 41301, pc: 0x000061b4, module: mini_httpd
+  [189] inode: 41301, pc: 0x0000617c, module: mini_httpd
+  [190] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [191] inode: 41301, pc: 0x00006168, module: mini_httpd
+  [192] inode: 41301, pc: 0x00006130, module: mini_httpd
+  [193] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [194] inode: 41301, pc: 0x0000611c, module: mini_httpd
+  [195] inode: 41301, pc: 0x000060d8, module: mini_httpd
+  [196] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [197] inode: 41301, pc: 0x000060c4, module: mini_httpd
+  [198] inode: 41301, pc: 0x00006094, module: mini_httpd
+  [199] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [200] inode: 41301, pc: 0x00006080, module: mini_httpd
+  [201] inode: 41301, pc: 0x00006050, module: mini_httpd
+  [202] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [203] inode: 41301, pc: 0x0000603c, module: mini_httpd
+  [204] inode: 41301, pc: 0x00006004, module: mini_httpd
+  [205] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [206] inode: 41301, pc: 0x00006000, module: mini_httpd
+  [207] inode: 41301, pc: 0x00005ff0, module: mini_httpd
+  [208] inode: 41301, pc: 0x00005fac, module: mini_httpd
+  [209] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [210] inode: 41301, pc: 0x00005f98, module: mini_httpd
+  [211] inode: 41301, pc: 0x00005f60, module: mini_httpd
+  [212] inode: 49218, pc: 0x00030730, module: libuClibc-0.9.30.so, symbol: strncasecmp
+  [213] inode: 41301, pc: 0x00005f4c, module: mini_httpd
+  [214] inode: 41301, pc: 0x00005f40, module: mini_httpd
+  [215] inode: 41301, pc: 0x000062c8, module: mini_httpd
+  [216] inode: 41301, pc: 0x00002058, module: mini_httpd
+  [217] inode: 41301, pc: 0x00002044, module: mini_httpd
+  [218] inode: 41301, pc: 0x00002034, module: mini_httpd
+  [219] inode: 41301, pc: 0x00002020, module: mini_httpd
+  [220] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [221] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [222] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [223] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [224] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [225] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [226] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [227] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [228] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [229] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [230] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [231] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [232] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [233] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [234] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [235] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [236] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [237] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [238] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [239] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [240] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [241] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [242] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [243] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [244] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [245] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [246] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [247] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [248] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [249] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [250] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [251] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [252] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [253] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [254] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [255] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [256] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [257] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [258] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [259] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [260] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [261] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [262] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [263] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [264] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [265] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [266] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [267] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [268] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [269] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [270] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [271] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [272] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [273] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [274] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [275] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [276] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [277] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [278] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [279] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [280] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [281] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [282] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [283] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [284] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [285] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [286] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [287] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [288] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [289] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [290] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [291] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [292] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [293] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [294] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [295] inode: 41301, pc: 0x00002074, module: mini_httpd
+  [296] inode: 41301, pc: 0x00002018, module: mini_httpd
+  [297] inode: 41301, pc: 0x00002000, module: mini_httpd
+  [298] inode: 41301, pc: 0x00001ffc, module: mini_httpd
+  [299] inode: 41301, pc: 0x00002074, module: mini_httpd
+Total Self trace elements: 300
+
+--- Parent PID 774 Trace ---
+  [000] inode: 41301, pc: 0x000094dc, module: mini_httpd, symbol: main
+  [001] inode: 41301, pc: 0x00009488, module: mini_httpd, symbol: main
+  [002] inode: 41301, pc: 0x00009478, module: mini_httpd, symbol: main
+  [003] inode: 41301, pc: 0x00009424, module: mini_httpd, symbol: main
+  [004] inode: 41301, pc: 0x00009418, module: mini_httpd, symbol: main
+  [005] inode: 41301, pc: 0x000093ac, module: mini_httpd, symbol: main
+  [006] inode: 41301, pc: 0x00009398, module: mini_httpd, symbol: main
+  [007] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [008] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [009] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [010] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [011] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [012] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [013] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [014] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [015] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [016] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [017] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [018] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [019] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [020] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [021] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [022] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [023] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [024] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [025] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [026] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [027] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [028] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [029] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [030] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [031] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [032] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [033] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [034] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [035] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [036] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [037] inode: 41301, pc: 0x00009388, module: mini_httpd, symbol: main
+  [038] inode: 41301, pc: 0x00009380, module: mini_httpd, symbol: main
+  [039] inode: 41301, pc: 0x00009368, module: mini_httpd, symbol: main
+  [040] inode: 49218, pc: 0x0000b344, module: libuClibc-0.9.30.so, symbol: access
+  [041] inode: 41301, pc: 0x00009354, module: mini_httpd, symbol: main
+  [042] inode: 41301, pc: 0x000097c8, module: mini_httpd, symbol: main
+  [043] inode: 49218, pc: 0x0000b884, module: libuClibc-0.9.30.so, symbol: close
+  [044] inode: 41301, pc: 0x000097b8, module: mini_httpd, symbol: main
+  [045] inode: 41301, pc: 0x00009798, module: mini_httpd, symbol: main
+  [046] inode: 49218, pc: 0x0000b344, module: libuClibc-0.9.30.so, symbol: access
+  [047] inode: 41301, pc: 0x00009788, module: mini_httpd, symbol: main
+  [048] inode: 41301, pc: 0x000096a0, module: mini_httpd, symbol: main
+  [049] inode: 41301, pc: 0x00009688, module: mini_httpd, symbol: main
+  [050] inode: 49154, pc: 0x00004bfc, module: ld-uClibc-0.9.30.so, symbol: _dl_runtime_resolve
+  [051] inode: 41301, pc: 0x00009678, module: mini_httpd, symbol: main
+  [052] inode: 49218, pc: 0x0002f950, module: libuClibc-0.9.30.so, symbol: strcpy
+  [053] inode: 41301, pc: 0x00009660, module: mini_httpd, symbol: main
+  [054] inode: 49154, pc: 0x00004bc0, module: ld-uClibc-0.9.30.so, symbol: _dl_runtime_resolve
+  [055] inode: 41301, pc: 0x00002104, module: mini_httpd
+  [056] inode: 41301, pc: 0x00009658, module: mini_httpd, symbol: main
+  [057] inode: 41301, pc: 0x000095a4, module: mini_httpd, symbol: main
+  [058] inode: 49154, pc: 0x00004bc0, module: ld-uClibc-0.9.30.so, symbol: _dl_runtime_resolve
+  [059] inode: 41301, pc: 0x0000958c, module: mini_httpd, symbol: main
+  [060] inode: 41301, pc: 0x0000957c, module: mini_httpd, symbol: main
+  [061] inode: 41301, pc: 0x000018a4, module: mini_httpd
+  [062] inode: 49154, pc: 0x00004bc0, module: ld-uClibc-0.9.30.so, symbol: _dl_runtime_resolve
+  [063] inode: 41301, pc: 0x00001890, module: mini_httpd
+  [064] inode: 49218, pc: 0x00012cc0, module: libuClibc-0.9.30.so, symbol: lockf64
+  [065] inode: 41301, pc: 0x00001888, module: mini_httpd
+  [066] inode: 41301, pc: 0x0000184c, module: mini_httpd
+  [067] inode: 41301, pc: 0x00009564, module: mini_httpd, symbol: main
+  [068] inode: 41301, pc: 0x0000193c, module: mini_httpd
+  [069] inode: 41301, pc: 0x000018f4, module: mini_httpd
+  [070] inode: 49154, pc: 0x00004bfc, module: ld-uClibc-0.9.30.so, symbol: _dl_runtime_resolve
+  [071] inode: 41301, pc: 0x000018c0, module: mini_httpd
+  [072] inode: 41301, pc: 0x0000954c, module: mini_httpd, symbol: main
+  [073] inode: 41301, pc: 0x0000183c, module: mini_httpd
+  [074] inode: 41301, pc: 0x00001818, module: mini_httpd
+  [075] inode: 49154, pc: 0x00004bfc, module: ld-uClibc-0.9.30.so, symbol: _dl_runtime_resolve
+  [076] inode: 41301, pc: 0x00001810, module: mini_httpd
+  [077] inode: 41301, pc: 0x00001808, module: mini_httpd
+  [078] inode: 49154, pc: 0x00004bfc, module: ld-uClibc-0.9.30.so, symbol: _dl_runtime_resolve
+  [079] inode: 41301, pc: 0x000017b8, module: mini_httpd
+  [080] inode: 41301, pc: 0x00009538, module: mini_httpd, symbol: main
+  [081] inode: 41301, pc: 0x000094f8, module: mini_httpd, symbol: main
+  [082] inode: 49218, pc: 0x00049ad4, module: libuClibc-0.9.30.so, symbol: accept
+Total Parent trace elements: 83
+
+--- Parent PID 1 Trace ---
+  [000] inode: 49218, pc: 0x00010bd0, module: libuClibc-0.9.30.so, symbol: __libc_wait
+  [001] inode: 41245, pc: 0x00039da8, module: busybox
+  [002] inode: 41245, pc: 0x00039db4, module: busybox
+  [003] inode: 49218, pc: 0x00010bd0, module: libuClibc-0.9.30.so, symbol: __libc_wait
+  [004] inode: 41245, pc: 0x00039da8, module: busybox
+  [005] inode: 41245, pc: 0x00039db4, module: busybox
+  [006] inode: 49218, pc: 0x00010bd0, module: libuClibc-0.9.30.so, symbol: __libc_wait
+  [007] inode: 41245, pc: 0x00039da8, module: busybox
+  [008] inode: 41245, pc: 0x00039db4, module: busybox
+  [009] inode: 49218, pc: 0x00010bd0, module: libuClibc-0.9.30.so, symbol: __libc_wait
+  [010] inode: 41245, pc: 0x00039da8, module: busybox
+  [011] inode: 41245, pc: 0x00039db4, module: busybox
+  [012] inode: 49218, pc: 0x00010bd0, module: libuClibc-0.9.30.so, symbol: __libc_wait
+  [013] inode: 41245, pc: 0x00039da8, module: busybox
+  [014] inode: 41245, pc: 0x00039d84, module: busybox
+  [015] inode: 41245, pc: 0x0003a7a8, module: busybox
+  [016] inode: 41245, pc: 0x0003a734, module: busybox
+  [017] inode: 41245, pc: 0x0003a628, module: busybox
+  [018] inode: 41245, pc: 0x0003a604, module: busybox
+  [019] inode: 49218, pc: 0x0000fc30, module: libuClibc-0.9.30.so, symbol: sigprocmask
+  [020] inode: 41245, pc: 0x0003a5f8, module: busybox
+  [021] inode: 49218, pc: 0x00010a60, module: libuClibc-0.9.30.so, symbol: vfork
+  [022] inode: 41245, pc: 0x0003a5dc, module: busybox
+  [023] inode: 41245, pc: 0x0003a5c0, module: busybox
+  [024] inode: 49154, pc: 0x00004bc0, module: ld-uClibc-0.9.30.so, symbol: _dl_runtime_resolve
+  [025] inode: 41245, pc: 0x0003a5a8, module: busybox
+  [026] inode: 49154, pc: 0x00004bc0, module: ld-uClibc-0.9.30.so, symbol: _dl_runtime_resolve
+  [027] inode: 41245, pc: 0x0003a594, module: busybox
+  [028] inode: 49154, pc: 0x00004bc0, module: ld-uClibc-0.9.30.so, symbol: _dl_runtime_resolve
+  [029] inode: 41245, pc: 0x0003a568, module: busybox
+  [030] inode: 41245, pc: 0x0003a798, module: busybox
+  [031] inode: 41245, pc: 0x0003a78c, module: busybox
+  [032] inode: 41245, pc: 0x0003a778, module: busybox
+  [033] inode: 41245, pc: 0x0003a828, module: busybox
+  [034] inode: 41245, pc: 0x0003a778, module: busybox
+  [035] inode: 41245, pc: 0x0003a828, module: busybox
+  [036] inode: 41245, pc: 0x0003a778, module: busybox
+  [037] inode: 41245, pc: 0x0003a828, module: busybox
+  [038] inode: 41245, pc: 0x0003a778, module: busybox
+  [039] inode: 41245, pc: 0x0003a828, module: busybox
+  [040] inode: 41245, pc: 0x0003a778, module: busybox
+  [041] inode: 41245, pc: 0x0003a828, module: busybox
+  [042] inode: 41245, pc: 0x0003a778, module: busybox
+  [043] inode: 41245, pc: 0x0003a828, module: busybox
+  [044] inode: 41245, pc: 0x0003a778, module: busybox
+  [045] inode: 41245, pc: 0x0003a828, module: busybox
+  [046] inode: 41245, pc: 0x0003a778, module: busybox
+  [047] inode: 41245, pc: 0x0003a744, module: busybox
+  [048] inode: 41245, pc: 0x0003afe4, module: busybox, symbol: init_main
+  [049] inode: 41245, pc: 0x0003afa8, module: busybox, symbol: init_main
+  [050] inode: 49218, pc: 0x0002ec90, module: libuClibc-0.9.30.so, symbol: memset
+  [051] inode: 41245, pc: 0x0003afa0, module: busybox, symbol: init_main
+  [052] inode: 41245, pc: 0x0003afcc, module: busybox, symbol: init_main
+  [053] inode: 49218, pc: 0x0002fa00, module: libuClibc-0.9.30.so, symbol: strlen
+  [054] inode: 41245, pc: 0x0003afb8, module: busybox, symbol: init_main
+  [055] inode: 41245, pc: 0x0003afa8, module: busybox, symbol: init_main
+  [056] inode: 49218, pc: 0x0002fc40, module: libuClibc-0.9.30.so, symbol: strncpy
+  [057] inode: 41245, pc: 0x0003af88, module: busybox, symbol: init_main
+  [058] inode: 49154, pc: 0x00004bc0, module: ld-uClibc-0.9.30.so, symbol: _dl_runtime_resolve
+  [059] inode: 41245, pc: 0x0003af70, module: busybox, symbol: init_main
+  [060] inode: 49218, pc: 0x0002fc40, module: libuClibc-0.9.30.so, symbol: strncpy
+  [061] inode: 41245, pc: 0x00042660, module: busybox, symbol: safe_strncpy
+  [062] inode: 41245, pc: 0x00042648, module: busybox, symbol: safe_strncpy
+  [063] inode: 41245, pc: 0x0003aa88, module: busybox
+  [064] inode: 49218, pc: 0x0002fc40, module: libuClibc-0.9.30.so, symbol: strncpy
+  [065] inode: 41245, pc: 0x00042660, module: busybox, symbol: safe_strncpy
+  [066] inode: 41245, pc: 0x00042648, module: busybox, symbol: safe_strncpy
+  [067] inode: 41245, pc: 0x0003aa70, module: busybox
+  [068] inode: 41245, pc: 0x0003aa64, module: busybox
+  [069] inode: 41245, pc: 0x0003aa58, module: busybox
+  [070] inode: 41245, pc: 0x00007128, module: busybox, symbol: xzalloc
+  [071] inode: 49218, pc: 0x0002ec90, module: libuClibc-0.9.30.so, symbol: memset
+  [072] inode: 41245, pc: 0x0000710c, module: busybox, symbol: xzalloc
+  [073] inode: 41245, pc: 0x00007074, module: busybox, symbol: xmalloc
+  [074] inode: 41245, pc: 0x00007050, module: busybox, symbol: xmalloc
+  [075] inode: 49218, pc: 0x0004afe4, module: libuClibc-0.9.30.so, symbol: malloc
+  [076] inode: 41245, pc: 0x00007028, module: busybox, symbol: xmalloc
+  [077] inode: 41245, pc: 0x000070e0, module: busybox, symbol: xzalloc
+  [078] inode: 41245, pc: 0x0003aa4c, module: busybox
+  [079] inode: 41245, pc: 0x0003aa00, module: busybox
+  [080] inode: 41245, pc: 0x0003aa40, module: busybox
+  [081] inode: 41245, pc: 0x0003aa18, module: busybox
+  [082] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [083] inode: 41245, pc: 0x0003aa08, module: busybox
+  [084] inode: 41245, pc: 0x0003aa00, module: busybox
+  [085] inode: 41245, pc: 0x0003aa40, module: busybox
+  [086] inode: 41245, pc: 0x0003aa18, module: busybox
+  [087] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [088] inode: 41245, pc: 0x0003aa08, module: busybox
+  [089] inode: 41245, pc: 0x0003aa00, module: busybox
+  [090] inode: 41245, pc: 0x0003aa40, module: busybox
+  [091] inode: 41245, pc: 0x0003aa18, module: busybox
+  [092] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [093] inode: 41245, pc: 0x0003aa08, module: busybox
+  [094] inode: 41245, pc: 0x0003aa00, module: busybox
+  [095] inode: 41245, pc: 0x0003aa40, module: busybox
+  [096] inode: 41245, pc: 0x0003aa18, module: busybox
+  [097] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [098] inode: 41245, pc: 0x0003aa08, module: busybox
+  [099] inode: 41245, pc: 0x0003aa00, module: busybox
+  [100] inode: 41245, pc: 0x0003aa40, module: busybox
+  [101] inode: 41245, pc: 0x0003aa18, module: busybox
+  [102] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [103] inode: 41245, pc: 0x0003aa08, module: busybox
+  [104] inode: 41245, pc: 0x0003aa00, module: busybox
+  [105] inode: 41245, pc: 0x0003aa40, module: busybox
+  [106] inode: 41245, pc: 0x0003aa18, module: busybox
+  [107] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [108] inode: 41245, pc: 0x0003aa08, module: busybox
+  [109] inode: 41245, pc: 0x0003aa00, module: busybox
+  [110] inode: 41245, pc: 0x0003aa40, module: busybox
+  [111] inode: 41245, pc: 0x0003aa18, module: busybox
+  [112] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [113] inode: 41245, pc: 0x0003aa08, module: busybox
+  [114] inode: 41245, pc: 0x0003a9b8, module: busybox
+  [115] inode: 41245, pc: 0x0003af4c, module: busybox, symbol: init_main
+  [116] inode: 49218, pc: 0x0002fc40, module: libuClibc-0.9.30.so, symbol: strncpy
+  [117] inode: 41245, pc: 0x00042660, module: busybox, symbol: safe_strncpy
+  [118] inode: 41245, pc: 0x00042648, module: busybox, symbol: safe_strncpy
+  [119] inode: 41245, pc: 0x0003aa88, module: busybox
+  [120] inode: 49218, pc: 0x0002fc40, module: libuClibc-0.9.30.so, symbol: strncpy
+  [121] inode: 41245, pc: 0x00042660, module: busybox, symbol: safe_strncpy
+  [122] inode: 41245, pc: 0x00042648, module: busybox, symbol: safe_strncpy
+  [123] inode: 41245, pc: 0x0003aa70, module: busybox
+  [124] inode: 41245, pc: 0x0003aa64, module: busybox
+  [125] inode: 41245, pc: 0x0003aa58, module: busybox
+  [126] inode: 41245, pc: 0x00007128, module: busybox, symbol: xzalloc
+  [127] inode: 49218, pc: 0x0002ec90, module: libuClibc-0.9.30.so, symbol: memset
+  [128] inode: 41245, pc: 0x0000710c, module: busybox, symbol: xzalloc
+  [129] inode: 41245, pc: 0x00007074, module: busybox, symbol: xmalloc
+  [130] inode: 41245, pc: 0x00007050, module: busybox, symbol: xmalloc
+  [131] inode: 49218, pc: 0x0004afe4, module: libuClibc-0.9.30.so, symbol: malloc
+  [132] inode: 41245, pc: 0x00007028, module: busybox, symbol: xmalloc
+  [133] inode: 41245, pc: 0x000070e0, module: busybox, symbol: xzalloc
+  [134] inode: 41245, pc: 0x0003aa4c, module: busybox
+  [135] inode: 41245, pc: 0x0003aa00, module: busybox
+  [136] inode: 41245, pc: 0x0003aa40, module: busybox
+  [137] inode: 41245, pc: 0x0003aa34, module: busybox
+  [138] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [139] inode: 41245, pc: 0x0003aa2c, module: busybox
+  [140] inode: 41245, pc: 0x0003aa18, module: busybox
+  [141] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [142] inode: 41245, pc: 0x0003aa08, module: busybox
+  [143] inode: 41245, pc: 0x0003aa00, module: busybox
+  [144] inode: 41245, pc: 0x0003aa40, module: busybox
+  [145] inode: 41245, pc: 0x0003aa34, module: busybox
+  [146] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [147] inode: 41245, pc: 0x0003aa2c, module: busybox
+  [148] inode: 41245, pc: 0x0003aa18, module: busybox
+  [149] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [150] inode: 41245, pc: 0x0003aa08, module: busybox
+  [151] inode: 41245, pc: 0x0003aa00, module: busybox
+  [152] inode: 41245, pc: 0x0003aa40, module: busybox
+  [153] inode: 41245, pc: 0x0003aa34, module: busybox
+  [154] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [155] inode: 41245, pc: 0x0003aa2c, module: busybox
+  [156] inode: 41245, pc: 0x0003aa18, module: busybox
+  [157] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [158] inode: 41245, pc: 0x0003aa08, module: busybox
+  [159] inode: 41245, pc: 0x0003aa00, module: busybox
+  [160] inode: 41245, pc: 0x0003aa40, module: busybox
+  [161] inode: 41245, pc: 0x0003aa18, module: busybox
+  [162] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [163] inode: 41245, pc: 0x0003aa08, module: busybox
+  [164] inode: 41245, pc: 0x0003aa00, module: busybox
+  [165] inode: 41245, pc: 0x0003aa40, module: busybox
+  [166] inode: 41245, pc: 0x0003aa18, module: busybox
+  [167] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [168] inode: 41245, pc: 0x0003aa08, module: busybox
+  [169] inode: 41245, pc: 0x0003aa00, module: busybox
+  [170] inode: 41245, pc: 0x0003aa40, module: busybox
+  [171] inode: 41245, pc: 0x0003aa18, module: busybox
+  [172] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [173] inode: 41245, pc: 0x0003aa08, module: busybox
+  [174] inode: 41245, pc: 0x0003a9b8, module: busybox
+  [175] inode: 41245, pc: 0x0003af30, module: busybox, symbol: init_main
+  [176] inode: 49218, pc: 0x0002fc40, module: libuClibc-0.9.30.so, symbol: strncpy
+  [177] inode: 41245, pc: 0x00042660, module: busybox, symbol: safe_strncpy
+  [178] inode: 41245, pc: 0x00042648, module: busybox, symbol: safe_strncpy
+  [179] inode: 41245, pc: 0x0003aa88, module: busybox
+  [180] inode: 49218, pc: 0x0002fc40, module: libuClibc-0.9.30.so, symbol: strncpy
+  [181] inode: 41245, pc: 0x00042660, module: busybox, symbol: safe_strncpy
+  [182] inode: 41245, pc: 0x00042648, module: busybox, symbol: safe_strncpy
+  [183] inode: 41245, pc: 0x0003aa70, module: busybox
+  [184] inode: 41245, pc: 0x0003aa64, module: busybox
+  [185] inode: 41245, pc: 0x0003aa58, module: busybox
+  [186] inode: 41245, pc: 0x00007128, module: busybox, symbol: xzalloc
+  [187] inode: 49218, pc: 0x0002ec90, module: libuClibc-0.9.30.so, symbol: memset
+  [188] inode: 41245, pc: 0x0000710c, module: busybox, symbol: xzalloc
+  [189] inode: 41245, pc: 0x00007074, module: busybox, symbol: xmalloc
+  [190] inode: 41245, pc: 0x00007050, module: busybox, symbol: xmalloc
+  [191] inode: 49218, pc: 0x0004afe4, module: libuClibc-0.9.30.so, symbol: malloc
+  [192] inode: 41245, pc: 0x00007028, module: busybox, symbol: xmalloc
+  [193] inode: 41245, pc: 0x000070e0, module: busybox, symbol: xzalloc
+  [194] inode: 41245, pc: 0x0003aa4c, module: busybox
+  [195] inode: 41245, pc: 0x0003aa00, module: busybox
+  [196] inode: 41245, pc: 0x0003aa40, module: busybox
+  [197] inode: 41245, pc: 0x0003aa34, module: busybox
+  [198] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [199] inode: 41245, pc: 0x0003aa2c, module: busybox
+  [200] inode: 41245, pc: 0x0003aa18, module: busybox
+  [201] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [202] inode: 41245, pc: 0x0003aa08, module: busybox
+  [203] inode: 41245, pc: 0x0003aa00, module: busybox
+  [204] inode: 41245, pc: 0x0003aa40, module: busybox
+  [205] inode: 41245, pc: 0x0003aa34, module: busybox
+  [206] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [207] inode: 41245, pc: 0x0003aa2c, module: busybox
+  [208] inode: 41245, pc: 0x0003aa18, module: busybox
+  [209] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [210] inode: 41245, pc: 0x0003aa08, module: busybox
+  [211] inode: 41245, pc: 0x0003aa00, module: busybox
+  [212] inode: 41245, pc: 0x0003aa40, module: busybox
+  [213] inode: 41245, pc: 0x0003aa18, module: busybox
+  [214] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [215] inode: 41245, pc: 0x0003aa08, module: busybox
+  [216] inode: 41245, pc: 0x0003aa00, module: busybox
+  [217] inode: 41245, pc: 0x0003aa40, module: busybox
+  [218] inode: 41245, pc: 0x0003aa18, module: busybox
+  [219] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [220] inode: 41245, pc: 0x0003aa08, module: busybox
+  [221] inode: 41245, pc: 0x0003aa00, module: busybox
+  [222] inode: 41245, pc: 0x0003aa40, module: busybox
+  [223] inode: 41245, pc: 0x0003aa18, module: busybox
+  [224] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [225] inode: 41245, pc: 0x0003aa08, module: busybox
+  [226] inode: 41245, pc: 0x0003a9b8, module: busybox
+  [227] inode: 41245, pc: 0x0003af14, module: busybox, symbol: init_main
+  [228] inode: 49218, pc: 0x0002fc40, module: libuClibc-0.9.30.so, symbol: strncpy
+  [229] inode: 41245, pc: 0x00042660, module: busybox, symbol: safe_strncpy
+  [230] inode: 41245, pc: 0x00042648, module: busybox, symbol: safe_strncpy
+  [231] inode: 41245, pc: 0x0003aa88, module: busybox
+  [232] inode: 49218, pc: 0x0002fc40, module: libuClibc-0.9.30.so, symbol: strncpy
+  [233] inode: 41245, pc: 0x00042660, module: busybox, symbol: safe_strncpy
+  [234] inode: 41245, pc: 0x00042648, module: busybox, symbol: safe_strncpy
+  [235] inode: 41245, pc: 0x0003aa70, module: busybox
+  [236] inode: 41245, pc: 0x0003aa64, module: busybox
+  [237] inode: 41245, pc: 0x0003aa58, module: busybox
+  [238] inode: 41245, pc: 0x00007128, module: busybox, symbol: xzalloc
+  [239] inode: 49218, pc: 0x0002ec90, module: libuClibc-0.9.30.so, symbol: memset
+  [240] inode: 41245, pc: 0x0000710c, module: busybox, symbol: xzalloc
+  [241] inode: 41245, pc: 0x00007074, module: busybox, symbol: xmalloc
+  [242] inode: 41245, pc: 0x00007050, module: busybox, symbol: xmalloc
+  [243] inode: 49218, pc: 0x0004afe4, module: libuClibc-0.9.30.so, symbol: malloc
+  [244] inode: 41245, pc: 0x00007028, module: busybox, symbol: xmalloc
+  [245] inode: 41245, pc: 0x000070e0, module: busybox, symbol: xzalloc
+  [246] inode: 41245, pc: 0x0003aa4c, module: busybox
+  [247] inode: 41245, pc: 0x0003aa00, module: busybox
+  [248] inode: 41245, pc: 0x0003aa40, module: busybox
+  [249] inode: 41245, pc: 0x0003aa34, module: busybox
+  [250] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [251] inode: 41245, pc: 0x0003aa2c, module: busybox
+  [252] inode: 41245, pc: 0x0003aa18, module: busybox
+  [253] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [254] inode: 41245, pc: 0x0003aa08, module: busybox
+  [255] inode: 41245, pc: 0x0003aa00, module: busybox
+  [256] inode: 41245, pc: 0x0003aa40, module: busybox
+  [257] inode: 41245, pc: 0x0003aa18, module: busybox
+  [258] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [259] inode: 41245, pc: 0x0003aa08, module: busybox
+  [260] inode: 41245, pc: 0x0003aa00, module: busybox
+  [261] inode: 41245, pc: 0x0003aa40, module: busybox
+  [262] inode: 41245, pc: 0x0003aa18, module: busybox
+  [263] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [264] inode: 41245, pc: 0x0003aa08, module: busybox
+  [265] inode: 41245, pc: 0x0003aa00, module: busybox
+  [266] inode: 41245, pc: 0x0003aa40, module: busybox
+  [267] inode: 41245, pc: 0x0003aa18, module: busybox
+  [268] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [269] inode: 41245, pc: 0x0003aa08, module: busybox
+  [270] inode: 41245, pc: 0x0003a9b8, module: busybox
+  [271] inode: 41245, pc: 0x0003aef8, module: busybox, symbol: init_main
+  [272] inode: 49218, pc: 0x0002fc40, module: libuClibc-0.9.30.so, symbol: strncpy
+  [273] inode: 41245, pc: 0x00042660, module: busybox, symbol: safe_strncpy
+  [274] inode: 41245, pc: 0x00042648, module: busybox, symbol: safe_strncpy
+  [275] inode: 41245, pc: 0x0003aa88, module: busybox
+  [276] inode: 49218, pc: 0x0002fc40, module: libuClibc-0.9.30.so, symbol: strncpy
+  [277] inode: 41245, pc: 0x00042660, module: busybox, symbol: safe_strncpy
+  [278] inode: 41245, pc: 0x00042648, module: busybox, symbol: safe_strncpy
+  [279] inode: 41245, pc: 0x0003aa70, module: busybox
+  [280] inode: 41245, pc: 0x0003aa64, module: busybox
+  [281] inode: 41245, pc: 0x0003aa58, module: busybox
+  [282] inode: 41245, pc: 0x00007128, module: busybox, symbol: xzalloc
+  [283] inode: 49218, pc: 0x0002ec90, module: libuClibc-0.9.30.so, symbol: memset
+  [284] inode: 41245, pc: 0x0000710c, module: busybox, symbol: xzalloc
+  [285] inode: 41245, pc: 0x00007074, module: busybox, symbol: xmalloc
+  [286] inode: 41245, pc: 0x00007050, module: busybox, symbol: xmalloc
+  [287] inode: 49218, pc: 0x0004afe4, module: libuClibc-0.9.30.so, symbol: malloc
+  [288] inode: 41245, pc: 0x00007028, module: busybox, symbol: xmalloc
+  [289] inode: 41245, pc: 0x000070e0, module: busybox, symbol: xzalloc
+  [290] inode: 41245, pc: 0x0003aa4c, module: busybox
+  [291] inode: 41245, pc: 0x0003aa00, module: busybox
+  [292] inode: 41245, pc: 0x0003aa40, module: busybox
+  [293] inode: 41245, pc: 0x0003aa18, module: busybox
+  [294] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+  [295] inode: 41245, pc: 0x0003aa08, module: busybox
+  [296] inode: 41245, pc: 0x0003aa00, module: busybox
+  [297] inode: 41245, pc: 0x0003aa40, module: busybox
+  [298] inode: 41245, pc: 0x0003aa18, module: busybox
+  [299] inode: 49218, pc: 0x0002f920, module: libuClibc-0.9.30.so, symbol: strcmp
+Total Parent trace elements: 300
+
+--- Parent PID 0 Trace ---
+Total Parent trace elements: 0
+

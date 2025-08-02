@@ -1,8 +1,0 @@
-=== Trace 0 ===
-Process: xmldb
-  [00] inode: 24605, pc: 0x00052060, module: libc.so.0
-  [01] inode: 49241, pc: 0x0000bd2c, module: xmldb
-  [02] inode: 49241, pc: 0x0000bb14, module: xmldb
-  [03] inode: 49241, pc: 0x0000b8d0, module: xmldb
-  [04] inode: 24605, pc: 0x00052300, module: libc.so.0
-

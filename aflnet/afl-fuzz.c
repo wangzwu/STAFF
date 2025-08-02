@@ -8847,7 +8847,7 @@ abandon_entry:
   /* Update pending_not_fuzzed count if we made it through the calibration
      cycle and have not seen this entry before. */
 
-  if (!stop_soon && !queue_cur->cal_failed && !queue_cur->was_fuzzed) {
+  if (!stop_soon && !queue_cur->cal_failed && !queue_cur->was_fuzzed && !enable_taint_aware_mode) {
     queue_cur->was_fuzzed = 1;
     was_fuzzed_map[get_state_index(target_state_id)][queue_cur->index] = 1;
     pending_not_fuzzed--;

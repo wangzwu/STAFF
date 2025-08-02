@@ -1,8 +1,0 @@
-=== Trace 0 ===
-Process: udhcpd
-  [00] inode: 49229, pc: 0x00002f70, module: udhcpd
-  [01] inode: 49229, pc: 0x000037d0, module: udhcpd
-  [02] inode: 24605, pc: 0x000525f0, module: libc.so.0
-  [03] inode: 49229, pc: 0x000037c0, module: udhcpd
-  [04] inode: 49229, pc: 0x00003764, module: udhcpd
-

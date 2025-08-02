@@ -1,8 +1,0 @@
-=== Trace 0 ===
-Process: network.cgi
-  [00] inode: 24578, pc: 0x00005130, module: ld-uClibc-0.9.30.so
-  [01] inode: 41408, pc: 0x00000ea4, module: network.cgi
-  [02] inode: 41408, pc: 0x00000e30, module: network.cgi
-  [03] inode: 41408, pc: 0x00001a30, module: network.cgi
-  [04] inode: 41408, pc: 0x00001a24, module: network.cgi
-

@@ -1,0 +1,994 @@
+=== Trace for PID 140 ===
+Process: httpd
+
+--- Self PID 140 Trace ---
+  [000] inode: 40963, pc: 0x000500f0, module: libc.so.6, symbol: memcmp
+  [001] inode: 24643, pc: 0x00028b78, module: httpd, symbol: valid_hwaddr
+  [002] inode: 24643, pc: 0x000547ec, module: httpd
+  [003] inode: 24643, pc: 0x000547e0, module: httpd
+  [004] inode: 24643, pc: 0x000547c4, module: httpd
+  [005] inode: 40963, pc: 0x0004e500, module: libc.so.6, symbol: strlen
+  [006] inode: 24643, pc: 0x000547b0, module: httpd
+  [007] inode: 24643, pc: 0x000547a0, module: httpd
+  [008] inode: 40963, pc: 0x00050100, module: libc.so.6
+  [009] inode: 24643, pc: 0x00054780, module: httpd
+  [010] inode: 24643, pc: 0x000546b4, module: httpd
+  [011] inode: 24643, pc: 0x000546a4, module: httpd
+  [012] inode: 24643, pc: 0x00054688, module: httpd
+  [013] inode: 24643, pc: 0x00054674, module: httpd
+  [014] inode: 24643, pc: 0x00019954, module: httpd
+  [015] inode: 24643, pc: 0x000199a8, module: httpd
+  [016] inode: 24643, pc: 0x00019990, module: httpd
+  [017] inode: 40963, pc: 0x0008ea08, module: libc.so.6, symbol: hsearch_r
+  [018] inode: 24643, pc: 0x0001996c, module: httpd
+  [019] inode: 24643, pc: 0x00019918, module: httpd, symbol: get_cgi
+  [020] inode: 24643, pc: 0x00054658, module: httpd
+  [021] inode: 40963, pc: 0x00032c40, module: libc.so.6, symbol: snprintf
+  [022] inode: 24643, pc: 0x00054618, module: httpd
+  [023] inode: 24643, pc: 0x000546c4, module: httpd
+  [024] inode: 24643, pc: 0x000547a0, module: httpd
+  [025] inode: 40963, pc: 0x000500f0, module: libc.so.6, symbol: memcmp
+  [026] inode: 24643, pc: 0x00054780, module: httpd
+  [027] inode: 24643, pc: 0x000546b4, module: httpd
+  [028] inode: 24643, pc: 0x000546a0, module: httpd
+  [029] inode: 24643, pc: 0x00054688, module: httpd
+  [030] inode: 24643, pc: 0x00054674, module: httpd
+  [031] inode: 24643, pc: 0x00019954, module: httpd
+  [032] inode: 24643, pc: 0x000199a8, module: httpd
+  [033] inode: 24643, pc: 0x00019990, module: httpd
+  [034] inode: 40963, pc: 0x0008ea08, module: libc.so.6, symbol: hsearch_r
+  [035] inode: 24643, pc: 0x0001996c, module: httpd
+  [036] inode: 24643, pc: 0x00019918, module: httpd, symbol: get_cgi
+  [037] inode: 24643, pc: 0x00054658, module: httpd
+  [038] inode: 40963, pc: 0x00032c40, module: libc.so.6, symbol: snprintf
+  [039] inode: 24643, pc: 0x00054618, module: httpd
+  [040] inode: 24643, pc: 0x000546c4, module: httpd
+  [041] inode: 24643, pc: 0x000547a0, module: httpd
+  [042] inode: 40963, pc: 0x000500f0, module: libc.so.6, symbol: memcmp
+  [043] inode: 24643, pc: 0x00054780, module: httpd
+  [044] inode: 24643, pc: 0x000546b4, module: httpd
+  [045] inode: 24643, pc: 0x000546a0, module: httpd
+  [046] inode: 24643, pc: 0x00054688, module: httpd
+  [047] inode: 24643, pc: 0x00054674, module: httpd
+  [048] inode: 24643, pc: 0x00019954, module: httpd
+  [049] inode: 24643, pc: 0x000199a8, module: httpd
+  [050] inode: 24643, pc: 0x00019990, module: httpd
+  [051] inode: 40963, pc: 0x0008ea08, module: libc.so.6, symbol: hsearch_r
+  [052] inode: 24643, pc: 0x0001996c, module: httpd
+  [053] inode: 24643, pc: 0x00019918, module: httpd, symbol: get_cgi
+  [054] inode: 24643, pc: 0x00054658, module: httpd
+  [055] inode: 40963, pc: 0x00032c40, module: libc.so.6, symbol: snprintf
+  [056] inode: 24643, pc: 0x00054618, module: httpd
+  [057] inode: 24643, pc: 0x000546c4, module: httpd
+  [058] inode: 24643, pc: 0x000547a0, module: httpd
+  [059] inode: 40963, pc: 0x000500f0, module: libc.so.6, symbol: memcmp
+  [060] inode: 24643, pc: 0x00054780, module: httpd
+  [061] inode: 24643, pc: 0x000546b4, module: httpd
+  [062] inode: 24643, pc: 0x000546a0, module: httpd
+  [063] inode: 24643, pc: 0x00054688, module: httpd
+  [064] inode: 24643, pc: 0x00054674, module: httpd
+  [065] inode: 24643, pc: 0x00019954, module: httpd
+  [066] inode: 24643, pc: 0x000199a8, module: httpd
+  [067] inode: 24643, pc: 0x00019990, module: httpd
+  [068] inode: 40963, pc: 0x0008ea08, module: libc.so.6, symbol: hsearch_r
+  [069] inode: 24643, pc: 0x0001996c, module: httpd
+  [070] inode: 24643, pc: 0x00019918, module: httpd, symbol: get_cgi
+  [071] inode: 24643, pc: 0x00054658, module: httpd
+  [072] inode: 40963, pc: 0x00032c40, module: libc.so.6, symbol: snprintf
+  [073] inode: 24643, pc: 0x00054618, module: httpd
+  [074] inode: 24643, pc: 0x000546c4, module: httpd
+  [075] inode: 24643, pc: 0x000547a0, module: httpd
+  [076] inode: 40963, pc: 0x000500f0, module: libc.so.6, symbol: memcmp
+  [077] inode: 24643, pc: 0x00054780, module: httpd
+  [078] inode: 24643, pc: 0x000546b4, module: httpd
+  [079] inode: 24643, pc: 0x000546a0, module: httpd
+  [080] inode: 24643, pc: 0x00054688, module: httpd
+  [081] inode: 24643, pc: 0x00054674, module: httpd
+  [082] inode: 24643, pc: 0x00019954, module: httpd
+  [083] inode: 24643, pc: 0x000199a8, module: httpd
+  [084] inode: 24643, pc: 0x00019990, module: httpd
+  [085] inode: 40963, pc: 0x0008ea08, module: libc.so.6, symbol: hsearch_r
+  [086] inode: 24643, pc: 0x0001996c, module: httpd
+  [087] inode: 24643, pc: 0x00019918, module: httpd, symbol: get_cgi
+  [088] inode: 24643, pc: 0x00054658, module: httpd
+  [089] inode: 40963, pc: 0x00032c40, module: libc.so.6, symbol: snprintf
+  [090] inode: 24643, pc: 0x00054618, module: httpd
+  [091] inode: 24643, pc: 0x000546c0, module: httpd
+  [092] inode: 24643, pc: 0x000546b8, module: httpd
+  [093] inode: 24643, pc: 0x00054688, module: httpd
+  [094] inode: 24643, pc: 0x00054674, module: httpd
+  [095] inode: 24643, pc: 0x00019954, module: httpd
+  [096] inode: 24643, pc: 0x000199a8, module: httpd
+  [097] inode: 24643, pc: 0x00019990, module: httpd
+  [098] inode: 40963, pc: 0x0008ea08, module: libc.so.6, symbol: hsearch_r
+  [099] inode: 24643, pc: 0x0001996c, module: httpd
+  [100] inode: 24643, pc: 0x00019918, module: httpd, symbol: get_cgi
+  [101] inode: 24643, pc: 0x00054658, module: httpd
+  [102] inode: 40963, pc: 0x00032c40, module: libc.so.6, symbol: snprintf
+  [103] inode: 24643, pc: 0x00054618, module: httpd
+  [104] inode: 24643, pc: 0x000546c4, module: httpd
+  [105] inode: 24643, pc: 0x000548e4, module: httpd
+  [106] inode: 40963, pc: 0x00032c40, module: libc.so.6, symbol: snprintf
+  [107] inode: 24643, pc: 0x000548b0, module: httpd
+  [108] inode: 24643, pc: 0x0005488c, module: httpd
+  [109] inode: 24643, pc: 0x0005487c, module: httpd
+  [110] inode: 40963, pc: 0x0004ec60, module: libc.so.6, symbol: strstr
+  [111] inode: 24643, pc: 0x00054868, module: httpd
+  [112] inode: 24643, pc: 0x0005480c, module: httpd
+  [113] inode: 24643, pc: 0x00028be8, module: httpd
+  [114] inode: 24643, pc: 0x00028c20, module: httpd
+  [115] inode: 24643, pc: 0x0002134c, module: httpd
+  [116] inode: 24643, pc: 0x000213b4, module: httpd
+  [117] inode: 40963, pc: 0x00032e20, module: libc.so.6, symbol: sscanf
+  [118] inode: 24643, pc: 0x00021370, module: httpd
+  [119] inode: 24643, pc: 0x00021364, module: httpd
+  [120] inode: 24643, pc: 0x00021330, module: httpd
+  [121] inode: 24643, pc: 0x00021324, module: httpd
+  [122] inode: 24643, pc: 0x0002130c, module: httpd
+  [123] inode: 24643, pc: 0x000212f4, module: httpd
+  [124] inode: 24643, pc: 0x000212e0, module: httpd
+  [125] inode: 24643, pc: 0x0002130c, module: httpd
+  [126] inode: 24643, pc: 0x000212f4, module: httpd
+  [127] inode: 24643, pc: 0x000212e0, module: httpd
+  [128] inode: 24643, pc: 0x00021310, module: httpd
+  [129] inode: 24643, pc: 0x000213f8, module: httpd
+  [130] inode: 24643, pc: 0x000213dc, module: httpd
+  [131] inode: 24643, pc: 0x000212e0, module: httpd
+  [132] inode: 24643, pc: 0x0002130c, module: httpd
+  [133] inode: 24643, pc: 0x000212f4, module: httpd
+  [134] inode: 24643, pc: 0x000212e0, module: httpd
+  [135] inode: 24643, pc: 0x0002130c, module: httpd
+  [136] inode: 24643, pc: 0x000212f4, module: httpd
+  [137] inode: 24643, pc: 0x000212e0, module: httpd
+  [138] inode: 24643, pc: 0x00021310, module: httpd
+  [139] inode: 24643, pc: 0x000213f8, module: httpd
+  [140] inode: 24643, pc: 0x000213dc, module: httpd
+  [141] inode: 24643, pc: 0x000212e0, module: httpd
+  [142] inode: 24643, pc: 0x0002130c, module: httpd
+  [143] inode: 24643, pc: 0x000212f4, module: httpd
+  [144] inode: 24643, pc: 0x000212e0, module: httpd
+  [145] inode: 24643, pc: 0x0002130c, module: httpd
+  [146] inode: 24643, pc: 0x000212f4, module: httpd
+  [147] inode: 24643, pc: 0x000212e0, module: httpd
+  [148] inode: 24643, pc: 0x00021310, module: httpd
+  [149] inode: 24643, pc: 0x000213f8, module: httpd
+  [150] inode: 24643, pc: 0x000213dc, module: httpd
+  [151] inode: 24643, pc: 0x000212e0, module: httpd
+  [152] inode: 24643, pc: 0x0002130c, module: httpd
+  [153] inode: 24643, pc: 0x000212f4, module: httpd
+  [154] inode: 24643, pc: 0x000212e0, module: httpd
+  [155] inode: 24643, pc: 0x0002130c, module: httpd
+  [156] inode: 24643, pc: 0x000212f4, module: httpd
+  [157] inode: 24643, pc: 0x000212e0, module: httpd
+  [158] inode: 24643, pc: 0x00021310, module: httpd
+  [159] inode: 24643, pc: 0x000213f8, module: httpd
+  [160] inode: 24643, pc: 0x000213dc, module: httpd
+  [161] inode: 24643, pc: 0x000212e0, module: httpd
+  [162] inode: 24643, pc: 0x0002130c, module: httpd
+  [163] inode: 24643, pc: 0x000212f4, module: httpd
+  [164] inode: 24643, pc: 0x000212e0, module: httpd
+  [165] inode: 24643, pc: 0x0002130c, module: httpd
+  [166] inode: 24643, pc: 0x000212f4, module: httpd
+  [167] inode: 24643, pc: 0x000212e0, module: httpd
+  [168] inode: 24643, pc: 0x00021310, module: httpd
+  [169] inode: 24643, pc: 0x000213f8, module: httpd
+  [170] inode: 24643, pc: 0x000213dc, module: httpd
+  [171] inode: 24643, pc: 0x000212e0, module: httpd
+  [172] inode: 24643, pc: 0x0002130c, module: httpd
+  [173] inode: 24643, pc: 0x000212f4, module: httpd
+  [174] inode: 24643, pc: 0x000212e0, module: httpd
+  [175] inode: 24643, pc: 0x0002130c, module: httpd
+  [176] inode: 24643, pc: 0x000212f4, module: httpd
+  [177] inode: 24643, pc: 0x000212bc, module: httpd
+  [178] inode: 24643, pc: 0x0002128c, module: httpd, symbol: legal_hwaddr
+  [179] inode: 24643, pc: 0x00028c0c, module: httpd
+  [180] inode: 24643, pc: 0x00028bd0, module: httpd
+  [181] inode: 40963, pc: 0x000500f0, module: libc.so.6, symbol: memcmp
+  [182] inode: 24643, pc: 0x00028b78, module: httpd, symbol: valid_hwaddr
+  [183] inode: 24643, pc: 0x000547f0, module: httpd
+  [184] inode: 24643, pc: 0x000549ac, module: httpd
+  [185] inode: 40963, pc: 0x00032ca0, module: libc.so.6, symbol: sprintf
+  [186] inode: 24643, pc: 0x00054958, module: httpd
+  [187] inode: 40963, pc: 0x00046b28, module: libc.so.6, symbol: malloc
+  [188] inode: 24643, pc: 0x0005493c, module: httpd
+  [189] inode: 40963, pc: 0x00032e20, module: libc.so.6, symbol: sscanf
+  [190] inode: 24643, pc: 0x000548f8, module: httpd
+  [191] inode: 24643, pc: 0x000547e0, module: httpd
+  [192] inode: 24643, pc: 0x000547c4, module: httpd
+  [193] inode: 40963, pc: 0x0004e500, module: libc.so.6, symbol: strlen
+  [194] inode: 24643, pc: 0x000547b0, module: httpd
+  [195] inode: 24643, pc: 0x000547a0, module: httpd
+  [196] inode: 40963, pc: 0x000500f0, module: libc.so.6, symbol: memcmp
+  [197] inode: 24643, pc: 0x00054780, module: httpd
+  [198] inode: 24643, pc: 0x000546b4, module: httpd
+  [199] inode: 24643, pc: 0x000546a0, module: httpd
+  [200] inode: 24643, pc: 0x00054688, module: httpd
+  [201] inode: 24643, pc: 0x00054674, module: httpd
+  [202] inode: 24643, pc: 0x00019954, module: httpd
+  [203] inode: 24643, pc: 0x000199a8, module: httpd
+  [204] inode: 24643, pc: 0x00019990, module: httpd
+  [205] inode: 40963, pc: 0x0008ea08, module: libc.so.6, symbol: hsearch_r
+  [206] inode: 24643, pc: 0x0001996c, module: httpd
+  [207] inode: 24643, pc: 0x00019918, module: httpd, symbol: get_cgi
+  [208] inode: 24643, pc: 0x00054658, module: httpd
+  [209] inode: 40963, pc: 0x00032c40, module: libc.so.6, symbol: snprintf
+  [210] inode: 24643, pc: 0x00054618, module: httpd
+  [211] inode: 24643, pc: 0x000546c4, module: httpd
+  [212] inode: 24643, pc: 0x000548e4, module: httpd
+  [213] inode: 40963, pc: 0x00032c40, module: libc.so.6, symbol: snprintf
+  [214] inode: 24643, pc: 0x000548b0, module: httpd
+  [215] inode: 24643, pc: 0x0005488c, module: httpd
+  [216] inode: 24643, pc: 0x0005487c, module: httpd
+  [217] inode: 40963, pc: 0x0004ec60, module: libc.so.6, symbol: strstr
+  [218] inode: 24643, pc: 0x00054868, module: httpd
+  [219] inode: 24643, pc: 0x0005480c, module: httpd
+  [220] inode: 24643, pc: 0x00028be8, module: httpd
+  [221] inode: 24643, pc: 0x00028c20, module: httpd
+  [222] inode: 24643, pc: 0x0002134c, module: httpd
+  [223] inode: 24643, pc: 0x000213b4, module: httpd
+  [224] inode: 40963, pc: 0x00032e20, module: libc.so.6, symbol: sscanf
+  [225] inode: 24643, pc: 0x00021370, module: httpd
+  [226] inode: 24643, pc: 0x00021364, module: httpd
+  [227] inode: 24643, pc: 0x00021330, module: httpd
+  [228] inode: 24643, pc: 0x00021324, module: httpd
+  [229] inode: 24643, pc: 0x0002130c, module: httpd
+  [230] inode: 24643, pc: 0x000212f4, module: httpd
+  [231] inode: 24643, pc: 0x000212e0, module: httpd
+  [232] inode: 24643, pc: 0x0002130c, module: httpd
+  [233] inode: 24643, pc: 0x000212f4, module: httpd
+  [234] inode: 24643, pc: 0x000212e0, module: httpd
+  [235] inode: 24643, pc: 0x00021310, module: httpd
+  [236] inode: 24643, pc: 0x000213f8, module: httpd
+  [237] inode: 24643, pc: 0x000213dc, module: httpd
+  [238] inode: 24643, pc: 0x000212e0, module: httpd
+  [239] inode: 24643, pc: 0x0002130c, module: httpd
+  [240] inode: 24643, pc: 0x000212f4, module: httpd
+  [241] inode: 24643, pc: 0x000212e0, module: httpd
+  [242] inode: 24643, pc: 0x0002130c, module: httpd
+  [243] inode: 24643, pc: 0x000212f4, module: httpd
+  [244] inode: 24643, pc: 0x000212e0, module: httpd
+  [245] inode: 24643, pc: 0x00021310, module: httpd
+  [246] inode: 24643, pc: 0x000213f8, module: httpd
+  [247] inode: 24643, pc: 0x000213dc, module: httpd
+  [248] inode: 24643, pc: 0x000212e0, module: httpd
+  [249] inode: 24643, pc: 0x0002130c, module: httpd
+  [250] inode: 24643, pc: 0x000212f4, module: httpd
+  [251] inode: 24643, pc: 0x000212e0, module: httpd
+  [252] inode: 24643, pc: 0x0002130c, module: httpd
+  [253] inode: 24643, pc: 0x000212f4, module: httpd
+  [254] inode: 24643, pc: 0x000212e0, module: httpd
+  [255] inode: 24643, pc: 0x00021310, module: httpd
+  [256] inode: 24643, pc: 0x000213f8, module: httpd
+  [257] inode: 24643, pc: 0x000213dc, module: httpd
+  [258] inode: 24643, pc: 0x000212e0, module: httpd
+  [259] inode: 24643, pc: 0x0002130c, module: httpd
+  [260] inode: 24643, pc: 0x000212f4, module: httpd
+  [261] inode: 24643, pc: 0x000212e0, module: httpd
+  [262] inode: 24643, pc: 0x0002130c, module: httpd
+  [263] inode: 24643, pc: 0x000212f4, module: httpd
+  [264] inode: 24643, pc: 0x000212e0, module: httpd
+  [265] inode: 24643, pc: 0x00021310, module: httpd
+  [266] inode: 24643, pc: 0x000213f8, module: httpd
+  [267] inode: 24643, pc: 0x000213dc, module: httpd
+  [268] inode: 24643, pc: 0x000212e0, module: httpd
+  [269] inode: 24643, pc: 0x0002130c, module: httpd
+  [270] inode: 24643, pc: 0x000212f4, module: httpd
+  [271] inode: 24643, pc: 0x000212e0, module: httpd
+  [272] inode: 24643, pc: 0x0002130c, module: httpd
+  [273] inode: 24643, pc: 0x000212f4, module: httpd
+  [274] inode: 24643, pc: 0x000212e0, module: httpd
+  [275] inode: 24643, pc: 0x00021310, module: httpd
+  [276] inode: 24643, pc: 0x000213f8, module: httpd
+  [277] inode: 24643, pc: 0x000213dc, module: httpd
+  [278] inode: 24643, pc: 0x000212e0, module: httpd
+  [279] inode: 24643, pc: 0x0002130c, module: httpd
+  [280] inode: 24643, pc: 0x000212f4, module: httpd
+  [281] inode: 24643, pc: 0x000212e0, module: httpd
+  [282] inode: 24643, pc: 0x0002130c, module: httpd
+  [283] inode: 24643, pc: 0x000212f4, module: httpd
+  [284] inode: 24643, pc: 0x000212bc, module: httpd
+  [285] inode: 24643, pc: 0x0002128c, module: httpd, symbol: legal_hwaddr
+  [286] inode: 24643, pc: 0x00028c0c, module: httpd
+  [287] inode: 24643, pc: 0x00028bd0, module: httpd
+  [288] inode: 40963, pc: 0x000500f0, module: libc.so.6, symbol: memcmp
+  [289] inode: 24643, pc: 0x00028b78, module: httpd, symbol: valid_hwaddr
+  [290] inode: 24643, pc: 0x000547f0, module: httpd
+  [291] inode: 24643, pc: 0x000549ac, module: httpd
+  [292] inode: 40963, pc: 0x00032ca0, module: libc.so.6, symbol: sprintf
+  [293] inode: 24643, pc: 0x00054958, module: httpd
+  [294] inode: 40963, pc: 0x00046b28, module: libc.so.6, symbol: malloc
+  [295] inode: 24643, pc: 0x0005493c, module: httpd
+  [296] inode: 40963, pc: 0x00032e20, module: libc.so.6, symbol: sscanf
+  [297] inode: 24643, pc: 0x000548f8, module: httpd
+  [298] inode: 24643, pc: 0x000547e0, module: httpd
+  [299] inode: 24643, pc: 0x000547c4, module: httpd
+Total Self trace elements: 300
+
+--- Parent PID 138 Trace ---
+  [000] inode: 40963, pc: 0x0008e3e0, module: libc.so.6, symbol: daemon
+  [001] inode: 24643, pc: 0x0001f938, module: httpd
+  [002] inode: 24643, pc: 0x0001f7d8, module: httpd
+  [003] inode: 24643, pc: 0x0001bb10, module: httpd
+  [004] inode: 24643, pc: 0x0001bb00, module: httpd
+  [005] inode: 40963, pc: 0x00091608, module: libc.so.6
+  [006] inode: 24643, pc: 0x0001bae8, module: httpd
+  [007] inode: 24643, pc: 0x0001bac4, module: httpd
+  [008] inode: 40963, pc: 0x00091478, module: libc.so.6
+  [009] inode: 24643, pc: 0x0001baa8, module: httpd
+  [010] inode: 24643, pc: 0x0001ba88, module: httpd
+  [011] inode: 40963, pc: 0x00091838, module: libc.so.6
+  [012] inode: 24643, pc: 0x0001ba50, module: httpd
+  [013] inode: 40963, pc: 0x00088524, module: libc.so.6
+  [014] inode: 24643, pc: 0x0001ba30, module: httpd
+  [015] inode: 24643, pc: 0x0001ba10, module: httpd
+  [016] inode: 40963, pc: 0x000918d8, module: libc.so.6
+  [017] inode: 24643, pc: 0x0001b9c4, module: httpd
+  [018] inode: 24643, pc: 0x0001b9a4, module: httpd
+  [019] inode: 40963, pc: 0x000500f0, module: libc.so.6, symbol: memcmp
+  [020] inode: 24643, pc: 0x0001b97c, module: httpd
+  [021] inode: 24643, pc: 0x0001b96c, module: httpd
+  [022] inode: 24643, pc: 0x000210b8, module: httpd
+  [023] inode: 24643, pc: 0x0002109c, module: httpd
+  [024] inode: 40963, pc: 0x0004cefc, module: libc.so.6
+  [025] inode: 24643, pc: 0x0002108c, module: httpd
+  [026] inode: 24643, pc: 0x00021070, module: httpd
+  [027] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [028] inode: 24643, pc: 0x0002103c, module: httpd
+  [029] inode: 24643, pc: 0x0001b938, module: httpd
+  [030] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [031] inode: 24643, pc: 0x0001b90c, module: httpd
+  [032] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [033] inode: 24643, pc: 0x0001b8d8, module: httpd
+  [034] inode: 40963, pc: 0x00050960, module: libc.so.6, symbol: memset
+  [035] inode: 24643, pc: 0x0001b890, module: httpd
+  [036] inode: 24643, pc: 0x0001f7b8, module: httpd
+  [037] inode: 24643, pc: 0x0001f794, module: httpd
+  [038] inode: 40963, pc: 0x00018420, module: libc.so.6, symbol: signal
+  [039] inode: 24643, pc: 0x0001f774, module: httpd
+  [040] inode: 40963, pc: 0x00018430, module: libc.so.6
+  [041] inode: 24643, pc: 0x0001f748, module: httpd
+  [042] inode: 24621, pc: 0x0001cf48, module: libshared.so, symbol: ct_syslog
+  [043] inode: 24643, pc: 0x000089c0, module: httpd, symbol: ct_syslog
+  [044] inode: 24643, pc: 0x0001f708, module: httpd
+  [045] inode: 24643, pc: 0x0001f6dc, module: httpd
+  [046] inode: 24621, pc: 0x0001cedc, module: libshared.so
+  [047] inode: 24643, pc: 0x00008800, module: httpd, symbol: ct_openlog
+  [048] inode: 24643, pc: 0x0001f6a0, module: httpd
+  [049] inode: 24643, pc: 0x0001f508, module: httpd
+  [050] inode: 40963, pc: 0x000856e0, module: libc.so.6
+  [051] inode: 24643, pc: 0x0001f4fc, module: httpd
+  [052] inode: 24643, pc: 0x0001f474, module: httpd
+  [053] inode: 24643, pc: 0x0001f420, module: httpd
+  [054] inode: 24643, pc: 0x000210ac, module: httpd
+  [055] inode: 24643, pc: 0x0002109c, module: httpd
+  [056] inode: 40963, pc: 0x0004cefc, module: libc.so.6
+  [057] inode: 24643, pc: 0x0002108c, module: httpd
+  [058] inode: 24643, pc: 0x00021070, module: httpd
+  [059] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [060] inode: 24643, pc: 0x000087d0, module: httpd, symbol: nvram_get
+  [061] inode: 24643, pc: 0x0002103c, module: httpd
+  [062] inode: 24643, pc: 0x0001f3b0, module: httpd
+  [063] inode: 40963, pc: 0x0000dd40, module: libc.so.6
+  [064] inode: 24643, pc: 0x000b4048, module: httpd
+  [065] inode: 24643, pc: 0x000b4000, module: httpd
+  [066] inode: 24643, pc: 0x000b3ffc, module: httpd
+  [067] inode: 24643, pc: 0x000b3fd8, module: httpd
+  [068] inode: 24643, pc: 0x00008c20, module: httpd
+  [069] inode: 24643, pc: 0x00008bb8, module: httpd
+  [070] inode: 24643, pc: 0x00008a80, module: httpd
+  [071] inode: 24643, pc: 0x00008a40, module: httpd
+  [072] inode: 40963, pc: 0x0000dc84, module: libc.so.6
+  [073] inode: 24643, pc: 0x00008438, module: httpd
+  [074] inode: 24643, pc: 0x00008420, module: httpd
+  [075] inode: 40962, pc: 0x00000e60, module: ld.so.1
+Total Parent trace elements: 76
+
+--- Parent PID 56 Trace ---
+  [000] inode: 24621, pc: 0x0000e358, module: libshared.so
+  [001] inode: 16427, pc: 0x0005c724, module: rc
+  [002] inode: 16427, pc: 0x0005ca34, module: rc
+  [003] inode: 16455, pc: 0x00004a24, module: libnvram_ioctl.so
+  [004] inode: 16427, pc: 0x0005ca18, module: rc
+  [005] inode: 16427, pc: 0x0005c6c8, module: rc
+  [006] inode: 16427, pc: 0x0005e1c0, module: rc
+  [007] inode: 16427, pc: 0x0005e1b0, module: rc
+  [008] inode: 40963, pc: 0x0004cef0, module: libc.so.6, symbol: strcmp
+  [009] inode: 16427, pc: 0x0005e19c, module: rc
+  [010] inode: 16427, pc: 0x0005e184, module: rc
+  [011] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [012] inode: 16427, pc: 0x0005e174, module: rc
+  [013] inode: 16427, pc: 0x0005c6a0, module: rc
+  [014] inode: 16455, pc: 0x00004a24, module: libnvram_ioctl.so
+  [015] inode: 16427, pc: 0x0005c690, module: rc
+  [016] inode: 16455, pc: 0x00004a24, module: libnvram_ioctl.so
+  [017] inode: 16427, pc: 0x0005c658, module: rc
+  [018] inode: 16455, pc: 0x00004a24, module: libnvram_ioctl.so
+  [019] inode: 16427, pc: 0x0005c620, module: rc
+  [020] inode: 16455, pc: 0x00004a24, module: libnvram_ioctl.so
+  [021] inode: 16427, pc: 0x0005c5f4, module: rc
+  [022] inode: 16455, pc: 0x00004a24, module: libnvram_ioctl.so
+  [023] inode: 16427, pc: 0x0005c5c0, module: rc
+  [024] inode: 16455, pc: 0x00004a3c, module: libnvram_ioctl.so
+  [025] inode: 16427, pc: 0x0005c594, module: rc
+  [026] inode: 16455, pc: 0x00004a24, module: libnvram_ioctl.so
+  [027] inode: 16427, pc: 0x0005c568, module: rc
+  [028] inode: 16455, pc: 0x00004a24, module: libnvram_ioctl.so
+  [029] inode: 16427, pc: 0x0005c534, module: rc
+  [030] inode: 16455, pc: 0x00004a24, module: libnvram_ioctl.so
+  [031] inode: 16427, pc: 0x0005c508, module: rc
+  [032] inode: 16455, pc: 0x00004a24, module: libnvram_ioctl.so
+  [033] inode: 16427, pc: 0x0005c4d0, module: rc
+  [034] inode: 16427, pc: 0x0005c4c0, module: rc
+  [035] inode: 16427, pc: 0x0005e1cc, module: rc
+  [036] inode: 16427, pc: 0x0005e1b0, module: rc
+  [037] inode: 40963, pc: 0x0004cefc, module: libc.so.6
+  [038] inode: 16427, pc: 0x0005e1a0, module: rc
+  [039] inode: 16427, pc: 0x0005e184, module: rc
+  [040] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [041] inode: 16427, pc: 0x0005e174, module: rc
+  [042] inode: 16427, pc: 0x0005c4a8, module: rc
+  [043] inode: 16455, pc: 0x00004a24, module: libnvram_ioctl.so
+  [044] inode: 16427, pc: 0x0005c488, module: rc
+  [045] inode: 16455, pc: 0x00004a24, module: libnvram_ioctl.so
+  [046] inode: 16427, pc: 0x0005c42c, module: rc
+  [047] inode: 16427, pc: 0x0005c418, module: rc
+  [048] inode: 16427, pc: 0x0005e1cc, module: rc
+  [049] inode: 16427, pc: 0x0005e1b0, module: rc
+  [050] inode: 40963, pc: 0x0004cefc, module: libc.so.6
+  [051] inode: 16427, pc: 0x0005e1a0, module: rc
+  [052] inode: 16427, pc: 0x0005e184, module: rc
+  [053] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [054] inode: 16427, pc: 0x0005e150, module: rc
+  [055] inode: 16427, pc: 0x0005c3f0, module: rc
+  [056] inode: 16427, pc: 0x0005c3dc, module: rc
+  [057] inode: 16427, pc: 0x0005e1cc, module: rc
+  [058] inode: 16427, pc: 0x0005e1b0, module: rc
+  [059] inode: 40963, pc: 0x0004cefc, module: libc.so.6
+  [060] inode: 16427, pc: 0x0005e1a0, module: rc
+  [061] inode: 16427, pc: 0x0005e184, module: rc
+  [062] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [063] inode: 16427, pc: 0x0005e150, module: rc
+  [064] inode: 16427, pc: 0x0005c3b8, module: rc
+  [065] inode: 16427, pc: 0x0005c114, module: rc
+  [066] inode: 16427, pc: 0x0005e1cc, module: rc
+  [067] inode: 16427, pc: 0x0005e1b0, module: rc
+  [068] inode: 40963, pc: 0x0004cefc, module: libc.so.6
+  [069] inode: 16427, pc: 0x0005e1a0, module: rc
+  [070] inode: 16427, pc: 0x0005e184, module: rc
+  [071] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [072] inode: 16427, pc: 0x0005e150, module: rc
+  [073] inode: 16427, pc: 0x0005c0dc, module: rc
+  [074] inode: 16427, pc: 0x0005c084, module: rc
+  [075] inode: 16427, pc: 0x0005e1cc, module: rc
+  [076] inode: 16427, pc: 0x0005e1b0, module: rc
+  [077] inode: 40963, pc: 0x0004cefc, module: libc.so.6
+  [078] inode: 16427, pc: 0x0005e1a0, module: rc
+  [079] inode: 16427, pc: 0x0005e184, module: rc
+  [080] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [081] inode: 16427, pc: 0x0005e150, module: rc
+  [082] inode: 16427, pc: 0x0005c060, module: rc
+  [083] inode: 16427, pc: 0x0005c04c, module: rc
+  [084] inode: 16427, pc: 0x0005e1cc, module: rc
+  [085] inode: 16427, pc: 0x0005e1b0, module: rc
+  [086] inode: 40963, pc: 0x0004cefc, module: libc.so.6
+  [087] inode: 16427, pc: 0x0005e1a0, module: rc
+  [088] inode: 16427, pc: 0x0005e184, module: rc
+  [089] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [090] inode: 16427, pc: 0x0005e150, module: rc
+  [091] inode: 16427, pc: 0x0005c01c, module: rc
+  [092] inode: 16427, pc: 0x0005c008, module: rc
+  [093] inode: 16427, pc: 0x0005e1c0, module: rc
+  [094] inode: 16427, pc: 0x0005e1b0, module: rc
+  [095] inode: 40963, pc: 0x0004cefc, module: libc.so.6
+  [096] inode: 16427, pc: 0x0005e1a0, module: rc
+  [097] inode: 16427, pc: 0x0005e184, module: rc
+  [098] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [099] inode: 16427, pc: 0x0005e160, module: rc
+  [100] inode: 16427, pc: 0x0005c000, module: rc
+  [101] inode: 16427, pc: 0x0005bfd4, module: rc
+  [102] inode: 16427, pc: 0x0005bf9c, module: rc
+  [103] inode: 16427, pc: 0x0005e1c0, module: rc
+  [104] inode: 16427, pc: 0x0005e1b0, module: rc
+  [105] inode: 40963, pc: 0x0004cefc, module: libc.so.6
+  [106] inode: 16427, pc: 0x0005e1a0, module: rc
+  [107] inode: 16427, pc: 0x0005e184, module: rc
+  [108] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [109] inode: 16427, pc: 0x0005e174, module: rc
+  [110] inode: 16427, pc: 0x0005bf30, module: rc
+  [111] inode: 16427, pc: 0x0001d940, module: rc
+  [112] inode: 16455, pc: 0x00004a5c, module: libnvram_ioctl.so
+  [113] inode: 16427, pc: 0x0001d924, module: rc
+  [114] inode: 40963, pc: 0x000650b0, module: libc.so.6, symbol: sleep
+  [115] inode: 16427, pc: 0x0001d8e4, module: rc
+  [116] inode: 16427, pc: 0x00027e3c, module: rc
+  [117] inode: 16427, pc: 0x00027f44, module: rc
+  [118] inode: 40963, pc: 0x00018f08, module: libc.so.6
+  [119] inode: 16427, pc: 0x0000f9ac, module: rc
+  [120] inode: 16427, pc: 0x0000f998, module: rc
+  [121] inode: 40963, pc: 0x00064fb0, module: libc.so.6, symbol: __waitpid
+  [122] inode: 16427, pc: 0x0000f988, module: rc
+  [123] inode: 40963, pc: 0x00022eb0, module: libc.so.6, symbol: __libc_system
+  [124] inode: 16427, pc: 0x00027f34, module: rc
+  [125] inode: 40963, pc: 0x00032ca0, module: libc.so.6, symbol: sprintf
+  [126] inode: 16427, pc: 0x00027f0c, module: rc
+  [127] inode: 16427, pc: 0x00027ee8, module: rc
+  [128] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [129] inode: 16427, pc: 0x00027ecc, module: rc
+  [130] inode: 40963, pc: 0x00018f08, module: libc.so.6
+  [131] inode: 16427, pc: 0x0000f9ac, module: rc
+  [132] inode: 16427, pc: 0x0000f998, module: rc
+  [133] inode: 40963, pc: 0x00064fb0, module: libc.so.6, symbol: __waitpid
+  [134] inode: 16427, pc: 0x0000f988, module: rc
+  [135] inode: 40963, pc: 0x00022eb0, module: libc.so.6, symbol: __libc_system
+  [136] inode: 16427, pc: 0x00027eb0, module: rc
+  [137] inode: 40963, pc: 0x00032ca0, module: libc.so.6, symbol: sprintf
+  [138] inode: 16427, pc: 0x00027e84, module: rc
+  [139] inode: 16427, pc: 0x00027e64, module: rc
+  [140] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [141] inode: 16427, pc: 0x00027e54, module: rc
+  [142] inode: 16427, pc: 0x00027e24, module: rc
+  [143] inode: 16427, pc: 0x00029ddc, module: rc
+  [144] inode: 16427, pc: 0x00029dcc, module: rc
+  [145] inode: 40963, pc: 0x0004cefc, module: libc.so.6
+  [146] inode: 16427, pc: 0x00029dbc, module: rc
+  [147] inode: 16427, pc: 0x00029da0, module: rc
+  [148] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [149] inode: 16427, pc: 0x00029d6c, module: rc
+  [150] inode: 16427, pc: 0x00027de0, module: rc
+  [151] inode: 16427, pc: 0x0001d8d4, module: rc
+  [152] inode: 40963, pc: 0x000650b0, module: libc.so.6, symbol: sleep
+  [153] inode: 16427, pc: 0x0001d8ac, module: rc
+  [154] inode: 16427, pc: 0x0001bdc4, module: rc
+  [155] inode: 16427, pc: 0x0001bfdc, module: rc
+  [156] inode: 40963, pc: 0x00065038, module: libc.so.6
+  [157] inode: 16427, pc: 0x0000f9ac, module: rc
+  [158] inode: 16427, pc: 0x0000f998, module: rc
+  [159] inode: 40963, pc: 0x00064fd4, module: libc.so.6
+  [160] inode: 16427, pc: 0x0000f988, module: rc
+  [161] inode: 24621, pc: 0x0000e358, module: libshared.so
+  [162] inode: 16427, pc: 0x0001bfcc, module: rc
+  [163] inode: 16427, pc: 0x0001c068, module: rc
+  [164] inode: 16427, pc: 0x0001c048, module: rc
+  [165] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [166] inode: 16427, pc: 0x0001c02c, module: rc
+  [167] inode: 40963, pc: 0x0004cd20, module: libc.so.6, symbol: strcat
+  [168] inode: 16427, pc: 0x0001c004, module: rc
+  [169] inode: 40963, pc: 0x0004dfe0, module: libc.so.6, symbol: strcpy
+  [170] inode: 16427, pc: 0x0001c000, module: rc
+  [171] inode: 16427, pc: 0x0001bffc, module: rc
+  [172] inode: 16427, pc: 0x0001bff4, module: rc
+  [173] inode: 16427, pc: 0x0001bf28, module: rc
+  [174] inode: 16427, pc: 0x00029de8, module: rc
+  [175] inode: 16427, pc: 0x00029dcc, module: rc
+  [176] inode: 40963, pc: 0x0004cefc, module: libc.so.6
+  [177] inode: 16427, pc: 0x00029dbc, module: rc
+  [178] inode: 16427, pc: 0x00029da0, module: rc
+  [179] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [180] inode: 16427, pc: 0x00029d6c, module: rc
+  [181] inode: 16427, pc: 0x0001bef4, module: rc
+  [182] inode: 40963, pc: 0x0004cd20, module: libc.so.6, symbol: strcat
+  [183] inode: 16427, pc: 0x0001becc, module: rc
+  [184] inode: 40963, pc: 0x0004dfe0, module: libc.so.6, symbol: strcpy
+  [185] inode: 16427, pc: 0x0001beac, module: rc
+  [186] inode: 40963, pc: 0x00032c40, module: libc.so.6, symbol: snprintf
+  [187] inode: 16427, pc: 0x0001be84, module: rc
+  [188] inode: 16427, pc: 0x0001be70, module: rc
+  [189] inode: 40963, pc: 0x00065038, module: libc.so.6
+  [190] inode: 16427, pc: 0x0000f9ac, module: rc
+  [191] inode: 16427, pc: 0x0000f998, module: rc
+  [192] inode: 40963, pc: 0x00064fd4, module: libc.so.6
+  [193] inode: 16427, pc: 0x0000f988, module: rc
+  [194] inode: 24621, pc: 0x0000e358, module: libshared.so
+  [195] inode: 16427, pc: 0x0001be0c, module: rc
+  [196] inode: 40963, pc: 0x00032c40, module: libc.so.6, symbol: snprintf
+  [197] inode: 16427, pc: 0x0001bde4, module: rc
+  [198] inode: 16427, pc: 0x0001bdac, module: rc
+  [199] inode: 16427, pc: 0x00029e70, module: rc
+  [200] inode: 16427, pc: 0x00029e60, module: rc
+  [201] inode: 40963, pc: 0x0004cefc, module: libc.so.6
+  [202] inode: 16427, pc: 0x00029e50, module: rc
+  [203] inode: 16427, pc: 0x00029e34, module: rc
+  [204] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [205] inode: 16427, pc: 0x00029e00, module: rc
+  [206] inode: 16427, pc: 0x0001bd54, module: rc
+  [207] inode: 16427, pc: 0x0001d890, module: rc
+  [208] inode: 16427, pc: 0x0001d55c, module: rc
+  [209] inode: 40963, pc: 0x00018f08, module: libc.so.6
+  [210] inode: 16427, pc: 0x0000f9ac, module: rc
+  [211] inode: 16427, pc: 0x0000f998, module: rc
+  [212] inode: 40963, pc: 0x00064fb0, module: libc.so.6, symbol: __waitpid
+  [213] inode: 16427, pc: 0x0000f988, module: rc
+  [214] inode: 40963, pc: 0x00022eb0, module: libc.so.6, symbol: __libc_system
+  [215] inode: 16427, pc: 0x0001d524, module: rc, symbol: start_nlinkd
+  [216] inode: 16427, pc: 0x0001d880, module: rc
+  [217] inode: 16427, pc: 0x0001e5fc, module: rc
+  [218] inode: 40963, pc: 0x00036130, module: libc.so.6, symbol: _IO_puts
+  [219] inode: 16427, pc: 0x0001e5ec, module: rc
+  [220] inode: 16427, pc: 0x0001e584, module: rc
+  [221] inode: 16427, pc: 0x0001e56c, module: rc
+  [222] inode: 16427, pc: 0x0001e558, module: rc
+  [223] inode: 16427, pc: 0x0001e540, module: rc
+  [224] inode: 16427, pc: 0x0001e52c, module: rc
+  [225] inode: 16427, pc: 0x0001e514, module: rc
+  [226] inode: 16427, pc: 0x0001e500, module: rc
+  [227] inode: 16427, pc: 0x0001e4ec, module: rc
+  [228] inode: 16427, pc: 0x0001e4cc, module: rc
+  [229] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [230] inode: 16427, pc: 0x0001e4bc, module: rc
+  [231] inode: 16427, pc: 0x0001e490, module: rc
+  [232] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [233] inode: 16427, pc: 0x0001e480, module: rc
+  [234] inode: 16427, pc: 0x0001e454, module: rc
+  [235] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [236] inode: 16427, pc: 0x0001e444, module: rc
+  [237] inode: 16427, pc: 0x0001e418, module: rc
+  [238] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [239] inode: 16427, pc: 0x0001e408, module: rc
+  [240] inode: 16427, pc: 0x0001e3dc, module: rc
+  [241] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [242] inode: 16427, pc: 0x0001e3cc, module: rc
+  [243] inode: 16427, pc: 0x0001e3a0, module: rc
+  [244] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [245] inode: 16427, pc: 0x0001e344, module: rc, symbol: start_zebra
+  [246] inode: 16427, pc: 0x0001d864, module: rc
+  [247] inode: 16427, pc: 0x0001c87c, module: rc
+  [248] inode: 40963, pc: 0x00065038, module: libc.so.6
+  [249] inode: 16427, pc: 0x0000f9ac, module: rc
+  [250] inode: 16427, pc: 0x0000f998, module: rc
+  [251] inode: 40963, pc: 0x00064fd4, module: libc.so.6
+  [252] inode: 16427, pc: 0x0000f988, module: rc
+  [253] inode: 24621, pc: 0x0000e358, module: libshared.so
+  [254] inode: 16427, pc: 0x0001c834, module: rc
+  [255] inode: 16427, pc: 0x0001d83c, module: rc
+  [256] inode: 16427, pc: 0x0001cb40, module: rc
+  [257] inode: 40963, pc: 0x00065038, module: libc.so.6
+  [258] inode: 16427, pc: 0x0000f9ac, module: rc
+  [259] inode: 16427, pc: 0x0000f998, module: rc
+  [260] inode: 40963, pc: 0x00064fd4, module: libc.so.6
+  [261] inode: 16427, pc: 0x0000f988, module: rc
+  [262] inode: 24621, pc: 0x0000e358, module: libshared.so
+  [263] inode: 16427, pc: 0x0001cadc, module: rc, symbol: start_eapd
+  [264] inode: 16427, pc: 0x0001d82c, module: rc
+  [265] inode: 16427, pc: 0x0001ad7c, module: rc
+  [266] inode: 16427, pc: 0x0001b15c, module: rc
+  [267] inode: 16427, pc: 0x00019a14, module: rc
+  [268] inode: 40963, pc: 0x00065038, module: libc.so.6
+  [269] inode: 16427, pc: 0x0000f9ac, module: rc
+  [270] inode: 16427, pc: 0x0000f998, module: rc
+  [271] inode: 40963, pc: 0x00064fd4, module: libc.so.6
+  [272] inode: 16427, pc: 0x0000f988, module: rc
+  [273] inode: 24621, pc: 0x0000e358, module: libshared.so
+  [274] inode: 16427, pc: 0x00019a04, module: rc
+  [275] inode: 40963, pc: 0x000333d0, module: libc.so.6, symbol: fclose
+  [276] inode: 16427, pc: 0x000199ac, module: rc
+  [277] inode: 16427, pc: 0x0001999c, module: rc
+  [278] inode: 16427, pc: 0x00029e7c, module: rc
+  [279] inode: 16427, pc: 0x00029e60, module: rc
+  [280] inode: 40963, pc: 0x0004cef0, module: libc.so.6, symbol: strcmp
+  [281] inode: 16427, pc: 0x00029e4c, module: rc
+  [282] inode: 16427, pc: 0x00029e34, module: rc
+  [283] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [284] inode: 16427, pc: 0x00029e00, module: rc
+  [285] inode: 16427, pc: 0x00019960, module: rc
+  [286] inode: 16427, pc: 0x00019950, module: rc
+  [287] inode: 16427, pc: 0x00029e7c, module: rc
+  [288] inode: 16427, pc: 0x00029e60, module: rc
+  [289] inode: 40963, pc: 0x0004cef0, module: libc.so.6, symbol: strcmp
+  [290] inode: 16427, pc: 0x00029e4c, module: rc
+  [291] inode: 16427, pc: 0x00029e34, module: rc
+  [292] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [293] inode: 16427, pc: 0x00029e00, module: rc
+  [294] inode: 16427, pc: 0x0001990c, module: rc
+  [295] inode: 40963, pc: 0x00032b70, module: libc.so.6, symbol: fprintf
+  [296] inode: 16427, pc: 0x000198fc, module: rc
+  [297] inode: 16427, pc: 0x000198cc, module: rc
+  [298] inode: 16455, pc: 0x00004050, module: libnvram_ioctl.so
+  [299] inode: 16427, pc: 0x000198b0, module: rc
+Total Parent trace elements: 300
+
+--- Parent PID 1 Trace ---
+  [000] inode: 16428, pc: 0x00024b40, module: busybox
+  [001] inode: 16428, pc: 0x00024b5c, module: busybox
+  [002] inode: 16428, pc: 0x00010310, module: busybox
+  [003] inode: 16428, pc: 0x000ace40, module: busybox
+  [004] inode: 16428, pc: 0x000ace2c, module: busybox
+  [005] inode: 16428, pc: 0x000accf8, module: busybox
+  [006] inode: 16428, pc: 0x000ad250, module: busybox
+  [007] inode: 16428, pc: 0x000ad240, module: busybox
+  [008] inode: 16428, pc: 0x000ad258, module: busybox
+  [009] inode: 16428, pc: 0x000ad000, module: busybox
+  [010] inode: 16428, pc: 0x000acfe8, module: busybox
+  [011] inode: 16428, pc: 0x000acfac, module: busybox
+  [012] inode: 16428, pc: 0x000a9920, module: busybox
+  [013] inode: 16428, pc: 0x000a98c8, module: busybox
+  [014] inode: 16428, pc: 0x000acf90, module: busybox
+  [015] inode: 16428, pc: 0x000acf68, module: busybox
+  [016] inode: 16428, pc: 0x000ace70, module: busybox
+  [017] inode: 16428, pc: 0x000acf5c, module: busybox
+  [018] inode: 16428, pc: 0x000acf14, module: busybox
+  [019] inode: 16428, pc: 0x000acf00, module: busybox
+  [020] inode: 16428, pc: 0x000acebc, module: busybox
+  [021] inode: 16428, pc: 0x000ace88, module: busybox
+  [022] inode: 16428, pc: 0x000ace78, module: busybox
+  [023] inode: 16428, pc: 0x000ace70, module: busybox
+  [024] inode: 16428, pc: 0x000acf5c, module: busybox
+  [025] inode: 16428, pc: 0x000acf14, module: busybox
+  [026] inode: 16428, pc: 0x000acf00, module: busybox
+  [027] inode: 16428, pc: 0x000acebc, module: busybox
+  [028] inode: 16428, pc: 0x000ace88, module: busybox
+  [029] inode: 16428, pc: 0x000ace78, module: busybox
+  [030] inode: 16428, pc: 0x000ace70, module: busybox
+  [031] inode: 16428, pc: 0x000acf5c, module: busybox
+  [032] inode: 16428, pc: 0x000acf14, module: busybox
+  [033] inode: 16428, pc: 0x000acf00, module: busybox
+  [034] inode: 16428, pc: 0x000acebc, module: busybox
+  [035] inode: 16428, pc: 0x000ace88, module: busybox
+  [036] inode: 16428, pc: 0x000ace78, module: busybox
+  [037] inode: 16428, pc: 0x000ace70, module: busybox
+  [038] inode: 16428, pc: 0x000acf5c, module: busybox
+  [039] inode: 16428, pc: 0x000acf14, module: busybox
+  [040] inode: 16428, pc: 0x000acf00, module: busybox
+  [041] inode: 16428, pc: 0x000acebc, module: busybox
+  [042] inode: 16428, pc: 0x000ace88, module: busybox
+  [043] inode: 16428, pc: 0x000ace78, module: busybox
+  [044] inode: 16428, pc: 0x000ace5c, module: busybox
+  [045] inode: 16428, pc: 0x000ace50, module: busybox
+  [046] inode: 16428, pc: 0x000035a8, module: busybox
+  [047] inode: 16428, pc: 0x00003580, module: busybox
+  [048] inode: 16428, pc: 0x0001034c, module: busybox
+  [049] inode: 16428, pc: 0x00003578, module: busybox
+  [050] inode: 16428, pc: 0x0000356c, module: busybox
+  [051] inode: 16428, pc: 0x000a9860, module: busybox
+  [052] inode: 16428, pc: 0x000a9828, module: busybox
+  [053] inode: 16428, pc: 0x000a9814, module: busybox
+  [054] inode: 16428, pc: 0x000a97cc, module: busybox
+  [055] inode: 16428, pc: 0x00024b40, module: busybox
+  [056] inode: 16428, pc: 0x00024b5c, module: busybox
+  [057] inode: 16428, pc: 0x00010310, module: busybox
+  [058] inode: 16428, pc: 0x000ace40, module: busybox
+  [059] inode: 16428, pc: 0x000ace2c, module: busybox
+  [060] inode: 16428, pc: 0x000accf8, module: busybox
+  [061] inode: 16428, pc: 0x000ad250, module: busybox
+  [062] inode: 16428, pc: 0x000ad240, module: busybox
+  [063] inode: 16428, pc: 0x000ad258, module: busybox
+  [064] inode: 16428, pc: 0x000ad000, module: busybox
+  [065] inode: 16428, pc: 0x000acfe8, module: busybox
+  [066] inode: 16428, pc: 0x000acfac, module: busybox
+  [067] inode: 16428, pc: 0x000a9920, module: busybox
+  [068] inode: 16428, pc: 0x000a98c8, module: busybox
+  [069] inode: 16428, pc: 0x000acf90, module: busybox
+  [070] inode: 16428, pc: 0x000acf68, module: busybox
+  [071] inode: 16428, pc: 0x000ace70, module: busybox
+  [072] inode: 16428, pc: 0x000acf5c, module: busybox
+  [073] inode: 16428, pc: 0x000acf14, module: busybox
+  [074] inode: 16428, pc: 0x000acf00, module: busybox
+  [075] inode: 16428, pc: 0x000acebc, module: busybox
+  [076] inode: 16428, pc: 0x000ace88, module: busybox
+  [077] inode: 16428, pc: 0x000ace78, module: busybox
+  [078] inode: 16428, pc: 0x000ace70, module: busybox
+  [079] inode: 16428, pc: 0x000acf5c, module: busybox
+  [080] inode: 16428, pc: 0x000acf14, module: busybox
+  [081] inode: 16428, pc: 0x000acf00, module: busybox
+  [082] inode: 16428, pc: 0x000acebc, module: busybox
+  [083] inode: 16428, pc: 0x000ace88, module: busybox
+  [084] inode: 16428, pc: 0x000ace78, module: busybox
+  [085] inode: 16428, pc: 0x000ace70, module: busybox
+  [086] inode: 16428, pc: 0x000acf5c, module: busybox
+  [087] inode: 16428, pc: 0x000acf14, module: busybox
+  [088] inode: 16428, pc: 0x000acf00, module: busybox
+  [089] inode: 16428, pc: 0x000acebc, module: busybox
+  [090] inode: 16428, pc: 0x000ace88, module: busybox
+  [091] inode: 16428, pc: 0x000ace78, module: busybox
+  [092] inode: 16428, pc: 0x000ace70, module: busybox
+  [093] inode: 16428, pc: 0x000acf5c, module: busybox
+  [094] inode: 16428, pc: 0x000acf14, module: busybox
+  [095] inode: 16428, pc: 0x000acf00, module: busybox
+  [096] inode: 16428, pc: 0x000acebc, module: busybox
+  [097] inode: 16428, pc: 0x000ace88, module: busybox
+  [098] inode: 16428, pc: 0x000ace78, module: busybox
+  [099] inode: 16428, pc: 0x000ace5c, module: busybox
+  [100] inode: 16428, pc: 0x000ace50, module: busybox
+  [101] inode: 16428, pc: 0x000035a8, module: busybox
+  [102] inode: 16428, pc: 0x00003580, module: busybox
+  [103] inode: 16428, pc: 0x0001034c, module: busybox
+  [104] inode: 16428, pc: 0x00003578, module: busybox
+  [105] inode: 16428, pc: 0x0000356c, module: busybox
+  [106] inode: 16428, pc: 0x000a9860, module: busybox
+  [107] inode: 16428, pc: 0x000a9828, module: busybox
+  [108] inode: 16428, pc: 0x000a9814, module: busybox
+  [109] inode: 16428, pc: 0x000a97cc, module: busybox
+  [110] inode: 16428, pc: 0x00024b40, module: busybox
+  [111] inode: 16428, pc: 0x00024b5c, module: busybox
+  [112] inode: 16428, pc: 0x00010310, module: busybox
+  [113] inode: 16428, pc: 0x000ace40, module: busybox
+  [114] inode: 16428, pc: 0x000ace2c, module: busybox
+  [115] inode: 16428, pc: 0x000accf8, module: busybox
+  [116] inode: 16428, pc: 0x000ad250, module: busybox
+  [117] inode: 16428, pc: 0x000ad240, module: busybox
+  [118] inode: 16428, pc: 0x000ad258, module: busybox
+  [119] inode: 16428, pc: 0x000ad000, module: busybox
+  [120] inode: 16428, pc: 0x000acfe8, module: busybox
+  [121] inode: 16428, pc: 0x000acfac, module: busybox
+  [122] inode: 16428, pc: 0x000a9920, module: busybox
+  [123] inode: 16428, pc: 0x000a98c8, module: busybox
+  [124] inode: 16428, pc: 0x000acf90, module: busybox
+  [125] inode: 16428, pc: 0x000acf68, module: busybox
+  [126] inode: 16428, pc: 0x000ace70, module: busybox
+  [127] inode: 16428, pc: 0x000acf5c, module: busybox
+  [128] inode: 16428, pc: 0x000acf14, module: busybox
+  [129] inode: 16428, pc: 0x000acf00, module: busybox
+  [130] inode: 16428, pc: 0x000acebc, module: busybox
+  [131] inode: 16428, pc: 0x000ace88, module: busybox
+  [132] inode: 16428, pc: 0x000ace78, module: busybox
+  [133] inode: 16428, pc: 0x000ace70, module: busybox
+  [134] inode: 16428, pc: 0x000acf5c, module: busybox
+  [135] inode: 16428, pc: 0x000acf14, module: busybox
+  [136] inode: 16428, pc: 0x000acf00, module: busybox
+  [137] inode: 16428, pc: 0x000acebc, module: busybox
+  [138] inode: 16428, pc: 0x000ace88, module: busybox
+  [139] inode: 16428, pc: 0x000ace78, module: busybox
+  [140] inode: 16428, pc: 0x000ace70, module: busybox
+  [141] inode: 16428, pc: 0x000acf5c, module: busybox
+  [142] inode: 16428, pc: 0x000acf14, module: busybox
+  [143] inode: 16428, pc: 0x000acf00, module: busybox
+  [144] inode: 16428, pc: 0x000acebc, module: busybox
+  [145] inode: 16428, pc: 0x000ace88, module: busybox
+  [146] inode: 16428, pc: 0x000ace78, module: busybox
+  [147] inode: 16428, pc: 0x000ace70, module: busybox
+  [148] inode: 16428, pc: 0x000acf5c, module: busybox
+  [149] inode: 16428, pc: 0x000acf14, module: busybox
+  [150] inode: 16428, pc: 0x000acf00, module: busybox
+  [151] inode: 16428, pc: 0x000acebc, module: busybox
+  [152] inode: 16428, pc: 0x000ace88, module: busybox
+  [153] inode: 16428, pc: 0x000ace78, module: busybox
+  [154] inode: 16428, pc: 0x000ace5c, module: busybox
+  [155] inode: 16428, pc: 0x000ace50, module: busybox
+  [156] inode: 16428, pc: 0x000035a8, module: busybox
+  [157] inode: 16428, pc: 0x00003580, module: busybox
+  [158] inode: 16428, pc: 0x0001034c, module: busybox
+  [159] inode: 16428, pc: 0x00003578, module: busybox
+  [160] inode: 16428, pc: 0x0000356c, module: busybox
+  [161] inode: 16428, pc: 0x000a9860, module: busybox
+  [162] inode: 16428, pc: 0x000a9828, module: busybox
+  [163] inode: 16428, pc: 0x000a9814, module: busybox
+  [164] inode: 16428, pc: 0x000a97cc, module: busybox
+  [165] inode: 16428, pc: 0x00024b40, module: busybox
+  [166] inode: 16428, pc: 0x00024b5c, module: busybox
+  [167] inode: 16428, pc: 0x00010310, module: busybox
+  [168] inode: 16428, pc: 0x000ace40, module: busybox
+  [169] inode: 16428, pc: 0x000ace2c, module: busybox
+  [170] inode: 16428, pc: 0x000accf8, module: busybox
+  [171] inode: 16428, pc: 0x000ad250, module: busybox
+  [172] inode: 16428, pc: 0x000ad240, module: busybox
+  [173] inode: 16428, pc: 0x000ad258, module: busybox
+  [174] inode: 16428, pc: 0x000ad000, module: busybox
+  [175] inode: 16428, pc: 0x000acfe8, module: busybox
+  [176] inode: 16428, pc: 0x000acfac, module: busybox
+  [177] inode: 16428, pc: 0x000a9920, module: busybox
+  [178] inode: 16428, pc: 0x000a98c8, module: busybox
+  [179] inode: 16428, pc: 0x000acfa0, module: busybox
+  [180] inode: 16428, pc: 0x000acf68, module: busybox
+  [181] inode: 16428, pc: 0x000ace70, module: busybox
+  [182] inode: 16428, pc: 0x000acf5c, module: busybox
+  [183] inode: 16428, pc: 0x000acf14, module: busybox
+  [184] inode: 16428, pc: 0x000acf00, module: busybox
+  [185] inode: 16428, pc: 0x000acebc, module: busybox
+  [186] inode: 16428, pc: 0x000ace88, module: busybox
+  [187] inode: 16428, pc: 0x000ace78, module: busybox
+  [188] inode: 16428, pc: 0x000ace70, module: busybox
+  [189] inode: 16428, pc: 0x000acf5c, module: busybox
+  [190] inode: 16428, pc: 0x000acf14, module: busybox
+  [191] inode: 16428, pc: 0x000acf00, module: busybox
+  [192] inode: 16428, pc: 0x000acebc, module: busybox
+  [193] inode: 16428, pc: 0x000ace88, module: busybox
+  [194] inode: 16428, pc: 0x000ace78, module: busybox
+  [195] inode: 16428, pc: 0x000ace70, module: busybox
+  [196] inode: 16428, pc: 0x000acf5c, module: busybox
+  [197] inode: 16428, pc: 0x000acf14, module: busybox
+  [198] inode: 16428, pc: 0x000acf00, module: busybox
+  [199] inode: 16428, pc: 0x000acebc, module: busybox
+  [200] inode: 16428, pc: 0x000ace88, module: busybox
+  [201] inode: 16428, pc: 0x000ace78, module: busybox
+  [202] inode: 16428, pc: 0x000ace70, module: busybox
+  [203] inode: 16428, pc: 0x000acf5c, module: busybox
+  [204] inode: 16428, pc: 0x000acf14, module: busybox
+  [205] inode: 16428, pc: 0x000acf00, module: busybox
+  [206] inode: 16428, pc: 0x000acebc, module: busybox
+  [207] inode: 16428, pc: 0x000ace88, module: busybox
+  [208] inode: 16428, pc: 0x000ace78, module: busybox
+  [209] inode: 16428, pc: 0x000ace5c, module: busybox
+  [210] inode: 16428, pc: 0x000ace50, module: busybox
+  [211] inode: 16428, pc: 0x000035a8, module: busybox
+  [212] inode: 16428, pc: 0x00003580, module: busybox
+  [213] inode: 16428, pc: 0x0001034c, module: busybox
+  [214] inode: 16428, pc: 0x00003578, module: busybox
+  [215] inode: 16428, pc: 0x0000356c, module: busybox
+  [216] inode: 16428, pc: 0x000a9860, module: busybox
+  [217] inode: 16428, pc: 0x000a9828, module: busybox
+  [218] inode: 16428, pc: 0x000a9814, module: busybox
+  [219] inode: 16428, pc: 0x000a97cc, module: busybox
+  [220] inode: 16428, pc: 0x00024b40, module: busybox
+  [221] inode: 16428, pc: 0x00024b5c, module: busybox
+  [222] inode: 16428, pc: 0x00010310, module: busybox
+  [223] inode: 16428, pc: 0x000ace40, module: busybox
+  [224] inode: 16428, pc: 0x000ace2c, module: busybox
+  [225] inode: 16428, pc: 0x000accf8, module: busybox
+  [226] inode: 16428, pc: 0x000ad250, module: busybox
+  [227] inode: 16428, pc: 0x000ad238, module: busybox
+  [228] inode: 16428, pc: 0x000b9ca0, module: busybox
+  [229] inode: 16428, pc: 0x000b9c98, module: busybox
+  [230] inode: 16428, pc: 0x000b0988, module: busybox
+  [231] inode: 16428, pc: 0x000b093c, module: busybox
+  [232] inode: 16428, pc: 0x000b08e0, module: busybox
+  [233] inode: 16428, pc: 0x000b0898, module: busybox
+  [234] inode: 16428, pc: 0x000b088c, module: busybox
+  [235] inode: 16428, pc: 0x000b0840, module: busybox
+  [236] inode: 16428, pc: 0x000b0814, module: busybox
+  [237] inode: 16428, pc: 0x000b07ec, module: busybox
+  [238] inode: 16428, pc: 0x0000ffa4, module: busybox
+  [239] inode: 16428, pc: 0x0000fed0, module: busybox
+  [240] inode: 16428, pc: 0x0000ff98, module: busybox
+  [241] inode: 16428, pc: 0x00019688, module: busybox
+  [242] inode: 16428, pc: 0x0001967c, module: busybox
+  [243] inode: 16428, pc: 0x000196e0, module: busybox
+  [244] inode: 16428, pc: 0x0000ff88, module: busybox
+  [245] inode: 16428, pc: 0x0000ff4c, module: busybox
+  [246] inode: 16428, pc: 0x000035a8, module: busybox
+  [247] inode: 16428, pc: 0x00003594, module: busybox
+  [248] inode: 16428, pc: 0x0000ff3c, module: busybox
+  [249] inode: 16428, pc: 0x0000ff30, module: busybox
+  [250] inode: 16428, pc: 0x00019688, module: busybox
+  [251] inode: 16428, pc: 0x0001967c, module: busybox
+  [252] inode: 16428, pc: 0x00019690, module: busybox
+  [253] inode: 16428, pc: 0x0000ff0c, module: busybox
+  [254] inode: 16428, pc: 0x0000fed0, module: busybox
+  [255] inode: 16428, pc: 0x0000fed8, module: busybox
+  [256] inode: 16428, pc: 0x000b07b0, module: busybox
+  [257] inode: 16428, pc: 0x000b9c84, module: busybox
+  [258] inode: 16428, pc: 0x000ade08, module: busybox
+  [259] inode: 16428, pc: 0x000addc8, module: busybox
+  [260] inode: 16428, pc: 0x000adda4, module: busybox
+  [261] inode: 16428, pc: 0x00022988, module: busybox
+  [262] inode: 16428, pc: 0x00022920, module: busybox
+  [263] inode: 16428, pc: 0x00022908, module: busybox
+  [264] inode: 16428, pc: 0x000228c8, module: busybox
+  [265] inode: 16428, pc: 0x000228b8, module: busybox
+  [266] inode: 16428, pc: 0x000228a0, module: busybox
+  [267] inode: 16428, pc: 0x00022888, module: busybox
+  [268] inode: 16428, pc: 0x00022880, module: busybox
+  [269] inode: 16428, pc: 0x000add90, module: busybox
+  [270] inode: 16428, pc: 0x000add50, module: busybox
+  [271] inode: 16428, pc: 0x000adc90, module: busybox
+  [272] inode: 16428, pc: 0x000add88, module: busybox
+  [273] inode: 16428, pc: 0x000add64, module: busybox
+  [274] inode: 16428, pc: 0x000add50, module: busybox
+  [275] inode: 16428, pc: 0x000adc90, module: busybox
+  [276] inode: 16428, pc: 0x000add88, module: busybox
+  [277] inode: 16428, pc: 0x000add64, module: busybox
+  [278] inode: 16428, pc: 0x000add50, module: busybox
+  [279] inode: 16428, pc: 0x000adc90, module: busybox
+  [280] inode: 16428, pc: 0x000add88, module: busybox
+  [281] inode: 16428, pc: 0x000add64, module: busybox
+  [282] inode: 16428, pc: 0x000add50, module: busybox
+  [283] inode: 16428, pc: 0x000adc38, module: busybox
+  [284] inode: 16428, pc: 0x000b9c6c, module: busybox
+  [285] inode: 16428, pc: 0x000b9c48, module: busybox
+  [286] inode: 16428, pc: 0x000b9c40, module: busybox
+  [287] inode: 16428, pc: 0x000b9c30, module: busybox
+  [288] inode: 16428, pc: 0x000b9c10, module: busybox
+  [289] inode: 16428, pc: 0x000b9b24, module: busybox
+  [290] inode: 16428, pc: 0x000b9af8, module: busybox
+  [291] inode: 16428, pc: 0x000b8d60, module: busybox
+  [292] inode: 16428, pc: 0x000b889c, module: busybox
+  [293] inode: 16428, pc: 0x000b8890, module: busybox
+  [294] inode: 16428, pc: 0x000b8884, module: busybox
+  [295] inode: 16428, pc: 0x00022de8, module: busybox
+  [296] inode: 16428, pc: 0x00022dd8, module: busybox
+  [297] inode: 16428, pc: 0x00022f50, module: busybox
+  [298] inode: 16428, pc: 0x00022f2c, module: busybox
+  [299] inode: 16428, pc: 0x00022f24, module: busybox
+Total Parent trace elements: 300
+
+--- Parent PID 0 Trace ---
+Total Parent trace elements: 0
+

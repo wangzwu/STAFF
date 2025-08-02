@@ -81,7 +81,7 @@ DEFAULT_CONFIG = {
 }
 
 STAFF_DIR = os.getcwd()
-CRASH_DIR = os.path.join(STAFF_DIR, "extracted_crash_outputs")
+CRASH_DIR = os.path.join(STAFF_DIR, "extracted_crash_outputs_old_2")
 FIRMAE_DIR = os.path.join(STAFF_DIR, "FirmAE")
 PCAP_DIR = os.path.join(STAFF_DIR, "pcap")
 TAINT_DIR = os.path.join(STAFF_DIR, "taint_analysis")
@@ -519,7 +519,7 @@ def replay_firmware(firmware, work_dir, crash_analysis=False, crash_seed=None, t
         time.sleep(sleep)
 
         port = 80
-        command = ["sudo", "-E", os.path.join(STAFF_DIR, "aflnet", "client"), seed_path, os.path.join(work_dir, "qemu.final.serial.log"), open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(config["GENERAL_FUZZING"]["timeout"])]    
+        command = ["sudo", "-E", os.path.join(STAFF_DIR, "aflnet", "client"), seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(config["GENERAL_FUZZING"]["timeout"])]    
         print(" ".join(command))
         subprocess.run(command)
 
@@ -555,7 +555,7 @@ def replay_firmware(firmware, work_dir, crash_analysis=False, crash_seed=None, t
                     print(f"The port for {proto.upper()} is {port}.")
                 except OSError:
                     print(f"Protocol {proto.upper()} not found.")
-                command = ["sudo", "-E", os.path.join(STAFF_DIR, "aflnet", "client"), seed_path, os.path.join(work_dir, "qemu.final.serial.log"), open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(config["GENERAL_FUZZING"]["timeout"])]    
+                command = ["sudo", "-E", os.path.join(STAFF_DIR, "aflnet", "client"), seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(config["GENERAL_FUZZING"]["timeout"])]    
                 print(" ".join(command))
                 subprocess.run(command)
 

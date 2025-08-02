@@ -1,8 +1,0 @@
-=== Trace 0 ===
-Process: alphapd
-  [00] inode: 16391, pc: 0x00033a18, module: busybox
-  [01] inode: 16391, pc: 0x00033a20, module: busybox
-  [02] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so
-  [03] inode: 8228, pc: 0x0004f150, module: libuClibc-0.9.28.so
-  [04] inode: 16391, pc: 0x00033a34, module: busybox
-

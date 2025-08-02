@@ -1,8 +1,0 @@
-=== Trace 0 ===
-Process: xgi
-  [00] inode: 49158, pc: 0x00003abc, module: atp
-  [01] inode: 24580, pc: 0x0004bd40, module: libc.so.0
-  [02] inode: 49158, pc: 0x00003aa4, module: atp
-  [03] inode: 24580, pc: 0x00026960, module: libc.so.0
-  [04] inode: 49158, pc: 0x00003a70, module: atp
-

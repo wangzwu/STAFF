@@ -1,8 +1,0 @@
-=== Trace 0 ===
-Process: xgi
-  [00] inode: 24578, pc: 0x00004810, module: ld-uClibc.so.0
-  [01] inode: 49158, pc: 0x0000390c, module: atp
-  [02] inode: 24578, pc: 0x00004810, module: ld-uClibc.so.0
-  [03] inode: 49158, pc: 0x000038e8, module: atp
-  [04] inode: 24578, pc: 0x00004810, module: ld-uClibc.so.0
-

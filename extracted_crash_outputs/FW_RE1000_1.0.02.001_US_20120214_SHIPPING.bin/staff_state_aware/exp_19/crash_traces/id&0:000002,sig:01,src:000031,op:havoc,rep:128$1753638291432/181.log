@@ -1,0 +1,973 @@
+=== Trace for PID 181 ===
+Process: upnp
+
+--- Self PID 181 Trace ---
+  [000] inode: 41035, pc: 0x000049ec, module: upnp
+  [001] inode: 24579, pc: 0x00016380, module: libc.so.0, symbol: fputc
+  [002] inode: 41035, pc: 0x000049c0, module: upnp
+  [003] inode: 24579, pc: 0x00016dc0, module: libc.so.0, symbol: fwrite
+  [004] inode: 41035, pc: 0x00004984, module: upnp
+  [005] inode: 24579, pc: 0x00019460, module: libc.so.0, symbol: fprintf
+  [006] inode: 41035, pc: 0x00004958, module: upnp
+  [007] inode: 41035, pc: 0x00004938, module: upnp
+  [008] inode: 41035, pc: 0x00004920, module: upnp
+  [009] inode: 41035, pc: 0x0000493c, module: upnp
+  [010] inode: 41035, pc: 0x00004a48, module: upnp
+  [011] inode: 41035, pc: 0x00006700, module: upnp
+  [012] inode: 41035, pc: 0x00006730, module: upnp
+  [013] inode: 41035, pc: 0x00006560, module: upnp
+  [014] inode: 41035, pc: 0x00006550, module: upnp
+  [015] inode: 41035, pc: 0x00006080, module: upnp
+  [016] inode: 41035, pc: 0x000060c0, module: upnp
+  [017] inode: 41035, pc: 0x000055ac, module: upnp
+  [018] inode: 24579, pc: 0x0001f578, module: libc.so.0
+  [019] inode: 41035, pc: 0x0000557c, module: upnp
+  [020] inode: 41035, pc: 0x00005634, module: upnp
+  [021] inode: 24579, pc: 0x0001df30, module: libc.so.0, symbol: inet_aton
+  [022] inode: 41035, pc: 0x000055fc, module: upnp
+  [023] inode: 24579, pc: 0x0001f644, module: libc.so.0
+  [024] inode: 41035, pc: 0x000055dc, module: upnp
+  [025] inode: 41035, pc: 0x0000552c, module: upnp
+  [026] inode: 24579, pc: 0x0001d11c, module: libc.so.0
+  [027] inode: 41035, pc: 0x000054e0, module: upnp, symbol: ssdp_send
+  [028] inode: 41035, pc: 0x000060b0, module: upnp
+  [029] inode: 41035, pc: 0x00006060, module: upnp
+  [030] inode: 41035, pc: 0x00006058, module: upnp
+  [031] inode: 41035, pc: 0x00006040, module: upnp
+  [032] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [033] inode: 41035, pc: 0x00006024, module: upnp
+  [034] inode: 41035, pc: 0x0000600c, module: upnp
+  [035] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [036] inode: 41035, pc: 0x00006000, module: upnp
+  [037] inode: 41035, pc: 0x00005fe4, module: upnp
+  [038] inode: 24579, pc: 0x00028b90, module: libc.so.0
+  [039] inode: 41035, pc: 0x00005fc4, module: upnp
+  [040] inode: 24579, pc: 0x00022650, module: libc.so.0, symbol: atoi
+  [041] inode: 41035, pc: 0x00005fb4, module: upnp
+  [042] inode: 41035, pc: 0x00005f94, module: upnp
+  [043] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [044] inode: 41035, pc: 0x00005f78, module: upnp
+  [045] inode: 41035, pc: 0x00006174, module: upnp
+  [046] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [047] inode: 41035, pc: 0x00006148, module: upnp
+  [048] inode: 41035, pc: 0x00005f28, module: upnp
+  [049] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [050] inode: 41035, pc: 0x00005f0c, module: upnp
+  [051] inode: 41035, pc: 0x00005efc, module: upnp
+  [052] inode: 41035, pc: 0x00005ee4, module: upnp
+  [053] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [054] inode: 41035, pc: 0x00005eb4, module: upnp
+  [055] inode: 41035, pc: 0x00005e94, module: upnp
+  [056] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [057] inode: 41035, pc: 0x00005e84, module: upnp
+  [058] inode: 41035, pc: 0x0000638c, module: upnp
+  [059] inode: 41035, pc: 0x00005df0, module: upnp
+  [060] inode: 41035, pc: 0x00005de0, module: upnp
+  [061] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [062] inode: 41035, pc: 0x00005dc4, module: upnp
+  [063] inode: 41035, pc: 0x00005dac, module: upnp
+  [064] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [065] inode: 41035, pc: 0x00005d8c, module: upnp
+  [066] inode: 41035, pc: 0x00005d84, module: upnp
+  [067] inode: 41035, pc: 0x00005d6c, module: upnp
+  [068] inode: 24579, pc: 0x0001cf30, module: libc.so.0, symbol: strcmp
+  [069] inode: 41035, pc: 0x00005d50, module: upnp
+  [070] inode: 41035, pc: 0x00005d38, module: upnp
+  [071] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [072] inode: 41035, pc: 0x00005d18, module: upnp
+  [073] inode: 41035, pc: 0x00005d08, module: upnp
+  [074] inode: 41035, pc: 0x00005cf8, module: upnp
+  [075] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [076] inode: 41035, pc: 0x00005cdc, module: upnp
+  [077] inode: 41035, pc: 0x00005cc0, module: upnp
+  [078] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [079] inode: 41035, pc: 0x00005c70, module: upnp
+  [080] inode: 41035, pc: 0x00006538, module: upnp
+  [081] inode: 41035, pc: 0x00006588, module: upnp
+  [082] inode: 41035, pc: 0x000064ac, module: upnp
+  [083] inode: 41035, pc: 0x00006494, module: upnp
+  [084] inode: 41035, pc: 0x00006550, module: upnp
+  [085] inode: 41035, pc: 0x00006080, module: upnp
+  [086] inode: 41035, pc: 0x000060c0, module: upnp
+  [087] inode: 41035, pc: 0x000055ac, module: upnp
+  [088] inode: 24579, pc: 0x0001f578, module: libc.so.0
+  [089] inode: 41035, pc: 0x0000557c, module: upnp
+  [090] inode: 41035, pc: 0x00005634, module: upnp
+  [091] inode: 24579, pc: 0x0001df30, module: libc.so.0, symbol: inet_aton
+  [092] inode: 41035, pc: 0x000055fc, module: upnp
+  [093] inode: 24579, pc: 0x0001f644, module: libc.so.0
+  [094] inode: 41035, pc: 0x000055dc, module: upnp
+  [095] inode: 41035, pc: 0x0000552c, module: upnp
+  [096] inode: 24579, pc: 0x0001d11c, module: libc.so.0
+  [097] inode: 41035, pc: 0x000054e0, module: upnp, symbol: ssdp_send
+  [098] inode: 41035, pc: 0x000060b0, module: upnp
+  [099] inode: 41035, pc: 0x00006060, module: upnp
+  [100] inode: 41035, pc: 0x00006058, module: upnp
+  [101] inode: 41035, pc: 0x00006040, module: upnp
+  [102] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [103] inode: 41035, pc: 0x00006024, module: upnp
+  [104] inode: 41035, pc: 0x0000600c, module: upnp
+  [105] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [106] inode: 41035, pc: 0x00006000, module: upnp
+  [107] inode: 41035, pc: 0x00005fe4, module: upnp
+  [108] inode: 24579, pc: 0x00028b90, module: libc.so.0
+  [109] inode: 41035, pc: 0x00005fc4, module: upnp
+  [110] inode: 24579, pc: 0x00022650, module: libc.so.0, symbol: atoi
+  [111] inode: 41035, pc: 0x00005fb4, module: upnp
+  [112] inode: 41035, pc: 0x00005f94, module: upnp
+  [113] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [114] inode: 41035, pc: 0x00005f78, module: upnp
+  [115] inode: 41035, pc: 0x00006128, module: upnp
+  [116] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [117] inode: 41035, pc: 0x00006104, module: upnp
+  [118] inode: 41035, pc: 0x00005f54, module: upnp
+  [119] inode: 41035, pc: 0x00005f44, module: upnp
+  [120] inode: 41035, pc: 0x00005f28, module: upnp
+  [121] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [122] inode: 41035, pc: 0x00005f08, module: upnp
+  [123] inode: 41035, pc: 0x00005efc, module: upnp
+  [124] inode: 41035, pc: 0x00005ee4, module: upnp
+  [125] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [126] inode: 41035, pc: 0x00005eb4, module: upnp
+  [127] inode: 41035, pc: 0x00005e94, module: upnp
+  [128] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [129] inode: 41035, pc: 0x00005e84, module: upnp
+  [130] inode: 41035, pc: 0x0000638c, module: upnp
+  [131] inode: 41035, pc: 0x00005df0, module: upnp
+  [132] inode: 41035, pc: 0x00005de0, module: upnp
+  [133] inode: 24579, pc: 0x0001cf30, module: libc.so.0, symbol: strcmp
+  [134] inode: 41035, pc: 0x00005dc4, module: upnp
+  [135] inode: 41035, pc: 0x00005dac, module: upnp
+  [136] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [137] inode: 41035, pc: 0x00005d8c, module: upnp
+  [138] inode: 41035, pc: 0x00005d84, module: upnp
+  [139] inode: 41035, pc: 0x00005d6c, module: upnp
+  [140] inode: 24579, pc: 0x0001cf30, module: libc.so.0, symbol: strcmp
+  [141] inode: 41035, pc: 0x00005d50, module: upnp
+  [142] inode: 41035, pc: 0x00005d38, module: upnp
+  [143] inode: 24579, pc: 0x0001cc7c, module: libc.so.0
+  [144] inode: 41035, pc: 0x000054ac, module: upnp, symbol: upnp_restart_handler
+  [145] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [146] inode: 41035, pc: 0x00005d18, module: upnp
+  [147] inode: 41035, pc: 0x00005d08, module: upnp
+  [148] inode: 41035, pc: 0x00005cf8, module: upnp
+  [149] inode: 24579, pc: 0x0001cf30, module: libc.so.0, symbol: strcmp
+  [150] inode: 41035, pc: 0x00005cd4, module: upnp
+  [151] inode: 41035, pc: 0x00005cc0, module: upnp
+  [152] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [153] inode: 41035, pc: 0x00005c58, module: upnp, symbol: ssdp_notify
+  [154] inode: 41035, pc: 0x00006534, module: upnp
+  [155] inode: 41035, pc: 0x000065a8, module: upnp
+  [156] inode: 41035, pc: 0x00006080, module: upnp
+  [157] inode: 41035, pc: 0x000060c0, module: upnp
+  [158] inode: 41035, pc: 0x000055ac, module: upnp
+  [159] inode: 24579, pc: 0x0001f578, module: libc.so.0
+  [160] inode: 41035, pc: 0x0000557c, module: upnp
+  [161] inode: 41035, pc: 0x00005634, module: upnp
+  [162] inode: 24579, pc: 0x0001df30, module: libc.so.0, symbol: inet_aton
+  [163] inode: 41035, pc: 0x000055fc, module: upnp
+  [164] inode: 24579, pc: 0x0001f644, module: libc.so.0
+  [165] inode: 41035, pc: 0x000055dc, module: upnp
+  [166] inode: 41035, pc: 0x0000552c, module: upnp
+  [167] inode: 24579, pc: 0x0001d110, module: libc.so.0, symbol: strlen
+  [168] inode: 41035, pc: 0x000054e0, module: upnp, symbol: ssdp_send
+  [169] inode: 41035, pc: 0x000060b0, module: upnp
+  [170] inode: 41035, pc: 0x00006060, module: upnp
+  [171] inode: 41035, pc: 0x00006058, module: upnp
+  [172] inode: 41035, pc: 0x00006040, module: upnp
+  [173] inode: 24579, pc: 0x0001cf30, module: libc.so.0, symbol: strcmp
+  [174] inode: 41035, pc: 0x0000601c, module: upnp
+  [175] inode: 41035, pc: 0x0000600c, module: upnp
+  [176] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [177] inode: 41035, pc: 0x00006000, module: upnp
+  [178] inode: 41035, pc: 0x00005fe4, module: upnp
+  [179] inode: 24579, pc: 0x00028b90, module: libc.so.0
+  [180] inode: 41035, pc: 0x00005fc4, module: upnp
+  [181] inode: 24579, pc: 0x00022650, module: libc.so.0, symbol: atoi
+  [182] inode: 41035, pc: 0x00005fb4, module: upnp
+  [183] inode: 41035, pc: 0x00005f94, module: upnp
+  [184] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [185] inode: 41035, pc: 0x00005f78, module: upnp
+  [186] inode: 41035, pc: 0x00006174, module: upnp
+  [187] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [188] inode: 41035, pc: 0x00006148, module: upnp
+  [189] inode: 41035, pc: 0x0000613c, module: upnp
+  [190] inode: 41035, pc: 0x00005f44, module: upnp
+  [191] inode: 41035, pc: 0x00005f28, module: upnp
+  [192] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [193] inode: 41035, pc: 0x00005f08, module: upnp
+  [194] inode: 41035, pc: 0x00005efc, module: upnp
+  [195] inode: 41035, pc: 0x00005ee4, module: upnp
+  [196] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [197] inode: 41035, pc: 0x00005eb4, module: upnp
+  [198] inode: 41035, pc: 0x00005e94, module: upnp
+  [199] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [200] inode: 41035, pc: 0x00005e84, module: upnp
+  [201] inode: 41035, pc: 0x0000638c, module: upnp
+  [202] inode: 41035, pc: 0x00005df0, module: upnp
+  [203] inode: 41035, pc: 0x00005de0, module: upnp
+  [204] inode: 24579, pc: 0x0001cf30, module: libc.so.0, symbol: strcmp
+  [205] inode: 41035, pc: 0x00005dc4, module: upnp
+  [206] inode: 41035, pc: 0x00005dac, module: upnp
+  [207] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [208] inode: 41035, pc: 0x00005d8c, module: upnp
+  [209] inode: 41035, pc: 0x00005d84, module: upnp
+  [210] inode: 41035, pc: 0x00005d6c, module: upnp
+  [211] inode: 24579, pc: 0x0001cf30, module: libc.so.0, symbol: strcmp
+  [212] inode: 41035, pc: 0x00005d50, module: upnp
+  [213] inode: 41035, pc: 0x00005d38, module: upnp
+  [214] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [215] inode: 41035, pc: 0x00005d18, module: upnp
+  [216] inode: 41035, pc: 0x00005d08, module: upnp
+  [217] inode: 41035, pc: 0x00005cf8, module: upnp
+  [218] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [219] inode: 41035, pc: 0x00005cdc, module: upnp
+  [220] inode: 41035, pc: 0x00005cc0, module: upnp
+  [221] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [222] inode: 41035, pc: 0x00005c58, module: upnp, symbol: ssdp_notify
+  [223] inode: 41035, pc: 0x00006598, module: upnp
+  [224] inode: 41035, pc: 0x00006494, module: upnp
+  [225] inode: 41035, pc: 0x00006550, module: upnp
+  [226] inode: 41035, pc: 0x00006080, module: upnp
+  [227] inode: 41035, pc: 0x000060c0, module: upnp
+  [228] inode: 41035, pc: 0x000055ac, module: upnp
+  [229] inode: 24579, pc: 0x0001f578, module: libc.so.0
+  [230] inode: 41035, pc: 0x0000557c, module: upnp
+  [231] inode: 41035, pc: 0x00005634, module: upnp
+  [232] inode: 24579, pc: 0x0001df30, module: libc.so.0, symbol: inet_aton
+  [233] inode: 41035, pc: 0x000055fc, module: upnp
+  [234] inode: 24579, pc: 0x0001f644, module: libc.so.0
+  [235] inode: 41035, pc: 0x000055dc, module: upnp
+  [236] inode: 41035, pc: 0x0000552c, module: upnp
+  [237] inode: 24579, pc: 0x0001d11c, module: libc.so.0
+  [238] inode: 41035, pc: 0x000054e0, module: upnp, symbol: ssdp_send
+  [239] inode: 41035, pc: 0x000060b0, module: upnp
+  [240] inode: 41035, pc: 0x00006060, module: upnp
+  [241] inode: 41035, pc: 0x00006058, module: upnp
+  [242] inode: 41035, pc: 0x00006040, module: upnp
+  [243] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [244] inode: 41035, pc: 0x00006024, module: upnp
+  [245] inode: 41035, pc: 0x0000600c, module: upnp
+  [246] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [247] inode: 41035, pc: 0x00006000, module: upnp
+  [248] inode: 41035, pc: 0x00005fe4, module: upnp
+  [249] inode: 24579, pc: 0x00028b90, module: libc.so.0
+  [250] inode: 41035, pc: 0x00005fc4, module: upnp
+  [251] inode: 24579, pc: 0x00022650, module: libc.so.0, symbol: atoi
+  [252] inode: 41035, pc: 0x00005fb4, module: upnp
+  [253] inode: 41035, pc: 0x00005f94, module: upnp
+  [254] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [255] inode: 41035, pc: 0x00005f78, module: upnp
+  [256] inode: 41035, pc: 0x00006174, module: upnp
+  [257] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [258] inode: 41035, pc: 0x00006160, module: upnp
+  [259] inode: 41035, pc: 0x00005f28, module: upnp
+  [260] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [261] inode: 41035, pc: 0x00005f08, module: upnp
+  [262] inode: 41035, pc: 0x00005efc, module: upnp
+  [263] inode: 41035, pc: 0x00005ee4, module: upnp
+  [264] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [265] inode: 41035, pc: 0x00005eb4, module: upnp
+  [266] inode: 41035, pc: 0x00005e94, module: upnp
+  [267] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [268] inode: 41035, pc: 0x00005e84, module: upnp
+  [269] inode: 41035, pc: 0x0000638c, module: upnp
+  [270] inode: 41035, pc: 0x00005df0, module: upnp
+  [271] inode: 41035, pc: 0x00005de0, module: upnp
+  [272] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [273] inode: 41035, pc: 0x00005dbc, module: upnp
+  [274] inode: 41035, pc: 0x00005dac, module: upnp
+  [275] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [276] inode: 41035, pc: 0x00005d8c, module: upnp
+  [277] inode: 41035, pc: 0x00005d84, module: upnp
+  [278] inode: 41035, pc: 0x00005d6c, module: upnp
+  [279] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [280] inode: 41035, pc: 0x00005d48, module: upnp
+  [281] inode: 41035, pc: 0x00005d38, module: upnp
+  [282] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [283] inode: 41035, pc: 0x00005d18, module: upnp
+  [284] inode: 41035, pc: 0x00005d08, module: upnp
+  [285] inode: 41035, pc: 0x00005cf8, module: upnp
+  [286] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [287] inode: 41035, pc: 0x00005cd4, module: upnp
+  [288] inode: 41035, pc: 0x00005cc0, module: upnp
+  [289] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [290] inode: 41035, pc: 0x00005c70, module: upnp
+  [291] inode: 41035, pc: 0x00006534, module: upnp
+  [292] inode: 41035, pc: 0x00006588, module: upnp
+  [293] inode: 41035, pc: 0x000064ac, module: upnp
+  [294] inode: 41035, pc: 0x00006494, module: upnp
+  [295] inode: 41035, pc: 0x00006550, module: upnp
+  [296] inode: 41035, pc: 0x00006080, module: upnp
+  [297] inode: 41035, pc: 0x000060c4, module: upnp
+  [298] inode: 41035, pc: 0x000055ac, module: upnp
+  [299] inode: 24579, pc: 0x0001f578, module: libc.so.0
+Total Self trace elements: 300
+
+--- Parent PID 180 Trace ---
+  [000] inode: 24579, pc: 0x000285a8, module: libc.so.0
+Total Parent trace elements: 1
+
+--- Parent PID 179 Trace ---
+  [000] inode: 24578, pc: 0x000009a0, module: ld-uClibc.so.0, symbol: _dl_linux_resolve
+  [001] inode: 41035, pc: 0x00003770, module: upnp, symbol: daemon
+  [002] inode: 41035, pc: 0x00012518, module: upnp
+  [003] inode: 41035, pc: 0x000123b0, module: upnp
+  [004] inode: 41035, pc: 0x000123a0, module: upnp
+  [005] inode: 24578, pc: 0x000009d8, module: ld-uClibc.so.0, symbol: _dl_linux_resolve
+  [006] inode: 41035, pc: 0x00003250, module: upnp, symbol: strcpy
+  [007] inode: 41035, pc: 0x00012388, module: upnp
+  [008] inode: 24578, pc: 0x000009a0, module: ld-uClibc.so.0, symbol: _dl_linux_resolve
+  [009] inode: 41035, pc: 0x00003240, module: upnp, symbol: init_event_queue
+  [010] inode: 41035, pc: 0x00012368, module: upnp
+  [011] inode: 41035, pc: 0x00012354, module: upnp
+  [012] inode: 41035, pc: 0x00012604, module: upnp
+  [013] inode: 41035, pc: 0x000125f4, module: upnp
+  [014] inode: 24579, pc: 0x0001cca0, module: libc.so.0, symbol: strcasecmp
+  [015] inode: 41035, pc: 0x000125e0, module: upnp
+  [016] inode: 41035, pc: 0x00012328, module: upnp
+  [017] inode: 24578, pc: 0x000009d8, module: ld-uClibc.so.0, symbol: _dl_linux_resolve
+  [018] inode: 41035, pc: 0x000035a0, module: upnp, symbol: strcasecmp
+  [019] inode: 41035, pc: 0x0001230c, module: upnp
+  [020] inode: 41035, pc: 0x000122e8, module: upnp
+  [021] inode: 41035, pc: 0x000122c8, module: upnp
+  [022] inode: 24578, pc: 0x000009a0, module: ld-uClibc.so.0, symbol: _dl_linux_resolve
+  [023] inode: 41035, pc: 0x00003630, module: upnp, symbol: nvram_get
+  [024] inode: 41035, pc: 0x000122a0, module: upnp
+  [025] inode: 24578, pc: 0x000009d8, module: ld-uClibc.so.0, symbol: _dl_linux_resolve
+  [026] inode: 41035, pc: 0x00003650, module: upnp, symbol: fclose
+  [027] inode: 41035, pc: 0x00012290, module: upnp
+  [028] inode: 24578, pc: 0x000009a0, module: ld-uClibc.so.0, symbol: _dl_linux_resolve
+  [029] inode: 41035, pc: 0x000034b0, module: upnp, symbol: fprintf
+  [030] inode: 41035, pc: 0x00012258, module: upnp
+  [031] inode: 24578, pc: 0x000009d8, module: ld-uClibc.so.0, symbol: _dl_linux_resolve
+  [032] inode: 41035, pc: 0x00003320, module: upnp, symbol: getpid
+  [033] inode: 41035, pc: 0x00012244, module: upnp
+  [034] inode: 41035, pc: 0x00012224, module: upnp
+  [035] inode: 24579, pc: 0x00015bc0, module: libc.so.0, symbol: fopen
+  [036] inode: 41035, pc: 0x00012208, module: upnp
+  [037] inode: 41035, pc: 0x00012158, module: upnp
+  [038] inode: 24578, pc: 0x000009a0, module: ld-uClibc.so.0, symbol: _dl_linux_resolve
+  [039] inode: 41035, pc: 0x00003620, module: upnp, symbol: fopen
+  [040] inode: 41035, pc: 0x000120ec, module: upnp, symbol: main
+  [041] inode: 24579, pc: 0x0000687c, module: libc.so.0
+  [042] inode: 41035, pc: 0x0001f2d8, module: upnp
+  [043] inode: 41035, pc: 0x0001f268, module: upnp
+  [044] inode: 41035, pc: 0x000031f0, module: upnp
+  [045] inode: 41035, pc: 0x00003188, module: upnp
+  [046] inode: 24578, pc: 0x000009a0, module: ld-uClibc.so.0, symbol: _dl_linux_resolve
+  [047] inode: 41035, pc: 0x00003790, module: upnp, symbol: __uClibc_start_main
+  [048] inode: 41035, pc: 0x0000383c, module: upnp
+  [049] inode: 41035, pc: 0x00003810, module: upnp
+  [050] inode: 24578, pc: 0x00000a30, module: ld-uClibc.so.0
+Total Parent trace elements: 51
+
+--- Parent PID 56 Trace ---
+  [000] inode: 41008, pc: 0x00007698, module: libshared.so
+  [001] inode: 32802, pc: 0x0001dc60, module: rc
+  [002] inode: 32802, pc: 0x00015000, module: rc
+  [003] inode: 32802, pc: 0x00014ff0, module: rc
+  [004] inode: 32802, pc: 0x0001ba8c, module: rc
+  [005] inode: 24579, pc: 0x0002b040, module: libc.so.0
+  [006] inode: 32802, pc: 0x0000e86c, module: rc
+  [007] inode: 32802, pc: 0x0000e858, module: rc
+  [008] inode: 24579, pc: 0x00027624, module: libc.so.0
+  [009] inode: 32802, pc: 0x0000e848, module: rc
+  [010] inode: 41008, pc: 0x00007698, module: libshared.so
+  [011] inode: 32802, pc: 0x0001ba44, module: rc
+  [012] inode: 32802, pc: 0x00014fe0, module: rc
+  [013] inode: 32802, pc: 0x000153a8, module: rc
+  [014] inode: 32802, pc: 0x0003c674, module: rc
+  [015] inode: 41008, pc: 0x00007698, module: libshared.so
+  [016] inode: 32802, pc: 0x0003c644, module: rc
+  [017] inode: 32802, pc: 0x0001538c, module: rc
+  [018] inode: 32802, pc: 0x0003c700, module: rc
+  [019] inode: 24579, pc: 0x0002b040, module: libc.so.0
+  [020] inode: 32802, pc: 0x0000e86c, module: rc
+  [021] inode: 32802, pc: 0x0000e858, module: rc
+  [022] inode: 24579, pc: 0x00027624, module: libc.so.0
+  [023] inode: 32802, pc: 0x0000e848, module: rc
+  [024] inode: 41008, pc: 0x00007698, module: libshared.so
+  [025] inode: 32802, pc: 0x0003c6c0, module: rc
+  [026] inode: 32802, pc: 0x0001537c, module: rc
+  [027] inode: 32802, pc: 0x00014fcc, module: rc
+  [028] inode: 24579, pc: 0x0001cb30, module: libc.so.0, symbol: memcmp
+  [029] inode: 32802, pc: 0x00014fac, module: rc
+  [030] inode: 32802, pc: 0x000153cc, module: rc
+  [031] inode: 32802, pc: 0x00014960, module: rc
+  [032] inode: 32802, pc: 0x00036b04, module: rc
+  [033] inode: 32802, pc: 0x00036958, module: rc
+  [034] inode: 32802, pc: 0x00035a5c, module: rc
+  [035] inode: 32802, pc: 0x00035a44, module: rc
+  [036] inode: 24579, pc: 0x00022650, module: libc.so.0, symbol: atoi
+  [037] inode: 32802, pc: 0x00035a34, module: rc
+  [038] inode: 32802, pc: 0x00035a14, module: rc
+  [039] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [040] inode: 32802, pc: 0x000359f8, module: rc
+  [041] inode: 32802, pc: 0x000359e0, module: rc
+  [042] inode: 24579, pc: 0x00022674, module: libc.so.0
+  [043] inode: 32802, pc: 0x000359d0, module: rc
+  [044] inode: 32802, pc: 0x000359b0, module: rc
+  [045] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [046] inode: 32802, pc: 0x00035990, module: rc
+  [047] inode: 32802, pc: 0x00035980, module: rc
+  [048] inode: 32802, pc: 0x00035970, module: rc
+  [049] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [050] inode: 32802, pc: 0x00035954, module: rc
+  [051] inode: 32802, pc: 0x00035938, module: rc
+  [052] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [053] inode: 32802, pc: 0x00035908, module: rc
+  [054] inode: 32802, pc: 0x0003693c, module: rc
+  [055] inode: 24579, pc: 0x0001cc60, module: libc.so.0, symbol: memset
+  [056] inode: 32802, pc: 0x00036904, module: rc
+  [057] inode: 32802, pc: 0x00014944, module: rc
+  [058] inode: 32802, pc: 0x0003754c, module: rc
+  [059] inode: 24579, pc: 0x0002b040, module: libc.so.0
+  [060] inode: 32802, pc: 0x0000e86c, module: rc
+  [061] inode: 32802, pc: 0x0000e858, module: rc
+  [062] inode: 24579, pc: 0x00027624, module: libc.so.0
+  [063] inode: 32802, pc: 0x0000e848, module: rc
+  [064] inode: 41008, pc: 0x00007698, module: libshared.so
+  [065] inode: 32802, pc: 0x00037504, module: rc
+  [066] inode: 32802, pc: 0x00014918, module: rc, symbol: start_wan_service
+  [067] inode: 32802, pc: 0x000153bc, module: rc
+  [068] inode: 32802, pc: 0x00015450, module: rc
+  [069] inode: 32802, pc: 0x00015448, module: rc
+  [070] inode: 32802, pc: 0x00015430, module: rc
+  [071] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [072] inode: 32802, pc: 0x0001540c, module: rc
+  [073] inode: 32802, pc: 0x000153fc, module: rc
+  [074] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [075] inode: 32802, pc: 0x000153e0, module: rc
+  [076] inode: 32802, pc: 0x00014eb8, module: rc
+  [077] inode: 32802, pc: 0x00014ea0, module: rc
+  [078] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [079] inode: 32802, pc: 0x00014e7c, module: rc
+  [080] inode: 32802, pc: 0x00014e6c, module: rc
+  [081] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [082] inode: 32802, pc: 0x00014e4c, module: rc
+  [083] inode: 32802, pc: 0x00014e44, module: rc
+  [084] inode: 32802, pc: 0x00014e2c, module: rc
+  [085] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [086] inode: 32802, pc: 0x00014e08, module: rc
+  [087] inode: 32802, pc: 0x00014df8, module: rc
+  [088] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [089] inode: 32802, pc: 0x00014dd0, module: rc
+  [090] inode: 32802, pc: 0x00015cac, module: rc
+  [091] inode: 32802, pc: 0x00015b74, module: rc
+  [092] inode: 24579, pc: 0x0001cee0, module: libc.so.0, symbol: index
+  [093] inode: 32802, pc: 0x00015b44, module: rc
+  [094] inode: 24579, pc: 0x0001cfc0, module: libc.so.0, symbol: strcspn
+  [095] inode: 32802, pc: 0x00015b18, module: rc
+  [096] inode: 24579, pc: 0x0001d340, module: libc.so.0, symbol: strncpy
+  [097] inode: 32802, pc: 0x00015afc, module: rc
+  [098] inode: 32802, pc: 0x00015ad8, module: rc
+  [099] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [100] inode: 32802, pc: 0x00015aac, module: rc
+  [101] inode: 24579, pc: 0x0001d58c, module: libc.so.0
+  [102] inode: 32802, pc: 0x00015a90, module: rc
+  [103] inode: 32802, pc: 0x00015a70, module: rc
+  [104] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [105] inode: 32802, pc: 0x00015a24, module: rc, symbol: set_routes
+  [106] inode: 32802, pc: 0x00014dc0, module: rc
+  [107] inode: 32802, pc: 0x0002734c, module: rc
+  [108] inode: 32802, pc: 0x00027580, module: rc
+  [109] inode: 24579, pc: 0x000253b0, module: libc.so.0, symbol: __libc_system
+  [110] inode: 32802, pc: 0x00027570, module: rc
+  [111] inode: 24579, pc: 0x0002c4c0, module: libc.so.0, symbol: sleep
+  [112] inode: 32802, pc: 0x00027548, module: rc
+  [113] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [114] inode: 32802, pc: 0x00027528, module: rc
+  [115] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [116] inode: 32802, pc: 0x000274f4, module: rc
+  [117] inode: 24579, pc: 0x0001cc60, module: libc.so.0, symbol: memset
+  [118] inode: 32802, pc: 0x000274d0, module: rc
+  [119] inode: 24579, pc: 0x0001cc60, module: libc.so.0, symbol: memset
+  [120] inode: 32802, pc: 0x000274c0, module: rc
+  [121] inode: 24579, pc: 0x000253b0, module: libc.so.0, symbol: __libc_system
+  [122] inode: 32802, pc: 0x00027490, module: rc
+  [123] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [124] inode: 32802, pc: 0x00027470, module: rc
+  [125] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [126] inode: 32802, pc: 0x0002743c, module: rc
+  [127] inode: 24579, pc: 0x0001cc60, module: libc.so.0, symbol: memset
+  [128] inode: 32802, pc: 0x0002742c, module: rc
+  [129] inode: 24579, pc: 0x000253b0, module: libc.so.0, symbol: __libc_system
+  [130] inode: 32802, pc: 0x000273fc, module: rc
+  [131] inode: 24579, pc: 0x00019590, module: libc.so.0, symbol: sprintf
+  [132] inode: 32802, pc: 0x000273cc, module: rc
+  [133] inode: 24579, pc: 0x0001d340, module: libc.so.0, symbol: strncpy
+  [134] inode: 32802, pc: 0x000273bc, module: rc
+  [135] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [136] inode: 32802, pc: 0x00027380, module: rc
+  [137] inode: 24579, pc: 0x0001cc60, module: libc.so.0, symbol: memset
+  [138] inode: 32802, pc: 0x00027370, module: rc
+  [139] inode: 32802, pc: 0x00027330, module: rc
+  [140] inode: 32802, pc: 0x0002731c, module: rc
+  [141] inode: 24579, pc: 0x0001cf40, module: libc.so.0
+  [142] inode: 32802, pc: 0x00027308, module: rc
+  [143] inode: 32802, pc: 0x000272f4, module: rc
+  [144] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [145] inode: 32802, pc: 0x0002729c, module: rc, symbol: start_igmp_proxy
+  [146] inode: 32802, pc: 0x00014d98, module: rc
+  [147] inode: 32802, pc: 0x00027600, module: rc
+  [148] inode: 24579, pc: 0x0002b040, module: libc.so.0
+  [149] inode: 32802, pc: 0x0000e86c, module: rc
+  [150] inode: 32802, pc: 0x0000e858, module: rc
+  [151] inode: 24579, pc: 0x00027624, module: libc.so.0
+  [152] inode: 32802, pc: 0x0000e848, module: rc
+  [153] inode: 41008, pc: 0x00007698, module: libshared.so
+  [154] inode: 32802, pc: 0x000275c0, module: rc
+  [155] inode: 32802, pc: 0x00014d7c, module: rc
+  [156] inode: 32802, pc: 0x0001aea8, module: rc
+  [157] inode: 24579, pc: 0x0002b040, module: libc.so.0
+  [158] inode: 32802, pc: 0x0000e86c, module: rc
+  [159] inode: 32802, pc: 0x0000e858, module: rc
+  [160] inode: 24579, pc: 0x00027624, module: libc.so.0
+  [161] inode: 32802, pc: 0x0000e848, module: rc
+  [162] inode: 41008, pc: 0x00007698, module: libshared.so
+  [163] inode: 32802, pc: 0x0001ae6c, module: rc
+  [164] inode: 32802, pc: 0x0001ae3c, module: rc
+  [165] inode: 32802, pc: 0x0001ade8, module: rc
+  [166] inode: 32802, pc: 0x0001adc8, module: rc
+  [167] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [168] inode: 32802, pc: 0x0001ad6c, module: rc
+  [169] inode: 32802, pc: 0x0001aca4, module: rc
+  [170] inode: 41008, pc: 0x00013744, module: libshared.so
+  [171] inode: 32802, pc: 0x0001ac5c, module: rc, symbol: start_dns
+  [172] inode: 32802, pc: 0x00014d60, module: rc
+  [173] inode: 32802, pc: 0x0001af80, module: rc
+  [174] inode: 24579, pc: 0x0002b040, module: libc.so.0
+  [175] inode: 32802, pc: 0x0000e86c, module: rc
+  [176] inode: 32802, pc: 0x0000e858, module: rc
+  [177] inode: 24579, pc: 0x00027624, module: libc.so.0
+  [178] inode: 32802, pc: 0x0000e848, module: rc
+  [179] inode: 41008, pc: 0x00007698, module: libshared.so
+  [180] inode: 32802, pc: 0x0001af40, module: rc
+  [181] inode: 32802, pc: 0x00014d44, module: rc
+  [182] inode: 24579, pc: 0x0002b040, module: libc.so.0
+  [183] inode: 32802, pc: 0x0000e86c, module: rc
+  [184] inode: 32802, pc: 0x0000e858, module: rc
+  [185] inode: 24579, pc: 0x00027624, module: libc.so.0
+  [186] inode: 32802, pc: 0x0000e848, module: rc
+  [187] inode: 24578, pc: 0x000009d8, module: ld-uClibc.so.0, symbol: _dl_linux_resolve
+  [188] inode: 32802, pc: 0x00004310, module: rc, symbol: dns_to_resolv
+  [189] inode: 32802, pc: 0x00014d34, module: rc
+  [190] inode: 32802, pc: 0x00014bf0, module: rc
+  [191] inode: 32802, pc: 0x00014bdc, module: rc
+  [192] inode: 32802, pc: 0x0000f000, module: rc
+  [193] inode: 32802, pc: 0x0000eff8, module: rc
+  [194] inode: 32802, pc: 0x0000eee8, module: rc
+  [195] inode: 32802, pc: 0x0000ef68, module: rc
+  [196] inode: 24579, pc: 0x00006960, module: libc.so.0, symbol: __errno_location
+  [197] inode: 32802, pc: 0x0000ef4c, module: rc
+  [198] inode: 24579, pc: 0x00015c20, module: libc.so.0, symbol: perror
+  [199] inode: 32802, pc: 0x0000ef3c, module: rc
+  [200] inode: 24579, pc: 0x00028810, module: libc.so.0
+  [201] inode: 32802, pc: 0x0000ef1c, module: rc
+  [202] inode: 32802, pc: 0x0000eeb8, module: rc
+  [203] inode: 24579, pc: 0x00029a24, module: libc.so.0, symbol: ioctl
+  [204] inode: 32802, pc: 0x0000ee84, module: rc
+  [205] inode: 32802, pc: 0x0000ee74, module: rc
+  [206] inode: 32802, pc: 0x0000ee48, module: rc
+  [207] inode: 24579, pc: 0x0001df30, module: libc.so.0, symbol: inet_aton
+  [208] inode: 32802, pc: 0x0000ee30, module: rc
+  [209] inode: 32802, pc: 0x0000ee20, module: rc
+  [210] inode: 24579, pc: 0x0001df30, module: libc.so.0, symbol: inet_aton
+  [211] inode: 32802, pc: 0x0000ee08, module: rc
+  [212] inode: 32802, pc: 0x0000edf8, module: rc
+  [213] inode: 24579, pc: 0x0001df30, module: libc.so.0, symbol: inet_aton
+  [214] inode: 32802, pc: 0x0000ede0, module: rc
+  [215] inode: 32802, pc: 0x0000edd0, module: rc
+  [216] inode: 24579, pc: 0x0001cc60, module: libc.so.0, symbol: memset
+  [217] inode: 32802, pc: 0x0000edac, module: rc
+  [218] inode: 32802, pc: 0x0000ed9c, module: rc
+  [219] inode: 24579, pc: 0x0001f774, module: libc.so.0
+  [220] inode: 32802, pc: 0x0000ed78, module: rc
+  [221] inode: 24579, pc: 0x00015570, module: libc.so.0, symbol: fclose
+  [222] inode: 32802, pc: 0x0000ed5c, module: rc
+  [223] inode: 24579, pc: 0x00019460, module: libc.so.0, symbol: fprintf
+  [224] inode: 32802, pc: 0x0000ed2c, module: rc
+  [225] inode: 32802, pc: 0x0000ed00, module: rc
+  [226] inode: 32802, pc: 0x0000ecf0, module: rc
+  [227] inode: 24579, pc: 0x00015bc0, module: libc.so.0, symbol: fopen
+  [228] inode: 32802, pc: 0x0000ec74, module: rc
+  [229] inode: 32802, pc: 0x0000ef9c, module: rc, symbol: route_add
+  [230] inode: 32802, pc: 0x00014bbc, module: rc
+  [231] inode: 32802, pc: 0x00014c68, module: rc
+  [232] inode: 32802, pc: 0x00014c50, module: rc
+  [233] inode: 24579, pc: 0x0001cf30, module: libc.so.0, symbol: strcmp
+  [234] inode: 32802, pc: 0x00014c34, module: rc
+  [235] inode: 32802, pc: 0x00014c1c, module: rc
+  [236] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [237] inode: 32802, pc: 0x00014bfc, module: rc
+  [238] inode: 32802, pc: 0x00014bf0, module: rc
+  [239] inode: 32802, pc: 0x00014bdc, module: rc
+  [240] inode: 32802, pc: 0x0000f000, module: rc
+  [241] inode: 32802, pc: 0x0000eff8, module: rc
+  [242] inode: 32802, pc: 0x0000eee8, module: rc
+  [243] inode: 32802, pc: 0x0000ef68, module: rc
+  [244] inode: 24579, pc: 0x00006960, module: libc.so.0, symbol: __errno_location
+  [245] inode: 32802, pc: 0x0000ef4c, module: rc
+  [246] inode: 24579, pc: 0x00015c20, module: libc.so.0, symbol: perror
+  [247] inode: 32802, pc: 0x0000ef30, module: rc
+  [248] inode: 24579, pc: 0x00028810, module: libc.so.0
+  [249] inode: 32802, pc: 0x0000ef1c, module: rc
+  [250] inode: 32802, pc: 0x0000eeb8, module: rc
+  [251] inode: 24579, pc: 0x00029a24, module: libc.so.0, symbol: ioctl
+  [252] inode: 32802, pc: 0x0000ee84, module: rc
+  [253] inode: 32802, pc: 0x0000ee74, module: rc
+  [254] inode: 32802, pc: 0x0000ee48, module: rc
+  [255] inode: 24579, pc: 0x0001df30, module: libc.so.0, symbol: inet_aton
+  [256] inode: 32802, pc: 0x0000ee30, module: rc
+  [257] inode: 32802, pc: 0x0000ee20, module: rc
+  [258] inode: 24579, pc: 0x0001df30, module: libc.so.0, symbol: inet_aton
+  [259] inode: 32802, pc: 0x0000ee08, module: rc
+  [260] inode: 32802, pc: 0x0000edf8, module: rc
+  [261] inode: 24579, pc: 0x0001df30, module: libc.so.0, symbol: inet_aton
+  [262] inode: 32802, pc: 0x0000ede0, module: rc
+  [263] inode: 32802, pc: 0x0000edd0, module: rc
+  [264] inode: 24579, pc: 0x0001cc60, module: libc.so.0, symbol: memset
+  [265] inode: 32802, pc: 0x0000edac, module: rc
+  [266] inode: 32802, pc: 0x0000ed9c, module: rc
+  [267] inode: 24579, pc: 0x0001f774, module: libc.so.0
+  [268] inode: 32802, pc: 0x0000ed78, module: rc
+  [269] inode: 24579, pc: 0x00015570, module: libc.so.0, symbol: fclose
+  [270] inode: 32802, pc: 0x0000ed5c, module: rc
+  [271] inode: 24579, pc: 0x00019460, module: libc.so.0, symbol: fprintf
+  [272] inode: 32802, pc: 0x0000ed2c, module: rc
+  [273] inode: 32802, pc: 0x0000ed00, module: rc
+  [274] inode: 32802, pc: 0x0000ecf0, module: rc
+  [275] inode: 24579, pc: 0x00015bc0, module: libc.so.0, symbol: fopen
+  [276] inode: 32802, pc: 0x0000ec74, module: rc
+  [277] inode: 32802, pc: 0x0000ef9c, module: rc, symbol: route_add
+  [278] inode: 32802, pc: 0x00014bbc, module: rc
+  [279] inode: 32802, pc: 0x00014c68, module: rc
+  [280] inode: 32802, pc: 0x00014c50, module: rc
+  [281] inode: 24579, pc: 0x0001cf30, module: libc.so.0, symbol: strcmp
+  [282] inode: 32802, pc: 0x00014c2c, module: rc
+  [283] inode: 32802, pc: 0x00014c1c, module: rc
+  [284] inode: 32827, pc: 0x00004050, module: libnvram_ioctl.so
+  [285] inode: 32802, pc: 0x00014bfc, module: rc
+  [286] inode: 32802, pc: 0x00014bf0, module: rc
+  [287] inode: 32802, pc: 0x00014bdc, module: rc
+  [288] inode: 32802, pc: 0x0000f000, module: rc
+  [289] inode: 32802, pc: 0x0000eff8, module: rc
+  [290] inode: 32802, pc: 0x0000eee8, module: rc
+  [291] inode: 32802, pc: 0x0000ef68, module: rc
+  [292] inode: 24579, pc: 0x00006960, module: libc.so.0, symbol: __errno_location
+  [293] inode: 32802, pc: 0x0000ef4c, module: rc
+  [294] inode: 24579, pc: 0x00015c20, module: libc.so.0, symbol: perror
+  [295] inode: 32802, pc: 0x0000ef30, module: rc
+  [296] inode: 24579, pc: 0x00028810, module: libc.so.0
+  [297] inode: 32802, pc: 0x0000ef1c, module: rc
+  [298] inode: 32802, pc: 0x0000eeb8, module: rc
+  [299] inode: 24579, pc: 0x00029a24, module: libc.so.0, symbol: ioctl
+Total Parent trace elements: 300
+
+--- Parent PID 1 Trace ---
+  [000] inode: 32803, pc: 0x00024b40, module: busybox
+  [001] inode: 32803, pc: 0x00024b5c, module: busybox
+  [002] inode: 32803, pc: 0x00010310, module: busybox
+  [003] inode: 32803, pc: 0x000ace40, module: busybox
+  [004] inode: 32803, pc: 0x000ace2c, module: busybox
+  [005] inode: 32803, pc: 0x000accf8, module: busybox
+  [006] inode: 32803, pc: 0x000ad250, module: busybox
+  [007] inode: 32803, pc: 0x000ad240, module: busybox
+  [008] inode: 32803, pc: 0x000ad258, module: busybox
+  [009] inode: 32803, pc: 0x000ad000, module: busybox
+  [010] inode: 32803, pc: 0x000acfe8, module: busybox
+  [011] inode: 32803, pc: 0x000acfac, module: busybox
+  [012] inode: 32803, pc: 0x000a9920, module: busybox
+  [013] inode: 32803, pc: 0x000a98c8, module: busybox
+  [014] inode: 32803, pc: 0x000acf90, module: busybox
+  [015] inode: 32803, pc: 0x000acf68, module: busybox
+  [016] inode: 32803, pc: 0x000ace70, module: busybox
+  [017] inode: 32803, pc: 0x000acf5c, module: busybox
+  [018] inode: 32803, pc: 0x000acf14, module: busybox
+  [019] inode: 32803, pc: 0x000acf00, module: busybox
+  [020] inode: 32803, pc: 0x000acebc, module: busybox
+  [021] inode: 32803, pc: 0x000ace88, module: busybox
+  [022] inode: 32803, pc: 0x000ace78, module: busybox
+  [023] inode: 32803, pc: 0x000ace70, module: busybox
+  [024] inode: 32803, pc: 0x000acf5c, module: busybox
+  [025] inode: 32803, pc: 0x000acf14, module: busybox
+  [026] inode: 32803, pc: 0x000acf00, module: busybox
+  [027] inode: 32803, pc: 0x000acebc, module: busybox
+  [028] inode: 32803, pc: 0x000ace88, module: busybox
+  [029] inode: 32803, pc: 0x000ace78, module: busybox
+  [030] inode: 32803, pc: 0x000ace70, module: busybox
+  [031] inode: 32803, pc: 0x000acf5c, module: busybox
+  [032] inode: 32803, pc: 0x000acf14, module: busybox
+  [033] inode: 32803, pc: 0x000acf00, module: busybox
+  [034] inode: 32803, pc: 0x000acebc, module: busybox
+  [035] inode: 32803, pc: 0x000ace88, module: busybox
+  [036] inode: 32803, pc: 0x000ace78, module: busybox
+  [037] inode: 32803, pc: 0x000ace70, module: busybox
+  [038] inode: 32803, pc: 0x000acf5c, module: busybox
+  [039] inode: 32803, pc: 0x000acf14, module: busybox
+  [040] inode: 32803, pc: 0x000acf00, module: busybox
+  [041] inode: 32803, pc: 0x000acebc, module: busybox
+  [042] inode: 32803, pc: 0x000ace88, module: busybox
+  [043] inode: 32803, pc: 0x000ace78, module: busybox
+  [044] inode: 32803, pc: 0x000ace5c, module: busybox
+  [045] inode: 32803, pc: 0x000ace50, module: busybox
+  [046] inode: 32803, pc: 0x000035a8, module: busybox
+  [047] inode: 32803, pc: 0x00003580, module: busybox
+  [048] inode: 32803, pc: 0x0001034c, module: busybox
+  [049] inode: 32803, pc: 0x00003578, module: busybox
+  [050] inode: 32803, pc: 0x0000356c, module: busybox
+  [051] inode: 32803, pc: 0x000a9860, module: busybox
+  [052] inode: 32803, pc: 0x000a9828, module: busybox
+  [053] inode: 32803, pc: 0x000a9814, module: busybox
+  [054] inode: 32803, pc: 0x000a97cc, module: busybox
+  [055] inode: 32803, pc: 0x00024b40, module: busybox
+  [056] inode: 32803, pc: 0x00024b5c, module: busybox
+  [057] inode: 32803, pc: 0x00010310, module: busybox
+  [058] inode: 32803, pc: 0x000ace40, module: busybox
+  [059] inode: 32803, pc: 0x000ace2c, module: busybox
+  [060] inode: 32803, pc: 0x000accf8, module: busybox
+  [061] inode: 32803, pc: 0x000ad250, module: busybox
+  [062] inode: 32803, pc: 0x000ad240, module: busybox
+  [063] inode: 32803, pc: 0x000ad258, module: busybox
+  [064] inode: 32803, pc: 0x000ad000, module: busybox
+  [065] inode: 32803, pc: 0x000acfe8, module: busybox
+  [066] inode: 32803, pc: 0x000acfac, module: busybox
+  [067] inode: 32803, pc: 0x000a9920, module: busybox
+  [068] inode: 32803, pc: 0x000a98c8, module: busybox
+  [069] inode: 32803, pc: 0x000acf90, module: busybox
+  [070] inode: 32803, pc: 0x000acf68, module: busybox
+  [071] inode: 32803, pc: 0x000ace70, module: busybox
+  [072] inode: 32803, pc: 0x000acf5c, module: busybox
+  [073] inode: 32803, pc: 0x000acf14, module: busybox
+  [074] inode: 32803, pc: 0x000acf00, module: busybox
+  [075] inode: 32803, pc: 0x000acebc, module: busybox
+  [076] inode: 32803, pc: 0x000ace88, module: busybox
+  [077] inode: 32803, pc: 0x000ace78, module: busybox
+  [078] inode: 32803, pc: 0x000ace70, module: busybox
+  [079] inode: 32803, pc: 0x000acf5c, module: busybox
+  [080] inode: 32803, pc: 0x000acf14, module: busybox
+  [081] inode: 32803, pc: 0x000acf00, module: busybox
+  [082] inode: 32803, pc: 0x000acebc, module: busybox
+  [083] inode: 32803, pc: 0x000ace88, module: busybox
+  [084] inode: 32803, pc: 0x000ace78, module: busybox
+  [085] inode: 32803, pc: 0x000ace70, module: busybox
+  [086] inode: 32803, pc: 0x000acf5c, module: busybox
+  [087] inode: 32803, pc: 0x000acf14, module: busybox
+  [088] inode: 32803, pc: 0x000acf00, module: busybox
+  [089] inode: 32803, pc: 0x000acebc, module: busybox
+  [090] inode: 32803, pc: 0x000ace88, module: busybox
+  [091] inode: 32803, pc: 0x000ace78, module: busybox
+  [092] inode: 32803, pc: 0x000ace70, module: busybox
+  [093] inode: 32803, pc: 0x000acf5c, module: busybox
+  [094] inode: 32803, pc: 0x000acf14, module: busybox
+  [095] inode: 32803, pc: 0x000acf00, module: busybox
+  [096] inode: 32803, pc: 0x000acebc, module: busybox
+  [097] inode: 32803, pc: 0x000ace88, module: busybox
+  [098] inode: 32803, pc: 0x000ace78, module: busybox
+  [099] inode: 32803, pc: 0x000ace5c, module: busybox
+  [100] inode: 32803, pc: 0x000ace50, module: busybox
+  [101] inode: 32803, pc: 0x000035a8, module: busybox
+  [102] inode: 32803, pc: 0x00003580, module: busybox
+  [103] inode: 32803, pc: 0x0001034c, module: busybox
+  [104] inode: 32803, pc: 0x00003578, module: busybox
+  [105] inode: 32803, pc: 0x0000356c, module: busybox
+  [106] inode: 32803, pc: 0x000a9860, module: busybox
+  [107] inode: 32803, pc: 0x000a9828, module: busybox
+  [108] inode: 32803, pc: 0x000a9814, module: busybox
+  [109] inode: 32803, pc: 0x000a97cc, module: busybox
+  [110] inode: 32803, pc: 0x00024b40, module: busybox
+  [111] inode: 32803, pc: 0x00024b5c, module: busybox
+  [112] inode: 32803, pc: 0x00010310, module: busybox
+  [113] inode: 32803, pc: 0x000ace40, module: busybox
+  [114] inode: 32803, pc: 0x000ace2c, module: busybox
+  [115] inode: 32803, pc: 0x000accf8, module: busybox
+  [116] inode: 32803, pc: 0x000ad250, module: busybox
+  [117] inode: 32803, pc: 0x000ad240, module: busybox
+  [118] inode: 32803, pc: 0x000ad258, module: busybox
+  [119] inode: 32803, pc: 0x000ad000, module: busybox
+  [120] inode: 32803, pc: 0x000acfe8, module: busybox
+  [121] inode: 32803, pc: 0x000acfac, module: busybox
+  [122] inode: 32803, pc: 0x000a9920, module: busybox
+  [123] inode: 32803, pc: 0x000a98c8, module: busybox
+  [124] inode: 32803, pc: 0x000acf90, module: busybox
+  [125] inode: 32803, pc: 0x000acf68, module: busybox
+  [126] inode: 32803, pc: 0x000ace70, module: busybox
+  [127] inode: 32803, pc: 0x000acf5c, module: busybox
+  [128] inode: 32803, pc: 0x000acf14, module: busybox
+  [129] inode: 32803, pc: 0x000acf00, module: busybox
+  [130] inode: 32803, pc: 0x000acebc, module: busybox
+  [131] inode: 32803, pc: 0x000ace88, module: busybox
+  [132] inode: 32803, pc: 0x000ace78, module: busybox
+  [133] inode: 32803, pc: 0x000ace70, module: busybox
+  [134] inode: 32803, pc: 0x000acf5c, module: busybox
+  [135] inode: 32803, pc: 0x000acf14, module: busybox
+  [136] inode: 32803, pc: 0x000acf00, module: busybox
+  [137] inode: 32803, pc: 0x000acebc, module: busybox
+  [138] inode: 32803, pc: 0x000ace88, module: busybox
+  [139] inode: 32803, pc: 0x000ace78, module: busybox
+  [140] inode: 32803, pc: 0x000ace70, module: busybox
+  [141] inode: 32803, pc: 0x000acf5c, module: busybox
+  [142] inode: 32803, pc: 0x000acf14, module: busybox
+  [143] inode: 32803, pc: 0x000acf00, module: busybox
+  [144] inode: 32803, pc: 0x000acebc, module: busybox
+  [145] inode: 32803, pc: 0x000ace88, module: busybox
+  [146] inode: 32803, pc: 0x000ace78, module: busybox
+  [147] inode: 32803, pc: 0x000ace70, module: busybox
+  [148] inode: 32803, pc: 0x000acf5c, module: busybox
+  [149] inode: 32803, pc: 0x000acf14, module: busybox
+  [150] inode: 32803, pc: 0x000acf00, module: busybox
+  [151] inode: 32803, pc: 0x000acebc, module: busybox
+  [152] inode: 32803, pc: 0x000ace88, module: busybox
+  [153] inode: 32803, pc: 0x000ace78, module: busybox
+  [154] inode: 32803, pc: 0x000ace5c, module: busybox
+  [155] inode: 32803, pc: 0x000ace50, module: busybox
+  [156] inode: 32803, pc: 0x000035a8, module: busybox
+  [157] inode: 32803, pc: 0x00003580, module: busybox
+  [158] inode: 32803, pc: 0x0001034c, module: busybox
+  [159] inode: 32803, pc: 0x00003578, module: busybox
+  [160] inode: 32803, pc: 0x0000356c, module: busybox
+  [161] inode: 32803, pc: 0x000a9860, module: busybox
+  [162] inode: 32803, pc: 0x000a9828, module: busybox
+  [163] inode: 32803, pc: 0x000a9814, module: busybox
+  [164] inode: 32803, pc: 0x000a97cc, module: busybox
+  [165] inode: 32803, pc: 0x00024b40, module: busybox
+  [166] inode: 32803, pc: 0x00024b5c, module: busybox
+  [167] inode: 32803, pc: 0x00010310, module: busybox
+  [168] inode: 32803, pc: 0x000ace40, module: busybox
+  [169] inode: 32803, pc: 0x000ace2c, module: busybox
+  [170] inode: 32803, pc: 0x000accf8, module: busybox
+  [171] inode: 32803, pc: 0x000ad250, module: busybox
+  [172] inode: 32803, pc: 0x000ad240, module: busybox
+  [173] inode: 32803, pc: 0x000ad258, module: busybox
+  [174] inode: 32803, pc: 0x000ad000, module: busybox
+  [175] inode: 32803, pc: 0x000acfe8, module: busybox
+  [176] inode: 32803, pc: 0x000acfac, module: busybox
+  [177] inode: 32803, pc: 0x000a9920, module: busybox
+  [178] inode: 32803, pc: 0x000a98c8, module: busybox
+  [179] inode: 32803, pc: 0x000acf90, module: busybox
+  [180] inode: 32803, pc: 0x000acf68, module: busybox
+  [181] inode: 32803, pc: 0x000ace70, module: busybox
+  [182] inode: 32803, pc: 0x000acf5c, module: busybox
+  [183] inode: 32803, pc: 0x000acf14, module: busybox
+  [184] inode: 32803, pc: 0x000acf00, module: busybox
+  [185] inode: 32803, pc: 0x000acebc, module: busybox
+  [186] inode: 32803, pc: 0x000ace88, module: busybox
+  [187] inode: 32803, pc: 0x000ace78, module: busybox
+  [188] inode: 32803, pc: 0x000ace70, module: busybox
+  [189] inode: 32803, pc: 0x000acf5c, module: busybox
+  [190] inode: 32803, pc: 0x000acf14, module: busybox
+  [191] inode: 32803, pc: 0x000acf00, module: busybox
+  [192] inode: 32803, pc: 0x000acebc, module: busybox
+  [193] inode: 32803, pc: 0x000ace88, module: busybox
+  [194] inode: 32803, pc: 0x000ace78, module: busybox
+  [195] inode: 32803, pc: 0x000ace70, module: busybox
+  [196] inode: 32803, pc: 0x000acf5c, module: busybox
+  [197] inode: 32803, pc: 0x000acf14, module: busybox
+  [198] inode: 32803, pc: 0x000acf00, module: busybox
+  [199] inode: 32803, pc: 0x000acebc, module: busybox
+  [200] inode: 32803, pc: 0x000ace88, module: busybox
+  [201] inode: 32803, pc: 0x000ace78, module: busybox
+  [202] inode: 32803, pc: 0x000ace70, module: busybox
+  [203] inode: 32803, pc: 0x000acf5c, module: busybox
+  [204] inode: 32803, pc: 0x000acf14, module: busybox
+  [205] inode: 32803, pc: 0x000acf00, module: busybox
+  [206] inode: 32803, pc: 0x000acebc, module: busybox
+  [207] inode: 32803, pc: 0x000ace88, module: busybox
+  [208] inode: 32803, pc: 0x000ace78, module: busybox
+  [209] inode: 32803, pc: 0x000ace5c, module: busybox
+  [210] inode: 32803, pc: 0x000ace50, module: busybox
+  [211] inode: 32803, pc: 0x000035a8, module: busybox
+  [212] inode: 32803, pc: 0x00003580, module: busybox
+  [213] inode: 32803, pc: 0x0001034c, module: busybox
+  [214] inode: 32803, pc: 0x00003578, module: busybox
+  [215] inode: 32803, pc: 0x0000356c, module: busybox
+  [216] inode: 32803, pc: 0x000a9860, module: busybox
+  [217] inode: 32803, pc: 0x000a9828, module: busybox
+  [218] inode: 32803, pc: 0x000a9814, module: busybox
+  [219] inode: 32803, pc: 0x000a97cc, module: busybox
+  [220] inode: 32803, pc: 0x00024b40, module: busybox
+  [221] inode: 32803, pc: 0x00024b5c, module: busybox
+  [222] inode: 32803, pc: 0x00010310, module: busybox
+  [223] inode: 32803, pc: 0x000ace40, module: busybox
+  [224] inode: 32803, pc: 0x000ace2c, module: busybox
+  [225] inode: 32803, pc: 0x000accf8, module: busybox
+  [226] inode: 32803, pc: 0x000ad250, module: busybox
+  [227] inode: 32803, pc: 0x000ad240, module: busybox
+  [228] inode: 32803, pc: 0x000ad258, module: busybox
+  [229] inode: 32803, pc: 0x000ad000, module: busybox
+  [230] inode: 32803, pc: 0x000acfe8, module: busybox
+  [231] inode: 32803, pc: 0x000acfac, module: busybox
+  [232] inode: 32803, pc: 0x000a9920, module: busybox
+  [233] inode: 32803, pc: 0x000a98c8, module: busybox
+  [234] inode: 32803, pc: 0x000acf90, module: busybox
+  [235] inode: 32803, pc: 0x000acf68, module: busybox
+  [236] inode: 32803, pc: 0x000ace70, module: busybox
+  [237] inode: 32803, pc: 0x000acf5c, module: busybox
+  [238] inode: 32803, pc: 0x000acf14, module: busybox
+  [239] inode: 32803, pc: 0x000acf00, module: busybox
+  [240] inode: 32803, pc: 0x000acebc, module: busybox
+  [241] inode: 32803, pc: 0x000ace88, module: busybox
+  [242] inode: 32803, pc: 0x000ace78, module: busybox
+  [243] inode: 32803, pc: 0x000ace70, module: busybox
+  [244] inode: 32803, pc: 0x000acf5c, module: busybox
+  [245] inode: 32803, pc: 0x000acf14, module: busybox
+  [246] inode: 32803, pc: 0x000acf00, module: busybox
+  [247] inode: 32803, pc: 0x000acebc, module: busybox
+  [248] inode: 32803, pc: 0x000ace88, module: busybox
+  [249] inode: 32803, pc: 0x000ace78, module: busybox
+  [250] inode: 32803, pc: 0x000ace70, module: busybox
+  [251] inode: 32803, pc: 0x000acf5c, module: busybox
+  [252] inode: 32803, pc: 0x000acf14, module: busybox
+  [253] inode: 32803, pc: 0x000acf00, module: busybox
+  [254] inode: 32803, pc: 0x000acebc, module: busybox
+  [255] inode: 32803, pc: 0x000ace88, module: busybox
+  [256] inode: 32803, pc: 0x000ace78, module: busybox
+  [257] inode: 32803, pc: 0x000ace70, module: busybox
+  [258] inode: 32803, pc: 0x000acf5c, module: busybox
+  [259] inode: 32803, pc: 0x000acf14, module: busybox
+  [260] inode: 32803, pc: 0x000acf00, module: busybox
+  [261] inode: 32803, pc: 0x000acebc, module: busybox
+  [262] inode: 32803, pc: 0x000ace88, module: busybox
+  [263] inode: 32803, pc: 0x000ace78, module: busybox
+  [264] inode: 32803, pc: 0x000ace5c, module: busybox
+  [265] inode: 32803, pc: 0x000ace50, module: busybox
+  [266] inode: 32803, pc: 0x000035a8, module: busybox
+  [267] inode: 32803, pc: 0x00003580, module: busybox
+  [268] inode: 32803, pc: 0x0001034c, module: busybox
+  [269] inode: 32803, pc: 0x00003578, module: busybox
+  [270] inode: 32803, pc: 0x0000356c, module: busybox
+  [271] inode: 32803, pc: 0x000a9860, module: busybox
+  [272] inode: 32803, pc: 0x000a9828, module: busybox
+  [273] inode: 32803, pc: 0x000a9814, module: busybox
+  [274] inode: 32803, pc: 0x000a97cc, module: busybox
+  [275] inode: 32803, pc: 0x00024b40, module: busybox
+  [276] inode: 32803, pc: 0x00024b5c, module: busybox
+  [277] inode: 32803, pc: 0x00010310, module: busybox
+  [278] inode: 32803, pc: 0x000ace40, module: busybox
+  [279] inode: 32803, pc: 0x000ace2c, module: busybox
+  [280] inode: 32803, pc: 0x000accf8, module: busybox
+  [281] inode: 32803, pc: 0x000ad250, module: busybox
+  [282] inode: 32803, pc: 0x000ad240, module: busybox
+  [283] inode: 32803, pc: 0x000ad258, module: busybox
+  [284] inode: 32803, pc: 0x000ad000, module: busybox
+  [285] inode: 32803, pc: 0x000acfe8, module: busybox
+  [286] inode: 32803, pc: 0x000acfac, module: busybox
+  [287] inode: 32803, pc: 0x000a9920, module: busybox
+  [288] inode: 32803, pc: 0x000a98c8, module: busybox
+  [289] inode: 32803, pc: 0x000acf90, module: busybox
+  [290] inode: 32803, pc: 0x000acf68, module: busybox
+  [291] inode: 32803, pc: 0x000ace70, module: busybox
+  [292] inode: 32803, pc: 0x000acf5c, module: busybox
+  [293] inode: 32803, pc: 0x000acf14, module: busybox
+  [294] inode: 32803, pc: 0x000acf00, module: busybox
+  [295] inode: 32803, pc: 0x000acebc, module: busybox
+  [296] inode: 32803, pc: 0x000ace88, module: busybox
+  [297] inode: 32803, pc: 0x000ace78, module: busybox
+  [298] inode: 32803, pc: 0x000ace70, module: busybox
+  [299] inode: 32803, pc: 0x000acf5c, module: busybox
+Total Parent trace elements: 300
+
+--- Parent PID 0 Trace ---
+Total Parent trace elements: 0
+

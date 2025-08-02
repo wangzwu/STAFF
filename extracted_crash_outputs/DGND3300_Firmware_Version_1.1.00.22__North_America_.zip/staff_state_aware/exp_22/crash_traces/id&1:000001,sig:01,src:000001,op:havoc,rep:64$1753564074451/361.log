@@ -1,0 +1,1086 @@
+=== Trace for PID 361 ===
+Process: setup.cgi
+
+--- Self PID 361 Trace ---
+  [000] inode: 32774, pc: 0x0002fdcc, module: libc.so.0, symbol: strstr
+  [001] inode: 24746, pc: 0x00012248, module: setup.cgi, symbol: html_parser
+  [002] inode: 24746, pc: 0x00008384, module: setup.cgi, symbol: setup_main
+  [003] inode: 24746, pc: 0x000106d8, module: setup.cgi, symbol: find_val
+  [004] inode: 24746, pc: 0x000106cc, module: setup.cgi, symbol: find_val
+  [005] inode: 24746, pc: 0x00011d10, module: setup.cgi, symbol: FindEntryData
+  [006] inode: 24746, pc: 0x00011d00, module: setup.cgi, symbol: FindEntryData
+  [007] inode: 24746, pc: 0x000105a4, module: setup.cgi
+  [008] inode: 24746, pc: 0x00010574, module: setup.cgi
+  [009] inode: 24746, pc: 0x0001056c, module: setup.cgi
+  [010] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [011] inode: 24746, pc: 0x0001055c, module: setup.cgi
+  [012] inode: 24746, pc: 0x00010500, module: setup.cgi
+  [013] inode: 24746, pc: 0x00011cf4, module: setup.cgi, symbol: FindEntryData
+  [014] inode: 24746, pc: 0x00011ce0, module: setup.cgi, symbol: FindEntryData
+  [015] inode: 24746, pc: 0x00011cd8, module: setup.cgi, symbol: FindEntryData
+  [016] inode: 24746, pc: 0x000105a4, module: setup.cgi
+  [017] inode: 24746, pc: 0x00010574, module: setup.cgi
+  [018] inode: 24746, pc: 0x0001056c, module: setup.cgi
+  [019] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [020] inode: 24746, pc: 0x0001055c, module: setup.cgi
+  [021] inode: 24746, pc: 0x00010500, module: setup.cgi
+  [022] inode: 24746, pc: 0x00011ccc, module: setup.cgi, symbol: FindEntryData
+  [023] inode: 24746, pc: 0x00011ce4, module: setup.cgi, symbol: FindEntryData
+  [024] inode: 24746, pc: 0x00011cb8, module: setup.cgi, symbol: FindEntryData
+  [025] inode: 24746, pc: 0x00011c90, module: setup.cgi, symbol: FindEntryData
+  [026] inode: 24746, pc: 0x00010698, module: setup.cgi, symbol: find_val
+  [027] inode: 24746, pc: 0x0000836c, module: setup.cgi, symbol: setup_main
+  [028] inode: 24746, pc: 0x0000834c, module: setup.cgi, symbol: setup_main
+  [029] inode: 24746, pc: 0x000106d8, module: setup.cgi, symbol: find_val
+  [030] inode: 24746, pc: 0x000106cc, module: setup.cgi, symbol: find_val
+  [031] inode: 24746, pc: 0x00011d10, module: setup.cgi, symbol: FindEntryData
+  [032] inode: 24746, pc: 0x00011d00, module: setup.cgi, symbol: FindEntryData
+  [033] inode: 24746, pc: 0x000105a4, module: setup.cgi
+  [034] inode: 24746, pc: 0x00010574, module: setup.cgi
+  [035] inode: 24746, pc: 0x0001056c, module: setup.cgi
+  [036] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [037] inode: 24746, pc: 0x0001055c, module: setup.cgi
+  [038] inode: 24746, pc: 0x00010500, module: setup.cgi
+  [039] inode: 24746, pc: 0x00011cf4, module: setup.cgi, symbol: FindEntryData
+  [040] inode: 24746, pc: 0x00011ce0, module: setup.cgi, symbol: FindEntryData
+  [041] inode: 24746, pc: 0x00011cd8, module: setup.cgi, symbol: FindEntryData
+  [042] inode: 24746, pc: 0x000105a4, module: setup.cgi
+  [043] inode: 24746, pc: 0x00010574, module: setup.cgi
+  [044] inode: 24746, pc: 0x0001056c, module: setup.cgi
+  [045] inode: 32774, pc: 0x0002f984, module: libc.so.0, symbol: strcoll
+  [046] inode: 24746, pc: 0x0001055c, module: setup.cgi
+  [047] inode: 24746, pc: 0x00010500, module: setup.cgi
+  [048] inode: 24746, pc: 0x00011ccc, module: setup.cgi, symbol: FindEntryData
+  [049] inode: 24746, pc: 0x00011ce4, module: setup.cgi, symbol: FindEntryData
+  [050] inode: 24746, pc: 0x00011cb8, module: setup.cgi, symbol: FindEntryData
+  [051] inode: 24746, pc: 0x00011c90, module: setup.cgi, symbol: FindEntryData
+  [052] inode: 24746, pc: 0x00010698, module: setup.cgi, symbol: find_val
+  [053] inode: 24746, pc: 0x00008334, module: setup.cgi, symbol: setup_main
+  [054] inode: 24746, pc: 0x00008318, module: setup.cgi, symbol: setup_main
+  [055] inode: 24746, pc: 0x00010fe8, module: setup.cgi, symbol: is_form_empty
+  [056] inode: 24746, pc: 0x00010f3c, module: setup.cgi, symbol: is_form_empty
+  [057] inode: 32774, pc: 0x0002b8b0, module: libc.so.0, symbol: getenv
+  [058] inode: 24746, pc: 0x00010f28, module: setup.cgi, symbol: is_form_empty
+  [059] inode: 24746, pc: 0x00010f18, module: setup.cgi, symbol: is_form_empty
+  [060] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [061] inode: 24746, pc: 0x00010efc, module: setup.cgi, symbol: is_form_empty
+  [062] inode: 32774, pc: 0x0002b8b0, module: libc.so.0, symbol: getenv
+  [063] inode: 24746, pc: 0x00010eec, module: setup.cgi, symbol: is_form_empty
+  [064] inode: 24746, pc: 0x00010ec4, module: setup.cgi, symbol: is_form_empty
+  [065] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [066] inode: 24746, pc: 0x00010ea8, module: setup.cgi, symbol: is_form_empty
+  [067] inode: 32774, pc: 0x0002b8b0, module: libc.so.0, symbol: getenv
+  [068] inode: 24746, pc: 0x00010e98, module: setup.cgi, symbol: is_form_empty
+  [069] inode: 24746, pc: 0x00010e90, module: setup.cgi, symbol: is_form_empty
+  [070] inode: 32774, pc: 0x0002b8b0, module: libc.so.0, symbol: getenv
+  [071] inode: 24746, pc: 0x00010e58, module: setup.cgi, symbol: is_form_empty
+  [072] inode: 24746, pc: 0x0000830c, module: setup.cgi, symbol: setup_main
+  [073] inode: 24746, pc: 0x00008300, module: setup.cgi, symbol: setup_main
+  [074] inode: 24746, pc: 0x0001194c, module: setup.cgi, symbol: cgi_input_parse
+  [075] inode: 24746, pc: 0x00011838, module: setup.cgi, symbol: cgi_input_parse
+  [076] inode: 32774, pc: 0x0002ea78, module: libc.so.0, symbol: free
+  [077] inode: 24746, pc: 0x00011824, module: setup.cgi, symbol: cgi_input_parse
+  [078] inode: 24746, pc: 0x0001160c, module: setup.cgi
+  [079] inode: 24746, pc: 0x000115fc, module: setup.cgi
+  [080] inode: 32774, pc: 0x0002fe0c, module: libc.so.0, symbol: strtok
+  [081] inode: 24746, pc: 0x000115ec, module: setup.cgi
+  [082] inode: 24746, pc: 0x000115ac, module: setup.cgi
+  [083] inode: 24746, pc: 0x000121b8, module: setup.cgi, symbol: InsertEntry
+  [084] inode: 24746, pc: 0x00012184, module: setup.cgi, symbol: InsertEntry
+  [085] inode: 24746, pc: 0x00012178, module: setup.cgi, symbol: InsertEntry
+  [086] inode: 24746, pc: 0x00012170, module: setup.cgi, symbol: InsertEntry
+  [087] inode: 24746, pc: 0x0001214c, module: setup.cgi, symbol: InsertEntry
+  [088] inode: 24746, pc: 0x0001213c, module: setup.cgi, symbol: InsertEntry
+  [089] inode: 24746, pc: 0x00010630, module: setup.cgi
+  [090] inode: 24746, pc: 0x000105fc, module: setup.cgi
+  [091] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [092] inode: 24746, pc: 0x000105e0, module: setup.cgi
+  [093] inode: 24746, pc: 0x00012130, module: setup.cgi, symbol: InsertEntry
+  [094] inode: 24746, pc: 0x00012120, module: setup.cgi, symbol: InsertEntry
+  [095] inode: 24746, pc: 0x000120a8, module: setup.cgi, symbol: InsertEntry
+  [096] inode: 24746, pc: 0x0001209c, module: setup.cgi, symbol: InsertEntry
+  [097] inode: 32774, pc: 0x0002f650, module: libc.so.0, symbol: memcpy
+  [098] inode: 24746, pc: 0x00012088, module: setup.cgi, symbol: InsertEntry
+  [099] inode: 24746, pc: 0x0001207c, module: setup.cgi, symbol: InsertEntry
+  [100] inode: 32774, pc: 0x0002d78c, module: libc.so.0, symbol: malloc
+  [101] inode: 24746, pc: 0x0001206c, module: setup.cgi, symbol: InsertEntry
+  [102] inode: 24746, pc: 0x00012060, module: setup.cgi, symbol: InsertEntry
+  [103] inode: 32774, pc: 0x0002d78c, module: libc.so.0, symbol: malloc
+  [104] inode: 24746, pc: 0x0001204c, module: setup.cgi, symbol: InsertEntry
+  [105] inode: 24746, pc: 0x00012040, module: setup.cgi, symbol: InsertEntry
+  [106] inode: 24746, pc: 0x00012000, module: setup.cgi, symbol: InsertEntry
+  [107] inode: 24746, pc: 0x00011ff4, module: setup.cgi, symbol: InsertEntry
+  [108] inode: 24746, pc: 0x00011580, module: setup.cgi
+  [109] inode: 24746, pc: 0x000113e8, module: setup.cgi
+  [110] inode: 32774, pc: 0x0002ea78, module: libc.so.0, symbol: free
+  [111] inode: 24746, pc: 0x000113d0, module: setup.cgi
+  [112] inode: 24746, pc: 0x00011274, module: setup.cgi
+  [113] inode: 24746, pc: 0x0001124c, module: setup.cgi
+  [114] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [115] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [116] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [117] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [118] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [119] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [120] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [121] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [122] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [123] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [124] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [125] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [126] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [127] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [128] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [129] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [130] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [131] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [132] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [133] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [134] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [135] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [136] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [137] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [138] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [139] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [140] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [141] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [142] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [143] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [144] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [145] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [146] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [147] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [148] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [149] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [150] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [151] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [152] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [153] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [154] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [155] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [156] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [157] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [158] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [159] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [160] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [161] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [162] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [163] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [164] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [165] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [166] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [167] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [168] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [169] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [170] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [171] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [172] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [173] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [174] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [175] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [176] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [177] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [178] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [179] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [180] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [181] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [182] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [183] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [184] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [185] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [186] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [187] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [188] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [189] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [190] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [191] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [192] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [193] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [194] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [195] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [196] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [197] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [198] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [199] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [200] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [201] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [202] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [203] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [204] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [205] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [206] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [207] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [208] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [209] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [210] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [211] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [212] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [213] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [214] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [215] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [216] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [217] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [218] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [219] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [220] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [221] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [222] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [223] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [224] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [225] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [226] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [227] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [228] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [229] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [230] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [231] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [232] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [233] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [234] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [235] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [236] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [237] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [238] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [239] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [240] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [241] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [242] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [243] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [244] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [245] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [246] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [247] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [248] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [249] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [250] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [251] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [252] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [253] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [254] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [255] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [256] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [257] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [258] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [259] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [260] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [261] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [262] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [263] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [264] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [265] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [266] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [267] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [268] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [269] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [270] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [271] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [272] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [273] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [274] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [275] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [276] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [277] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [278] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [279] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [280] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [281] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [282] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [283] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [284] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [285] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [286] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [287] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [288] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [289] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [290] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [291] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [292] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [293] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [294] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [295] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [296] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [297] inode: 24746, pc: 0x000111f0, module: setup.cgi
+  [298] inode: 24746, pc: 0x00011230, module: setup.cgi
+  [299] inode: 24746, pc: 0x000111f0, module: setup.cgi
+Total Self trace elements: 300
+
+--- Parent PID 324 Trace ---
+  [000] inode: 24712, pc: 0x000017a8, module: mini_httpd
+  [001] inode: 32774, pc: 0x000366d8, module: libc.so.0, symbol: usleep
+  [002] inode: 24712, pc: 0x00001784, module: mini_httpd
+  [003] inode: 32774, pc: 0x000349d4, module: libc.so.0, symbol: sysinfo
+  [004] inode: 24712, pc: 0x00001778, module: mini_httpd
+  [005] inode: 24712, pc: 0x00001554, module: mini_httpd
+  [006] inode: 24712, pc: 0x00001528, module: mini_httpd
+  [007] inode: 32774, pc: 0x000350e0, module: libc.so.0, symbol: waitpid
+  [008] inode: 24712, pc: 0x00001518, module: mini_httpd
+  [009] inode: 24712, pc: 0x00001530, module: mini_httpd
+  [010] inode: 24712, pc: 0x00001528, module: mini_httpd
+  [011] inode: 32774, pc: 0x000350e0, module: libc.so.0, symbol: waitpid
+  [012] inode: 24712, pc: 0x0000150c, module: mini_httpd
+  [013] inode: 32774, pc: 0x000231f8, module: libc.so.0, symbol: signal
+  [014] inode: 24712, pc: 0x000014f8, module: mini_httpd
+  [015] inode: 24712, pc: 0x000066e0, module: mini_httpd, symbol: main
+  [016] inode: 24712, pc: 0x00006694, module: mini_httpd, symbol: main
+  [017] inode: 24712, pc: 0x00006678, module: mini_httpd, symbol: main
+  [018] inode: 24712, pc: 0x00006634, module: mini_httpd, symbol: main
+  [019] inode: 24712, pc: 0x0000662c, module: mini_httpd, symbol: main
+  [020] inode: 24712, pc: 0x000065f0, module: mini_httpd, symbol: main
+  [021] inode: 24712, pc: 0x000065c8, module: mini_httpd, symbol: main
+  [022] inode: 24712, pc: 0x000065b8, module: mini_httpd, symbol: main
+  [023] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [024] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [025] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [026] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [027] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [028] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [029] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [030] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [031] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [032] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [033] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [034] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [035] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [036] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [037] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [038] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [039] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [040] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [041] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [042] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [043] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [044] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [045] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [046] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [047] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [048] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [049] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [050] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [051] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [052] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [053] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [054] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [055] inode: 24712, pc: 0x000068b8, module: mini_httpd, symbol: main
+  [056] inode: 32774, pc: 0x00030b84, module: libc.so.0, symbol: close
+  [057] inode: 24712, pc: 0x000068b0, module: mini_httpd, symbol: main
+  [058] inode: 24712, pc: 0x0000688c, module: mini_httpd, symbol: main
+  [059] inode: 32774, pc: 0x00030644, module: libc.so.0, symbol: access
+  [060] inode: 24712, pc: 0x0000687c, module: mini_httpd, symbol: main
+  [061] inode: 24712, pc: 0x000067ec, module: mini_httpd, symbol: main
+  [062] inode: 24712, pc: 0x000067e0, module: mini_httpd, symbol: main
+  [063] inode: 32774, pc: 0x00031114, module: libc.so.0, symbol: fork
+  [064] inode: 24712, pc: 0x000067d0, module: mini_httpd, symbol: main
+  [065] inode: 32774, pc: 0x0002f9b0, module: libc.so.0, symbol: strcpy
+  [066] inode: 24712, pc: 0x000067b8, module: mini_httpd, symbol: main
+  [067] inode: 32774, pc: 0x00008fb4, module: libc.so.0, symbol: inet_ntoa
+  [068] inode: 24712, pc: 0x000017f4, module: mini_httpd
+  [069] inode: 24712, pc: 0x000067ac, module: mini_httpd, symbol: main
+  [070] inode: 32774, pc: 0x0002f9bc, module: libc.so.0, symbol: strcpy
+  [071] inode: 24712, pc: 0x00006794, module: mini_httpd, symbol: main
+  [072] inode: 24712, pc: 0x00006758, module: mini_httpd, symbol: main
+  [073] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [074] inode: 24712, pc: 0x0000674c, module: mini_httpd, symbol: main
+  [075] inode: 32774, pc: 0x00008fc0, module: libc.so.0, symbol: inet_ntoa
+  [076] inode: 24712, pc: 0x000017f4, module: mini_httpd
+  [077] inode: 24712, pc: 0x00006738, module: mini_httpd, symbol: main
+  [078] inode: 24712, pc: 0x00006730, module: mini_httpd, symbol: main
+  [079] inode: 24712, pc: 0x000066f8, module: mini_httpd, symbol: main
+  [080] inode: 32774, pc: 0x0000d624, module: libc.so.0, symbol: accept
+  [081] inode: 24712, pc: 0x0000179c, module: mini_httpd
+  [082] inode: 32774, pc: 0x000366d8, module: libc.so.0, symbol: usleep
+  [083] inode: 24712, pc: 0x00001784, module: mini_httpd
+  [084] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [085] inode: 24712, pc: 0x00001778, module: mini_httpd
+  [086] inode: 24712, pc: 0x00001554, module: mini_httpd
+  [087] inode: 24712, pc: 0x00001528, module: mini_httpd
+  [088] inode: 32774, pc: 0x000350e0, module: libc.so.0, symbol: waitpid
+  [089] inode: 24712, pc: 0x00001518, module: mini_httpd
+  [090] inode: 24712, pc: 0x00001530, module: mini_httpd
+  [091] inode: 24712, pc: 0x00001528, module: mini_httpd
+  [092] inode: 32774, pc: 0x000350e0, module: libc.so.0, symbol: waitpid
+  [093] inode: 24712, pc: 0x0000150c, module: mini_httpd
+  [094] inode: 32774, pc: 0x000231f8, module: libc.so.0, symbol: signal
+  [095] inode: 24712, pc: 0x000014f8, module: mini_httpd
+  [096] inode: 24712, pc: 0x000066e0, module: mini_httpd, symbol: main
+  [097] inode: 24712, pc: 0x00006694, module: mini_httpd, symbol: main
+  [098] inode: 24712, pc: 0x00006678, module: mini_httpd, symbol: main
+  [099] inode: 24712, pc: 0x00006634, module: mini_httpd, symbol: main
+  [100] inode: 24712, pc: 0x0000662c, module: mini_httpd, symbol: main
+  [101] inode: 24712, pc: 0x000065f0, module: mini_httpd, symbol: main
+  [102] inode: 24712, pc: 0x000065c8, module: mini_httpd, symbol: main
+  [103] inode: 24712, pc: 0x000065b8, module: mini_httpd, symbol: main
+  [104] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [105] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [106] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [107] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [108] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [109] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [110] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [111] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [112] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [113] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [114] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [115] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [116] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [117] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [118] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [119] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [120] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [121] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [122] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [123] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [124] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [125] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [126] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [127] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [128] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [129] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [130] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [131] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [132] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [133] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [134] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [135] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [136] inode: 24712, pc: 0x000068b8, module: mini_httpd, symbol: main
+  [137] inode: 32774, pc: 0x00030b84, module: libc.so.0, symbol: close
+  [138] inode: 24712, pc: 0x000068b0, module: mini_httpd, symbol: main
+  [139] inode: 24712, pc: 0x0000688c, module: mini_httpd, symbol: main
+  [140] inode: 32774, pc: 0x00030644, module: libc.so.0, symbol: access
+  [141] inode: 24712, pc: 0x0000687c, module: mini_httpd, symbol: main
+  [142] inode: 24712, pc: 0x000067ec, module: mini_httpd, symbol: main
+  [143] inode: 24712, pc: 0x000067e0, module: mini_httpd, symbol: main
+  [144] inode: 32774, pc: 0x00031114, module: libc.so.0, symbol: fork
+  [145] inode: 24712, pc: 0x000067d0, module: mini_httpd, symbol: main
+  [146] inode: 32774, pc: 0x0002f9b0, module: libc.so.0, symbol: strcpy
+  [147] inode: 24712, pc: 0x000067b8, module: mini_httpd, symbol: main
+  [148] inode: 32774, pc: 0x00008fb4, module: libc.so.0, symbol: inet_ntoa
+  [149] inode: 24712, pc: 0x00001804, module: mini_httpd
+  [150] inode: 24712, pc: 0x000067ac, module: mini_httpd, symbol: main
+  [151] inode: 32774, pc: 0x0002f9bc, module: libc.so.0, symbol: strcpy
+  [152] inode: 24712, pc: 0x00006794, module: mini_httpd, symbol: main
+  [153] inode: 24712, pc: 0x00006758, module: mini_httpd, symbol: main
+  [154] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [155] inode: 24712, pc: 0x00006744, module: mini_httpd, symbol: main
+  [156] inode: 32774, pc: 0x00008fc0, module: libc.so.0, symbol: inet_ntoa
+  [157] inode: 24712, pc: 0x000017f4, module: mini_httpd
+  [158] inode: 24712, pc: 0x00006738, module: mini_httpd, symbol: main
+  [159] inode: 24712, pc: 0x00006730, module: mini_httpd, symbol: main
+  [160] inode: 24712, pc: 0x000066f8, module: mini_httpd, symbol: main
+  [161] inode: 32774, pc: 0x0000d624, module: libc.so.0, symbol: accept
+  [162] inode: 24712, pc: 0x000017dc, module: mini_httpd
+  [163] inode: 32774, pc: 0x000366d8, module: libc.so.0, symbol: usleep
+  [164] inode: 24712, pc: 0x000017c8, module: mini_httpd
+  [165] inode: 24712, pc: 0x00001554, module: mini_httpd
+  [166] inode: 24712, pc: 0x00001528, module: mini_httpd
+  [167] inode: 32774, pc: 0x000350e0, module: libc.so.0, symbol: waitpid
+  [168] inode: 24712, pc: 0x00001518, module: mini_httpd
+  [169] inode: 24712, pc: 0x00001530, module: mini_httpd
+  [170] inode: 24712, pc: 0x00001528, module: mini_httpd
+  [171] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [172] inode: 24712, pc: 0x0000150c, module: mini_httpd
+  [173] inode: 32774, pc: 0x000231f8, module: libc.so.0, symbol: signal
+  [174] inode: 24712, pc: 0x000014f8, module: mini_httpd
+  [175] inode: 24712, pc: 0x000066e0, module: mini_httpd, symbol: main
+  [176] inode: 24712, pc: 0x00006694, module: mini_httpd, symbol: main
+  [177] inode: 24712, pc: 0x00006678, module: mini_httpd, symbol: main
+  [178] inode: 24712, pc: 0x00006634, module: mini_httpd, symbol: main
+  [179] inode: 24712, pc: 0x0000662c, module: mini_httpd, symbol: main
+  [180] inode: 24712, pc: 0x000065f0, module: mini_httpd, symbol: main
+  [181] inode: 24712, pc: 0x000065c8, module: mini_httpd, symbol: main
+  [182] inode: 24712, pc: 0x000065b8, module: mini_httpd, symbol: main
+  [183] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [184] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [185] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [186] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [187] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [188] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [189] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [190] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [191] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [192] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [193] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [194] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [195] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [196] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [197] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [198] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [199] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [200] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [201] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [202] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [203] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [204] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [205] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [206] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [207] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [208] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [209] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [210] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [211] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [212] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [213] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [214] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [215] inode: 24712, pc: 0x000068b8, module: mini_httpd, symbol: main
+  [216] inode: 32774, pc: 0x00030b84, module: libc.so.0, symbol: close
+  [217] inode: 24712, pc: 0x000068b0, module: mini_httpd, symbol: main
+  [218] inode: 24712, pc: 0x0000688c, module: mini_httpd, symbol: main
+  [219] inode: 32774, pc: 0x00030644, module: libc.so.0, symbol: access
+  [220] inode: 24712, pc: 0x0000687c, module: mini_httpd, symbol: main
+  [221] inode: 24712, pc: 0x000067ec, module: mini_httpd, symbol: main
+  [222] inode: 24712, pc: 0x000067e0, module: mini_httpd, symbol: main
+  [223] inode: 32774, pc: 0x00031114, module: libc.so.0, symbol: fork
+  [224] inode: 24712, pc: 0x000067d0, module: mini_httpd, symbol: main
+  [225] inode: 32774, pc: 0x0002f9b0, module: libc.so.0, symbol: strcpy
+  [226] inode: 24712, pc: 0x000067c0, module: mini_httpd, symbol: main
+  [227] inode: 32774, pc: 0x00008fc0, module: libc.so.0, symbol: inet_ntoa
+  [228] inode: 24712, pc: 0x00001804, module: mini_httpd
+  [229] inode: 24712, pc: 0x000067ac, module: mini_httpd, symbol: main
+  [230] inode: 32774, pc: 0x0002f9bc, module: libc.so.0, symbol: strcpy
+  [231] inode: 24712, pc: 0x00006798, module: mini_httpd, symbol: main
+  [232] inode: 24712, pc: 0x00006730, module: mini_httpd, symbol: main
+  [233] inode: 24712, pc: 0x000066f8, module: mini_httpd, symbol: main
+  [234] inode: 32774, pc: 0x0000d624, module: libc.so.0, symbol: accept
+  [235] inode: 24712, pc: 0x000017dc, module: mini_httpd
+  [236] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [237] inode: 24712, pc: 0x000017c8, module: mini_httpd
+  [238] inode: 24712, pc: 0x000066e0, module: mini_httpd, symbol: main
+  [239] inode: 24712, pc: 0x00006694, module: mini_httpd, symbol: main
+  [240] inode: 24712, pc: 0x00006678, module: mini_httpd, symbol: main
+  [241] inode: 24712, pc: 0x00006634, module: mini_httpd, symbol: main
+  [242] inode: 24712, pc: 0x0000662c, module: mini_httpd, symbol: main
+  [243] inode: 24712, pc: 0x000065f0, module: mini_httpd, symbol: main
+  [244] inode: 24712, pc: 0x000065c8, module: mini_httpd, symbol: main
+  [245] inode: 24712, pc: 0x000065b8, module: mini_httpd, symbol: main
+  [246] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [247] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [248] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [249] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [250] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [251] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [252] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [253] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [254] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [255] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [256] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [257] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [258] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [259] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [260] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [261] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [262] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [263] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [264] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [265] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [266] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [267] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [268] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [269] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [270] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [271] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [272] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [273] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [274] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [275] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [276] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [277] inode: 24712, pc: 0x000065a0, module: mini_httpd, symbol: main
+  [278] inode: 24712, pc: 0x000068b8, module: mini_httpd, symbol: main
+  [279] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [280] inode: 24712, pc: 0x000068b0, module: mini_httpd, symbol: main
+  [281] inode: 24712, pc: 0x0000688c, module: mini_httpd, symbol: main
+  [282] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [283] inode: 24712, pc: 0x0000687c, module: mini_httpd, symbol: main
+  [284] inode: 24712, pc: 0x000067ec, module: mini_httpd, symbol: main
+  [285] inode: 24712, pc: 0x000067e0, module: mini_httpd, symbol: main
+  [286] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [287] inode: 24712, pc: 0x000067d0, module: mini_httpd, symbol: main
+  [288] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [289] inode: 24712, pc: 0x000067b8, module: mini_httpd, symbol: main
+  [290] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [291] inode: 24712, pc: 0x000017f4, module: mini_httpd
+  [292] inode: 24712, pc: 0x000067ac, module: mini_httpd, symbol: main
+  [293] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [294] inode: 24712, pc: 0x00006798, module: mini_httpd, symbol: main
+  [295] inode: 24712, pc: 0x00006730, module: mini_httpd, symbol: main
+  [296] inode: 24712, pc: 0x000066f8, module: mini_httpd, symbol: main
+  [297] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [298] inode: 24712, pc: 0x000066e0, module: mini_httpd, symbol: main
+  [299] inode: 24712, pc: 0x00006694, module: mini_httpd, symbol: main
+Total Parent trace elements: 300
+
+--- Parent PID 323 Trace ---
+  [000] inode: 32774, pc: 0x00031114, module: libc.so.0, symbol: fork
+Total Parent trace elements: 1
+
+--- Parent PID 321 Trace ---
+  [000] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [001] inode: 24712, pc: 0x000061c8, module: mini_httpd, symbol: main
+  [002] inode: 24712, pc: 0x000061b8, module: mini_httpd, symbol: main
+  [003] inode: 24712, pc: 0x000061a4, module: mini_httpd, symbol: main
+  [004] inode: 24712, pc: 0x00001640, module: mini_httpd
+  [005] inode: 24712, pc: 0x00001634, module: mini_httpd
+  [006] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [007] inode: 24712, pc: 0x00001624, module: mini_httpd
+  [008] inode: 24712, pc: 0x0000161c, module: mini_httpd
+  [009] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [010] inode: 24712, pc: 0x00001600, module: mini_httpd
+  [011] inode: 24712, pc: 0x000015f4, module: mini_httpd
+  [012] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [013] inode: 24712, pc: 0x000015c8, module: mini_httpd
+  [014] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [015] inode: 24712, pc: 0x000015b4, module: mini_httpd
+  [016] inode: 24712, pc: 0x000015a8, module: mini_httpd
+  [017] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [018] inode: 24712, pc: 0x00001594, module: mini_httpd
+  [019] inode: 24712, pc: 0x00001564, module: mini_httpd
+  [020] inode: 24712, pc: 0x0000617c, module: mini_httpd, symbol: main
+  [021] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [022] inode: 24712, pc: 0x0000615c, module: mini_httpd, symbol: main
+  [023] inode: 24712, pc: 0x00006144, module: mini_httpd, symbol: main
+  [024] inode: 24712, pc: 0x000060e0, module: mini_httpd, symbol: main
+  [025] inode: 24712, pc: 0x000060cc, module: mini_httpd, symbol: main
+  [026] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [027] inode: 24712, pc: 0x000060b4, module: mini_httpd, symbol: main
+  [028] inode: 24712, pc: 0x00006080, module: mini_httpd, symbol: main
+  [029] inode: 24712, pc: 0x00006074, module: mini_httpd, symbol: main
+  [030] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [031] inode: 24712, pc: 0x00006050, module: mini_httpd, symbol: main
+  [032] inode: 24712, pc: 0x00006048, module: mini_httpd, symbol: main
+  [033] inode: 24712, pc: 0x00006018, module: mini_httpd, symbol: main
+  [034] inode: 24712, pc: 0x00005ef8, module: mini_httpd, symbol: main
+  [035] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [036] inode: 24712, pc: 0x00005ed8, module: mini_httpd, symbol: main
+  [037] inode: 24712, pc: 0x00005ec8, module: mini_httpd, symbol: main
+  [038] inode: 24712, pc: 0x00005ec0, module: mini_httpd, symbol: main
+  [039] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [040] inode: 24712, pc: 0x00005eac, module: mini_httpd, symbol: main
+  [041] inode: 24712, pc: 0x00005e78, module: mini_httpd, symbol: main
+  [042] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [043] inode: 24712, pc: 0x00005e64, module: mini_httpd, symbol: main
+  [044] inode: 24712, pc: 0x00005e30, module: mini_httpd, symbol: main
+  [045] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [046] inode: 24712, pc: 0x00005e18, module: mini_httpd, symbol: main
+  [047] inode: 24712, pc: 0x00005e00, module: mini_httpd, symbol: main
+  [048] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [049] inode: 24712, pc: 0x00005de8, module: mini_httpd, symbol: main
+  [050] inode: 24712, pc: 0x00005dc0, module: mini_httpd, symbol: main
+  [051] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [052] inode: 24712, pc: 0x00005da8, module: mini_httpd, symbol: main
+  [053] inode: 24712, pc: 0x00005d74, module: mini_httpd, symbol: main
+  [054] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [055] inode: 24712, pc: 0x00005d60, module: mini_httpd, symbol: main
+  [056] inode: 24712, pc: 0x00005d2c, module: mini_httpd, symbol: main
+  [057] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [058] inode: 24712, pc: 0x00005d18, module: mini_httpd, symbol: main
+  [059] inode: 24712, pc: 0x00005ce4, module: mini_httpd, symbol: main
+  [060] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [061] inode: 24712, pc: 0x00005cd0, module: mini_httpd, symbol: main
+  [062] inode: 24712, pc: 0x00005c88, module: mini_httpd, symbol: main
+  [063] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [064] inode: 24712, pc: 0x00005c74, module: mini_httpd, symbol: main
+  [065] inode: 24712, pc: 0x00005c34, module: mini_httpd, symbol: main
+  [066] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [067] inode: 24712, pc: 0x00005c1c, module: mini_httpd, symbol: main
+  [068] inode: 24712, pc: 0x00005c04, module: mini_httpd, symbol: main
+  [069] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [070] inode: 24712, pc: 0x00005bec, module: mini_httpd, symbol: main
+  [071] inode: 24712, pc: 0x000055cc, module: mini_httpd, symbol: main
+  [072] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [073] inode: 24712, pc: 0x000055b4, module: mini_httpd, symbol: main
+  [074] inode: 24712, pc: 0x00005594, module: mini_httpd, symbol: main
+  [075] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [076] inode: 24712, pc: 0x00005580, module: mini_httpd, symbol: main
+  [077] inode: 24712, pc: 0x00006028, module: mini_httpd, symbol: main
+  [078] inode: 24712, pc: 0x00006018, module: mini_httpd, symbol: main
+  [079] inode: 24712, pc: 0x00005cfc, module: mini_httpd, symbol: main
+  [080] inode: 24712, pc: 0x00005cec, module: mini_httpd, symbol: main
+  [081] inode: 24712, pc: 0x00005ce4, module: mini_httpd, symbol: main
+  [082] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [083] inode: 24712, pc: 0x00005cd0, module: mini_httpd, symbol: main
+  [084] inode: 24712, pc: 0x00005c88, module: mini_httpd, symbol: main
+  [085] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [086] inode: 24712, pc: 0x00005c74, module: mini_httpd, symbol: main
+  [087] inode: 24712, pc: 0x00005c34, module: mini_httpd, symbol: main
+  [088] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [089] inode: 24712, pc: 0x00005c1c, module: mini_httpd, symbol: main
+  [090] inode: 24712, pc: 0x00005c04, module: mini_httpd, symbol: main
+  [091] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [092] inode: 24712, pc: 0x00005bec, module: mini_httpd, symbol: main
+  [093] inode: 24712, pc: 0x000055cc, module: mini_httpd, symbol: main
+  [094] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [095] inode: 24712, pc: 0x000055b4, module: mini_httpd, symbol: main
+  [096] inode: 24712, pc: 0x00005594, module: mini_httpd, symbol: main
+  [097] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [098] inode: 24712, pc: 0x00005580, module: mini_httpd, symbol: main
+  [099] inode: 24712, pc: 0x00006028, module: mini_httpd, symbol: main
+  [100] inode: 24712, pc: 0x00006018, module: mini_httpd, symbol: main
+  [101] inode: 24712, pc: 0x00005de0, module: mini_httpd, symbol: main
+  [102] inode: 24712, pc: 0x00005dc8, module: mini_httpd, symbol: main
+  [103] inode: 24712, pc: 0x00005dc0, module: mini_httpd, symbol: main
+  [104] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [105] inode: 24712, pc: 0x00005da8, module: mini_httpd, symbol: main
+  [106] inode: 24712, pc: 0x00005d74, module: mini_httpd, symbol: main
+  [107] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [108] inode: 24712, pc: 0x00005d60, module: mini_httpd, symbol: main
+  [109] inode: 24712, pc: 0x00005d2c, module: mini_httpd, symbol: main
+  [110] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [111] inode: 24712, pc: 0x00005d18, module: mini_httpd, symbol: main
+  [112] inode: 24712, pc: 0x00005ce4, module: mini_httpd, symbol: main
+  [113] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [114] inode: 24712, pc: 0x00005cd0, module: mini_httpd, symbol: main
+  [115] inode: 24712, pc: 0x00005c88, module: mini_httpd, symbol: main
+  [116] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [117] inode: 24712, pc: 0x00005c74, module: mini_httpd, symbol: main
+  [118] inode: 24712, pc: 0x00005c34, module: mini_httpd, symbol: main
+  [119] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [120] inode: 24712, pc: 0x00005c1c, module: mini_httpd, symbol: main
+  [121] inode: 24712, pc: 0x00005c04, module: mini_httpd, symbol: main
+  [122] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [123] inode: 24712, pc: 0x00005bec, module: mini_httpd, symbol: main
+  [124] inode: 24712, pc: 0x000055cc, module: mini_httpd, symbol: main
+  [125] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [126] inode: 24712, pc: 0x000055b4, module: mini_httpd, symbol: main
+  [127] inode: 24712, pc: 0x00005594, module: mini_httpd, symbol: main
+  [128] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [129] inode: 24712, pc: 0x00005580, module: mini_httpd, symbol: main
+  [130] inode: 24712, pc: 0x0000602c, module: mini_httpd, symbol: main
+  [131] inode: 24712, pc: 0x00006018, module: mini_httpd, symbol: main
+  [132] inode: 24712, pc: 0x00005cc8, module: mini_httpd, symbol: main
+  [133] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [134] inode: 24712, pc: 0x00005ca0, module: mini_httpd, symbol: main
+  [135] inode: 24712, pc: 0x00005c90, module: mini_httpd, symbol: main
+  [136] inode: 24712, pc: 0x00005c88, module: mini_httpd, symbol: main
+  [137] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [138] inode: 24712, pc: 0x00005c74, module: mini_httpd, symbol: main
+  [139] inode: 24712, pc: 0x00005c34, module: mini_httpd, symbol: main
+  [140] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [141] inode: 24712, pc: 0x00005c1c, module: mini_httpd, symbol: main
+  [142] inode: 24712, pc: 0x00005c04, module: mini_httpd, symbol: main
+  [143] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [144] inode: 24712, pc: 0x00005bec, module: mini_httpd, symbol: main
+  [145] inode: 24712, pc: 0x000055cc, module: mini_httpd, symbol: main
+  [146] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [147] inode: 24712, pc: 0x000055b4, module: mini_httpd, symbol: main
+  [148] inode: 24712, pc: 0x00005594, module: mini_httpd, symbol: main
+  [149] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [150] inode: 24712, pc: 0x00005580, module: mini_httpd, symbol: main
+  [151] inode: 24712, pc: 0x00006028, module: mini_httpd, symbol: main
+  [152] inode: 24712, pc: 0x0000601c, module: mini_httpd, symbol: main
+  [153] inode: 24712, pc: 0x000054d8, module: mini_httpd, symbol: main
+  [154] inode: 32774, pc: 0x0001482c, module: libc.so.0, symbol: __uClibc_main
+  [155] inode: 24712, pc: 0x00007364, module: mini_httpd
+  [156] inode: 24712, pc: 0x00007354, module: mini_httpd
+  [157] inode: 24712, pc: 0x00007320, module: mini_httpd
+  [158] inode: 24712, pc: 0x000010e8, module: mini_httpd
+  [159] inode: 24712, pc: 0x000010d0, module: mini_httpd
+  [160] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [161] inode: 24712, pc: 0x0000110c, module: mini_httpd
+  [162] inode: 24712, pc: 0x000010f0, module: mini_httpd
+  [163] inode: 32770, pc: 0x000009b0, module: ld-uClibc.so.0, symbol: _start
+Total Parent trace elements: 164
+
+--- Parent PID 1 Trace ---
+  [000] inode: 32774, pc: 0x000350e0, module: libc.so.0, symbol: waitpid
+  [001] inode: 24674, pc: 0x00009144, module: busybox
+  [002] inode: 24674, pc: 0x00009098, module: busybox
+  [003] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [004] inode: 24674, pc: 0x00009080, module: busybox
+  [005] inode: 24674, pc: 0x00008a6c, module: busybox
+  [006] inode: 32774, pc: 0x00031114, module: libc.so.0, symbol: fork
+  [007] inode: 24674, pc: 0x00008a5c, module: busybox
+  [008] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [009] inode: 24674, pc: 0x00008a3c, module: busybox
+  [010] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [011] inode: 24674, pc: 0x00008a28, module: busybox
+  [012] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [013] inode: 24674, pc: 0x000089e0, module: busybox
+  [014] inode: 24674, pc: 0x00009138, module: busybox
+  [015] inode: 24674, pc: 0x0000912c, module: busybox
+  [016] inode: 24674, pc: 0x00009120, module: busybox
+  [017] inode: 24674, pc: 0x000091e8, module: busybox
+  [018] inode: 24674, pc: 0x00009120, module: busybox
+  [019] inode: 24674, pc: 0x000091e8, module: busybox
+  [020] inode: 24674, pc: 0x00009120, module: busybox
+  [021] inode: 24674, pc: 0x000091e8, module: busybox
+  [022] inode: 24674, pc: 0x00009120, module: busybox
+  [023] inode: 24674, pc: 0x000091e8, module: busybox
+  [024] inode: 24674, pc: 0x00009120, module: busybox
+  [025] inode: 24674, pc: 0x000091e8, module: busybox
+  [026] inode: 24674, pc: 0x00009120, module: busybox
+  [027] inode: 24674, pc: 0x000091ec, module: busybox
+  [028] inode: 24674, pc: 0x000090c8, module: busybox
+  [029] inode: 24674, pc: 0x000099a8, module: busybox, symbol: init_main
+  [030] inode: 24674, pc: 0x00009994, module: busybox, symbol: init_main
+  [031] inode: 32774, pc: 0x0002f740, module: libc.so.0, symbol: memset
+  [032] inode: 24674, pc: 0x0000997c, module: busybox, symbol: init_main
+  [033] inode: 32774, pc: 0x0002fa90, module: libc.so.0, symbol: strlen
+  [034] inode: 24674, pc: 0x00031580, module: busybox, symbol: bb_strlen
+  [035] inode: 24674, pc: 0x0000996c, module: busybox, symbol: init_main
+  [036] inode: 24674, pc: 0x0000999c, module: busybox, symbol: init_main
+  [037] inode: 24674, pc: 0x00009960, module: busybox, symbol: init_main
+  [038] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [039] inode: 24674, pc: 0x0002fd20, module: busybox, symbol: safe_strncpy
+  [040] inode: 24674, pc: 0x00009944, module: busybox, symbol: init_main
+  [041] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [042] inode: 24674, pc: 0x00009928, module: busybox, symbol: init_main
+  [043] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [044] inode: 24674, pc: 0x00031580, module: busybox, symbol: bb_strlen
+  [045] inode: 24674, pc: 0x00009918, module: busybox, symbol: init_main
+  [046] inode: 32774, pc: 0x0002f9b0, module: libc.so.0, symbol: strcpy
+  [047] inode: 24674, pc: 0x00008980, module: busybox
+  [048] inode: 32774, pc: 0x0002f9b0, module: libc.so.0, symbol: strcpy
+  [049] inode: 24674, pc: 0x0000896c, module: busybox
+  [050] inode: 24674, pc: 0x0000895c, module: busybox
+  [051] inode: 24674, pc: 0x00008954, module: busybox
+  [052] inode: 24674, pc: 0x00008938, module: busybox
+  [053] inode: 24674, pc: 0x000088e4, module: busybox
+  [054] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [055] inode: 24674, pc: 0x000088d8, module: busybox
+  [056] inode: 24674, pc: 0x00008938, module: busybox
+  [057] inode: 24674, pc: 0x000088e4, module: busybox
+  [058] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [059] inode: 24674, pc: 0x000088d8, module: busybox
+  [060] inode: 24674, pc: 0x00008938, module: busybox
+  [061] inode: 24674, pc: 0x000088e4, module: busybox
+  [062] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [063] inode: 24674, pc: 0x000088d8, module: busybox
+  [064] inode: 24674, pc: 0x00008938, module: busybox
+  [065] inode: 24674, pc: 0x000088e4, module: busybox
+  [066] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [067] inode: 24674, pc: 0x000088d8, module: busybox
+  [068] inode: 24674, pc: 0x00008938, module: busybox
+  [069] inode: 24674, pc: 0x000088e4, module: busybox
+  [070] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [071] inode: 24674, pc: 0x000088d8, module: busybox
+  [072] inode: 24674, pc: 0x00008940, module: busybox
+  [073] inode: 24674, pc: 0x000088c8, module: busybox
+  [074] inode: 24674, pc: 0x0000888c, module: busybox
+  [075] inode: 32774, pc: 0x0002e1f0, module: libc.so.0, symbol: calloc
+  [076] inode: 24674, pc: 0x0000887c, module: busybox
+  [077] inode: 24674, pc: 0x00008868, module: busybox
+  [078] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [079] inode: 24674, pc: 0x00008854, module: busybox
+  [080] inode: 24674, pc: 0x0000884c, module: busybox
+  [081] inode: 32774, pc: 0x00030644, module: libc.so.0, symbol: access
+  [082] inode: 24674, pc: 0x00008834, module: busybox
+  [083] inode: 24674, pc: 0x000087f0, module: busybox
+  [084] inode: 24674, pc: 0x000098f8, module: busybox, symbol: init_main
+  [085] inode: 24674, pc: 0x000089bc, module: busybox
+  [086] inode: 24674, pc: 0x0000884c, module: busybox
+  [087] inode: 32774, pc: 0x00030644, module: libc.so.0, symbol: access
+  [088] inode: 24674, pc: 0x0000883c, module: busybox
+  [089] inode: 24674, pc: 0x000087f0, module: busybox
+  [090] inode: 24674, pc: 0x000098dc, module: busybox, symbol: init_main
+  [091] inode: 24674, pc: 0x000089bc, module: busybox
+  [092] inode: 24674, pc: 0x0000884c, module: busybox
+  [093] inode: 32774, pc: 0x00030644, module: libc.so.0, symbol: access
+  [094] inode: 24674, pc: 0x0000883c, module: busybox
+  [095] inode: 24674, pc: 0x000087f0, module: busybox
+  [096] inode: 24674, pc: 0x000098c0, module: busybox, symbol: init_main
+  [097] inode: 24674, pc: 0x000089bc, module: busybox
+  [098] inode: 24674, pc: 0x0000884c, module: busybox
+  [099] inode: 32774, pc: 0x00030644, module: libc.so.0, symbol: access
+  [100] inode: 24674, pc: 0x0000883c, module: busybox
+  [101] inode: 24674, pc: 0x000087f0, module: busybox
+  [102] inode: 24674, pc: 0x000098a4, module: busybox, symbol: init_main
+  [103] inode: 32774, pc: 0x0002f9b0, module: libc.so.0, symbol: strcpy
+  [104] inode: 24674, pc: 0x00008980, module: busybox
+  [105] inode: 32774, pc: 0x0002f9b0, module: libc.so.0, symbol: strcpy
+  [106] inode: 24674, pc: 0x0000896c, module: busybox
+  [107] inode: 24674, pc: 0x0000895c, module: busybox
+  [108] inode: 24674, pc: 0x00008954, module: busybox
+  [109] inode: 24674, pc: 0x00008938, module: busybox
+  [110] inode: 24674, pc: 0x000088e4, module: busybox
+  [111] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [112] inode: 24674, pc: 0x000088d8, module: busybox
+  [113] inode: 24674, pc: 0x00008938, module: busybox
+  [114] inode: 24674, pc: 0x000088e4, module: busybox
+  [115] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [116] inode: 24674, pc: 0x000088d8, module: busybox
+  [117] inode: 24674, pc: 0x00008938, module: busybox
+  [118] inode: 24674, pc: 0x000088e4, module: busybox
+  [119] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [120] inode: 24674, pc: 0x000088d8, module: busybox
+  [121] inode: 24674, pc: 0x00008938, module: busybox
+  [122] inode: 24674, pc: 0x000088e4, module: busybox
+  [123] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [124] inode: 24674, pc: 0x000088d8, module: busybox
+  [125] inode: 24674, pc: 0x00008940, module: busybox
+  [126] inode: 24674, pc: 0x000088c8, module: busybox
+  [127] inode: 24674, pc: 0x0000888c, module: busybox
+  [128] inode: 32774, pc: 0x0002e1f0, module: libc.so.0, symbol: calloc
+  [129] inode: 24674, pc: 0x0000887c, module: busybox
+  [130] inode: 24674, pc: 0x00008868, module: busybox
+  [131] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [132] inode: 24674, pc: 0x00008854, module: busybox
+  [133] inode: 24674, pc: 0x0000884c, module: busybox
+  [134] inode: 32774, pc: 0x00030644, module: libc.so.0, symbol: access
+  [135] inode: 24674, pc: 0x00008834, module: busybox
+  [136] inode: 24674, pc: 0x000087f0, module: busybox
+  [137] inode: 24674, pc: 0x00009884, module: busybox, symbol: init_main
+  [138] inode: 32774, pc: 0x0002f9b0, module: libc.so.0, symbol: strcpy
+  [139] inode: 24674, pc: 0x00008980, module: busybox
+  [140] inode: 32774, pc: 0x0002f9b0, module: libc.so.0, symbol: strcpy
+  [141] inode: 24674, pc: 0x0000896c, module: busybox
+  [142] inode: 24674, pc: 0x0000895c, module: busybox
+  [143] inode: 24674, pc: 0x00008954, module: busybox
+  [144] inode: 24674, pc: 0x00008938, module: busybox
+  [145] inode: 24674, pc: 0x000088e4, module: busybox
+  [146] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [147] inode: 24674, pc: 0x000088d8, module: busybox
+  [148] inode: 24674, pc: 0x00008938, module: busybox
+  [149] inode: 24674, pc: 0x000088e4, module: busybox
+  [150] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [151] inode: 24674, pc: 0x000088d8, module: busybox
+  [152] inode: 24674, pc: 0x00008938, module: busybox
+  [153] inode: 24674, pc: 0x000088e4, module: busybox
+  [154] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [155] inode: 24674, pc: 0x000088d8, module: busybox
+  [156] inode: 24674, pc: 0x00008940, module: busybox
+  [157] inode: 24674, pc: 0x000088c8, module: busybox
+  [158] inode: 24674, pc: 0x0000888c, module: busybox
+  [159] inode: 32774, pc: 0x0002e1f0, module: libc.so.0, symbol: calloc
+  [160] inode: 24674, pc: 0x0000887c, module: busybox
+  [161] inode: 24674, pc: 0x00008868, module: busybox
+  [162] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [163] inode: 24674, pc: 0x00008854, module: busybox
+  [164] inode: 24674, pc: 0x0000884c, module: busybox
+  [165] inode: 32774, pc: 0x00030644, module: libc.so.0, symbol: access
+  [166] inode: 24674, pc: 0x00008834, module: busybox
+  [167] inode: 24674, pc: 0x000087f0, module: busybox
+  [168] inode: 24674, pc: 0x00009868, module: busybox, symbol: init_main
+  [169] inode: 32774, pc: 0x0002f9b0, module: libc.so.0, symbol: strcpy
+  [170] inode: 24674, pc: 0x00008980, module: busybox
+  [171] inode: 32774, pc: 0x0002f9b0, module: libc.so.0, symbol: strcpy
+  [172] inode: 24674, pc: 0x0000896c, module: busybox
+  [173] inode: 24674, pc: 0x0000895c, module: busybox
+  [174] inode: 24674, pc: 0x00008954, module: busybox
+  [175] inode: 24674, pc: 0x00008938, module: busybox
+  [176] inode: 24674, pc: 0x000088e4, module: busybox
+  [177] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [178] inode: 24674, pc: 0x000088d8, module: busybox
+  [179] inode: 24674, pc: 0x00008938, module: busybox
+  [180] inode: 24674, pc: 0x000088e4, module: busybox
+  [181] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [182] inode: 24674, pc: 0x000088d8, module: busybox
+  [183] inode: 24674, pc: 0x00008940, module: busybox
+  [184] inode: 24674, pc: 0x000088c8, module: busybox
+  [185] inode: 24674, pc: 0x0000888c, module: busybox
+  [186] inode: 32774, pc: 0x0002e1f0, module: libc.so.0, symbol: calloc
+  [187] inode: 24674, pc: 0x0000887c, module: busybox
+  [188] inode: 24674, pc: 0x00008868, module: busybox
+  [189] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [190] inode: 24674, pc: 0x00008854, module: busybox
+  [191] inode: 24674, pc: 0x0000884c, module: busybox
+  [192] inode: 32774, pc: 0x00030644, module: libc.so.0, symbol: access
+  [193] inode: 24674, pc: 0x00008834, module: busybox
+  [194] inode: 24674, pc: 0x000087f0, module: busybox
+  [195] inode: 24674, pc: 0x0000984c, module: busybox, symbol: init_main
+  [196] inode: 32774, pc: 0x0002f9b0, module: libc.so.0, symbol: strcpy
+  [197] inode: 24674, pc: 0x00008980, module: busybox
+  [198] inode: 32774, pc: 0x0002f9b0, module: libc.so.0, symbol: strcpy
+  [199] inode: 24674, pc: 0x0000896c, module: busybox
+  [200] inode: 24674, pc: 0x0000895c, module: busybox
+  [201] inode: 24674, pc: 0x00008954, module: busybox
+  [202] inode: 24674, pc: 0x00008938, module: busybox
+  [203] inode: 24674, pc: 0x000088e4, module: busybox
+  [204] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [205] inode: 24674, pc: 0x000088d8, module: busybox
+  [206] inode: 24674, pc: 0x00008940, module: busybox
+  [207] inode: 24674, pc: 0x000088c8, module: busybox
+  [208] inode: 24674, pc: 0x0000888c, module: busybox
+  [209] inode: 32774, pc: 0x0002e1f0, module: libc.so.0, symbol: calloc
+  [210] inode: 24674, pc: 0x0000887c, module: busybox
+  [211] inode: 24674, pc: 0x00008868, module: busybox
+  [212] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [213] inode: 24674, pc: 0x00008854, module: busybox
+  [214] inode: 24674, pc: 0x0000884c, module: busybox
+  [215] inode: 32774, pc: 0x00030644, module: libc.so.0, symbol: access
+  [216] inode: 24674, pc: 0x00008834, module: busybox
+  [217] inode: 24674, pc: 0x000087f0, module: busybox
+  [218] inode: 24674, pc: 0x00009830, module: busybox, symbol: init_main
+  [219] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [220] inode: 24674, pc: 0x00008980, module: busybox
+  [221] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [222] inode: 24674, pc: 0x00008964, module: busybox
+  [223] inode: 24674, pc: 0x00008954, module: busybox
+  [224] inode: 24674, pc: 0x00008940, module: busybox
+  [225] inode: 24674, pc: 0x000088c8, module: busybox
+  [226] inode: 24674, pc: 0x0000888c, module: busybox
+  [227] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [228] inode: 24674, pc: 0x0000887c, module: busybox
+  [229] inode: 24674, pc: 0x00008868, module: busybox
+  [230] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [231] inode: 24674, pc: 0x00008854, module: busybox
+  [232] inode: 24674, pc: 0x0000884c, module: busybox
+  [233] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [234] inode: 24674, pc: 0x00008834, module: busybox
+  [235] inode: 24674, pc: 0x000087f0, module: busybox
+  [236] inode: 24674, pc: 0x0000980c, module: busybox, symbol: init_main
+  [237] inode: 24674, pc: 0x000097e4, module: busybox, symbol: init_main
+  [238] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [239] inode: 24674, pc: 0x000097cc, module: busybox, symbol: init_main
+  [240] inode: 24674, pc: 0x000097c4, module: busybox, symbol: init_main
+  [241] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [242] inode: 24674, pc: 0x000097ac, module: busybox, symbol: init_main
+  [243] inode: 24674, pc: 0x000097a4, module: busybox, symbol: init_main
+  [244] inode: 32774, pc: 0x0002f980, module: libc.so.0, symbol: strcoll
+  [245] inode: 24674, pc: 0x0000978c, module: busybox, symbol: init_main
+  [246] inode: 24674, pc: 0x00009780, module: busybox, symbol: init_main
+  [247] inode: 24674, pc: 0x000096c0, module: busybox, symbol: init_main
+  [248] inode: 24674, pc: 0x00008600, module: busybox
+  [249] inode: 24674, pc: 0x000085d8, module: busybox
+  [250] inode: 24674, pc: 0x000085c4, module: busybox
+  [251] inode: 24674, pc: 0x000085a8, module: busybox
+  [252] inode: 24674, pc: 0x00008588, module: busybox
+  [253] inode: 32770, pc: 0x00000940, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [254] inode: 24674, pc: 0x00008564, module: busybox
+  [255] inode: 24674, pc: 0x000096a8, module: busybox, symbol: init_main
+  [256] inode: 24674, pc: 0x000087d0, module: busybox
+  [257] inode: 32774, pc: 0x00030b84, module: libc.so.0, symbol: close
+  [258] inode: 24674, pc: 0x000087c0, module: busybox
+  [259] inode: 24674, pc: 0x0002adec, module: busybox, symbol: bb_full_write
+  [260] inode: 24674, pc: 0x0002add0, module: busybox, symbol: bb_full_write
+  [261] inode: 24674, pc: 0x0002adc4, module: busybox, symbol: bb_full_write
+  [262] inode: 24674, pc: 0x0002fd00, module: busybox, symbol: safe_write
+  [263] inode: 24674, pc: 0x0002fcd8, module: busybox, symbol: safe_write
+  [264] inode: 32774, pc: 0x00035124, module: libc.so.0, symbol: write
+  [265] inode: 24674, pc: 0x0002fc90, module: busybox, symbol: safe_write
+  [266] inode: 24674, pc: 0x0002adbc, module: busybox, symbol: bb_full_write
+  [267] inode: 24674, pc: 0x0002add8, module: busybox, symbol: bb_full_write
+  [268] inode: 24674, pc: 0x0002ad80, module: busybox, symbol: bb_full_write
+  [269] inode: 24674, pc: 0x000087ac, module: busybox
+  [270] inode: 24674, pc: 0x000087a0, module: busybox
+  [271] inode: 24674, pc: 0x0002a96c, module: busybox, symbol: device_open
+  [272] inode: 24674, pc: 0x0002a938, module: busybox, symbol: device_open
+  [273] inode: 24674, pc: 0x0002a930, module: busybox, symbol: device_open
+  [274] inode: 24674, pc: 0x0002a920, module: busybox, symbol: device_open
+  [275] inode: 32774, pc: 0x00032e20, module: libc.so.0, symbol: __libc_open
+  [276] inode: 24674, pc: 0x0002a8d0, module: busybox, symbol: device_open
+  [277] inode: 24674, pc: 0x0000878c, module: busybox
+  [278] inode: 24674, pc: 0x0000877c, module: busybox
+  [279] inode: 24674, pc: 0x0002adec, module: busybox, symbol: bb_full_write
+  [280] inode: 24674, pc: 0x0002add0, module: busybox, symbol: bb_full_write
+  [281] inode: 24674, pc: 0x0002adc4, module: busybox, symbol: bb_full_write
+  [282] inode: 24674, pc: 0x0002fd00, module: busybox, symbol: safe_write
+  [283] inode: 24674, pc: 0x0002fcd8, module: busybox, symbol: safe_write
+  [284] inode: 32770, pc: 0x0000097c, module: ld-uClibc.so.0, symbol: _dl_runtime_resolve
+  [285] inode: 24674, pc: 0x0002fc90, module: busybox, symbol: safe_write
+  [286] inode: 24674, pc: 0x0002adbc, module: busybox, symbol: bb_full_write
+  [287] inode: 24674, pc: 0x0002add8, module: busybox, symbol: bb_full_write
+  [288] inode: 24674, pc: 0x0002ad80, module: busybox, symbol: bb_full_write
+  [289] inode: 24674, pc: 0x00008770, module: busybox
+  [290] inode: 24674, pc: 0x00008760, module: busybox
+  [291] inode: 24674, pc: 0x00008750, module: busybox
+  [292] inode: 32774, pc: 0x00030460, module: libc.so.0, symbol: __libc_fcntl
+  [293] inode: 24674, pc: 0x0000873c, module: busybox
+  [294] inode: 24674, pc: 0x0000870c, module: busybox
+  [295] inode: 24674, pc: 0x0002a96c, module: busybox, symbol: device_open
+  [296] inode: 24674, pc: 0x0002a938, module: busybox, symbol: device_open
+  [297] inode: 24674, pc: 0x0002a930, module: busybox, symbol: device_open
+  [298] inode: 24674, pc: 0x0002a920, module: busybox, symbol: device_open
+  [299] inode: 32774, pc: 0x00032e20, module: libc.so.0, symbol: __libc_open
+Total Parent trace elements: 300
+
+--- Parent PID 0 Trace ---
+Total Parent trace elements: 0
+
