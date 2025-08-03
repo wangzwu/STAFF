@@ -1,0 +1,614 @@
+=== Trace for PID 229 ===
+Process: alphapd
+
+--- Self PID 229 Trace ---
+  [000] inode: 8228, pc: 0x0004e074, module: libuClibc-0.9.28.so, symbol: free
+  [001] inode: 16386, pc: 0x0002ac10, module: alphapd, symbol: websCgibinProcessor
+  [002] inode: 16386, pc: 0x0002ac04, module: alphapd, symbol: websCgibinProcessor
+  [003] inode: 16386, pc: 0x0002abec, module: alphapd, symbol: websCgibinProcessor
+  [004] inode: 16386, pc: 0x0001591c, module: alphapd, symbol: findStrInFile
+  [005] inode: 16386, pc: 0x00015824, module: alphapd, symbol: findStrInFile
+  [006] inode: 8228, pc: 0x0003e7f0, module: libuClibc-0.9.28.so, symbol: fopen
+  [007] inode: 16386, pc: 0x00015810, module: alphapd, symbol: findStrInFile
+  [008] inode: 16386, pc: 0x00015808, module: alphapd, symbol: findStrInFile
+  [009] inode: 16386, pc: 0x000157e8, module: alphapd, symbol: findStrInFile
+  [010] inode: 16386, pc: 0x0002abd4, module: alphapd, symbol: websCgibinProcessor
+  [011] inode: 16386, pc: 0x0002abcc, module: alphapd, symbol: websCgibinProcessor
+  [012] inode: 16386, pc: 0x0002abbc, module: alphapd, symbol: websCgibinProcessor
+  [013] inode: 16386, pc: 0x0002abac, module: alphapd, symbol: websCgibinProcessor
+  [014] inode: 16386, pc: 0x0002ab94, module: alphapd, symbol: websCgibinProcessor
+  [015] inode: 16386, pc: 0x00006aac, module: alphapd, symbol: trace
+  [016] inode: 16386, pc: 0x00006a70, module: alphapd, symbol: trace
+  [017] inode: 16386, pc: 0x0002ab78, module: alphapd, symbol: websCgibinProcessor
+  [018] inode: 16386, pc: 0x00017ebc, module: alphapd, symbol: websUrlProcessRequest
+  [019] inode: 16386, pc: 0x00017e98, module: alphapd, symbol: websUrlProcessRequest
+  [020] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [021] inode: 16386, pc: 0x00017e7c, module: alphapd, symbol: websUrlProcessRequest
+  [022] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [023] inode: 16386, pc: 0x00017e68, module: alphapd, symbol: websUrlProcessRequest
+  [024] inode: 16386, pc: 0x00017ef8, module: alphapd, symbol: websUrlProcessRequest
+  [025] inode: 16386, pc: 0x00017eac, module: alphapd, symbol: websUrlProcessRequest
+  [026] inode: 16386, pc: 0x00017e98, module: alphapd, symbol: websUrlProcessRequest
+  [027] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [028] inode: 16386, pc: 0x00017e7c, module: alphapd, symbol: websUrlProcessRequest
+  [029] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [030] inode: 16386, pc: 0x00017e68, module: alphapd, symbol: websUrlProcessRequest
+  [031] inode: 16386, pc: 0x00017e48, module: alphapd, symbol: websUrlProcessRequest
+  [032] inode: 16386, pc: 0x000115b4, module: alphapd, symbol: websKernalParameter
+  [033] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [034] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [035] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [036] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [037] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [038] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [039] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [040] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [041] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [042] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [043] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [044] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [045] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [046] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [047] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [048] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [049] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [050] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [051] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [052] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [053] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [054] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [055] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [056] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [057] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [058] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [059] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [060] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [061] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [062] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [063] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [064] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [065] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [066] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [067] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [068] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [069] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [070] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [071] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [072] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [073] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [074] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [075] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [076] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [077] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [078] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [079] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [080] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [081] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [082] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [083] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [084] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [085] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [086] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [087] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [088] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [089] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [090] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [091] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [092] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [093] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [094] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [095] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [096] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [097] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [098] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [099] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [100] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [101] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [102] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [103] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [104] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [105] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [106] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [107] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [108] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [109] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [110] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [111] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [112] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [113] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [114] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [115] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [116] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [117] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [118] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [119] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [120] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [121] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [122] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [123] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [124] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [125] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [126] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [127] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [128] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [129] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [130] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [131] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [132] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [133] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [134] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [135] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [136] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [137] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [138] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [139] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [140] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [141] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [142] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [143] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [144] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [145] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [146] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [147] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [148] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [149] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [150] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [151] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [152] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [153] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [154] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [155] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [156] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [157] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [158] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [159] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [160] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [161] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [162] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [163] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [164] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [165] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [166] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [167] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [168] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [169] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [170] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [171] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [172] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [173] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [174] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [175] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [176] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [177] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [178] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [179] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [180] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [181] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [182] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [183] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [184] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [185] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [186] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [187] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [188] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [189] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [190] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [191] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [192] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [193] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [194] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [195] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [196] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [197] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [198] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [199] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [200] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [201] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [202] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [203] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [204] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [205] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [206] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [207] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [208] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [209] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [210] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [211] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [212] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [213] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [214] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [215] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [216] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [217] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [218] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [219] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [220] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [221] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [222] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [223] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [224] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [225] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [226] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [227] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [228] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [229] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [230] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [231] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [232] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [233] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [234] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [235] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [236] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [237] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [238] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [239] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [240] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [241] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [242] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [243] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [244] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [245] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [246] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [247] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [248] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [249] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [250] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [251] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [252] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [253] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [254] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [255] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [256] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [257] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [258] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [259] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [260] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [261] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [262] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [263] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [264] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [265] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [266] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [267] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [268] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [269] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [270] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [271] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [272] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [273] inode: 16386, pc: 0x000115a4, module: alphapd, symbol: websKernalParameter
+  [274] inode: 16386, pc: 0x00011598, module: alphapd, symbol: websKernalParameter
+  [275] inode: 16386, pc: 0x000114b0, module: alphapd, symbol: ReplaceCgiPath
+  [276] inode: 16386, pc: 0x00011420, module: alphapd, symbol: ReplaceCgiPath
+  [277] inode: 8228, pc: 0x0004f160, module: libuClibc-0.9.28.so, symbol: strncasecmp
+  [278] inode: 16386, pc: 0x00017520, module: alphapd, symbol: webncasestrcmp
+  [279] inode: 16386, pc: 0x0001754c, module: alphapd, symbol: webncasestrcmp
+  [280] inode: 16386, pc: 0x00017510, module: alphapd, symbol: webncasestrcmp
+  [281] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [282] inode: 16386, pc: 0x00017508, module: alphapd, symbol: webncasestrcmp
+  [283] inode: 16386, pc: 0x000174f4, module: alphapd, symbol: webncasestrcmp
+  [284] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [285] inode: 16386, pc: 0x000174ec, module: alphapd, symbol: webncasestrcmp
+  [286] inode: 16386, pc: 0x000174b4, module: alphapd, symbol: webncasestrcmp
+  [287] inode: 16386, pc: 0x000113e0, module: alphapd, symbol: ReplaceCgiPath
+  [288] inode: 16386, pc: 0x00011584, module: alphapd, symbol: websKernalParameter
+  [289] inode: 16386, pc: 0x00011574, module: alphapd, symbol: websKernalParameter
+  [290] inode: 16386, pc: 0x00011560, module: alphapd, symbol: websKernalParameter
+  [291] inode: 16386, pc: 0x0000feb8, module: alphapd, symbol: websTestVar
+  [292] inode: 16386, pc: 0x0000fd34, module: alphapd
+  [293] inode: 16386, pc: 0x0000fd24, module: alphapd
+  [294] inode: 16386, pc: 0x0000fd18, module: alphapd
+  [295] inode: 8228, pc: 0x0004ee40, module: libuClibc-0.9.28.so, symbol: strcasecmp
+  [296] inode: 16386, pc: 0x0000fd08, module: alphapd
+  [297] inode: 16386, pc: 0x0000fd24, module: alphapd
+  [298] inode: 16386, pc: 0x0000fd18, module: alphapd
+  [299] inode: 8228, pc: 0x0004ee40, module: libuClibc-0.9.28.so, symbol: strcasecmp
+Total Self trace elements: 300
+
+--- Parent PID 1 Trace ---
+  [000] inode: 8228, pc: 0x00057240, module: libuClibc-0.9.28.so, symbol: __libc_wait
+  [001] inode: 16391, pc: 0x0004a688, module: busybox
+  [002] inode: 16391, pc: 0x0004a664, module: busybox
+  [003] inode: 16391, pc: 0x0004b194, module: busybox
+  [004] inode: 16391, pc: 0x0004b108, module: busybox
+  [005] inode: 16391, pc: 0x0004afd4, module: busybox
+  [006] inode: 16391, pc: 0x0004afac, module: busybox
+  [007] inode: 8228, pc: 0x0005662c, module: libuClibc-0.9.28.so, symbol: sigprocmask
+  [008] inode: 16391, pc: 0x0004af98, module: busybox
+  [009] inode: 8228, pc: 0x000571c0, module: libuClibc-0.9.28.so, symbol: vfork
+  [010] inode: 16391, pc: 0x0004af80, module: busybox
+  [011] inode: 16391, pc: 0x0004af60, module: busybox
+  [012] inode: 8195, pc: 0x00000a50, module: ld-uClibc-0.9.28.so, symbol: _dl_runtime_resolve
+  [013] inode: 16391, pc: 0x0004af48, module: busybox
+  [014] inode: 8195, pc: 0x00000a50, module: ld-uClibc-0.9.28.so, symbol: _dl_runtime_resolve
+  [015] inode: 16391, pc: 0x0004af30, module: busybox
+  [016] inode: 8195, pc: 0x00000a50, module: ld-uClibc-0.9.28.so, symbol: _dl_runtime_resolve
+  [017] inode: 16391, pc: 0x0004af04, module: busybox
+  [018] inode: 16391, pc: 0x0004b178, module: busybox
+  [019] inode: 16391, pc: 0x0004b168, module: busybox
+  [020] inode: 16391, pc: 0x0004b154, module: busybox
+  [021] inode: 16391, pc: 0x0004b118, module: busybox
+  [022] inode: 16391, pc: 0x0004bd60, module: busybox, symbol: init_main
+  [023] inode: 16391, pc: 0x0004bd20, module: busybox, symbol: init_main
+  [024] inode: 8228, pc: 0x0004ed80, module: libuClibc-0.9.28.so, symbol: memset
+  [025] inode: 16391, pc: 0x0004bd18, module: busybox, symbol: init_main
+  [026] inode: 16391, pc: 0x0004bd44, module: busybox, symbol: init_main
+  [027] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [028] inode: 16391, pc: 0x0004bd30, module: busybox, symbol: init_main
+  [029] inode: 16391, pc: 0x0004bd20, module: busybox, symbol: init_main
+  [030] inode: 8228, pc: 0x0004f270, module: libuClibc-0.9.28.so, symbol: strncpy
+  [031] inode: 16391, pc: 0x0004bcfc, module: busybox, symbol: init_main
+  [032] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [033] inode: 16391, pc: 0x0004bce8, module: busybox, symbol: init_main
+  [034] inode: 16391, pc: 0x0004b7c0, module: busybox
+  [035] inode: 8228, pc: 0x0004e074, module: libuClibc-0.9.28.so, symbol: free
+  [036] inode: 16391, pc: 0x00052020, module: busybox, symbol: config_close
+  [037] inode: 8195, pc: 0x00000a8c, module: ld-uClibc-0.9.28.so, symbol: _dl_runtime_resolve
+  [038] inode: 16391, pc: 0x00052008, module: busybox, symbol: config_close
+  [039] inode: 16391, pc: 0x00051fb8, module: busybox
+  [040] inode: 8228, pc: 0x0004e074, module: libuClibc-0.9.28.so, symbol: free
+  [041] inode: 16391, pc: 0x00051f88, module: busybox
+  [042] inode: 16391, pc: 0x00052000, module: busybox, symbol: config_close
+  [043] inode: 16391, pc: 0x00051ff4, module: busybox, symbol: config_close
+  [044] inode: 16391, pc: 0x00051fd0, module: busybox, symbol: config_close
+  [045] inode: 16391, pc: 0x0004b7b0, module: busybox
+  [046] inode: 16391, pc: 0x0004b7a4, module: busybox
+  [047] inode: 16391, pc: 0x000522e8, module: busybox, symbol: config_read
+  [048] inode: 16391, pc: 0x00052100, module: busybox, symbol: config_read
+  [049] inode: 16391, pc: 0x000520f4, module: busybox, symbol: config_read
+  [050] inode: 16391, pc: 0x0004d768, module: busybox, symbol: bb_get_chunk_with_continuation
+  [051] inode: 16391, pc: 0x0004d73c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [052] inode: 16391, pc: 0x0004d734, module: busybox, symbol: bb_get_chunk_with_continuation
+  [053] inode: 16391, pc: 0x0004d720, module: busybox, symbol: bb_get_chunk_with_continuation
+  [054] inode: 8228, pc: 0x00042f60, module: libuClibc-0.9.28.so, symbol: getc_unlocked
+  [055] inode: 16391, pc: 0x0004d718, module: busybox, symbol: bb_get_chunk_with_continuation
+  [056] inode: 16391, pc: 0x0004d704, module: busybox, symbol: bb_get_chunk_with_continuation
+  [057] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [058] inode: 16391, pc: 0x0004d6d0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [059] inode: 16391, pc: 0x0004d608, module: busybox, symbol: bb_get_chunk_with_continuation
+  [060] inode: 16391, pc: 0x000520dc, module: busybox, symbol: config_read
+  [061] inode: 16391, pc: 0x00051fb8, module: busybox
+  [062] inode: 8228, pc: 0x0004e074, module: libuClibc-0.9.28.so, symbol: free
+  [063] inode: 16391, pc: 0x00051f88, module: busybox
+  [064] inode: 16391, pc: 0x000520c0, module: busybox, symbol: config_read
+  [065] inode: 8228, pc: 0x0004ed80, module: libuClibc-0.9.28.so, symbol: memset
+  [066] inode: 16391, pc: 0x000520ac, module: busybox, symbol: config_read
+  [067] inode: 16391, pc: 0x0005204c, module: busybox, symbol: config_read
+  [068] inode: 16391, pc: 0x0004b77c, module: busybox
+  [069] inode: 16391, pc: 0x0004b758, module: busybox
+  [070] inode: 8228, pc: 0x0004e074, module: libuClibc-0.9.28.so, symbol: free
+  [071] inode: 16391, pc: 0x0004b748, module: busybox
+  [072] inode: 16391, pc: 0x0004b738, module: busybox
+  [073] inode: 8228, pc: 0x0004f270, module: libuClibc-0.9.28.so, symbol: strncpy
+  [074] inode: 16391, pc: 0x0005377c, module: busybox, symbol: safe_strncpy
+  [075] inode: 16391, pc: 0x00053764, module: busybox, symbol: safe_strncpy
+  [076] inode: 16391, pc: 0x0004b4f0, module: busybox
+  [077] inode: 8228, pc: 0x0004f270, module: libuClibc-0.9.28.so, symbol: strncpy
+  [078] inode: 16391, pc: 0x0005377c, module: busybox, symbol: safe_strncpy
+  [079] inode: 16391, pc: 0x00053764, module: busybox, symbol: safe_strncpy
+  [080] inode: 16391, pc: 0x0004b4d8, module: busybox
+  [081] inode: 16391, pc: 0x0004b4cc, module: busybox
+  [082] inode: 16391, pc: 0x0004b4c0, module: busybox
+  [083] inode: 16391, pc: 0x00008f3c, module: busybox, symbol: xzalloc
+  [084] inode: 8228, pc: 0x0004ed80, module: libuClibc-0.9.28.so, symbol: memset
+  [085] inode: 16391, pc: 0x00008f20, module: busybox, symbol: xzalloc
+  [086] inode: 16391, pc: 0x00008e80, module: busybox, symbol: xmalloc
+  [087] inode: 16391, pc: 0x00008e5c, module: busybox, symbol: xmalloc
+  [088] inode: 8228, pc: 0x0004cb84, module: libuClibc-0.9.28.so, symbol: malloc
+  [089] inode: 16391, pc: 0x00008e30, module: busybox, symbol: xmalloc
+  [090] inode: 16391, pc: 0x00008ef0, module: busybox, symbol: xzalloc
+  [091] inode: 16391, pc: 0x0004b4b0, module: busybox
+  [092] inode: 16391, pc: 0x0004b460, module: busybox
+  [093] inode: 16391, pc: 0x0004b4a4, module: busybox
+  [094] inode: 16391, pc: 0x0004b478, module: busybox
+  [095] inode: 8228, pc: 0x0004eff0, module: libuClibc-0.9.28.so, symbol: strcmp
+  [096] inode: 16391, pc: 0x0004b468, module: busybox
+  [097] inode: 16391, pc: 0x0004b418, module: busybox
+  [098] inode: 16391, pc: 0x0004b718, module: busybox
+  [099] inode: 16391, pc: 0x000095b4, module: busybox, symbol: xasprintf
+  [100] inode: 16391, pc: 0x00009598, module: busybox, symbol: xasprintf
+  [101] inode: 8195, pc: 0x00000a50, module: ld-uClibc-0.9.28.so, symbol: _dl_runtime_resolve
+  [102] inode: 16391, pc: 0x00009560, module: busybox, symbol: xasprintf
+  [103] inode: 16391, pc: 0x0004c338, module: busybox, symbol: concat_path_file
+  [104] inode: 16391, pc: 0x0004c324, module: busybox, symbol: concat_path_file
+  [105] inode: 16391, pc: 0x0004c2f4, module: busybox, symbol: concat_path_file
+  [106] inode: 16391, pc: 0x000081f4, module: busybox, symbol: last_char_is
+  [107] inode: 16391, pc: 0x000081d8, module: busybox, symbol: last_char_is
+  [108] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [109] inode: 16391, pc: 0x000081d0, module: busybox, symbol: last_char_is
+  [110] inode: 16391, pc: 0x000081c0, module: busybox, symbol: last_char_is
+  [111] inode: 16391, pc: 0x00008194, module: busybox, symbol: last_char_is
+  [112] inode: 16391, pc: 0x0004c2e4, module: busybox, symbol: concat_path_file
+  [113] inode: 16391, pc: 0x0004c2ac, module: busybox, symbol: concat_path_file
+  [114] inode: 16391, pc: 0x0004b700, module: busybox
+  [115] inode: 16391, pc: 0x0004b6f0, module: busybox
+  [116] inode: 8195, pc: 0x00000a50, module: ld-uClibc-0.9.28.so, symbol: _dl_runtime_resolve
+  [117] inode: 16391, pc: 0x0004b6dc, module: busybox
+  [118] inode: 16391, pc: 0x0004b6cc, module: busybox
+  [119] inode: 16391, pc: 0x0004b6b4, module: busybox
+  [120] inode: 16391, pc: 0x0004b6a8, module: busybox
+  [121] inode: 16391, pc: 0x0004c1d0, module: busybox, symbol: index_in_strings
+  [122] inode: 16391, pc: 0x0004c1a8, module: busybox, symbol: index_in_strings
+  [123] inode: 16391, pc: 0x0004c194, module: busybox, symbol: index_in_strings
+  [124] inode: 8228, pc: 0x0004eff0, module: libuClibc-0.9.28.so, symbol: strcmp
+  [125] inode: 16391, pc: 0x0004c184, module: busybox, symbol: index_in_strings
+  [126] inode: 16391, pc: 0x0004c1b8, module: busybox, symbol: index_in_strings
+  [127] inode: 8228, pc: 0x0004f130, module: libuClibc-0.9.28.so, symbol: strlen
+  [128] inode: 16391, pc: 0x0004c1b0, module: busybox, symbol: index_in_strings
+  [129] inode: 16391, pc: 0x0004c194, module: busybox, symbol: index_in_strings
+  [130] inode: 8228, pc: 0x0004eff0, module: libuClibc-0.9.28.so, symbol: strcmp
+  [131] inode: 16391, pc: 0x0004c184, module: busybox, symbol: index_in_strings
+  [132] inode: 16391, pc: 0x0004c14c, module: busybox, symbol: index_in_strings
+  [133] inode: 16391, pc: 0x0004b694, module: busybox
+  [134] inode: 16391, pc: 0x0004b684, module: busybox
+  [135] inode: 16391, pc: 0x0004b7a4, module: busybox
+  [136] inode: 16391, pc: 0x000522e4, module: busybox, symbol: config_read
+  [137] inode: 16391, pc: 0x0005229c, module: busybox, symbol: config_read
+  [138] inode: 16391, pc: 0x00052274, module: busybox, symbol: config_read
+  [139] inode: 16391, pc: 0x00052250, module: busybox, symbol: config_read
+  [140] inode: 16391, pc: 0x0005223c, module: busybox, symbol: config_read
+  [141] inode: 16391, pc: 0x00052220, module: busybox, symbol: config_read
+  [142] inode: 16391, pc: 0x000521e4, module: busybox, symbol: config_read
+  [143] inode: 8228, pc: 0x0004ef90, module: libuClibc-0.9.28.so, symbol: __strchrnul
+  [144] inode: 16391, pc: 0x000521d4, module: busybox, symbol: config_read
+  [145] inode: 16391, pc: 0x000521a0, module: busybox, symbol: config_read
+  [146] inode: 16391, pc: 0x00052198, module: busybox, symbol: config_read
+  [147] inode: 16391, pc: 0x00052294, module: busybox, symbol: config_read
+  [148] inode: 16391, pc: 0x00052284, module: busybox, symbol: config_read
+  [149] inode: 16391, pc: 0x00052274, module: busybox, symbol: config_read
+  [150] inode: 16391, pc: 0x00052244, module: busybox, symbol: config_read
+  [151] inode: 16391, pc: 0x0005223c, module: busybox, symbol: config_read
+  [152] inode: 16391, pc: 0x00052220, module: busybox, symbol: config_read
+  [153] inode: 16391, pc: 0x000521c8, module: busybox, symbol: config_read
+  [154] inode: 8228, pc: 0x0004f040, module: libuClibc-0.9.28.so, symbol: strcspn
+  [155] inode: 16391, pc: 0x000521b0, module: busybox, symbol: config_read
+  [156] inode: 16391, pc: 0x00052198, module: busybox, symbol: config_read
+  [157] inode: 16391, pc: 0x00052294, module: busybox, symbol: config_read
+  [158] inode: 16391, pc: 0x00052284, module: busybox, symbol: config_read
+  [159] inode: 16391, pc: 0x00052274, module: busybox, symbol: config_read
+  [160] inode: 16391, pc: 0x00052244, module: busybox, symbol: config_read
+  [161] inode: 16391, pc: 0x0005223c, module: busybox, symbol: config_read
+  [162] inode: 16391, pc: 0x00052220, module: busybox, symbol: config_read
+  [163] inode: 16391, pc: 0x000521c8, module: busybox, symbol: config_read
+  [164] inode: 8228, pc: 0x0004f040, module: libuClibc-0.9.28.so, symbol: strcspn
+  [165] inode: 16391, pc: 0x000521b0, module: busybox, symbol: config_read
+  [166] inode: 16391, pc: 0x00052198, module: busybox, symbol: config_read
+  [167] inode: 16391, pc: 0x00052294, module: busybox, symbol: config_read
+  [168] inode: 16391, pc: 0x00052284, module: busybox, symbol: config_read
+  [169] inode: 16391, pc: 0x00052274, module: busybox, symbol: config_read
+  [170] inode: 16391, pc: 0x00052244, module: busybox, symbol: config_read
+  [171] inode: 16391, pc: 0x0005223c, module: busybox, symbol: config_read
+  [172] inode: 16391, pc: 0x00052220, module: busybox, symbol: config_read
+  [173] inode: 16391, pc: 0x000521c8, module: busybox, symbol: config_read
+  [174] inode: 8228, pc: 0x0004f040, module: libuClibc-0.9.28.so, symbol: strcspn
+  [175] inode: 16391, pc: 0x000521b0, module: busybox, symbol: config_read
+  [176] inode: 16391, pc: 0x00052190, module: busybox, symbol: config_read
+  [177] inode: 16391, pc: 0x00052188, module: busybox, symbol: config_read
+  [178] inode: 16391, pc: 0x00052180, module: busybox, symbol: config_read
+  [179] inode: 16391, pc: 0x00052178, module: busybox, symbol: config_read
+  [180] inode: 16391, pc: 0x00052168, module: busybox, symbol: config_read
+  [181] inode: 16391, pc: 0x00052158, module: busybox, symbol: config_read
+  [182] inode: 16391, pc: 0x0005212c, module: busybox, symbol: config_read
+  [183] inode: 16391, pc: 0x00052118, module: busybox, symbol: config_read
+  [184] inode: 16391, pc: 0x00052108, module: busybox, symbol: config_read
+  [185] inode: 16391, pc: 0x000520f4, module: busybox, symbol: config_read
+  [186] inode: 16391, pc: 0x0004d758, module: busybox, symbol: bb_get_chunk_with_continuation
+  [187] inode: 16391, pc: 0x00008ee0, module: busybox, symbol: xrealloc
+  [188] inode: 16391, pc: 0x00008ebc, module: busybox, symbol: xrealloc
+  [189] inode: 8228, pc: 0x0004d7e0, module: libuClibc-0.9.28.so, symbol: realloc
+  [190] inode: 16391, pc: 0x00008e90, module: busybox, symbol: xrealloc
+  [191] inode: 16391, pc: 0x0004d748, module: busybox, symbol: bb_get_chunk_with_continuation
+  [192] inode: 16391, pc: 0x0004d73c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [193] inode: 16391, pc: 0x0004d734, module: busybox, symbol: bb_get_chunk_with_continuation
+  [194] inode: 16391, pc: 0x0004d6b8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [195] inode: 16391, pc: 0x0004d6a4, module: busybox, symbol: bb_get_chunk_with_continuation
+  [196] inode: 16391, pc: 0x0004d69c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [197] inode: 16391, pc: 0x0004d694, module: busybox, symbol: bb_get_chunk_with_continuation
+  [198] inode: 16391, pc: 0x0004d68c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [199] inode: 16391, pc: 0x0004d680, module: busybox, symbol: bb_get_chunk_with_continuation
+  [200] inode: 16391, pc: 0x0004d658, module: busybox, symbol: bb_get_chunk_with_continuation
+  [201] inode: 16391, pc: 0x0004d728, module: busybox, symbol: bb_get_chunk_with_continuation
+  [202] inode: 16391, pc: 0x0004d6f8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [203] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [204] inode: 16391, pc: 0x0004d6d0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [205] inode: 16391, pc: 0x0004d694, module: busybox, symbol: bb_get_chunk_with_continuation
+  [206] inode: 16391, pc: 0x0004d68c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [207] inode: 16391, pc: 0x0004d680, module: busybox, symbol: bb_get_chunk_with_continuation
+  [208] inode: 16391, pc: 0x0004d658, module: busybox, symbol: bb_get_chunk_with_continuation
+  [209] inode: 16391, pc: 0x0004d728, module: busybox, symbol: bb_get_chunk_with_continuation
+  [210] inode: 16391, pc: 0x0004d6f8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [211] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [212] inode: 16391, pc: 0x0004d6d0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [213] inode: 16391, pc: 0x0004d694, module: busybox, symbol: bb_get_chunk_with_continuation
+  [214] inode: 16391, pc: 0x0004d68c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [215] inode: 16391, pc: 0x0004d680, module: busybox, symbol: bb_get_chunk_with_continuation
+  [216] inode: 16391, pc: 0x0004d658, module: busybox, symbol: bb_get_chunk_with_continuation
+  [217] inode: 16391, pc: 0x0004d728, module: busybox, symbol: bb_get_chunk_with_continuation
+  [218] inode: 16391, pc: 0x0004d6f8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [219] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [220] inode: 16391, pc: 0x0004d6d0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [221] inode: 16391, pc: 0x0004d694, module: busybox, symbol: bb_get_chunk_with_continuation
+  [222] inode: 16391, pc: 0x0004d68c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [223] inode: 16391, pc: 0x0004d680, module: busybox, symbol: bb_get_chunk_with_continuation
+  [224] inode: 16391, pc: 0x0004d658, module: busybox, symbol: bb_get_chunk_with_continuation
+  [225] inode: 16391, pc: 0x0004d728, module: busybox, symbol: bb_get_chunk_with_continuation
+  [226] inode: 16391, pc: 0x0004d6f8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [227] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [228] inode: 16391, pc: 0x0004d6d0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [229] inode: 16391, pc: 0x0004d694, module: busybox, symbol: bb_get_chunk_with_continuation
+  [230] inode: 16391, pc: 0x0004d68c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [231] inode: 16391, pc: 0x0004d680, module: busybox, symbol: bb_get_chunk_with_continuation
+  [232] inode: 16391, pc: 0x0004d658, module: busybox, symbol: bb_get_chunk_with_continuation
+  [233] inode: 16391, pc: 0x0004d728, module: busybox, symbol: bb_get_chunk_with_continuation
+  [234] inode: 16391, pc: 0x0004d6f8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [235] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [236] inode: 16391, pc: 0x0004d6d0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [237] inode: 16391, pc: 0x0004d694, module: busybox, symbol: bb_get_chunk_with_continuation
+  [238] inode: 16391, pc: 0x0004d68c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [239] inode: 16391, pc: 0x0004d680, module: busybox, symbol: bb_get_chunk_with_continuation
+  [240] inode: 16391, pc: 0x0004d658, module: busybox, symbol: bb_get_chunk_with_continuation
+  [241] inode: 16391, pc: 0x0004d728, module: busybox, symbol: bb_get_chunk_with_continuation
+  [242] inode: 16391, pc: 0x0004d6f8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [243] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [244] inode: 16391, pc: 0x0004d6d0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [245] inode: 16391, pc: 0x0004d694, module: busybox, symbol: bb_get_chunk_with_continuation
+  [246] inode: 16391, pc: 0x0004d68c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [247] inode: 16391, pc: 0x0004d680, module: busybox, symbol: bb_get_chunk_with_continuation
+  [248] inode: 16391, pc: 0x0004d658, module: busybox, symbol: bb_get_chunk_with_continuation
+  [249] inode: 16391, pc: 0x0004d728, module: busybox, symbol: bb_get_chunk_with_continuation
+  [250] inode: 16391, pc: 0x0004d6f8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [251] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [252] inode: 16391, pc: 0x0004d6d0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [253] inode: 16391, pc: 0x0004d694, module: busybox, symbol: bb_get_chunk_with_continuation
+  [254] inode: 16391, pc: 0x0004d68c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [255] inode: 16391, pc: 0x0004d680, module: busybox, symbol: bb_get_chunk_with_continuation
+  [256] inode: 16391, pc: 0x0004d658, module: busybox, symbol: bb_get_chunk_with_continuation
+  [257] inode: 16391, pc: 0x0004d728, module: busybox, symbol: bb_get_chunk_with_continuation
+  [258] inode: 16391, pc: 0x0004d6f8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [259] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [260] inode: 16391, pc: 0x0004d6d0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [261] inode: 16391, pc: 0x0004d694, module: busybox, symbol: bb_get_chunk_with_continuation
+  [262] inode: 16391, pc: 0x0004d68c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [263] inode: 16391, pc: 0x0004d680, module: busybox, symbol: bb_get_chunk_with_continuation
+  [264] inode: 16391, pc: 0x0004d658, module: busybox, symbol: bb_get_chunk_with_continuation
+  [265] inode: 16391, pc: 0x0004d728, module: busybox, symbol: bb_get_chunk_with_continuation
+  [266] inode: 16391, pc: 0x0004d6f8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [267] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [268] inode: 16391, pc: 0x0004d6d0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [269] inode: 16391, pc: 0x0004d694, module: busybox, symbol: bb_get_chunk_with_continuation
+  [270] inode: 16391, pc: 0x0004d68c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [271] inode: 16391, pc: 0x0004d680, module: busybox, symbol: bb_get_chunk_with_continuation
+  [272] inode: 16391, pc: 0x0004d658, module: busybox, symbol: bb_get_chunk_with_continuation
+  [273] inode: 16391, pc: 0x0004d728, module: busybox, symbol: bb_get_chunk_with_continuation
+  [274] inode: 16391, pc: 0x0004d6f8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [275] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [276] inode: 16391, pc: 0x0004d6d0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [277] inode: 16391, pc: 0x0004d694, module: busybox, symbol: bb_get_chunk_with_continuation
+  [278] inode: 16391, pc: 0x0004d68c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [279] inode: 16391, pc: 0x0004d680, module: busybox, symbol: bb_get_chunk_with_continuation
+  [280] inode: 16391, pc: 0x0004d658, module: busybox, symbol: bb_get_chunk_with_continuation
+  [281] inode: 16391, pc: 0x0004d728, module: busybox, symbol: bb_get_chunk_with_continuation
+  [282] inode: 16391, pc: 0x0004d6f8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [283] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [284] inode: 16391, pc: 0x0004d6d0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [285] inode: 16391, pc: 0x0004d694, module: busybox, symbol: bb_get_chunk_with_continuation
+  [286] inode: 16391, pc: 0x0004d68c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [287] inode: 16391, pc: 0x0004d680, module: busybox, symbol: bb_get_chunk_with_continuation
+  [288] inode: 16391, pc: 0x0004d658, module: busybox, symbol: bb_get_chunk_with_continuation
+  [289] inode: 16391, pc: 0x0004d728, module: busybox, symbol: bb_get_chunk_with_continuation
+  [290] inode: 16391, pc: 0x0004d6f8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [291] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [292] inode: 16391, pc: 0x0004d6d0, module: busybox, symbol: bb_get_chunk_with_continuation
+  [293] inode: 16391, pc: 0x0004d694, module: busybox, symbol: bb_get_chunk_with_continuation
+  [294] inode: 16391, pc: 0x0004d68c, module: busybox, symbol: bb_get_chunk_with_continuation
+  [295] inode: 16391, pc: 0x0004d680, module: busybox, symbol: bb_get_chunk_with_continuation
+  [296] inode: 16391, pc: 0x0004d658, module: busybox, symbol: bb_get_chunk_with_continuation
+  [297] inode: 16391, pc: 0x0004d728, module: busybox, symbol: bb_get_chunk_with_continuation
+  [298] inode: 16391, pc: 0x0004d6f8, module: busybox, symbol: bb_get_chunk_with_continuation
+  [299] inode: 16391, pc: 0x0004d6e0, module: busybox, symbol: bb_get_chunk_with_continuation
+Total Parent trace elements: 300
+
+--- Parent PID 0 Trace ---
+Total Parent trace elements: 0
+
+Children: 233(sh) 239(sh) 271(sh) 273(sh) 275(sh) 
+
