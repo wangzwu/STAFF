@@ -258,7 +258,7 @@ EXP_ST u64 total_crashes,             /* Total number of crashes          */
            blocks_eff_total,          /* Blocks subject to effector maps  */
            blocks_eff_select;         /* Blocks selected as fuzzable      */
 
-EXP_ST u64 n_fetched_random_hints = 0, n_fetched_state_hints = 0, n_fetched_taint_hints = 0;
+EXP_ST u64 n_fetched_random_hints = 0, n_fetched_state_hints = 0, n_fetched_taint_hints = 0, n_sent_reqs = 0, n_skipped_reqs_min = 0, n_skipped_reqs_cp = 0;
 
 static u32 subseq_tmouts;             /* Number of timeouts in a row      */
 
@@ -1468,15 +1468,18 @@ int send_over_network(int checkpoint)
 
   for (it = kl_begin(kl_m); it != kl_end(kl_m); it = kl_next(it), messages_sent++) {
     retry = 0;
-    if (enable_taint_aware_mode && taint_aware_mode && checkpoint_strategy && !checkpoint && target_region != -1 && messages_sent < target_region) {
+    if (taint_aware_mode && checkpoint_strategy && !checkpoint && target_region != -1 && messages_sent < target_region) {
+      n_skipped_reqs_cp++;
       continue;
     }
 
     if (enable_taint_aware_mode && taint_aware_mode && regions_to_keep && !regions_to_keep[messages_sent]) {
+      n_skipped_reqs_min++;
       continue;
     }
 
-    if (enable_taint_aware_mode && taint_aware_mode && checkpoint && messages_sent >= target_region) {
+    if (taint_aware_mode && checkpoint && messages_sent >= target_region) {
+      n_skipped_reqs_cp--;
       break;
     }
 
@@ -1516,6 +1519,7 @@ retry:
         }
         total_sent += n;
     }
+    n_sent_reqs++;
 
     if (debug) gettimeofday(&check_1, NULL);
 
@@ -5385,7 +5389,10 @@ static void write_stats_file(double bitmap_cvg, double stability, double eps) {
              "n_fetched_random_hints : %llu\n"
              "n_fetched_state_hints  : %llu\n"
              "n_fetched_taint_hints  : %llu\n"
-             "n_calibration          : %llu\n",
+             "n_calibration          : %llu\n"
+             "n_sent_reqs            : %llu\n"
+             "n_skipped_reqs_min     : %llu\n"
+             "n_skipped_reqs_cp      : %llu\n",
              start_time / 1000, get_cur_time() / 1000, getpid(),
              queue_cycle ? (queue_cycle - 1) : 0, total_execs, eps,
              queued_paths, queued_favored, queued_discovered, queued_imported,
@@ -5400,7 +5407,7 @@ static void write_stats_file(double bitmap_cvg, double stability, double eps) {
              (qemu_mode || dumb_mode || no_forkserver || crash_mode ||
               persistent_mode || deferred_mode) ? "" : "default",
              orig_cmdline, slowest_exec_ms, n_fetched_random_hints, n_fetched_taint_hints,
-             n_fetched_state_hints, total_cal_cycles);
+             n_fetched_state_hints, total_cal_cycles, n_sent_reqs, n_skipped_reqs_min, n_skipped_reqs_cp);
              /* ignore errors */
 
   /* Get rss value from the children
