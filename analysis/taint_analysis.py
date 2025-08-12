@@ -1602,26 +1602,22 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
             set_permissions_recursive(os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "config.ini"))
 
 def pre_analysis_performance(work_dir, firmware, proto, include_libraries, region_delimiter, sleep, timeout, taint_analysis_path):
+    results_file = os.path.join(taint_analysis_path, f"{firmware}_{proto}_pre_analysis_results.json")
+
     for user_interaction in os.listdir(os.path.join(taint_analysis_path, firmware, proto)):
+        print(f"\nProcessing user interaction: {user_interaction}")
         seed_path = os.path.join(taint_analysis_path, firmware, proto, user_interaction, user_interaction+".seed")
         seed_metadata = os.path.join(taint_analysis_path, firmware, proto, user_interaction, user_interaction+".seed_metadata.json")
 
         if os.path.exists(os.path.join(work_dir, "debug")):
             shutil.rmtree(os.path.join(work_dir, "debug"), ignore_errors=True)
-
         os.makedirs(os.path.join(work_dir, "debug"))
 
         if os.path.exists(os.path.join(work_dir, "outputs")):
             shutil.rmtree(os.path.join(work_dir, "outputs"), ignore_errors=True)
-
         os.makedirs(os.path.join(work_dir, "outputs", "taint_metadata"))
         shutil.copy(seed_metadata, os.path.join(work_dir, "outputs", "taint_metadata"))
 
-        print(seed_path)
-        print(seed_metadata)
-        print()
-
-        port = None
         try:
             port = socket.getservbyname(proto)
             print(f"The port for {proto.upper()} is {port}.")
@@ -1629,87 +1625,114 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
             print(f"Protocol {proto.upper()} not found.")
 
         command = ["sudo", "-E", "/STAFF/aflnet/TaintQueue", seed_path, os.path.join(work_dir, "outputs"), "taint_metrics", "1"]
-        
         process = subprocess.Popen(command)
         process.wait()
-        if process.returncode == 0:
-            print("\nCommand executed successfully.")
-        elif process.returncode == 1:
-            print("\nCommand finished with errors. Return Code:", process.returncode)
-            exit(1)        
+        if process.returncode != 0:
+            print("\nTaintQueue failed. Return Code:", process.returncode)
+            exit(1)
 
         with open(os.path.join(work_dir, "debug", user_interaction+".seed_app_tb_pcs_post.json")) as f:
             data = json.load(f)
+        
+        sum_precision = 0.0
+        total_tp = 0
+        total_fp = 0
+        element_count = 0
 
-        for element in data.get("elements", []):
+        total_execution_time = 0.0
+        sleep_time_added = False
+        elements = data.get("elements", [])
+        num_elements = len(elements)
+
+        for idx, element in enumerate(elements, start=1):
+            print(f"\nProcessing element {idx} of {num_elements}")
+
             region = element.get("index")
             offset = element.get("offset")
             length = element.get("count")
             inode_pcs = element.get("pcs", [])
 
-            print(f"region: {region}")
-            print(f"offset: {offset}")
-            print(f"len: {length}")
-            print("inode_pcs:")
-            for pc in inode_pcs:
-                print(f"  - {pc[0]}, {pc[1]}")
+            os.environ["EXEC_MODE"] = "RUN"
+            os.environ["TAINT"] = "1"
+            os.environ["FD_DEPENDENCIES_TRACK"] = "1"
+            os.environ["INCLUDE_LIBRARIES"] = str(include_libraries)
+            os.environ["REGION_DELIMITER"] = region_delimiter.decode('latin-1')
+            os.environ["TARGET_REGION"] = str(region)
+            os.environ["TARGET_OFFSET"] = str(offset)
+            os.environ["TARGET_LEN"] = str(length)
+            os.environ["DEBUG"] = "1"
 
-            input("\nPress Enter to continue...\n")
+            subprocess.run(["sudo", "-E", "/STAFF/FirmAE/flush_interface.sh"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            process = subprocess.Popen(
+                ["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware), firmware, "run", "0.0.0.0"],
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+            )
+            qemu_pid = process.pid
+            print(f"Booting firmware, wait {sleep} seconds...")
 
-        exit(0)
-        os.environ["EXEC_MODE"] = "RUN"
-        os.environ["TAINT"] = "1"
-        os.environ["FD_DEPENDENCIES_TRACK"] = "1"
-        os.environ["INCLUDE_LIBRARIES"] = str(include_libraries)
-        os.environ["REGION_DELIMITER"] = region_delimiter.decode('latin-1')
-        os.environ["TARGET_REGION"] = "1"
-        os.environ["TARGET_OFFSET"] = "0"
-        os.environ["TARGET_LEN"] = "4"
-        os.environ["DEBUG"] = "1"
+            time.sleep(sleep)
+            if not sleep_time_added:
+                total_execution_time += sleep
+                sleep_time_added = True
 
-        subprocess.run(["sudo", "-E", "/STAFF/FirmAE/flush_interface.sh"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        process = subprocess.Popen(
-            ["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware), firmware, "run", "0.0.0.0"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL
-        )
-        qemu_pid = process.pid
-        print("Booting firmware, wait %d seconds..."%(sleep))
-        
-        time.sleep(sleep)
+            element_start_time = time.time()
 
-        json_dir = "%s/taint/"%(work_dir)
+            json_dir = f"{work_dir}/taint/"
 
-        while(1):
-            port = None
             try:
                 port = socket.getservbyname(proto)
-                print(f"The port for {proto.upper()} is {port}.")
             except OSError:
                 print(f"Protocol {proto.upper()} not found.")
+                port = None
+
             command = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
-            
-            print("Current Working Directory:", os.getcwd())
             process = subprocess.Popen(command)
             process.wait()
-            if process.returncode == 0:
-                print("\nCommand executed successfully.")
-            elif process.returncode == 1:
-                print("\nCommand finished with errors. Return Code:", process.returncode)
+            if process.returncode != 0:
+                print("\nClient failed. Return Code:", process.returncode)
                 exit(1)
-            
-            break
 
-        print("Sending SIGINT to", qemu_pid)
-        send_signal_recursive(qemu_pid, signal.SIGINT)
+            send_signal_recursive(qemu_pid, signal.SIGINT)
+            try:
+                os.waitpid(qemu_pid, 0)
+            except:
+                pass
+            time.sleep(2)
 
-        try:
-            os.waitpid(qemu_pid, 0)
-        except:
-            pass
-        time.sleep(2)
+            taint_mem_file = os.path.join(json_dir, "taint_mem.log")
+            taint_data = process_log_file(taint_mem_file)
 
-        taint_mem_file = os.path.join(json_dir, "taint_mem.log")
+            taint_inode_pcs = {(entry["inode"], entry["app_tb_pc"]) for entry in taint_data}
+            inode_pcs_set = {(inode, pc) for inode, pc in inode_pcs}
+
+            true_positives = inode_pcs_set & taint_inode_pcs
+            false_positives = inode_pcs_set - taint_inode_pcs
+
+            tp = len(true_positives)
+            fp = len(false_positives)
+            precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+
+            sum_precision += precision
+            total_tp += tp
+            total_fp += fp
+            element_count += 1
+
+            total_execution_time += (time.time() - element_start_time)
+
+        mean_precision = sum_precision / element_count if element_count > 0 else 0.0
+
+        results = {
+            "mean_precision": mean_precision,
+            "total_true_positives": total_tp,
+            "total_false_positives": total_fp,
+            "total_execution_time_sec": total_execution_time
+        }
+
+        with open(results_file, "w") as rf:
+            json.dump(results, rf, indent=4)
+
+        print(f"\nAggregated results saved to: {results_file}")
+        print(results)
 
 
 def start(firmware, timeout):
