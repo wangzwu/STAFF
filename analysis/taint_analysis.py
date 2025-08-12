@@ -1602,12 +1602,11 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
             set_permissions_recursive(os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "config.ini"))
 
 def pre_analysis_performance(work_dir, firmware, proto, include_libraries, region_delimiter, sleep, timeout, taint_analysis_path):
-    results_file = os.path.join(taint_analysis_path, f"{firmware}_{proto}_pre_analysis_results.json")
-
     for user_interaction in os.listdir(os.path.join(taint_analysis_path, firmware, proto)):
         print(f"\nProcessing user interaction: {user_interaction}")
         seed_path = os.path.join(taint_analysis_path, firmware, proto, user_interaction, user_interaction+".seed")
         seed_metadata = os.path.join(taint_analysis_path, firmware, proto, user_interaction, user_interaction+".seed_metadata.json")
+        results_file = os.path.join(taint_analysis_path, firmware, proto, user_interaction, f"{firmware}_{proto}_pre_analysis_results.json")
 
         if os.path.exists(os.path.join(work_dir, "debug")):
             shutil.rmtree(os.path.join(work_dir, "debug"), ignore_errors=True)
