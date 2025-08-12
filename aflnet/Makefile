@@ -69,10 +69,10 @@ afl-as: afl-as.c afl-as.h $(COMM_HDR) | test_x86
 	$(CC) $(CFLAGS) $@.c -o $@ $(LDFLAGS)
 	ln -sf afl-as as
 
-afl-fuzz: afl-fuzz.c TaintMetricsDrivenQueue.cpp trace.cpp client.c $(COMM_HDR) aflnet.o aflnet.h | test_x86
+afl-fuzz: afl-fuzz.c aflnet.c TaintMetricsDrivenQueue.cpp trace.cpp client.c $(COMM_HDR) aflnet.o aflnet.h config2.h | test_x86
 	$(CXX) -g -O0 -std=c++17 -fpermissive -c TaintMetricsDrivenQueue.cpp -o TaintMetricsDrivenQueue.o
 	$(CXX) -g -O0 -std=c++17 -fpermissive -c trace.cpp -o trace.o
-	$(CC) -g -O0 $(CFLAGS) $@.c aflnet.o TaintMetricsDrivenQueue.o trace.o -o $@ $(LDFLAGS) -lpthread -lstdc++ -lrt
+	$(CC) -g -O0 $(CFLAGS) $@.c aflnet.c TaintMetricsDrivenQueue.o trace.o -o $@ $(LDFLAGS) -lpthread -lstdc++ -lrt
 	$(CC) -g -O0 client.c aflnet.o -o client -D_GNU_SOURCE -lrt
 
 afl-replay: afl-replay.c $(COMM_HDR) aflnet.o aflnet.h | test_x86

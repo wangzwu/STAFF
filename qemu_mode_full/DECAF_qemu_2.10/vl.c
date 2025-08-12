@@ -3259,6 +3259,21 @@ int main(int argc, char **argv, char **envp)
         taint_store_pointers_enabled = 1;
     }
 
+    env_var = getenv("TARGET_REGION");
+    if (env_var) {
+        target_region = atoi(env_var);
+    }
+
+    env_var = getenv("TARGET_OFFSET");
+    if (env_var) {
+        target_offset = atoi(env_var);
+    }
+
+    env_var = getenv("TARGET_LEN");
+    if (env_var) {
+        target_len = atoi(env_var);
+    }
+
     env_var = getenv("INCLUDE_LIBRARIES");
     if (env_var) {
         include_libraries = atoi(env_var);

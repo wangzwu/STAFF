@@ -1601,6 +1601,117 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
             create_config(os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "config.ini"), subregion_divisor, min_subregion_len, delta_threshold, include_libraries, region_delimiter)
             set_permissions_recursive(os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "config.ini"))
 
+def pre_analysis_performance(work_dir, firmware, proto, include_libraries, region_delimiter, sleep, timeout, taint_analysis_path):
+    for user_interaction in os.listdir(os.path.join(taint_analysis_path, firmware, proto)):
+        seed_path = os.path.join(taint_analysis_path, firmware, proto, user_interaction, user_interaction+".seed")
+        seed_metadata = os.path.join(taint_analysis_path, firmware, proto, user_interaction, user_interaction+".seed_metadata.json")
+
+        if os.path.exists(os.path.join(work_dir, "debug")):
+            shutil.rmtree(os.path.join(work_dir, "debug"), ignore_errors=True)
+
+        os.makedirs(os.path.join(work_dir, "debug"))
+
+        if os.path.exists(os.path.join(work_dir, "outputs")):
+            shutil.rmtree(os.path.join(work_dir, "outputs"), ignore_errors=True)
+
+        os.makedirs(os.path.join(work_dir, "outputs", "taint_metadata"))
+        shutil.copy(seed_metadata, os.path.join(work_dir, "outputs", "taint_metadata"))
+
+        print(seed_path)
+        print(seed_metadata)
+        print()
+
+        port = None
+        try:
+            port = socket.getservbyname(proto)
+            print(f"The port for {proto.upper()} is {port}.")
+        except OSError:
+            print(f"Protocol {proto.upper()} not found.")
+
+        command = ["sudo", "-E", "/STAFF/aflnet/TaintQueue", seed_path, os.path.join(work_dir, "outputs"), "taint_metrics", "1"]
+        
+        process = subprocess.Popen(command)
+        process.wait()
+        if process.returncode == 0:
+            print("\nCommand executed successfully.")
+        elif process.returncode == 1:
+            print("\nCommand finished with errors. Return Code:", process.returncode)
+            exit(1)        
+
+        with open(os.path.join(work_dir, "debug", user_interaction+".seed_app_tb_pcs_post.json")) as f:
+            data = json.load(f)
+
+        for element in data.get("elements", []):
+            region = element.get("index")
+            offset = element.get("offset")
+            length = element.get("count")
+            inode_pcs = element.get("pcs", [])
+
+            print(f"region: {region}")
+            print(f"offset: {offset}")
+            print(f"len: {length}")
+            print("inode_pcs:")
+            for pc in inode_pcs:
+                print(f"  - {pc[0]}, {pc[1]}")
+
+            input("\nPress Enter to continue...\n")
+
+        exit(0)
+        os.environ["EXEC_MODE"] = "RUN"
+        os.environ["TAINT"] = "1"
+        os.environ["FD_DEPENDENCIES_TRACK"] = "1"
+        os.environ["INCLUDE_LIBRARIES"] = str(include_libraries)
+        os.environ["REGION_DELIMITER"] = region_delimiter.decode('latin-1')
+        os.environ["TARGET_REGION"] = "1"
+        os.environ["TARGET_OFFSET"] = "0"
+        os.environ["TARGET_LEN"] = "4"
+        os.environ["DEBUG"] = "1"
+
+        subprocess.run(["sudo", "-E", "/STAFF/FirmAE/flush_interface.sh"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        process = subprocess.Popen(
+            ["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware), firmware, "run", "0.0.0.0"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+        qemu_pid = process.pid
+        print("Booting firmware, wait %d seconds..."%(sleep))
+        
+        time.sleep(sleep)
+
+        json_dir = "%s/taint/"%(work_dir)
+
+        while(1):
+            port = None
+            try:
+                port = socket.getservbyname(proto)
+                print(f"The port for {proto.upper()} is {port}.")
+            except OSError:
+                print(f"Protocol {proto.upper()} not found.")
+            command = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
+            
+            print("Current Working Directory:", os.getcwd())
+            process = subprocess.Popen(command)
+            process.wait()
+            if process.returncode == 0:
+                print("\nCommand executed successfully.")
+            elif process.returncode == 1:
+                print("\nCommand finished with errors. Return Code:", process.returncode)
+                exit(1)
+            
+            break
+
+        print("Sending SIGINT to", qemu_pid)
+        send_signal_recursive(qemu_pid, signal.SIGINT)
+
+        try:
+            os.waitpid(qemu_pid, 0)
+        except:
+            pass
+        time.sleep(2)
+
+        taint_mem_file = os.path.join(json_dir, "taint_mem.log")
+
+
 def start(firmware, timeout):
     subregion_divisor = 10
     min_subregion_len = 3

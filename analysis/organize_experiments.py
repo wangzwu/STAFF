@@ -5,8 +5,6 @@ import re
 import argparse
 import csv
 
-BASELINE_MODES = {"aflnet_base", "aflnet_state_aware", "triforce"}
-
 def get_next_available_exp_name(dest_dir):
     used = set()
     pattern = re.compile(r'^exp_(\d+)$')
@@ -21,8 +19,12 @@ def get_next_available_exp_name(dest_dir):
         n += 1
 
 def determine_destination(mode, taint, coverage):
-    if mode in BASELINE_MODES:
-        return "experiments_done/baseline"
+    if mode == "aflnet_base":
+        return f"experiments_done/aflnet_base_{taint}_{coverage}"
+    elif mode == "aflnet_state_aware":
+        return f"experiments_done/aflnet_state_aware_{taint}_{coverage}"
+    elif mode == "triforce":
+        return f"experiments_done/triforce_{taint}_{coverage}"
     elif mode == "staff_state_aware":
         return f"experiments_done/staff_state_aware_{taint}_{coverage}"
     elif mode == "staff_base":

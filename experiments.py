@@ -305,12 +305,12 @@ def ensure_experiment_consistency(csv_file, exp_dir, affinity_file="affinity.dat
                 container_name = row[container_name_idx]
                 num_cores = row[3]
 
-                if os.path.exists(exp_dir) and exp_name not in existing_experiments and exp_name != "" and "crash_analysis" not in container_name:
+                if os.path.exists(exp_dir) and exp_name not in existing_experiments and exp_name != "":
                     continue
                 elif (status == "" or exp_name == "" or container_name == "") and \
                         not (status == "" and exp_name == "" and container_name == ""):
                     continue
-                elif not os.path.exists(exp_dir) and exp_name != "" and "crash_analysis" not in container_name:
+                elif not os.path.exists(exp_dir) and exp_name != "":
                     continue
 
                 container_in_affinity = False
@@ -440,7 +440,7 @@ def assign_names(csv_file, idx, num_cores, config_data):
     existing_experiments = {name for name in os.listdir(EXPERIMENTS_DIR) if name.startswith("exp_")}
     exp_name = get_first_available_name(existing_experiments, "exp")
 
-    if not os.path.exists(os.path.join(EXPERIMENTS_DIR, exp_name)) and mode != "crash_analysis":
+    if not os.path.exists(os.path.join(EXPERIMENTS_DIR, exp_name)):
         os.makedirs(os.path.join(EXPERIMENTS_DIR, exp_name))
 
     lock = open(SCRIPT_DIR + '/schedule.lock', 'w')

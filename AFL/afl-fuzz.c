@@ -43,7 +43,6 @@
 #include "alloc-inl.h"
 #include "hash.h"
 
-#include <poll.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -72,6 +71,7 @@
 #include <sys/prctl.h>
 #include <assert.h>
 #include <curl/curl.h>
+#include "../aflnet/aflnet.h"
 
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined (__OpenBSD__)
 #  include <sys/sysctl.h>
@@ -204,6 +204,7 @@ EXP_ST u32 queued_paths,              /* Total number of queued testcases */
            current_entry,             /* Current queue entry ID           */
            havoc_div = 1;             /* Cycle count divisor for havoc    */
 
+EXP_ST u64 global_exec_us = 0;
 EXP_ST u64 fuzzing_timeout,           /* Fuzzing timeout                  */
            child_tmout = 0,
            total_crashes,             /* Total number of crashes          */
@@ -1542,11 +1543,11 @@ static void cull_queue(void) {
         if (top_rated[i]->trace_mini[j])
           temp_v[j] &= ~top_rated[i]->trace_mini[j];
 
-      top_rated[i]->favored = 1;
-      queued_favored++;
-
-      if (!top_rated[i]->was_fuzzed) pending_favored++;
-
+      if (!top_rated[i]->favored && !top_rated[i]->was_fuzzed) {
+        pending_favored++;
+        top_rated[i]->favored = 1;
+        queued_favored++;
+      }
     }
 
   q = queue;
@@ -2259,80 +2260,6 @@ int file_exists(const char *filename) {
   return (stat(filename, &buffer) == 0);
 }
 
-int safe_poll(struct pollfd *fds, nfds_t nfds, int timeout) {
-  for (nfds_t i = 0; i < nfds; i++) {
-    if (fds[i].fd < 0) {
-      fprintf(stderr, "safe_poll: invalid fd[%ld] = %d\n", i, fds[i].fd);
-      return -1;
-    }
-  }
-  return poll(fds, nfds, timeout);
-}
-
-int net_send(int sockfd, struct timeval timeout, char *mem, unsigned int len) {
-  if (sockfd < 0) {
-    fprintf(stderr, "Invalid socket fd in net_send.\n");
-    return -1;
-  }
-
-  unsigned int byte_count = 0;
-  struct pollfd pfd[1];
-  pfd[0].fd = sockfd;
-  pfd[0].events = POLLOUT;
-
-  setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout));
-  int timeout_ms = timeout.tv_sec * 1000 + timeout.tv_usec / 1000;
-
-  struct timeval start_time;
-  gettimeofday(&start_time, NULL);
-
-  while (byte_count < len) {
-    struct timeval current_time;
-    gettimeofday(&current_time, NULL);
-    
-    long elapsed_time_ms = (current_time.tv_sec - start_time.tv_sec) * 1000 + (current_time.tv_usec - start_time.tv_usec) / 1000;
-    int remaining_timeout_ms = timeout_ms - elapsed_time_ms;
-
-    if (remaining_timeout_ms <= 0) {
-      fprintf(stderr, "Send timeout.\n");
-      return -1;
-    }
-
-    int rv = safe_poll(pfd, 1, remaining_timeout_ms);
-    if (rv <= 0) {
-      fprintf(stderr, "Poll timed out or error while sending (rv: %d, errno: %d).\n", rv, errno);
-      return -1;
-    }
-
-    if (!(pfd[0].revents & POLLOUT)) {
-      fprintf(stderr, "Socket not ready for sending.\n");
-      return -1;
-    }
-
-    int n;
-    do {
-      n = send(sockfd, &mem[byte_count], len - byte_count, MSG_NOSIGNAL);
-      gettimeofday(&current_time, NULL);
-
-      elapsed_time_ms = (current_time.tv_sec - start_time.tv_sec) * 1000 + (current_time.tv_usec - start_time.tv_usec) / 1000;
-      remaining_timeout_ms = timeout_ms - elapsed_time_ms;
-    } while (n < 0 && errno == EINTR && remaining_timeout_ms > 0);
-
-    if (n <= 0) {
-      if (errno == EAGAIN || errno == EWOULDBLOCK) {
-        fprintf(stderr, "Send would block.\n");
-        return -1;
-      }
-      fprintf(stderr, "Error sending data (errno: %d).\n", errno);
-      return -1;
-    }
-
-    byte_count += n;
-  }
-
-  return byte_count;
-}
-
 void *send_requests(void *arg) {
   char net_ip[256];
   int iteration = 0;
@@ -2766,6 +2693,7 @@ static u8 run_target(char** argv, u32 timeout) {
   static struct itimerval it;
   static u32 prev_timed_out = 0;
   static u64 exec_ms = 0;
+  u64 start_us, stop_us;
 
   int status = 0;
   u32 tb4, tb4_eval;
@@ -2901,6 +2829,7 @@ static u8 run_target(char** argv, u32 timeout) {
   it.it_value.tv_usec = (timeout % 1000) * 1000;
 
   setitimer(ITIMER_REAL, &it, NULL);
+  start_us = get_cur_time_us();
 
   /* The SIGALRM handler simply kills the child_pid and sets child_timed_out. */
 
@@ -2962,6 +2891,8 @@ static u8 run_target(char** argv, u32 timeout) {
   it.it_value.tv_usec = 0;
 
   setitimer(ITIMER_REAL, &it, NULL);
+  stop_us = get_cur_time_us();
+  global_exec_us = stop_us - start_us;
 
   total_execs++;
 
@@ -3127,6 +3058,7 @@ u8 calibrate_case(char** argv, struct queue_entry* q, u8* use_mem,
       if (dry_run)
         stage_max = 1;
       else {
+        stage_max = 0;
         goto after_calibration;
       }
     }
@@ -3252,7 +3184,7 @@ after_calibration:
   if (auto_calibration)
     q->exec_us     = (stop_us - start_us) / stage_cur;
   else
-    q->exec_us     = (stop_us - start_us) / stage_max;  
+    q->exec_us     = stage_max ? (stop_us - start_us) / stage_max : global_exec_us;
   q->bitmap_size = count_bytes(trace_bits);
   q->handicap    = handicap;
   q->cal_failed  = 0;

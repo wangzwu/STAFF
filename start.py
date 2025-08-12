@@ -10,7 +10,7 @@ import socket
 import argparse
 import configparser
 from analysis.convert_pcap import convert_pcap_into_single_seed_file, convert_pcap_into_multiple_seed_files
-from analysis.taint_analysis import taint
+from analysis.taint_analysis import taint, pre_analysis_performance
 import csv
 import stat
 import glob
@@ -1214,6 +1214,30 @@ def crash_analysis(_=None):
 
         return True
 
+    def rename_crash_files(base_dir):
+        if not os.path.isdir(base_dir):
+            print(f"Error: Directory '{base_dir}' does not exist.")
+            sys.exit(1)
+
+        for root, dirs, files in os.walk(base_dir):
+            if os.path.basename(root) == "crash_traces":
+                crashes_dir = os.path.join(os.path.dirname(root), "crashes")
+                if not os.path.isdir(crashes_dir):
+                    continue
+
+                trace_files = {f.split(":", 1)[1]: f for f in files if ":" in f}
+
+                for crash_file in os.listdir(crashes_dir):
+                    if ":" not in crash_file:
+                        continue
+                    crash_id = crash_file.split(":", 1)[1]
+                    if crash_id in trace_files:
+                        old_path = os.path.join(crashes_dir, crash_file)
+                        new_path = os.path.join(crashes_dir, trace_files[crash_id])
+                        if old_path != new_path:
+                            print(f"Renaming:\n  {old_path}\n  -> {new_path}")
+                            shutil.move(old_path, new_path)
+
     base_fw    = os.path.basename(config["GENERAL"]["firmware"])
     crash_root = os.path.join(CRASH_DIR, base_fw)
     fw_index   = build_fw_index(FIRMWARE_DIR)
@@ -1332,16 +1356,42 @@ def start(keep_config, reset_firmware_images, replay_exp, out_dir, container_nam
         run(True, False)
     elif mode == "replay":
         replay()
+        if out_dir:
+            update_schedule_status(SCHEDULE_CSV_PATH, "succeeded", os.path.basename(out_dir))
     elif mode == "crash_analysis":
         if os.path.exists(os.path.join(STAFF_DIR, "wait_for_container_init")):
             os.remove(os.path.join(STAFF_DIR, "wait_for_container_init"))
         crash_analysis(CRASH_DIR)
+        if out_dir:
+            update_schedule_status(SCHEDULE_CSV_PATH, "succeeded", os.path.basename(out_dir))
     elif mode == "check":
         check("run")
+        if out_dir:
+            update_schedule_status(SCHEDULE_CSV_PATH, "succeeded", os.path.basename(out_dir))
     elif mode == "pre_analysis":
         if os.path.exists(os.path.join(STAFF_DIR, "wait_for_container_init")):
             os.remove(os.path.join(STAFF_DIR, "wait_for_container_init"))
         pre_analysis()
+        if out_dir:
+            update_schedule_status(SCHEDULE_CSV_PATH, "succeeded", os.path.basename(out_dir))
+    elif mode == "pre_analysis_perf":
+        if os.path.exists(os.path.join(STAFF_DIR, "wait_for_container_init")):
+            os.remove(os.path.join(STAFF_DIR, "wait_for_container_init"))
+        iid = str(check("run"))
+        work_dir = os.path.join(FIRMAE_DIR, "scratch", "run", iid)
+
+        if "true" in open(os.path.join(work_dir, "web_check")).read():
+            with open(os.path.join(work_dir, "time_web"), 'r') as file:
+                sleep = file.read().strip()
+            sleep=int(float(sleep))
+
+            with open(os.path.join(work_dir, "taint_metrics"), 'w') as file:
+                file.write(config["STAFF_FUZZING"]["taint_metrics"])
+
+            pre_analysis_performance(work_dir, config["GENERAL"]["firmware"], os.path.basename(config["AFLNET_FUZZING"]["proto"]), config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"], sleep, config["GENERAL_FUZZING"]["timeout"], TAINT_DIR)
+        
+        if out_dir:
+            update_schedule_status(SCHEDULE_CSV_PATH, "succeeded", os.path.basename(out_dir))
     elif any(x in mode for x in ["aflnet_base", "aflnet_state_aware", "triforce", "staff_base", "staff_state_aware"]) or replay_exp:
         fuzz(out_dir, container_name, replay_exp)
     else:

@@ -1193,7 +1193,7 @@ tcg_target_ulong cpu_tb_exec(CPUState *cpu, TranslationBlock *itb)
                             }
                             else if (coverage_tracing == BLOCK) {
                                 target_ulong pair[2] = { adjusted_pc, inode_num };
-                                uint32_t loc = XXH32(pair, sizeof(pair), pid) & map_size;
+                                uint32_t loc = XXH32(pair, sizeof(pair), pid) & (map_size - 1);
                                 afl_area_ptr[loc]++;
                             }
                         }

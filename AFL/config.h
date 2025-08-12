@@ -327,7 +327,7 @@
    after changing this - otherwise, SEGVs may ensue. */
 
 #define AFL_MAP_SIZE_POW2       16
-#define MAX_MAP_SIZE_POW2       27
+#define MAX_MAP_SIZE_POW2       25
 #define MAX_MAP_SIZE            (1 << MAX_MAP_SIZE_POW2)
 
 /* Maximum allocator request size (keep well under INT_MAX): */

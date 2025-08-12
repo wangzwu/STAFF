@@ -3023,28 +3023,41 @@ static MemTxResult address_space_write_continue(AddressSpace *as, hwaddr addr,
                     //     taint_status[i] = buf[i];
                     // }
 
-                    // if (!fuzz) {
-                    memset(taint_status, 0xFF, l);
-
-                    taintcheck_taint_physmem(addr1, l, taint_status);
-                    
-                    if (!fuzz) {
-                        for (i = 0; i < l; i++)
-                            taint_mem_log(0, 0, 0, addr1, 0, buf[i]);
+                    if (target_region == -1 || target_offset == -1 || target_len == -1) {
+                        memset(taint_status, 0xFF, l);
+                        
+                        if (!fuzz) {
+                            for (i = 0; i < l; i++)
+                                taint_mem_log(0, 0, 0, addr1, 0, buf[i]);
+                        }
                     }
-
-                    // }
-                    // else {
-                    //     if (target_region != -1 && target_offset != -1 && target_len != -1) {
-                    //         if (sink_id == target_region) {
-                    //             for (i = target_offset; i < target_offset+target_len; i++) {
-                    //                 taint_status[i] = 1;
-                    //             }                                    
-                    //         }
-
-                    //         taintcheck_taint_physmem(addr1, l, taint_status);
-                    //     }
-                    // }
+                    else {
+                        if (sink_id == target_region) {
+                            uint8_t *start = memmem(buf, l, "GET", 3);
+                            if (!start) {
+                                start = memmem(buf, l, "POST", 4);
+                            }
+                            
+                            int start_byte = target_offset+start-buf;
+                            int end_byte = start_byte+target_len;
+                            
+                            if (debug) {
+                                FILE *fp = fopen("debug/pre_analysis_perf.log", "a+");
+                                fprintf(fp, "target_region: %d, target_offset: %d, target_len: %d\n", target_region, target_offset, target_len);
+                                for (i = 0; i < target_len; i++) {
+                                    fprintf(fp, "%c", *(start+target_offset+i));
+                                }
+                                fprintf(fp, "\n");
+                                fclose(fp);
+                            }
+                            
+                            for (i = start_byte; i < end_byte; i++) {
+                                taint_status[i] = 1;
+                            }                                 
+                        }
+                    }
+                    
+                    taintcheck_taint_physmem(addr1, l, taint_status);
                     
                     free(taint_status);
                 }

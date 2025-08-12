@@ -238,6 +238,7 @@ EXP_ST u32 queued_paths,              /* Total number of queued testcases */
            current_entry_taint,       /* Current queue entry ID           */
            havoc_div = 1;             /* Cycle count divisor for havoc    */
 
+EXP_ST u64 global_exec_us = 0;
 EXP_ST u64 total_crashes,             /* Total number of crashes          */
            unique_crashes,            /* Crashes with unique signatures   */
            total_tmouts,              /* Total number of timeouts         */
@@ -2884,14 +2885,19 @@ static void cull_queue(void) {
         }
       }
 
-      tq->favored = 1;
-      queued_favored++;
-
       if (state_aware_mode){
-        if ((top_rated[i]->generating_state_id == target_state_id || top_rated[i]->is_initial_seed) && (was_fuzzed_map[target_idx][top_rated[i]->index] == 0)) pending_favored++;
+        if (!tq->favored && (tq->generating_state_id == target_state_id || tq->is_initial_seed) && (was_fuzzed_map[target_idx][tq->index] == 0)) {
+          pending_favored++;
+          tq->favored = 1;
+          queued_favored++;
+        }
       }
       else{
-        if (!top_rated[i]->was_fuzzed) pending_favored++;
+        if (!tq->favored && !tq->was_fuzzed) {
+          pending_favored++;
+          tq->favored = 1;
+          queued_favored++;
+        }
       }
     }
   }
@@ -3989,6 +3995,7 @@ static u8 run_target(char** argv, u32 timeout) {
   static struct itimerval it;
   static u32 prev_timed_out = 0;
   static u64 exec_ms = 0;
+  u64 start_us, stop_us;
 
   int status = 0;
   u32 tb4, tb4_eval;
@@ -4129,6 +4136,7 @@ static u8 run_target(char** argv, u32 timeout) {
   it.it_value.tv_usec = (timeout % 1000) * 1000;
 
   setitimer(ITIMER_REAL, &it, NULL);
+  start_us = get_cur_time_us();
 
   /* The SIGALRM handler simply kills the child_pid and sets child_timed_out. */
 
@@ -4180,6 +4188,8 @@ static u8 run_target(char** argv, u32 timeout) {
   it.it_value.tv_usec = 0;
 
   setitimer(ITIMER_REAL, &it, NULL);
+  stop_us = get_cur_time_us();
+  global_exec_us = stop_us - start_us;
 
   total_execs++;
 
@@ -4295,6 +4305,7 @@ static u8 calibrate_case(char** argv, struct queue_entry* q, u8* use_mem,
       if (dry_run)
         stage_max = 1;
       else {
+        stage_max = 0;
         goto after_calibration;
       }
     }
@@ -4426,7 +4437,7 @@ after_calibration:
   if (auto_calibration)
     q->exec_us     = (stop_us - start_us) / stage_cur;
   else
-    q->exec_us     = (stop_us - start_us) / stage_max;  
+    q->exec_us     = stage_max ? (stop_us - start_us) / stage_max : global_exec_us;
   q->bitmap_size = count_bytes(trace_bits);
   q->handicap    = handicap;
   q->cal_failed  = 0;
