@@ -692,7 +692,7 @@ def fuzz(out_dir, container_name, replay_exp):
         with open(os.path.join(tmp_work_dir, "time_web"), 'r') as file:
             sleep = file.read().strip()
         sleep=int(float(sleep))
-        taint(tmp_work_dir, "run", config["GENERAL"]["firmware"], sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
+        taint(TAINT_DIR, tmp_work_dir, "run", config["GENERAL"]["firmware"], sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
 
     iid = str(check(mode))
     work_dir = os.path.join(FIRMAE_DIR, "scratch", mode, iid)
