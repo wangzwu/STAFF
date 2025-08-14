@@ -110,7 +110,7 @@ void print_request(const char *data, size_t len) {
 }
 
 int main(int argc, char *argv[]) {
-    int debug_mode = 0, manual_mode = 0;
+    int debug_mode = 0, manual_mode = 0, num_attempts = -1;
     char *send_next_region;
 
     char *region_delimiter = getenv("REGION_DELIMITER");
@@ -145,7 +145,7 @@ int main(int argc, char *argv[]) {
         mkdir("debug", 0777);
 
     if (argc < 5) {
-        fprintf(stderr, "Usage: %s <requests_file> <server_ip> <server_port> <timeout_sec> [--manual]\n", argv[0]);
+        fprintf(stderr, "Usage: %s <requests_file> <server_ip> <server_port> <timeout_sec> [num_attempts] [--manual]\n", argv[0]);
         exit(2);
     }
 
@@ -153,7 +153,10 @@ int main(int argc, char *argv[]) {
     char *server_ip = argv[2];
     int server_port = atoi(argv[3]);
     int timeout_sec = atoi(argv[4]);
-
+    if (argc >= 6 && argv[5][0] != '-') {
+        num_attempts = atoi(argv[5]);
+        if (num_attempts <= 0) num_attempts = -1;
+    }
     if (debug_mode) create_debug_dir();
 
     FILE *file = fopen(requests_file, "rb");
@@ -204,9 +207,15 @@ int main(int argc, char *argv[]) {
         perror("Invalid server IP");
         exit(2);
     }
-
+    
+    int attempt = 0;
     while (connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
         perror("Error connecting to server");
+        attempt++;
+        if (num_attempts != -1 && attempt >= num_attempts) {
+            fprintf(stderr, "Reached maximum connection attempts (%d). Exiting.\n", num_attempts);
+            exit(2);
+        }
         sleep(RETRY_DELAY);
     }
 
@@ -288,17 +297,20 @@ retry:
             }
 
             int reconnected = 0;
-            for (int attempt = 0; attempt < 3; ++attempt) {
+            int reconnect_attempt = 0;
+            while (num_attempts == -1 || reconnect_attempt < num_attempts) {
                 if (connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) == 0) {
                     reconnected = 1;
                     break;
                 }
                 perror("Reconnecting...");
+                reconnect_attempt++;
                 sleep(RETRY_DELAY);
             }
 
             if (!reconnected) {
-                fprintf(stderr, "Failed to reconnect after 3 attempts. Skipping request.\n");
+                fprintf(stderr, "Failed to reconnect after %d attempts. Skipping request.\n",
+                        num_attempts == -1 ? reconnect_attempt : num_attempts);
                 break;
             }
 

@@ -519,7 +519,7 @@ def replay_firmware(firmware, work_dir, crash_analysis=False, crash_seed=None, t
         time.sleep(sleep)
 
         port = 80
-        command = ["sudo", "-E", os.path.join(STAFF_DIR, "aflnet", "client"), seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(config["GENERAL_FUZZING"]["timeout"])]    
+        command = ["sudo", "-E", os.path.join(STAFF_DIR, "aflnet", "client"), seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(config["GENERAL_FUZZING"]["timeout"]), "3"]    
         print(" ".join(command))
         subprocess.run(command)
 
@@ -1022,7 +1022,7 @@ def pre_analysis():
                 sleep = file.read().strip()
             sleep=int(float(sleep))
 
-            taint(work_dir, "run", config["GENERAL"]["firmware"], sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
+            taint(TAINT_DIR, work_dir, "run", config["GENERAL"]["firmware"], sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
     else:
         firmware_brands = {}
         
@@ -1053,7 +1053,7 @@ def pre_analysis():
                         sleep = file.read().strip()
                     sleep=int(float(sleep))
 
-                    taint(work_dir, "run", os.path.join(os.path.basename(brand), os.path.basename(device)), sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
+                    taint(TAINT_DIR, work_dir, "run", os.path.join(os.path.basename(brand), os.path.basename(device)), sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
 
 def crash_analysis(_=None):
     global config

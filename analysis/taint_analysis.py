@@ -1277,7 +1277,7 @@ def create_config(config_path, subregion_divisor, min_subregion_len, delta_thres
 
     print(f"[+] Config file '{config_path}' created successfully.")
 
-def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subregion_len, delta_threshold, include_libraries, region_delimiter):
+def taint(taint_dir, work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subregion_len, delta_threshold, include_libraries, region_delimiter):
     global global_all_app_tb_pcs
     global global_subregions_app_tb_pcs
     global global_subregions_covs
@@ -1289,7 +1289,7 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
 
     print("\n[\033[32m+\033[0m] TAINT ANALYSIS of the firmware '%s' (timeout: %d)\n"%(os.path.basename(firmware), timeout))
 
-    all_app_tb_pcs_path = os.path.join("/STAFF/taint_analysis", firmware, "all_app_tb_pcs.json")
+    all_app_tb_pcs_path = os.path.join(taint_dir, firmware, "all_app_tb_pcs.json")
     if os.path.exists(all_app_tb_pcs_path):
         try:
             with open(all_app_tb_pcs_path, "r") as f:
@@ -1346,31 +1346,31 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
             pcap_path = os.path.join(pcap_dir, proto, pcap_file)
 
             tmp_required_files = required_files + [pcap_file+".seed"]
-            missing_files = [file for file in tmp_required_files if not os.path.exists(os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, file))]
+            missing_files = [file for file in tmp_required_files if not os.path.exists(os.path.join(taint_dir, firmware, proto, pcap_file, file))]
             
             force_run = False
             if missing_files:
-                print("The following files are missing under", os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file), ":", ', '.join(missing_files))
+                print("The following files are missing under", os.path.join(taint_dir, firmware, proto, pcap_file), ":", ', '.join(missing_files))
                 if "config.ini" in missing_files:
                     force_run = True
                 else:
-                    res = compare_config(os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "config.ini"), subregion_divisor, min_subregion_len, delta_threshold, include_libraries, region_delimiter)
+                    res = compare_config(os.path.join(taint_dir, firmware, proto, pcap_file, "config.ini"), subregion_divisor, min_subregion_len, delta_threshold, include_libraries, region_delimiter)
                     if res == 2:
                         print("config.ini file does not match 'include_libraries' or 'region_delimiter'!")
                         force_run = True
                     else:
                         print("config.ini file does not match provided pre-analysis params (not 'include_libraries' or 'region_delimiter')!")                
             else:
-                print(f"All required files exist under", os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file))
+                print(f"All required files exist under", os.path.join(taint_dir, firmware, proto, pcap_file))
 
-                res = compare_config(os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "config.ini"), subregion_divisor, min_subregion_len, delta_threshold, include_libraries, region_delimiter)
+                res = compare_config(os.path.join(taint_dir, firmware, proto, pcap_file, "config.ini"), subregion_divisor, min_subregion_len, delta_threshold, include_libraries, region_delimiter)
                 if res == 1:
                     print("config.ini file does not match provided pre-analysis params (not 'include_libraries' or 'region_delimiter')!")
                 elif res == 2:
                     print("config.ini file does not match 'include_libraries' or 'region_delimiter'!")
                     force_run = True
                 else:
-                    with open(os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "elapsed_time"), "r") as f:
+                    with open(os.path.join(taint_dir, firmware, proto, pcap_file, "elapsed_time"), "r") as f:
                         read_value = f.read().strip()
                         read_elapsed = int(read_value)
                         global_elapsed_seconds += read_elapsed
@@ -1380,15 +1380,15 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
             skip_run = False
 
             if not force_run:
-                taint_json_dir = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "taint_json")
+                taint_json_dir = os.path.join(taint_dir, firmware, proto, pcap_file, "taint_json")
                 os.makedirs(taint_json_dir, exist_ok=True)
                 set_permissions_recursive(taint_json_dir)
 
-                fs_json_dir = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "fs_sink_relations_json")
+                fs_json_dir = os.path.join(taint_dir, firmware, proto, pcap_file, "fs_sink_relations_json")
                 os.makedirs(fs_json_dir, exist_ok=True)
                 set_permissions_recursive(fs_json_dir)
 
-                seed_path = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "%s.seed"%(pcap_file))
+                seed_path = os.path.join(taint_dir, firmware, proto, pcap_file, "%s.seed"%(pcap_file))
                 sources_hex = convert_pcap_into_single_seed_file(pcap_path, seed_path, region_delimiter)
 
                 ensure_file_coherence(fs_json_dir, taint_json_dir)
@@ -1437,19 +1437,19 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
                         if delta_check:
                             break
             else:
-                taint_json_dir = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "taint_json")
+                taint_json_dir = os.path.join(taint_dir, firmware, proto, pcap_file, "taint_json")
                 if os.path.exists(taint_json_dir):
                     shutil.rmtree(taint_json_dir)
                 os.makedirs(taint_json_dir, exist_ok=True)
                 set_permissions_recursive(taint_json_dir)
 
-                fs_json_dir = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "fs_sink_relations_json")
+                fs_json_dir = os.path.join(taint_dir, firmware, proto, pcap_file, "fs_sink_relations_json")
                 if os.path.exists(fs_json_dir):
                     shutil.rmtree(fs_json_dir)
                 os.makedirs(fs_json_dir, exist_ok=True)
                 set_permissions_recursive(fs_json_dir)
 
-                seed_path = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "%s.seed"%(pcap_file))
+                seed_path = os.path.join(taint_dir, firmware, proto, pcap_file, "%s.seed"%(pcap_file))
                 sources_hex = convert_pcap_into_single_seed_file(pcap_path, seed_path, region_delimiter)               
 
             if not skip_run:
@@ -1496,7 +1496,7 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
                         pass
                     time.sleep(2)
                     
-                    taint_json_dir = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "taint_json")
+                    taint_json_dir = os.path.join(taint_dir, firmware, proto, pcap_file, "taint_json")
                     os.makedirs(taint_json_dir, exist_ok=True)
                     set_permissions_recursive(taint_json_dir)
 
@@ -1512,7 +1512,7 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
                         shutil.copy2(taint_mem_file, taint_target_file)
                         print(f"[\033[32m+\033[0m] Stored {taint_mem_file} as {taint_target_file}")
 
-                    fs_json_dir = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "fs_sink_relations_json")
+                    fs_json_dir = os.path.join(taint_dir, firmware, proto, pcap_file, "fs_sink_relations_json")
                     os.makedirs(fs_json_dir, exist_ok=True)
                     set_permissions_recursive(fs_json_dir)
 
@@ -1560,46 +1560,46 @@ def taint(work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subre
                     if delta_check:
                         break
             
-            plot_dir_path = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "taint_plot")
+            plot_dir_path = os.path.join(taint_dir, firmware, proto, pcap_file, "taint_plot")
             os.makedirs(plot_dir_path, exist_ok=True)
             plot_analysis_results(analysis_results, sources_hex, output_dir=plot_dir_path)
-            analysis_file_path = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "analysis_log")
+            analysis_file_path = os.path.join(taint_dir, firmware, proto, pcap_file, "analysis_log")
             print_global_results(analysis_results, sources_hex, output_mode="file", output_file_path=analysis_file_path)
-            json_file_path = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "app_tb_pc_subsequences.json")
+            json_file_path = os.path.join(taint_dir, firmware, proto, pcap_file, "app_tb_pc_subsequences.json")
             with open(json_file_path, "w") as f:
                 json.dump(global_subregions_app_tb_pcs, f, indent=4)
-            json_file_path = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "cov_subsequences.json")
+            json_file_path = os.path.join(taint_dir, firmware, proto, pcap_file, "cov_subsequences.json")
             with open(json_file_path, "w") as f:
                 json.dump(global_subregions_covs, f, indent=4)
-            json_file_path = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "global_analysis_results.json")
+            json_file_path = os.path.join(taint_dir, firmware, proto, pcap_file, "global_analysis_results.json")
             with open(json_file_path, "w") as f:
                 json.dump(analysis_results, f, indent=4)
-            json_file_path = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, pcap_file+".seed_metadata.json")
+            json_file_path = os.path.join(taint_dir, firmware, proto, pcap_file, pcap_file+".seed_metadata.json")
             with open(json_file_path, "w") as f:
                 json.dump(global_sources, f, indent=4)
-            json_file_path = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "region_dependancies.json")
+            json_file_path = os.path.join(taint_dir, firmware, proto, pcap_file, "region_dependancies.json")
             with open(json_file_path, "w") as f:
                 json.dump(global_regions_dependance, f, indent=4)
-            json_file_path = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "region_affections.json")
+            json_file_path = os.path.join(taint_dir, firmware, proto, pcap_file, "region_affections.json")
             with open(json_file_path, "w") as f:
                 json.dump(global_regions_affections, f, indent=4)
-            json_file_path = os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "fs_relations.json")
+            json_file_path = os.path.join(taint_dir, firmware, proto, pcap_file, "fs_relations.json")
             with open(json_file_path, "w") as f:
                 json.dump(global_fs_relations, f, indent=4)
-            all_app_tb_pcs_path = os.path.join("/STAFF/taint_analysis", firmware, "all_app_tb_pcs.json")
+            all_app_tb_pcs_path = os.path.join(taint_dir, firmware, "all_app_tb_pcs.json")
             serializable = [[tb, pc] for (tb, pc) in global_all_app_tb_pcs]
             with open(all_app_tb_pcs_path, "w") as f:
                 json.dump(serializable, f, indent=4)
             end = time.perf_counter()
             elapsed_seconds = int((end - start) * 1000)
-            with open(os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "elapsed_time"), "w") as f:
+            with open(os.path.join(taint_dir, firmware, proto, pcap_file, "elapsed_time"), "w") as f:
                 f.write(f"{elapsed_seconds}")
             global_elapsed_seconds += elapsed_seconds
-            with open(os.path.join("/STAFF/taint_analysis", firmware, "global_elapsed_time"), "w") as f:
+            with open(os.path.join(taint_dir, firmware, "global_elapsed_time"), "w") as f:
                 f.write(f"{global_elapsed_seconds}")
             set_permissions_recursive(taint_json_dir)
-            create_config(os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "config.ini"), subregion_divisor, min_subregion_len, delta_threshold, include_libraries, region_delimiter)
-            set_permissions_recursive(os.path.join("/STAFF/taint_analysis", firmware, proto, pcap_file, "config.ini"))
+            create_config(os.path.join(taint_dir, firmware, proto, pcap_file, "config.ini"), subregion_divisor, min_subregion_len, delta_threshold, include_libraries, region_delimiter)
+            set_permissions_recursive(os.path.join(taint_dir, firmware, proto, pcap_file, "config.ini"))
 
 def pre_analysis_performance(work_dir, firmware, proto, include_libraries, region_delimiter, sleep, timeout, taint_analysis_path):
     for user_interaction in os.listdir(os.path.join(taint_analysis_path, firmware, proto)):
@@ -1795,7 +1795,7 @@ def start(firmware, timeout):
     if "true" in open(os.path.join(work_dir, "web_check")).read():
         with open("%s/time_web"%work_dir, 'r') as file:
             sleep = file.read().strip()
-        taint(work_dir, "run", os.path.basename(firmware), sleep, timeout, subregion_divisor, min_subregion_len, delta_threshold)
+        taint("/STAFF/taint_analysis", work_dir, "run", os.path.basename(firmware), sleep, timeout, subregion_divisor, min_subregion_len, delta_threshold)
 
     elif not subprocess.run(["sudo", "-E", "egrep", "-sqi", "false", "ping"]).returncode:
         print("WEB is FALSE and PING IS TRUE")
