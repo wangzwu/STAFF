@@ -13,8 +13,10 @@ from time import sleep, strftime
 import re
 import shutil
 
-EXPERIMENTS_DIR = "experiments"
-SCHEDULE_CSV = "schedule.csv"
+EXPERIMENTS_DIR_0 = "experiments_0"
+EXPERIMENTS_DIR_1 = "experiments_1"
+SCHEDULE_CSV_0 = "schedule_0.csv"
+SCHEDULE_CSV_1 = "schedule_1.csv"
 METHODS = {"aflnet_base", "aflnet_state_aware", "triforce", "staff_state_aware"}
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -84,7 +86,12 @@ def start_routine(exp_name, container_name, cpus, replay):
     if os.path.exists(log_filename):
         os.remove(log_filename)
 
-    command = f"python3 start.py --reset_firmware_images {reset_firmware_images} --replay_exp {replay} --keep_config 0 --output {os.path.join(EXPERIMENTS_DIR, exp_name)} --container_name {container_name}; "
+    if any(s in container_name for s in METHODS):
+        experiments_dir = EXPERIMENTS_DIR_0
+    else:
+        experiments_dir = EXPERIMENTS_DIR_1
+
+    command = f"python3 start.py --reset_firmware_images {reset_firmware_images} --replay_exp {replay} --keep_config 0 --output {os.path.join(experiments_dir, exp_name)} --container_name {container_name}; "
     reset_firmware_images = 0
     
     print(command)
@@ -439,13 +446,18 @@ def assign_names(csv_file, idx, num_cores, config_data):
 
     container_name = f"{mode}_{available_container_num}"
 
-    os.makedirs(EXPERIMENTS_DIR, exist_ok=True)
+    if any(s in container_name for s in METHODS):
+        experiments_dir = EXPERIMENTS_DIR_0
+    else:
+        experiments_dir = EXPERIMENTS_DIR_1
+
+    os.makedirs(experiments_dir, exist_ok=True)
     
-    existing_experiments = {name for name in os.listdir(EXPERIMENTS_DIR) if name.startswith("exp_")}
+    existing_experiments = {name for name in os.listdir(experiments_dir) if name.startswith("exp_")}
     exp_name = get_first_available_name(existing_experiments, "exp")
 
-    if not os.path.exists(os.path.join(EXPERIMENTS_DIR, exp_name)):
-        os.makedirs(os.path.join(EXPERIMENTS_DIR, exp_name))
+    if not os.path.exists(os.path.join(experiments_dir, exp_name)):
+        os.makedirs(os.path.join(experiments_dir, exp_name))
 
     lock = open(SCRIPT_DIR + '/schedule.lock', 'w')
     fcntl.lockf(lock, fcntl.LOCK_EX)
@@ -571,7 +583,8 @@ def create_config_file(config_data, index):
     return config_path
 
 def main_loop():
-    ensure_experiment_consistency(SCHEDULE_CSV, EXPERIMENTS_DIR)
+    ensure_experiment_consistency(SCHEDULE_CSV_0, EXPERIMENTS_DIR_0)
+    ensure_experiment_consistency(SCHEDULE_CSV_1, EXPERIMENTS_DIR_1)
 
     with open("cpu_ids.csv") as f:
         reader = csv.DictReader(f)
@@ -585,11 +598,32 @@ def main_loop():
             pair_to_logical[pair].append(logical_id)
 
     while True:
-        experiments = parse_schedule(SCHEDULE_CSV) or []
+        experiments_0 = parse_schedule(SCHEDULE_CSV_0) or []
+        experiments_1 = parse_schedule(SCHEDULE_CSV_1) or []
 
         launched_any = False
 
-        for idx, (status, exp_name, container_name, num_cores, config_data) in enumerate(experiments):
+        for idx, (status, exp_name, container_name, num_cores, config_data) in enumerate(experiments_0):
+            if status != "":
+                continue
+
+            result = assign_names(SCHEDULE_CSV, idx, int(num_cores), config_data)
+            if result == (None, None):
+                print(f"[{strftime('%H:%M:%S')}] Not enough free CPUs for experiment row {idx}.")
+                break
+
+            exp_name, container_name = result
+            launched_any = True
+            cfg = create_config_file(config_data, idx)
+            print(f"Launching {container_name} ({exp_name}) on {num_cores} cores (cfg: {cfg})")
+            try:
+                run_experiment(exp_name, container_name, int(num_cores), replay=0)
+            except SystemExit as e:
+                print(f"Failed to launch {container_name}: {e}", file=sys.stderr)
+
+            break
+
+        for idx, (status, exp_name, container_name, num_cores, config_data) in enumerate(experiments_1):
             if status != "":
                 continue
 
