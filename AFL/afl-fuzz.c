@@ -4078,8 +4078,8 @@ static void write_stats_file(double bitmap_cvg, double stability, double eps) {
              "target_mode            : %s%s%s%s%s%s%s\n"
              "command_line           : %s\n"
              "slowest_exec_ms        : %llu\n"
-             "n_calibration          : %llu\n",
-             "deduplicated_crashes   : %llu\n",
+             "n_calibration          : %llu\n"
+             "deduplicated_crashes   : %llu\n"
              "filtered_crashes       : %llu\n",
              start_time / 1000, get_cur_time() / 1000, getpid(),
              queue_cycle ? (queue_cycle - 1) : 0, total_execs, eps,
