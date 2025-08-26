@@ -22,6 +22,7 @@ import socket
 import configparser
 import struct
 import psutil
+import csv
 
 RESET = "\033[0m"
 LIGHT_GREY = "\033[90m"
@@ -1276,6 +1277,7 @@ def taint(taint_dir, work_dir, mode, firmware, sleep, timeout, subregion_divisor
     for proto in sub_dirs:
         print("\n[\033[33m*\033[0m] Protocol: {}".format(proto))
         for pcap_file in os.listdir(os.path.join(pcap_dir, proto)):
+            elapsed_seconds = 0
             n_run = 0
             new_app_tb_pcs = set()
             start = time.perf_counter()
@@ -1361,7 +1363,7 @@ def taint(taint_dir, work_dir, mode, firmware, sleep, timeout, subregion_divisor
                                 analysis_results = calculate_analysis_results()
 
                                 # if check_if_delta_is_little_enough_to_stop(delta, delta_threshold):
-                                if n_run == 1:
+                                if n_run == 0:
                                     skip_run = True
                                     delta_check = True
                                     break
@@ -1492,7 +1494,7 @@ def taint(taint_dir, work_dir, mode, firmware, sleep, timeout, subregion_divisor
                             analysis_results = calculate_analysis_results()
 
                             # if check_if_delta_is_little_enough_to_stop(delta, delta_threshold):
-                            if n_run == 1:
+                            if n_run == 0:
                                 delta_check = True
                                 break
                             else:
@@ -1510,11 +1512,11 @@ def taint(taint_dir, work_dir, mode, firmware, sleep, timeout, subregion_divisor
                             error = 0
                         break
 
-                    if delta_check:
-                        break
-
                     end = time.perf_counter()
                     elapsed_seconds += int((end - start) * 1000)
+
+                    if delta_check:
+                        break
             
             plot_dir_path = os.path.join(taint_dir, firmware, proto, pcap_file, "taint_plot")
             os.makedirs(plot_dir_path, exist_ok=True)
@@ -1558,6 +1560,18 @@ def taint(taint_dir, work_dir, mode, firmware, sleep, timeout, subregion_divisor
             create_config(os.path.join(taint_dir, firmware, proto, pcap_file, "config.ini"), subregion_divisor, min_subregion_len, delta_threshold, include_libraries, region_delimiter)
             set_permissions_recursive(os.path.join(taint_dir, firmware, proto, pcap_file, "config.ini"))
 
+def compute_f1_vs_ground_truth(run_sets, ground_truth):
+    f1_scores = []
+    for run_set in run_sets:
+        tp = len(run_set & ground_truth)
+        fp = len(run_set - ground_truth)
+        fn = len(ground_truth - run_set)
+        if tp + fp + fn == 0:
+            f1_scores.append(1.0)
+        else:
+            f1_scores.append(2 * tp / (2 * tp + fp + fn))
+    return sum(f1_scores) / len(f1_scores) if f1_scores else 0.0
+
 def pre_analysis_performance(work_dir, firmware, proto, include_libraries, region_delimiter, sleep, timeout, taint_analysis_path):
     MAX_USER_INTERACTIONS = 2
     MAX_ELEMENTS = 1
@@ -1567,56 +1581,43 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
     MAX_USER_INTERACTIONS = min(MAX_USER_INTERACTIONS, len(user_interactions_list))
     user_interactions = user_interactions_list[:MAX_USER_INTERACTIONS]
 
-    total_tp_algo_vs_gt = 0
-    total_fp_algo_vs_gt = 0
-    total_tp_algo_vs_minimized = 0
-    total_fp_algo_vs_minimized = 0
-    total_tp_minimized_vs_gt = 0
-    total_fp_minimized_vs_gt = 0
-    element_count = 0
-    taint_inode_pcs = set()
-
     all_gt_run_times = []
     all_minimized_run_times = []
     all_neutral_run_times = []
 
-    per_element_mean_mem_ops_gt = []
-    per_element_mean_taint_mem_ops_gt = []
-    per_element_mean_mem_ops_min = []
-    per_element_mean_taint_mem_ops_min = []
     per_element_mean_mem_ops_neutral = []
     per_element_mean_taint_mem_ops_neutral = []
-
-    gt_intersection_growth = []
-    minimized_intersection_growth = []
-    neutral_intersection_growth = []
 
     per_element_variability_gt = []
     per_element_variability_min = []
     per_element_variability_neutral = []
 
+    per_element_mean_taint_f1_gt = []
+    per_element_mean_taint_f1_min = []
+
+    gt_intersection_growth = []
+    minimized_intersection_growth = []
+    neutral_intersection_growth = []
+
     for user_interaction in user_interactions:
         if "user_interaction_0" in user_interaction:
             continue
+
         print(f"\nProcessing user interaction: {user_interaction}")
         seed_path = os.path.join(taint_analysis_path, firmware, proto, user_interaction, user_interaction + ".seed")
         seed_metadata = os.path.join(taint_analysis_path, firmware, proto, user_interaction, user_interaction + ".seed_metadata.json")
         results_file = os.path.join(taint_analysis_path, firmware, proto, user_interaction, "pre_analysis_perf.json")
 
-        if os.path.exists(os.path.join(work_dir, "debug")):
-            shutil.rmtree(os.path.join(work_dir, "debug"), ignore_errors=True)
+        shutil.rmtree(os.path.join(work_dir, "debug"), ignore_errors=True)
         os.makedirs(os.path.join(work_dir, "debug"))
 
-        if os.path.exists(os.path.join(work_dir, "outputs")):
-            shutil.rmtree(os.path.join(work_dir, "outputs"), ignore_errors=True)
+        shutil.rmtree(os.path.join(work_dir, "outputs"), ignore_errors=True)
         os.makedirs(os.path.join(work_dir, "outputs", "taint_metadata"))
         shutil.copy(seed_metadata, os.path.join(work_dir, "outputs", "taint_metadata"))
 
         try:
             port = socket.getservbyname(proto)
-            print(f"The port for {proto.upper()} is {port}.")
         except OSError:
-            print(f"Protocol {proto.upper()} not found.")
             port = None
 
         command = ["sudo", "-E", "/STAFF/aflnet/TaintQueue", seed_path, os.path.join(work_dir, "outputs"), "taint_metrics", "1"]
@@ -1628,19 +1629,11 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
 
         with open(os.path.join(work_dir, "debug", user_interaction + ".seed_app_tb_pcs_post.json")) as f:
             data = json.load(f)
-        input("WAIT")
 
-        elements = data.get("elements", [])
-        MAX_ELEMENTS = min(MAX_ELEMENTS, len(elements))
-        elements = elements[:MAX_ELEMENTS]
-        num_elements = len(elements)
-
+        elements = data.get("elements", [])[:MAX_ELEMENTS]
         json_dir = f"{work_dir}/taint/"
 
-        for idx, element in enumerate(elements, start=1):
-            print(f"\nProcessing element {idx} of {num_elements}")
-            element_count += 1
-
+        for element in elements:
             region = element.get("index")
             offset = element.get("offset")
             length = element.get("count")
@@ -1659,6 +1652,7 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
             os.environ["MEM_OPS"] = "0"
             os.environ["DEBUG"] = "1"
 
+            # ----- Ground truth taint runs -----
             taint_runs = []
             num_runs = 0
             last_inter = None
@@ -1671,10 +1665,6 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
                 qemu_pid = process.pid
                 num_runs += 1
 
-                if os.path.exists(os.path.join(work_dir, "debug")):
-                    shutil.rmtree(os.path.join(work_dir, "debug"), ignore_errors=True)
-                os.makedirs(os.path.join(work_dir, "debug"))
-
                 print(f"Booting firmware, run {num_runs}, wait {sleep} seconds...")
                 time.sleep(sleep)
 
@@ -1682,15 +1672,9 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
                 command = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
                 process = subprocess.Popen(command)
                 process.wait()
-                if process.returncode != 0:
-                    print("\nClient failed. Return Code:", process.returncode)
-                    exit(1)
-
                 send_signal_recursive(qemu_pid, signal.SIGINT)
-                try:
-                    os.waitpid(qemu_pid, 0)
-                except:
-                    pass
+                try: os.waitpid(qemu_pid, 0)
+                except: pass
                 time.sleep(2)
 
                 run_rt = time.time() - element_start_time
@@ -1705,7 +1689,6 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
                     last_inter = current_run_set
                     first_inter_size = len(last_inter)
                     gt_intersection_growth.append(len(last_inter))
-                    print(f"Run {num_runs}: first intersection size = {len(last_inter)}")
                     if num_runs >= UPPER_RUNS:
                         stabilized_gt = False
                         break
@@ -1713,43 +1696,29 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
 
                 current_inter = last_inter & current_run_set
                 gt_intersection_growth.append(len(current_inter))
-                print(f"Run {num_runs}: intersection size = {len(current_inter)}")
 
                 if current_inter == last_inter:
                     stabilized_gt = True
-                    print(f"Intersection stabilized after {num_runs} runs.")
                     break
 
                 if num_runs >= UPPER_RUNS:
                     stabilized_gt = False
-                    print(f"Reached upper bound of {UPPER_RUNS} runs without stabilization.")
                     last_inter = current_inter
                     break
 
                 last_inter = current_inter
 
+            # Ground truth
             taint_inode_pcs = set.intersection(*taint_runs) if taint_runs else set()
-            inode_pcs_set = {(inode, pc) for inode, pc in inode_pcs}
-
-            tp_gt = len(inode_pcs_set & taint_inode_pcs)
-            fp_gt = len(inode_pcs_set - taint_inode_pcs)
-            total_tp_algo_vs_gt += tp_gt
-            total_fp_algo_vs_gt += fp_gt
-
             if stabilized_gt:
                 variability_gt = 0.0
             else:
-                if first_inter_size and first_inter_size > 0:
-                    final_inter_size = len(last_inter) if last_inter is not None else 0
-                    variability_gt = max(0.0, 1.0 - (final_inter_size / first_inter_size))
-                else:
-                    variability_gt = 1.0
+                final_inter_size = len(last_inter) if last_inter else 0
+                variability_gt = max(0.0, 1.0 - (final_inter_size / first_inter_size)) if first_inter_size else 1.0
             per_element_variability_gt.append(variability_gt)
+            per_element_mean_taint_f1_gt.append(compute_f1_vs_ground_truth(taint_runs, taint_inode_pcs))
 
-            ids = sorted(set([i for i, v in enumerate(affected_regions) if v] + [i for i, v in enumerate(region_influences) if v]))
-            ids_arg = ",".join(map(str, ids)) if ids else ""
-            os.environ["TARGET_REGION"] = str(ids.index(region)) if ids and region in ids else os.environ.get("TARGET_REGION", str(region))
-
+            # ----- Neutral mem_ops runs -----
             neutral_runs = []
             neutral_mem_runs = []
             neutral_taint_mem_runs = []
@@ -1769,10 +1738,6 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
                 qemu_pid = process.pid
                 n_neutral_runs += 1
 
-                if os.path.exists(os.path.join(work_dir, "debug")):
-                    shutil.rmtree(os.path.join(work_dir, "debug"), ignore_errors=True)
-                os.makedirs(os.path.join(work_dir, "debug"))
-
                 print(f"Booting firmware for neutral mem run {n_neutral_runs}, wait {sleep} seconds...")
                 time.sleep(sleep)
 
@@ -1780,15 +1745,9 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
                 command = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
                 process = subprocess.Popen(command)
                 process.wait()
-                if process.returncode != 0:
-                    print("\nClient failed in neutral run. Return Code:", process.returncode)
-                    exit(1)
-
                 send_signal_recursive(qemu_pid, signal.SIGINT)
-                try:
-                    os.waitpid(qemu_pid, 0)
-                except:
-                    pass
+                try: os.waitpid(qemu_pid, 0)
+                except: pass
                 time.sleep(2)
 
                 neutral_rt = time.time() - neutral_start_time
@@ -1806,19 +1765,12 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
                     try:
                         with open(mem_ops_file, "r") as mf:
                             for line in mf:
-                                line = line.strip()
-                                if not line:
-                                    continue
-                                parts = line.split(",")
+                                parts = line.strip().split(",")
                                 if len(parts) >= 2:
-                                    try:
-                                        mem_ops_total += int(parts[0])
-                                    except:
-                                        pass
-                                    try:
-                                        taint_mem_ops_total += int(parts[1])
-                                    except:
-                                        pass
+                                    try: mem_ops_total += int(parts[0])
+                                    except: pass
+                                    try: taint_mem_ops_total += int(parts[1])
+                                    except: pass
                     except:
                         mem_ops_total = 0
                         taint_mem_ops_total = 0
@@ -1829,9 +1781,7 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
                     last_neutral_inter = neutral_run_set
                     first_neutral_inter_size = len(last_neutral_inter)
                     neutral_intersection_growth.append(len(last_neutral_inter))
-                    if n_neutral_runs >= UPPER_RUNS:
-                        stabilized_neutral = False
-                        break
+                    if n_neutral_runs >= UPPER_RUNS: break
                     continue
 
                 current_neutral_inter = last_neutral_inter & neutral_run_set
@@ -1839,33 +1789,33 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
 
                 if current_neutral_inter == last_neutral_inter:
                     stabilized_neutral = True
-                    print(f"Neutral intersection stabilized after {n_neutral_runs} runs.")
                     break
 
                 if n_neutral_runs >= UPPER_RUNS:
                     stabilized_neutral = False
-                    print(f"Reached upper bound of {UPPER_RUNS} neutral runs without stabilization.")
                     last_neutral_inter = current_neutral_inter
                     break
 
                 last_neutral_inter = current_neutral_inter
 
-            mean_mem_ops_neutral = (sum(neutral_mem_runs) / len(neutral_mem_runs)) if neutral_mem_runs else 0.0
-            mean_taint_mem_ops_neutral = (sum(neutral_taint_mem_runs) / len(neutral_taint_mem_runs)) if neutral_taint_mem_runs else 0.0
+            mean_mem_ops_neutral = sum(neutral_mem_runs)/len(neutral_mem_runs) if neutral_mem_runs else 0.0
+            mean_taint_mem_ops_neutral = sum(neutral_taint_mem_runs)/len(neutral_taint_mem_runs) if neutral_taint_mem_runs else 0.0
             per_element_mean_mem_ops_neutral.append(mean_mem_ops_neutral)
             per_element_mean_taint_mem_ops_neutral.append(mean_taint_mem_ops_neutral)
 
             if stabilized_neutral:
                 variability_neutral = 0.0
             else:
-                if first_neutral_inter_size and first_neutral_inter_size > 0:
-                    final_neutral_size = len(last_neutral_inter) if last_neutral_inter is not None else 0
-                    variability_neutral = max(0.0, 1.0 - (final_neutral_size / first_neutral_inter_size))
-                else:
-                    variability_neutral = 1.0
+                final_neutral_size = len(last_neutral_inter) if last_neutral_inter else 0
+                variability_neutral = max(0.0, 1.0 - (final_neutral_size / first_neutral_inter_size)) if first_neutral_inter_size else 1.0
             per_element_variability_neutral.append(variability_neutral)
 
+            # ----- Minimized taint runs -----
+            ids = sorted(set([i for i, v in enumerate(affected_regions) if v] + [i for i, v in enumerate(region_influences) if v]))
+            ids_arg = ",".join(map(str, ids)) if ids else ""
+            os.environ["TARGET_REGION"] = str(ids.index(region)) if ids and region in ids else str(region)
             os.environ["MEM_OPS"] = "0"
+
             minimized_runs = []
             last_min_inter = None
             first_min_inter_size = None
@@ -1878,28 +1828,17 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
                 qemu_pid = process.pid
                 n_minum_runs += 1
 
-                if os.path.exists(os.path.join(work_dir, "debug")):
-                    shutil.rmtree(os.path.join(work_dir, "debug"), ignore_errors=True)
-                os.makedirs(os.path.join(work_dir, "debug"))
-
                 print(f"Booting firmware for minimized run {n_minum_runs}, wait {sleep} seconds...")
                 time.sleep(sleep)
 
                 minimized_start_time = time.time()
                 command = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
-                if ids_arg:
-                    command.append("--ids=" + ids_arg)
+                if ids_arg: command.append("--ids=" + ids_arg)
                 process = subprocess.Popen(command)
                 process.wait()
-                if process.returncode != 0:
-                    print("\nClient failed in minimized run. Return Code:", process.returncode)
-                    exit(1)
-
                 send_signal_recursive(qemu_pid, signal.SIGINT)
-                try:
-                    os.waitpid(qemu_pid, 0)
-                except:
-                    pass
+                try: os.waitpid(qemu_pid, 0)
+                except: pass
                 time.sleep(2)
 
                 run_rt_min = time.time() - minimized_start_time
@@ -1914,9 +1853,7 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
                     last_min_inter = minimized_taint_pcs
                     first_min_inter_size = len(last_min_inter)
                     minimized_intersection_growth.append(len(last_min_inter))
-                    if n_minum_runs >= UPPER_RUNS:
-                        stabilized_min = False
-                        break
+                    if n_minum_runs >= UPPER_RUNS: break
                     continue
 
                 current_min_inter = last_min_inter & minimized_taint_pcs
@@ -1924,72 +1861,37 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
 
                 if current_min_inter == last_min_inter:
                     stabilized_min = True
-                    print(f"Minimized intersection stabilized after {n_minum_runs} runs.")
                     break
 
                 if n_minum_runs >= UPPER_RUNS:
                     stabilized_min = False
-                    print(f"Reached upper bound of {UPPER_RUNS} minimized runs without stabilization.")
                     last_min_inter = current_min_inter
                     break
 
                 last_min_inter = current_min_inter
 
-            tp_min = len(inode_pcs_set & minimized_taint_pcs)
-            fp_min = len(inode_pcs_set - minimized_taint_pcs)
-            total_tp_algo_vs_minimized += tp_min
-            total_fp_algo_vs_minimized += fp_min
-
-            tp_min_vs_gt = len(minimized_taint_pcs & taint_inode_pcs)
-            fp_min_vs_gt = len(minimized_taint_pcs - taint_inode_pcs)
-            total_tp_minimized_vs_gt += tp_min_vs_gt
-            total_fp_minimized_vs_gt += fp_min_vs_gt
-
             if stabilized_min:
                 variability_min = 0.0
             else:
-                if first_min_inter_size and first_min_inter_size > 0:
-                    final_min_size = len(last_min_inter) if last_min_inter is not None else 0
-                    variability_min = max(0.0, 1.0 - (final_min_size / first_min_inter_size))
-                else:
-                    variability_min = 1.0
+                final_min_size = len(last_min_inter) if last_min_inter else 0
+                variability_min = max(0.0, 1.0 - (final_min_size / first_min_inter_size)) if first_min_inter_size else 1.0
             per_element_variability_min.append(variability_min)
+            per_element_mean_taint_f1_min.append(compute_f1_vs_ground_truth(minimized_runs, set.intersection(*minimized_runs) if minimized_runs else set()))
 
-    global_precision_algo_vs_gt = (total_tp_algo_vs_gt / (total_tp_algo_vs_gt + total_fp_algo_vs_gt)) if (total_tp_algo_vs_gt + total_fp_algo_vs_gt) > 0 else 0.0
-    global_precision_algo_vs_minimized = (total_tp_algo_vs_minimized / (total_tp_algo_vs_minimized + total_fp_algo_vs_minimized)) if (total_tp_algo_vs_minimized + total_fp_algo_vs_minimized) > 0 else 0.0
-    global_precision_minimized_vs_gt = (total_tp_minimized_vs_gt / (total_tp_minimized_vs_gt + total_fp_minimized_vs_gt)) if (total_tp_minimized_vs_gt + total_fp_minimized_vs_gt) > 0 else 0.0
-
-    global_avg_run_time = (sum(all_gt_run_times) / len(all_gt_run_times)) if all_gt_run_times else 0.0
-    global_avg_minimized_run_time = (sum(all_minimized_run_times) / len(all_minimized_run_times)) if all_minimized_run_times else 0.0
-    global_avg_neutral_run_time = (sum(all_neutral_run_times) / len(all_neutral_run_times)) if all_neutral_run_times else 0.0
-
-    mean_mem_ops_across_elements_neutral = (sum(per_element_mean_mem_ops_neutral) / len(per_element_mean_mem_ops_neutral)) if per_element_mean_mem_ops_neutral else 0.0
-    mean_taint_mem_ops_across_elements_neutral = (sum(per_element_mean_taint_mem_ops_neutral) / len(per_element_mean_taint_mem_ops_neutral)) if per_element_mean_taint_mem_ops_neutral else 0.0
-
-    avg_variability_gt = (sum(per_element_variability_gt) / len(per_element_variability_gt)) if per_element_variability_gt else 0.0
-    avg_variability_min = (sum(per_element_variability_min) / len(per_element_variability_min)) if per_element_variability_min else 0.0
-    avg_variability_neutral = (sum(per_element_variability_neutral) / len(per_element_variability_neutral)) if per_element_variability_neutral else 0.0
-
+    # Aggregate metrics
     results = {
         "firmware": firmware,
         "metrics": {
-            "global_precision_algo_vs_gt": global_precision_algo_vs_gt,
-            "global_precision_algo_vs_minimized": global_precision_algo_vs_minimized,
-            "global_precision_minimized_vs_gt": global_precision_minimized_vs_gt,
-            "total_true_positives_algo_vs_gt": total_tp_algo_vs_gt,
-            "total_false_positives_algo_vs_gt": total_fp_algo_vs_gt,
-            "total_true_positives_algo_vs_minimized": total_tp_algo_vs_minimized,
-            "total_false_positives_algo_vs_minimized": total_fp_algo_vs_minimized,
-            "total_true_positives_minimized_vs_gt": total_tp_minimized_vs_gt,
-            "total_false_positives_minimized_vs_gt": total_fp_minimized_vs_gt,
-            "global_avg_run_time_sec": global_avg_run_time,
-            "global_avg_minimized_run_time_sec": global_avg_minimized_run_time,
-            "global_avg_neutral_run_time_sec": global_avg_neutral_run_time,
-            "mean_mem_ops_across_elements_neutral": mean_mem_ops_across_elements_neutral,
-            "mean_taint_mem_ops_across_elements_neutral": mean_taint_mem_ops_across_elements_neutral,
-            "avg_variability_gt": avg_variability_gt,
-            "avg_variability_minimized": avg_variability_min,
-            "avg_variability_neutral": avg_variability_neutral
+            "global_f1_algo_vs_gt": sum(per_element_mean_taint_f1_gt)/len(per_element_mean_taint_f1_gt) if per_element_mean_taint_f1_gt else 0.0,
+            "global_f1_algo_vs_minimized": sum(per_element_mean_taint_f1_min)/len(per_element_mean_taint_f1_min) if per_element_mean_taint_f1_min else 0.0,
+            "global_avg_run_time_sec": sum(all_gt_run_times)/len(all_gt_run_times) if all_gt_run_times else 0.0,
+            "global_avg_minimized_run_time_sec": sum(all_minimized_run_times)/len(all_minimized_run_times) if all_minimized_run_times else 0.0,
+            "global_avg_neutral_run_time_sec": sum(all_neutral_run_times)/len(all_neutral_run_times) if all_neutral_run_times else 0.0,
+            "mean_mem_ops_across_elements_neutral": sum(per_element_mean_mem_ops_neutral)/len(per_element_mean_mem_ops_neutral) if per_element_mean_mem_ops_neutral else 0.0,
+            "mean_taint_mem_ops_across_elements_neutral": sum(per_element_mean_taint_mem_ops_neutral)/len(per_element_mean_taint_mem_ops_neutral) if per_element_mean_taint_mem_ops_neutral else 0.0,
+            "avg_variability_gt": sum(per_element_variability_gt)/len(per_element_variability_gt) if per_element_variability_gt else 0.0,
+            "avg_variability_minimized": sum(per_element_variability_min)/len(per_element_variability_min) if per_element_variability_min else 0.0,
+            "avg_variability_neutral": sum(per_element_variability_neutral)/len(per_element_variability_neutral) if per_element_variability_neutral else 0.0
         },
         "per_element": {
             "per_element_mean_mem_ops_neutral": per_element_mean_mem_ops_neutral,
@@ -1997,6 +1899,8 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
             "per_element_variability_gt": per_element_variability_gt,
             "per_element_variability_min": per_element_variability_min,
             "per_element_variability_neutral": per_element_variability_neutral,
+            "per_element_mean_taint_f1_gt": per_element_mean_taint_f1_gt,
+            "per_element_mean_taint_f1_min": per_element_mean_taint_f1_min,
             "gt_intersection_growth": gt_intersection_growth,
             "minimized_intersection_growth": minimized_intersection_growth,
             "neutral_intersection_growth": neutral_intersection_growth
@@ -2006,19 +1910,14 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
     with open(results_file, "w") as rf:
         json.dump(results, rf, indent=4)
 
-    print(f"\nAggregated results saved to: {results_file}")
-    print(results["metrics"])
-
-    import csv
-    csv_file = "/STAFF/evaluation_precision.csv"
+    # Append to CSV
+    csv_file = "/STAFF/evaluation_f1.csv"
     metrics = results["metrics"]
-
     row = {
         "firmware": firmware,
-        "num_elements": num_elements,
-        "global_precision_algo_vs_gt": metrics["global_precision_algo_vs_gt"],
-        "global_precision_algo_vs_minimized": metrics["global_precision_algo_vs_minimized"],
-        "global_precision_minimized_vs_gt": metrics["global_precision_minimized_vs_gt"],
+        "num_elements": len(elements),
+        "global_f1_algo_vs_gt": metrics["global_f1_algo_vs_gt"],
+        "global_f1_algo_vs_minimized": metrics["global_f1_algo_vs_minimized"],
         "global_avg_run_time_sec": metrics["global_avg_run_time_sec"],
         "global_avg_minimized_run_time_sec": metrics["global_avg_minimized_run_time_sec"],
         "global_avg_neutral_run_time_sec": metrics["global_avg_neutral_run_time_sec"],
@@ -2036,6 +1935,8 @@ def pre_analysis_performance(work_dir, firmware, proto, include_libraries, regio
             writer.writeheader()
         writer.writerow(row)
 
+    print(f"\nAggregated results saved to: {results_file}")
+    print(results["metrics"])
     print(f"Row for {firmware} appended to {csv_file}")
 
 
