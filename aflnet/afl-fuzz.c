@@ -5044,15 +5044,28 @@ static u8 save_if_interesting(char** argv, void* mem, u32 len, u8 fault) {
 
 #ifndef SIMPLE_FILES
 
-    fn = alloc_printf("%s/queue/id%s:%06u,%s$%lld", out_dir, 
-                      enable_taint_aware_mode ? "&1" : "&0", queued_paths,
-                      describe_op(hnb), get_cur_time());
+    if (enable_taint_aware_mode) {
+      fn = alloc_printf("%s/queue/id&1[%d,%d,%d]%s:%06u,%s$%lld", out_dir, 
+                        target_region, target_offset, target_len, queued_paths,
+                        describe_op(hnb), get_cur_time()-start_time);
+    }
+    else {
+      fn = alloc_printf("%s/queue/id&0:%06u,%s$%lld", out_dir, 
+                        queued_paths,
+                        describe_op(hnb), get_cur_time()-start_time);      
+    }
 
 #else
-
-    fn = alloc_printf("%s/queue/id%s_%06u$%lld", out_dir, 
-                      enable_taint_aware_mode ? "&1" : "&0", queued_paths, 
-                      get_cur_time());
+    if (enable_taint_aware_mode) {
+      fn = alloc_printf("%s/queue/id&1[%d,%d,%d]_%06u$%lld", out_dir, 
+                        target_region, target_offset, target_len, queued_paths, 
+                        get_cur_time()-start_time);
+    }
+    else {
+      fn = alloc_printf("%s/queue/id&0_%06u$%lld", out_dir, 
+                        queued_paths, 
+                        get_cur_time()-start_time);
+    }
 
 #endif /* ^!SIMPLE_FILES */
 
@@ -5143,16 +5156,28 @@ static u8 save_if_interesting(char** argv, void* mem, u32 len, u8 fault) {
       // }
 
 #ifndef SIMPLE_FILES
-
-      fn = alloc_printf("%s/hangs/id%s:%06llu,%s$%lld", out_dir, 
-                        enable_taint_aware_mode ? "&1" : "&0", unique_hangs, 
-                        describe_op(0), get_cur_time());
+      if (enable_taint_aware_mode) {
+        fn = alloc_printf("%s/hangs/id&1[%d,%d,%d]:%06llu,%s$%lld", out_dir, 
+                          target_region, target_offset, target_len, unique_hangs, 
+                          describe_op(0), get_cur_time()-start_time);
+      }
+      else {
+        fn = alloc_printf("%s/hangs/id&0:%06llu,%s$%lld", out_dir, 
+                          unique_hangs, 
+                          describe_op(0), get_cur_time()-start_time);        
+      }
 
 #else
-
-      fn = alloc_printf("%s/hangs/id%s_%06llu$%lld", out_dir, 
-                        enable_taint_aware_mode ? "&1" : "&0", unique_hangs, 
-                        get_cur_time());
+      if (enable_taint_aware_mode) {
+        fn = alloc_printf("%s/hangs/id&1[%d,%d,%d]_%06llu$%lld", out_dir, 
+                          target_region, target_offset, target_len, unique_hangs, 
+                          get_cur_time()-start_time);
+      }
+      else {
+        fn = alloc_printf("%s/hangs/id&0_%06llu$%lld", out_dir, 
+                          unique_hangs, 
+                          get_cur_time()-start_time);
+      }
 
 #endif /* ^!SIMPLE_FILES */
 
@@ -5175,18 +5200,36 @@ keep_as_crash:
       if (unique_crashes >= KEEP_UNIQUE_CRASH) return keeping;
 
 #ifndef SIMPLE_FILES
-
-      fn = alloc_printf("%s/crashes/id%s:%06llu,sig:%02u,%s$%lld", out_dir,
-                        enable_taint_aware_mode ? "&1" : "&0", unique_crashes, kill_signal, describe_op(0), get_cur_time());
-      fn2 = alloc_printf("%s/crash_traces/id%s:%06llu,sig:%02u,%s$%lld", out_dir,
-                        enable_taint_aware_mode ? "&1" : "&0", unique_crashes, kill_signal, describe_op(0), get_cur_time());
+      if (enable_taint_aware_mode) {
+        u8 ts_tmp = get_cur_time()-start_time;
+        fn = alloc_printf("%s/crashes/id&1[%d,%d,%d]:%06llu,sig:%02u,%s$%lld", out_dir,
+                          target_region, target_offset, target_len, unique_crashes, kill_signal, describe_op(0), ts_tmp);
+        fn2 = alloc_printf("%s/crash_traces/id&1[%d,%d,%d]:%06llu,sig:%02u,%s$%lld", out_dir,
+                          target_region, target_offset, target_len, unique_crashes, kill_signal, describe_op(0), ts_tmp);
+      }
+      else {
+        u8 ts_tmp = get_cur_time()-start_time;
+        fn = alloc_printf("%s/crashes/id&0:%06llu,sig:%02u,%s$%lld", out_dir,
+                          unique_crashes, kill_signal, describe_op(0), ts_tmp);
+        fn2 = alloc_printf("%s/crash_traces/id&0:%06llu,sig:%02u,%s$%lld", out_dir,
+                          unique_crashes, kill_signal, describe_op(0), ts_tmp);
+      }
 
 #else
-
-      fn = alloc_printf("%s/crashes/id%s_%06llu_%02u$%lld", out_dir,
-                        enable_taint_aware_mode ? "&1" : "&0", unique_crashes, kill_signal, get_cur_time());
-      fn2 = alloc_printf("%s/crash_traces/id%s_%06llu_%02u$%lld", out_dir,
-                        enable_taint_aware_mode ? "&1" : "&0", unique_crashes, kill_signal, get_cur_time());
+      if (enable_taint_aware_mode) {
+        u8 ts_tmp = get_cur_time()-start_time;
+        fn = alloc_printf("%s/crashes/id&1[%d,%d,%d]_%06llu_%02u$%lld", out_dir,
+                          target_region, target_offset, target_len, unique_crashes, kill_signal, ts_tmp);
+        fn2 = alloc_printf("%s/crash_traces/id&1[%d,%d,%d]_%06llu_%02u$%lld", out_dir,
+                          target_region, target_offset, target_len, unique_crashes, kill_signal, ts_tmp);
+      }
+      else {
+        u8 ts_tmp = get_cur_time()-start_time;
+        fn = alloc_printf("%s/crashes/id&0_%06llu_%02u$%lld", out_dir,
+                          unique_crashes, kill_signal, ts_tmp);
+        fn2 = alloc_printf("%s/crash_traces/id&0_%06llu_%02u$%lld", out_dir,
+                          unique_crashes, kill_signal, ts_tmp);
+      }
 
 #endif /* ^!SIMPLE_FILES */
 
