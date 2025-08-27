@@ -10,7 +10,7 @@ import socket
 import argparse
 import configparser
 from analysis.convert_pcap import convert_pcap_into_single_seed_file, convert_pcap_into_multiple_seed_files
-from analysis.taint_analysis import taint, pre_analysis_performance, cleanup
+from analysis.taint_analysis import taint, pre_analysis_exp, cleanup
 import csv
 import stat
 import glob
@@ -92,6 +92,7 @@ CONFIG_INI_PATH=os.path.join(STAFF_DIR, "config.ini")
 SCHEDULE_CSV_PATH_0=os.path.join(STAFF_DIR, "schedule_0.csv")
 SCHEDULE_CSV_PATH_1=os.path.join(STAFF_DIR, "schedule_1.csv")
 EXP_DONE_PATH=os.path.join(STAFF_DIR, "experiments_done")
+PRE_ANALYSIS_EXP_DIR=os.path.join(STAFF_DIR, "pre_analysis_exp")
 
 captured_pcap_path = None
 PSQL_IP = None
@@ -1351,7 +1352,7 @@ def start(keep_config, reset_firmware_images, replay_exp, out_dir, container_nam
         pre_analysis()
         if out_dir:
             update_schedule_status(SCHEDULE_CSV_PATH_1, "succeeded", os.path.basename(out_dir))
-    elif mode == "pre_analysis_perf":
+    elif mode == "pre_analysis_exp":
         if os.path.exists(os.path.join(STAFF_DIR, "wait_for_container_init")):
             os.remove(os.path.join(STAFF_DIR, "wait_for_container_init"))
         iid = str(check("run"))
@@ -1368,7 +1369,7 @@ def start(keep_config, reset_firmware_images, replay_exp, out_dir, container_nam
             taint_dir = get_taint_dir(config["PRE-ANALYSIS"]["pre_analysis_id"], TAINT_DIR)
             print(f"PRE-ANALYSIS dir: {taint_dir}")
 
-            pre_analysis_performance(FIRMAE_DIR, work_dir, config["GENERAL"]["firmware"], os.path.basename(config["AFLNET_FUZZING"]["proto"]), config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"], sleep, config["GENERAL_FUZZING"]["timeout"], taint_dir)
+            pre_analysis_exp(PRE_ANALYSIS_EXP_DIR, FIRMAE_DIR, work_dir, config["GENERAL"]["firmware"], os.path.basename(config["AFLNET_FUZZING"]["proto"]), config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"], sleep, config["GENERAL_FUZZING"]["timeout"], taint_dir, config["PRE-ANALYSIS"]["pre_analysis_id"])
         
         if out_dir:
             update_schedule_status(SCHEDULE_CSV_PATH_1, "succeeded", os.path.basename(out_dir))

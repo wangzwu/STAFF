@@ -3047,7 +3047,7 @@ static MemTxResult address_space_write_continue(AddressSpace *as, hwaddr addr,
                             int end_byte = start_byte+target_len;
                             
                             if (debug) {
-                                FILE *fp = fopen("debug/pre_analysis_perf.log", "a+");
+                                FILE *fp = fopen("debug/pre_analysis_exp.log", "a+");
                                 fprintf(fp, "target_region: %d, target_offset: %d, target_len: %d\n", target_region, target_offset, target_len);
                                 for (i = 0; i < target_len; i++) {
                                     fprintf(fp, "%c", *(start+target_offset+i));

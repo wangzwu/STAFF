@@ -23,6 +23,11 @@ import configparser
 import struct
 import psutil
 import csv
+import random
+from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score
+import pandas
+
+
 
 RESET = "\033[0m"
 LIGHT_GREY = "\033[90m"
@@ -1627,455 +1632,315 @@ def compute_f1_vs_ground_truth(run_sets, ground_truth):
             f1_scores.append(2 * tp / (2 * tp + fp + fn))
     return sum(f1_scores) / len(f1_scores) if f1_scores else 0.0
 
-def pre_analysis_performance(firmae_dir, work_dir, firmware, proto, include_libraries, region_delimiter, sleep, timeout, taint_analysis_path):
-    MAX_USER_INTERACTIONS = 2
-    MAX_ELEMENTS = 1
-    UPPER_RUNS = 3
-
+def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libraries, region_delimiter, sleep, timeout, taint_analysis_path, pre_analysis_id, stab_upper_runs=10, n_taint_hints_to_eval=10):
     user_interactions_list = os.listdir(os.path.join(taint_analysis_path, firmware, proto))
-    MAX_USER_INTERACTIONS = min(MAX_USER_INTERACTIONS, len(user_interactions_list))
-    user_interactions = user_interactions_list[:MAX_USER_INTERACTIONS]
+    available_user_interactions = [u for u in user_interactions_list if "user_interaction_0" not in u]
+    if not available_user_interactions:
+        return
 
-    all_gt_run_times = []
-    all_minimized_run_times = []
-    all_neutral_run_times = []
+    os.makedirs(db_dir, exist_ok=True)
 
-    per_element_mean_mem_ops_neutral = []
-    per_element_mean_taint_mem_ops_neutral = []
+    for run_idx in range(n_taint_hints_to_eval):
+        chosen_user_interaction = random.choice(available_user_interactions)
 
-    per_element_variability_gt = []
-    per_element_variability_min = []
-    per_element_variability_neutral = []
+        experiment_dir = os.path.join(db_dir, firmware, f"pre_analysis_{pre_analysis_id}_{run_idx}")
+        os.makedirs(experiment_dir, exist_ok=True)
 
-    per_element_mean_taint_f1_gt = []
-    per_element_mean_taint_f1_min = []
-
-    gt_intersection_growth = []
-    minimized_intersection_growth = []
-    neutral_intersection_growth = []
-
-    for user_interaction in user_interactions:
-        if "user_interaction_0" in user_interaction:
-            continue
-
-        print(f"\nProcessing user interaction: {user_interaction}")
-        seed_path = os.path.join(taint_analysis_path, firmware, proto, user_interaction, user_interaction + ".seed")
-        seed_metadata = os.path.join(taint_analysis_path, firmware, proto, user_interaction, user_interaction + ".seed_metadata.json")
-        results_file = os.path.join(taint_analysis_path, firmware, proto, user_interaction, "pre_analysis_perf.json")
+        seed_path = os.path.join(taint_analysis_path, firmware, proto, chosen_user_interaction, chosen_user_interaction + ".seed")
+        seed_metadata = os.path.join(taint_analysis_path, firmware, proto, chosen_user_interaction, chosen_user_interaction + ".seed_metadata.json")
+        results_file = os.path.join(taint_analysis_path, firmware, proto, chosen_user_interaction, "pre_analysis_exp.json")
 
         shutil.rmtree(os.path.join(work_dir, "debug"), ignore_errors=True)
-        os.makedirs(os.path.join(work_dir, "debug"))
+        os.makedirs(os.path.join(work_dir, "debug"), exist_ok=True)
 
         shutil.rmtree(os.path.join(work_dir, "outputs"), ignore_errors=True)
-        os.makedirs(os.path.join(work_dir, "outputs", "taint_metadata"))
-        shutil.copy(seed_metadata, os.path.join(work_dir, "outputs", "taint_metadata"))
+        os.makedirs(os.path.join(work_dir, "outputs", "taint_metadata"), exist_ok=True)
+        if os.path.exists(seed_metadata):
+            shutil.copy(seed_metadata, os.path.join(work_dir, "outputs", "taint_metadata"))
 
         try:
             port = socket.getservbyname(proto)
         except OSError:
             port = None
 
-        command = ["sudo", "-E", "/STAFF/aflnet/TaintQueue", seed_path, os.path.join(work_dir, "outputs"), "taint_metrics", "1"]
-        process = subprocess.Popen(command)
-        process.wait()
-        if process.returncode != 0:
-            print("\nTaintQueue failed. Return Code:", process.returncode)
-            exit(1)
+        subprocess.run(["sudo", "-E", "/STAFF/aflnet/TaintQueue", seed_path, os.path.join(work_dir, "outputs"), "taint_metrics", "1"], check=False)
 
-        with open(os.path.join(work_dir, "debug", user_interaction + ".seed_app_tb_pcs_post.json")) as f:
+        with open(os.path.join(work_dir, "debug", chosen_user_interaction + ".seed_app_tb_pcs_post.json")) as f:
             data = json.load(f)
 
-        elements = data.get("elements", [])[:MAX_ELEMENTS]
+        elements = data.get("elements", [])
+        if not elements:
+            continue
+
+        chosen_element_index = random.randrange(len(elements))
+        chosen_element = elements[chosen_element_index]
+
+        region = chosen_element.get("index")
+        offset = chosen_element.get("offset")
+        length = chosen_element.get("count")
+        inode_pcs = chosen_element.get("pcs", [])
+        affected_regions = chosen_element.get("affected_regions", [])
+        region_influences = chosen_element.get("region_influences", [])
+
+        os.environ.update({
+            "EXEC_MODE": "RUN",
+            "TAINT": "1",
+            "FD_DEPENDENCIES_TRACK": "1",
+            "INCLUDE_LIBRARIES": str(include_libraries),
+            "REGION_DELIMITER": region_delimiter.decode('latin-1') if isinstance(region_delimiter, (bytes, bytearray)) else str(region_delimiter),
+            "TARGET_REGION": str(region),
+            "TARGET_OFFSET": str(offset),
+            "TARGET_LEN": str(length),
+            "MEM_OPS": "0",
+            "DEBUG": "1"
+        })
+
         json_dir = f"{work_dir}/taint/"
+        gt_run_times_ms, taint_runs = [], []
+        num_runs, last_inter, first_inter_size, stabilized_gt = 0, None, None, False
 
-        for element in elements:
-            region = element.get("index")
-            offset = element.get("offset")
-            length = element.get("count")
-            inode_pcs = element.get("pcs", [])
-            affected_regions = element.get("affected_regions", [])
-            region_influences = element.get("region_influences", [])
-
-            os.environ["EXEC_MODE"] = "RUN"
-            os.environ["TAINT"] = "1"
-            os.environ["FD_DEPENDENCIES_TRACK"] = "1"
-            os.environ["INCLUDE_LIBRARIES"] = str(include_libraries)
-            os.environ["REGION_DELIMITER"] = region_delimiter.decode('latin-1')
-            os.environ["TARGET_REGION"] = str(region)
-            os.environ["TARGET_OFFSET"] = str(offset)
-            os.environ["TARGET_LEN"] = str(length)
-            os.environ["MEM_OPS"] = "0"
-            os.environ["DEBUG"] = "1"
-
-            # ----- Ground truth taint runs -----
-            taint_runs = []
-            num_runs = 0
-            last_inter = None
-            first_inter_size = None
-            stabilized_gt = False
-
-            while True:
+        while True:
+            try:
                 cleanup(firmae_dir, work_dir)
-                process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware), firmware, "run", "0.0.0.0"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                qemu_pid = process.pid
-                num_runs += 1
+            except: pass
+            process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware), firmware, "run", "0.0.0.0"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            qemu_pid = process.pid
+            num_runs += 1
+            time.sleep(sleep)
 
-                print(f"Booting firmware, run {num_runs}, wait {sleep} seconds...")
-                time.sleep(sleep)
+            start_ts = time.time()
+            cmd = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
+            subprocess.run(cmd)
+            try: send_signal_recursive(qemu_pid, signal.SIGINT)
+            except: pass
+            try: os.waitpid(qemu_pid, 0)
+            except: pass
+            time.sleep(2)
+            end_ts = time.time()
+            gt_run_times_ms.append((end_ts - start_ts) * 1000.0)
 
-                element_start_time = time.time()
-                command = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
-                process = subprocess.Popen(command)
-                process.wait()
-                send_signal_recursive(qemu_pid, signal.SIGINT)
-                try: os.waitpid(qemu_pid, 0)
-                except: pass
-                time.sleep(2)
+            taint_data = process_log_file(os.path.join(json_dir, "taint_mem.log"))
+            current_run_set = {(entry["inode"], entry["app_tb_pc"]) for entry in taint_data}
+            taint_runs.append(current_run_set)
 
-                run_rt = time.time() - element_start_time
-                all_gt_run_times.append(run_rt)
+            if last_inter is None:
+                last_inter = current_run_set
+                first_inter_size = len(last_inter)
+                if num_runs >= stab_upper_runs: break
+                continue
 
-                taint_mem_file = os.path.join(json_dir, "taint_mem.log")
-                taint_data = process_log_file(taint_mem_file)
-                current_run_set = {(entry["inode"], entry["app_tb_pc"]) for entry in taint_data}
-                taint_runs.append(current_run_set)
-
-                if last_inter is None:
-                    last_inter = current_run_set
-                    first_inter_size = len(last_inter)
-                    gt_intersection_growth.append(len(last_inter))
-                    if num_runs >= UPPER_RUNS:
-                        stabilized_gt = False
-                        break
-                    continue
-
-                current_inter = last_inter & current_run_set
-                gt_intersection_growth.append(len(current_inter))
-
-                if current_inter == last_inter:
-                    stabilized_gt = True
-                    break
-
-                if num_runs >= UPPER_RUNS:
-                    stabilized_gt = False
-                    last_inter = current_inter
-                    break
-
+            current_inter = last_inter & current_run_set
+            if current_inter == last_inter and num_runs > 2: 
+                stabilized_gt = True
+                break
+            if num_runs >= stab_upper_runs:
+                stabilized_gt = False
                 last_inter = current_inter
+                break
+            last_inter = current_inter
 
-            # Ground truth
-            taint_inode_pcs = set.intersection(*taint_runs) if taint_runs else set()
-            if stabilized_gt:
-                variability_gt = 0.0
-            else:
-                final_inter_size = len(last_inter) if last_inter else 0
-                variability_gt = max(0.0, 1.0 - (final_inter_size / first_inter_size)) if first_inter_size else 1.0
-            per_element_variability_gt.append(variability_gt)
-            per_element_mean_taint_f1_gt.append(compute_f1_vs_ground_truth(taint_runs, taint_inode_pcs))
+        ground_truth_runs_serializable = [[{"inode": i, "pc": p} for (i, p) in sorted(list(run_set))] for run_set in taint_runs]
 
-            # ----- Neutral mem_ops runs -----
-            neutral_runs = []
-            neutral_mem_runs = []
-            neutral_taint_mem_runs = []
-            last_neutral_inter = None
-            first_neutral_inter_size = None
-            stabilized_neutral = False
-            n_neutral_runs = 0
+        pre_analysis_list = [{"inode": pc[0], "pc": pc[1]} if isinstance(pc, (list, tuple)) else {"inode": pc["inode"], "pc": pc["pc"]} for pc in inode_pcs]
 
-            while True:
-                os.environ["TARGET_REGION"] = str(-1)
-                os.environ["TARGET_OFFSET"] = str(-1)
-                os.environ["TARGET_LEN"] = str(-1)
-                os.environ["MEM_OPS"] = "1"
+        chosen_taint_index = random.randrange(len(taint_runs)) if taint_runs else None
+        taint_run_example = [{"inode": i, "pc": p} for (i, p) in sorted(list(taint_runs[chosen_taint_index]))] if chosen_taint_index is not None else []
 
-                cleanup(firmae_dir, work_dir)
-                process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware), firmware, "run", "0.0.0.0"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                qemu_pid = process.pid
-                n_neutral_runs += 1
+        ids = sorted(set([i for i, v in enumerate(affected_regions) if v] + [i for i, v in enumerate(region_influences) if v]))
+        ids_arg = ",".join(map(str, ids)) if ids else ""
+        os.environ["TARGET_REGION"] = str(ids.index(region)) if ids and region in ids else str(region)
+        os.environ["MEM_OPS"] = "0"
 
-                print(f"Booting firmware for neutral mem run {n_neutral_runs}, wait {sleep} seconds...")
-                time.sleep(sleep)
-
-                neutral_start_time = time.time()
-                command = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
-                process = subprocess.Popen(command)
-                process.wait()
-                send_signal_recursive(qemu_pid, signal.SIGINT)
-                try: os.waitpid(qemu_pid, 0)
-                except: pass
-                time.sleep(2)
-
-                neutral_rt = time.time() - neutral_start_time
-                all_neutral_run_times.append(neutral_rt)
-
-                taint_mem_file = os.path.join(json_dir, "taint_mem.log")
-                taint_data = process_log_file(taint_mem_file)
-                neutral_run_set = {(entry["inode"], entry["app_tb_pc"]) for entry in taint_data}
-                neutral_runs.append(neutral_run_set)
-
-                mem_ops_file = os.path.join(work_dir, "debug", "mem_ops_count.log")
-                mem_ops_total = 0
-                taint_mem_ops_total = 0
-                if os.path.exists(mem_ops_file):
-                    try:
-                        with open(mem_ops_file, "r") as mf:
-                            for line in mf:
-                                parts = line.strip().split(",")
-                                if len(parts) >= 2:
-                                    try: mem_ops_total += int(parts[0])
-                                    except: pass
-                                    try: taint_mem_ops_total += int(parts[1])
-                                    except: pass
-                    except:
-                        mem_ops_total = 0
-                        taint_mem_ops_total = 0
-                neutral_mem_runs.append(mem_ops_total)
-                neutral_taint_mem_runs.append(taint_mem_ops_total)
-
-                if last_neutral_inter is None:
-                    last_neutral_inter = neutral_run_set
-                    first_neutral_inter_size = len(last_neutral_inter)
-                    neutral_intersection_growth.append(len(last_neutral_inter))
-                    if n_neutral_runs >= UPPER_RUNS: break
-                    continue
-
-                current_neutral_inter = last_neutral_inter & neutral_run_set
-                neutral_intersection_growth.append(len(current_neutral_inter))
-
-                if current_neutral_inter == last_neutral_inter:
-                    stabilized_neutral = True
-                    break
-
-                if n_neutral_runs >= UPPER_RUNS:
-                    stabilized_neutral = False
-                    last_neutral_inter = current_neutral_inter
-                    break
-
-                last_neutral_inter = current_neutral_inter
-
-            mean_mem_ops_neutral = sum(neutral_mem_runs)/len(neutral_mem_runs) if neutral_mem_runs else 0.0
-            mean_taint_mem_ops_neutral = sum(neutral_taint_mem_runs)/len(neutral_taint_mem_runs) if neutral_taint_mem_runs else 0.0
-            per_element_mean_mem_ops_neutral.append(mean_mem_ops_neutral)
-            per_element_mean_taint_mem_ops_neutral.append(mean_taint_mem_ops_neutral)
-
-            if stabilized_neutral:
-                variability_neutral = 0.0
-            else:
-                final_neutral_size = len(last_neutral_inter) if last_neutral_inter else 0
-                variability_neutral = max(0.0, 1.0 - (final_neutral_size / first_neutral_inter_size)) if first_neutral_inter_size else 1.0
-            per_element_variability_neutral.append(variability_neutral)
-
-            # ----- Minimized taint runs -----
-            ids = sorted(set([i for i, v in enumerate(affected_regions) if v] + [i for i, v in enumerate(region_influences) if v]))
-            ids_arg = ",".join(map(str, ids)) if ids else ""
-            os.environ["TARGET_REGION"] = str(ids.index(region)) if ids and region in ids else str(region)
-            os.environ["MEM_OPS"] = "0"
-
-            minimized_runs = []
-            last_min_inter = None
-            first_min_inter_size = None
-            stabilized_min = False
-            n_minum_runs = 0
-
-            while True:
-                cleanup(firmae_dir, work_dir)
-                process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware), firmware, "run", "0.0.0.0"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                qemu_pid = process.pid
-                n_minum_runs += 1
-
-                print(f"Booting firmware for minimized run {n_minum_runs}, wait {sleep} seconds...")
-                time.sleep(sleep)
-
-                minimized_start_time = time.time()
-                command = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
-                if ids_arg: command.append("--ids=" + ids_arg)
-                process = subprocess.Popen(command)
-                process.wait()
-                send_signal_recursive(qemu_pid, signal.SIGINT)
-                try: os.waitpid(qemu_pid, 0)
-                except: pass
-                time.sleep(2)
-
-                run_rt_min = time.time() - minimized_start_time
-                all_minimized_run_times.append(run_rt_min)
-
-                taint_mem_file = os.path.join(json_dir, "taint_mem.log")
-                taint_data = process_log_file(taint_mem_file)
-                minimized_taint_pcs = {(entry["inode"], entry["app_tb_pc"]) for entry in taint_data}
-                minimized_runs.append(minimized_taint_pcs)
-
-                if last_min_inter is None:
-                    last_min_inter = minimized_taint_pcs
-                    first_min_inter_size = len(last_min_inter)
-                    minimized_intersection_growth.append(len(last_min_inter))
-                    if n_minum_runs >= UPPER_RUNS: break
-                    continue
-
-                current_min_inter = last_min_inter & minimized_taint_pcs
-                minimized_intersection_growth.append(len(current_min_inter))
-
-                if current_min_inter == last_min_inter:
-                    stabilized_min = True
-                    break
-
-                if n_minum_runs >= UPPER_RUNS:
-                    stabilized_min = False
-                    last_min_inter = current_min_inter
-                    break
-
-                last_min_inter = current_min_inter
-
-            if stabilized_min:
-                variability_min = 0.0
-            else:
-                final_min_size = len(last_min_inter) if last_min_inter else 0
-                variability_min = max(0.0, 1.0 - (final_min_size / first_min_inter_size)) if first_min_inter_size else 1.0
-            per_element_variability_min.append(variability_min)
-            per_element_mean_taint_f1_min.append(compute_f1_vs_ground_truth(minimized_runs, set.intersection(*minimized_runs) if minimized_runs else set()))
-
-    # Aggregate metrics
-    results = {
-        "firmware": firmware,
-        "metrics": {
-            "global_f1_algo_vs_gt": sum(per_element_mean_taint_f1_gt)/len(per_element_mean_taint_f1_gt) if per_element_mean_taint_f1_gt else 0.0,
-            "global_f1_algo_vs_minimized": sum(per_element_mean_taint_f1_min)/len(per_element_mean_taint_f1_min) if per_element_mean_taint_f1_min else 0.0,
-            "global_avg_run_time_sec": sum(all_gt_run_times)/len(all_gt_run_times) if all_gt_run_times else 0.0,
-            "global_avg_minimized_run_time_sec": sum(all_minimized_run_times)/len(all_minimized_run_times) if all_minimized_run_times else 0.0,
-            "global_avg_neutral_run_time_sec": sum(all_neutral_run_times)/len(all_neutral_run_times) if all_neutral_run_times else 0.0,
-            "mean_mem_ops_across_elements_neutral": sum(per_element_mean_mem_ops_neutral)/len(per_element_mean_mem_ops_neutral) if per_element_mean_mem_ops_neutral else 0.0,
-            "mean_taint_mem_ops_across_elements_neutral": sum(per_element_mean_taint_mem_ops_neutral)/len(per_element_mean_taint_mem_ops_neutral) if per_element_mean_taint_mem_ops_neutral else 0.0,
-            "avg_variability_gt": sum(per_element_variability_gt)/len(per_element_variability_gt) if per_element_variability_gt else 0.0,
-            "avg_variability_minimized": sum(per_element_variability_min)/len(per_element_variability_min) if per_element_variability_min else 0.0,
-            "avg_variability_neutral": sum(per_element_variability_neutral)/len(per_element_variability_neutral) if per_element_variability_neutral else 0.0
-        },
-        "per_element": {
-            "per_element_mean_mem_ops_neutral": per_element_mean_mem_ops_neutral,
-            "per_element_mean_taint_mem_ops_neutral": per_element_mean_taint_mem_ops_neutral,
-            "per_element_variability_gt": per_element_variability_gt,
-            "per_element_variability_min": per_element_variability_min,
-            "per_element_variability_neutral": per_element_variability_neutral,
-            "per_element_mean_taint_f1_gt": per_element_mean_taint_f1_gt,
-            "per_element_mean_taint_f1_min": per_element_mean_taint_f1_min,
-            "gt_intersection_growth": gt_intersection_growth,
-            "minimized_intersection_growth": minimized_intersection_growth,
-            "neutral_intersection_growth": neutral_intersection_growth
-        }
-    }
-
-    with open(results_file, "w") as rf:
-        json.dump(results, rf, indent=4)
-
-    # Append to CSV
-    csv_file = "/STAFF/evaluation_f1.csv"
-    metrics = results["metrics"]
-    row = {
-        "firmware": firmware,
-        "num_elements": len(elements),
-        "global_f1_algo_vs_gt": metrics["global_f1_algo_vs_gt"],
-        "global_f1_algo_vs_minimized": metrics["global_f1_algo_vs_minimized"],
-        "global_avg_run_time_sec": metrics["global_avg_run_time_sec"],
-        "global_avg_minimized_run_time_sec": metrics["global_avg_minimized_run_time_sec"],
-        "global_avg_neutral_run_time_sec": metrics["global_avg_neutral_run_time_sec"],
-        "mean_mem_ops_across_elements_neutral": metrics["mean_mem_ops_across_elements_neutral"],
-        "mean_taint_mem_ops_across_elements_neutral": metrics["mean_taint_mem_ops_across_elements_neutral"],
-        "avg_variability_gt": metrics["avg_variability_gt"],
-        "avg_variability_minimized": metrics["avg_variability_minimized"],
-        "avg_variability_neutral": metrics["avg_variability_neutral"]
-    }
-
-    file_exists = os.path.isfile(csv_file)
-    with open(csv_file, "a", newline="") as cf:
-        writer = csv.DictWriter(cf, fieldnames=row.keys())
-        if not file_exists:
-            writer.writeheader()
-        writer.writerow(row)
-
-    print(f"\nAggregated results saved to: {results_file}")
-    print(results["metrics"])
-    print(f"Row for {firmware} appended to {csv_file}")
-
-
-def start(firmware, timeout):
-    subregion_divisor = 10
-    min_subregion_len = 3
-    delta_threshold = 0.15
-
-    os.environ["NO_PSQL"] = "1"
-
-    os.chdir(os.path.join("FirmAE"))
-
-    if firmware != "all":
-        iid = check_firmware(firmware)
-    else:
         try:
-            for entry in search_recursive("../firmwares"):
-                print("Checking %s"%entry)
-                check_firmware(entry)
-        except Exception as e:
-            print(f"Error: {e}")
-        finally:
-            exit(0)
+            cleanup(firmae_dir, work_dir)
+        except: pass
+        process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware), firmware, "run", "0.0.0.0"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        qemu_pid = process.pid
+        time.sleep(sleep)
 
-    work_dir = os.path.join("scratch", mode, iid)
+        start_min_ts = time.time()
+        cmd_min = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
+        if ids_arg: cmd_min.append("--ids=" + ids_arg)
+        subprocess.run(cmd_min)
+        try: send_signal_recursive(qemu_pid, signal.SIGINT)
+        except: pass
+        try: os.waitpid(qemu_pid, 0)
+        except: pass
+        time.sleep(2)
+        end_min_ts = time.time()
+        minimized_run_ms = (end_min_ts - start_min_ts) * 1000.0
 
-    if os.path.exists(os.path.join(work_dir, "debug")):
-        shutil.rmtree(os.path.join(work_dir, "debug"))
+        taint_data = process_log_file(os.path.join(json_dir, "taint_mem.log"))
+        minimized_taint_pcs = {(entry["inode"], entry["app_tb_pc"]) for entry in taint_data}
+        minimized_run_example = [{"inode": i, "pc": p} for (i, p) in sorted(list(minimized_taint_pcs))]
 
-    if "true" in open(os.path.join(work_dir, "web_check")).read():
-        with open("%s/time_web"%work_dir, 'r') as file:
-            sleep = file.read().strip()
-        taint("/STAFF/FirmAE", "/STAFF/taint_analysis", work_dir, "run", os.path.basename(firmware), sleep, timeout, subregion_divisor, min_subregion_len, delta_threshold)
+        with open(os.path.join(experiment_dir, "times_ms.json"), "w") as tf:
+            json.dump({"gt_runs_ms": gt_run_times_ms, "minimized_run_ms": minimized_run_ms}, tf, indent=2)
+        with open(os.path.join(experiment_dir, "ground_truth.json"), "w") as gf:
+            json.dump(ground_truth_runs_serializable, gf, indent=2)
+        with open(os.path.join(experiment_dir, "pre_analysis.json"), "w") as pf:
+            json.dump(pre_analysis_list, pf, indent=2)
+        with open(os.path.join(experiment_dir, "taint.json"), "w") as tf:
+            json.dump(taint_run_example, tf, indent=2)
+        with open(os.path.join(experiment_dir, "minimized_taint.json"), "w") as mf:
+            json.dump(minimized_run_example, mf, indent=2)
 
-    elif not subprocess.run(["sudo", "-E", "egrep", "-sqi", "false", "ping"]).returncode:
-        print("WEB is FALSE and PING IS TRUE")
-        return
-    else:
-        print("WEB and PING ARE FALSE")
-        return
+        if stabilized_gt:
+            gt_stability_fraction = 1.0
+        else:
+            gt_stability_fraction = len(last_inter) / first_inter_size if first_inter_size else 0.0
 
+        info = {
+            "pre_analysis_id": pre_analysis_id,
+            "experiment_index": run_idx,
+            "user_interaction_id": chosen_user_interaction,
+            "taint_hint_id": chosen_element_index,
+            "target_region": region,
+            "target_offset": offset,
+            "target_len": length,
+            "kept_region_ids": ids,
+            "num_gt_runs": len(taint_runs),
+            "stabilized_gt": stabilized_gt,
+            "gt_stability": round(gt_stability_fraction, 2)
+        }
+
+        with open(os.path.join(experiment_dir, "info.json"), "w") as inf:
+            json.dump(info, inf, indent=2)
+
+        results = {"experiment_dir": experiment_dir, "info": info}
+        with open(results_file, "w") as rf:
+            json.dump(results, rf, indent=4)
+
+
+def aggregate_pre_analysis_metrics(db_dir, metric_name, output_csv="out.csv"):
+    results = []
+    for firmware in os.listdir(db_dir):
+        firmware_path = os.path.join(db_dir, firmware)
+        if not os.path.isdir(firmware_path):
+            continue
+
+        metric_values = []
+        time_deltas = []
+
+        for run_dir in os.listdir(firmware_path):
+            if not run_dir.startswith("pre_analysis_"):
+                continue
+            run_path = os.path.join(firmware_path, run_dir)
+
+            ground_truth_path = os.path.join(run_path, "ground_truth.json")
+            pre_path = os.path.join(run_path, "pre_analysis.json")
+            taint_path = os.path.join(run_path, "taint.json")
+            min_taint_path = os.path.join(run_path, "minimized_taint.json")
+            times_path = os.path.join(run_path, "times_ms.json")
+
+            if not (os.path.exists(ground_truth_path) and os.path.exists(pre_path)):
+                continue
+
+            if metric_name.lower() == "time":
+                if not os.path.exists(times_path):
+                    continue
+                with open(times_path) as tf:
+                    times = json.load(tf)
+                gt_times = times.get("gt_runs_ms", [])
+                minimized_time = times.get("minimized_run_ms")
+                if gt_times and minimized_time:
+                    avg_gt = np.mean(gt_times)
+                    delta_pct = ((avg_gt - minimized_time) / avg_gt) * 100.0
+                    time_deltas.append(delta_pct)
+                continue
+
+            with open(ground_truth_path) as gf:
+                gt_runs = json.load(gf)
+            with open(pre_path) as pf:
+                pre_runs = json.load(pf)
+
+            gt_set = {(e["inode"], e["pc"]) for run in gt_runs for e in run}
+            pre_set = {(e["inode"], e["pc"]) for e in pre_runs}
+
+            if not gt_set:
+                continue
+
+            y_true = [1 if x in gt_set else 0 for x in sorted(gt_set | pre_set)]
+            y_pred = [1 if x in pre_set else 0 for x in sorted(gt_set | pre_set)]
+
+            if metric_name.lower() == "f1":
+                value = f1_score(y_true, y_pred, zero_division=0)
+            elif metric_name.lower() == "precision":
+                value = precision_score(y_true, y_pred, zero_division=0)
+            elif metric_name.lower() == "recall":
+                value = recall_score(y_true, y_pred, zero_division=0)
+            elif metric_name.lower() == "accuracy":
+                value = accuracy_score(y_true, y_pred)
+            else:
+                raise ValueError(f"Unsupported metric: {metric_name}")
+
+            metric_values.append(value)
+
+        if metric_name.lower() == "time":
+            avg_value = np.mean(time_deltas) if time_deltas else None
+        else:
+            avg_value = np.mean(metric_values) if metric_values else None
+
+        if avg_value is not None:
+            results.append({"firmware": firmware, metric_name: avg_value})
+
+    df = pd.DataFrame(results)
+    df.to_csv(output_csv, index=False)
+    return df
+
+def print_usage():
+    print("Usage:")
+    print("  sudo python3 run.py -d <db_dir> -m <metric>")
+    print("")
+    print("Arguments:")
+    print("  -d <db_dir>    Path to the database directory containing pre_analysis experiments")
+    print("  -m <metric>    Metric to compute: accuracy, f1, precision, recall, time")
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore", category=RuntimeWarning)
-    signal.signal(signal.SIGINT, sigint_handler)
-
-    if len(sys.argv) == 1 or sys.argv[1] == "-h":
-        print_usage()
-        sys.exit(1)
-
     if os.geteuid() != 0:
         print("[-] This script must run with 'root' privilege")
         sys.exit(1)
 
-    mode = ""
-    analysis_type = ""
-    analysis_args = []
-    firmware = ""
+    db_dir = None
+    metric = None
 
     i = 1
     while i < len(sys.argv):
         arg = sys.argv[i]
-        if arg == "-i":
+        if arg == "-d":
             i += 1
-            firmware = sys.argv[i]
+            if i < len(sys.argv):
+                db_dir = sys.argv[i]
+            else:
+                print("[-] Missing value for -d argument.")
+                print_usage()
+                sys.exit(1)
             i += 1
-        elif arg == "-t":
+        elif arg == "-m":
             i += 1
-            timeout = sys.argv[i]
+            if i < len(sys.argv):
+                metric = sys.argv[i].lower()
+            else:
+                print("[-] Missing value for -m argument.")
+                print_usage()
+                sys.exit(1)
             i += 1
+        elif arg == "-h":
+            print_usage()
+            sys.exit(0)
         else:
-            i += 1
+            print(f"[-] Unknown argument: {arg}")
+            print_usage()
+            sys.exit(1)
 
-    if not firmware:
-        print("The -i argument is mandatory.")
+    if not db_dir or not metric:
+        print("[-] Both -d and -m arguments are mandatory.")
         print_usage()
         sys.exit(1)
 
-    brand = auto_find_brand(firmware)
-    iid = 0
+    if not os.path.isdir(db_dir):
+        print(f"[-] db_dir '{db_dir}' does not exist or is not a directory")
+        sys.exit(1)
 
-    if firmware != "all":
-        first_character = firmware[0]
-        if not first_character == "/":
-            firmware = "../{}".format(firmware)
-
-    start(firmware, timeout)
+    print(f"[+] Aggregating metric '{metric}' over database '{db_dir}'")
+    aggregate_pre_analysis_metrics(db_dir, metric)
