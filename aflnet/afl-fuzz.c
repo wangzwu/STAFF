@@ -5045,7 +5045,7 @@ static u8 save_if_interesting(char** argv, void* mem, u32 len, u8 fault) {
 #ifndef SIMPLE_FILES
 
     if (enable_taint_aware_mode) {
-      fn = alloc_printf("%s/queue/id&1[%d,%d,%d]%s:%06u,%s$%lld", out_dir, 
+      fn = alloc_printf("%s/queue/id&1[%d,%d,%d]:%06u,%s$%lld", out_dir, 
                         target_region, target_offset, target_len, queued_paths,
                         describe_op(hnb), get_cur_time()-start_time);
     }
