@@ -1632,7 +1632,10 @@ def compute_f1_vs_ground_truth(run_sets, ground_truth):
             f1_scores.append(2 * tp / (2 * tp + fp + fn))
     return sum(f1_scores) / len(f1_scores) if f1_scores else 0.0
 
-def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libraries, region_delimiter, sleep, timeout, taint_analysis_path, pre_analysis_id, stab_upper_runs=10, n_taint_hints_to_eval=10):
+def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libraries,
+                     region_delimiter, sleep, timeout, taint_analysis_path,
+                     pre_analysis_id, stab_upper_runs=10, n_taint_hints_to_eval=10):
+
     user_interactions_list = os.listdir(os.path.join(taint_analysis_path, firmware, proto))
     available_user_interactions = [u for u in user_interactions_list if "user_interaction_0" not in u]
     if not available_user_interactions:
@@ -1640,10 +1643,29 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
 
     os.makedirs(db_dir, exist_ok=True)
 
+    existing_runs = []
+    firmware_dir = os.path.join(db_dir, firmware)
+    if os.path.exists(firmware_dir):
+        for entry in os.listdir(firmware_dir):
+            if entry.startswith(f"pre_analysis_{pre_analysis_id}_"):
+                try:
+                    run_idx = int(entry.split("_")[-1])
+                    existing_runs.append(run_idx)
+                except ValueError:
+                    continue
+
+    existing_runs = sorted(existing_runs)
+    next_run_idx = 0
+
     for run_idx in range(n_taint_hints_to_eval):
+        while next_run_idx in existing_runs:
+            next_run_idx += 1
+        if next_run_idx >= n_taint_hints_to_eval:
+            break
+
         chosen_user_interaction = random.choice(available_user_interactions)
 
-        experiment_dir = os.path.join(db_dir, firmware, f"pre_analysis_{pre_analysis_id}_{run_idx}")
+        experiment_dir = os.path.join(db_dir, firmware, f"pre_analysis_{pre_analysis_id}_{next_run_idx}")
         os.makedirs(experiment_dir, exist_ok=True)
 
         seed_path = os.path.join(taint_analysis_path, firmware, proto, chosen_user_interaction, chosen_user_interaction + ".seed")
@@ -1702,19 +1724,27 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         while True:
             try:
                 cleanup(firmae_dir, work_dir)
-            except: pass
-            process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware), firmware, "run", "0.0.0.0"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            except:
+                pass
+            process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
+                                        firmware, "run", "0.0.0.0"],
+                                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             qemu_pid = process.pid
             num_runs += 1
             time.sleep(sleep)
 
             start_ts = time.time()
-            cmd = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
+            cmd = ["sudo", "-E", "/STAFF/aflnet/client", seed_path,
+                   open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
             subprocess.run(cmd)
-            try: send_signal_recursive(qemu_pid, signal.SIGINT)
-            except: pass
-            try: os.waitpid(qemu_pid, 0)
-            except: pass
+            try:
+                send_signal_recursive(qemu_pid, signal.SIGINT)
+            except:
+                pass
+            try:
+                os.waitpid(qemu_pid, 0)
+            except:
+                pass
             time.sleep(2)
             end_ts = time.time()
             gt_run_times_ms.append((end_ts - start_ts) * 1000.0)
@@ -1726,11 +1756,12 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
             if last_inter is None:
                 last_inter = current_run_set
                 first_inter_size = len(last_inter)
-                if num_runs >= stab_upper_runs: break
+                if num_runs >= stab_upper_runs:
+                    break
                 continue
 
             current_inter = last_inter & current_run_set
-            if current_inter == last_inter and num_runs > 2: 
+            if current_inter == last_inter and num_runs > 2:
                 stabilized_gt = True
                 break
             if num_runs >= stab_upper_runs:
@@ -1739,33 +1770,46 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
                 break
             last_inter = current_inter
 
-        ground_truth_runs_serializable = [[{"inode": i, "pc": p} for (i, p) in sorted(list(run_set))] for run_set in taint_runs]
+        ground_truth_runs_serializable = [[{"inode": i, "pc": p} for (i, p) in sorted(list(run_set))]
+                                          for run_set in taint_runs]
 
-        pre_analysis_list = [{"inode": pc[0], "pc": pc[1]} if isinstance(pc, (list, tuple)) else {"inode": pc["inode"], "pc": pc["pc"]} for pc in inode_pcs]
+        pre_analysis_list = [{"inode": pc[0], "pc": pc[1]} if isinstance(pc, (list, tuple))
+                             else {"inode": pc["inode"], "pc": pc["pc"]} for pc in inode_pcs]
 
         chosen_taint_index = random.randrange(len(taint_runs)) if taint_runs else None
-        taint_run_example = [{"inode": i, "pc": p} for (i, p) in sorted(list(taint_runs[chosen_taint_index]))] if chosen_taint_index is not None else []
+        taint_run_example = [{"inode": i, "pc": p} for (i, p) in sorted(list(taint_runs[chosen_taint_index]))] \
+            if chosen_taint_index is not None else []
 
-        ids = sorted(set([i for i, v in enumerate(affected_regions) if v] + [i for i, v in enumerate(region_influences) if v]))
+        ids = sorted(set([i for i, v in enumerate(affected_regions) if v] +
+                         [i for i, v in enumerate(region_influences) if v]))
         ids_arg = ",".join(map(str, ids)) if ids else ""
         os.environ["TARGET_REGION"] = str(ids.index(region)) if ids and region in ids else str(region)
         os.environ["MEM_OPS"] = "0"
 
         try:
             cleanup(firmae_dir, work_dir)
-        except: pass
-        process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware), firmware, "run", "0.0.0.0"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except:
+            pass
+        process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
+                                    firmware, "run", "0.0.0.0"],
+                                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         qemu_pid = process.pid
         time.sleep(sleep)
 
         start_min_ts = time.time()
-        cmd_min = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
-        if ids_arg: cmd_min.append("--ids=" + ids_arg)
+        cmd_min = ["sudo", "-E", "/STAFF/aflnet/client", seed_path,
+                   open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
+        if ids_arg:
+            cmd_min.append("--ids=" + ids_arg)
         subprocess.run(cmd_min)
-        try: send_signal_recursive(qemu_pid, signal.SIGINT)
-        except: pass
-        try: os.waitpid(qemu_pid, 0)
-        except: pass
+        try:
+            send_signal_recursive(qemu_pid, signal.SIGINT)
+        except:
+            pass
+        try:
+            os.waitpid(qemu_pid, 0)
+        except:
+            pass
         time.sleep(2)
         end_min_ts = time.time()
         minimized_run_ms = (end_min_ts - start_min_ts) * 1000.0
@@ -1792,7 +1836,7 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
 
         info = {
             "pre_analysis_id": pre_analysis_id,
-            "experiment_index": run_idx,
+            "experiment_index": next_run_idx,
             "user_interaction_id": chosen_user_interaction,
             "taint_hint_id": chosen_element_index,
             "target_region": region,
@@ -1810,6 +1854,8 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         results = {"experiment_dir": experiment_dir, "info": info}
         with open(results_file, "w") as rf:
             json.dump(results, rf, indent=4)
+
+        next_run_idx += 1
 
 
 def aggregate_pre_analysis_metrics(db_dir, metric_name, output_csv="out.csv"):
