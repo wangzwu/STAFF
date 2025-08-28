@@ -1642,39 +1642,43 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         return
 
     os.makedirs(db_dir, exist_ok=True)
-
-    existing_runs = []
     firmware_dir = os.path.join(db_dir, firmware)
-    if os.path.exists(firmware_dir):
-        for entry in os.listdir(firmware_dir):
-            if entry.startswith(f"pre_analysis_{pre_analysis_id}_"):
-                try:
-                    run_idx = int(entry.split("_")[-1])
-                    existing_runs.append(run_idx)
-                except ValueError:
-                    continue
+    os.makedirs(firmware_dir, exist_ok=True)
 
-    existing_runs = sorted(existing_runs)
+    existing_runs = {}
+    for entry in os.listdir(firmware_dir):
+        if entry.startswith(f"pre_analysis_{pre_analysis_id}_"):
+            path = os.path.join(firmware_dir, entry)
+            try:
+                run_idx = int(entry.split("_")[-1])
+            except ValueError:
+                continue
+            essential_files = ["info.json", "ground_truth.json", "pre_analysis.json"]
+            incomplete = any(not os.path.exists(os.path.join(path, f)) for f in essential_files)
+            existing_runs[run_idx] = not incomplete
+
+    run_indices = []
     next_run_idx = 0
+    while len(run_indices) < n_taint_hints_to_eval:
+        if next_run_idx not in existing_runs or existing_runs[next_run_idx] is False:
+            run_indices.append(next_run_idx)
+        next_run_idx += 1
 
-    for run_idx in range(n_taint_hints_to_eval):
-        while next_run_idx in existing_runs:
-            next_run_idx += 1
-        if next_run_idx >= n_taint_hints_to_eval:
-            break
-
+    for next_run_idx in run_indices:
         chosen_user_interaction = random.choice(available_user_interactions)
 
-        experiment_dir = os.path.join(db_dir, firmware, f"pre_analysis_{pre_analysis_id}_{next_run_idx}")
+        experiment_dir = os.path.join(firmware_dir, f"pre_analysis_{pre_analysis_id}_{next_run_idx}")
         os.makedirs(experiment_dir, exist_ok=True)
 
-        seed_path = os.path.join(taint_analysis_path, firmware, proto, chosen_user_interaction, chosen_user_interaction + ".seed")
-        seed_metadata = os.path.join(taint_analysis_path, firmware, proto, chosen_user_interaction, chosen_user_interaction + ".seed_metadata.json")
-        results_file = os.path.join(taint_analysis_path, firmware, proto, chosen_user_interaction, "pre_analysis_exp.json")
+        seed_path = os.path.join(taint_analysis_path, firmware, proto,
+                                 chosen_user_interaction, chosen_user_interaction + ".seed")
+        seed_metadata = os.path.join(taint_analysis_path, firmware, proto,
+                                     chosen_user_interaction, chosen_user_interaction + ".seed_metadata.json")
+        results_file = os.path.join(taint_analysis_path, firmware, proto,
+                                    chosen_user_interaction, "pre_analysis_exp.json")
 
         shutil.rmtree(os.path.join(work_dir, "debug"), ignore_errors=True)
         os.makedirs(os.path.join(work_dir, "debug"), exist_ok=True)
-
         shutil.rmtree(os.path.join(work_dir, "outputs"), ignore_errors=True)
         os.makedirs(os.path.join(work_dir, "outputs", "taint_metadata"), exist_ok=True)
         if os.path.exists(seed_metadata):
@@ -1685,7 +1689,8 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         except OSError:
             port = None
 
-        subprocess.run(["sudo", "-E", "/STAFF/aflnet/TaintQueue", seed_path, os.path.join(work_dir, "outputs"), "taint_metrics", "1"], check=False)
+        subprocess.run(["sudo", "-E", "/STAFF/aflnet/TaintQueue", seed_path,
+                        os.path.join(work_dir, "outputs"), "taint_metrics", "1"], check=False)
 
         with open(os.path.join(work_dir, "debug", chosen_user_interaction + ".seed_app_tb_pcs_post.json")) as f:
             data = json.load(f)
@@ -1724,8 +1729,8 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         while True:
             try:
                 cleanup(firmae_dir, work_dir)
-            except:
-                pass
+            except: pass
+
             process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
                                         firmware, "run", "0.0.0.0"],
                                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -1739,12 +1744,10 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
             subprocess.run(cmd)
             try:
                 send_signal_recursive(qemu_pid, signal.SIGINT)
-            except:
-                pass
+            except: pass
             try:
                 os.waitpid(qemu_pid, 0)
-            except:
-                pass
+            except: pass
             time.sleep(2)
             end_ts = time.time()
             gt_run_times_ms.append((end_ts - start_ts) * 1000.0)
@@ -1772,7 +1775,6 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
 
         ground_truth_runs_serializable = [[{"inode": i, "pc": p} for (i, p) in sorted(list(run_set))]
                                           for run_set in taint_runs]
-
         pre_analysis_list = [{"inode": pc[0], "pc": pc[1]} if isinstance(pc, (list, tuple))
                              else {"inode": pc["inode"], "pc": pc["pc"]} for pc in inode_pcs]
 
@@ -1788,8 +1790,7 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
 
         try:
             cleanup(firmae_dir, work_dir)
-        except:
-            pass
+        except: pass
         process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
                                     firmware, "run", "0.0.0.0"],
                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -1804,12 +1805,10 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         subprocess.run(cmd_min)
         try:
             send_signal_recursive(qemu_pid, signal.SIGINT)
-        except:
-            pass
+        except: pass
         try:
             os.waitpid(qemu_pid, 0)
-        except:
-            pass
+        except: pass
         time.sleep(2)
         end_min_ts = time.time()
         minimized_run_ms = (end_min_ts - start_min_ts) * 1000.0
@@ -1829,10 +1828,7 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         with open(os.path.join(experiment_dir, "minimized_taint.json"), "w") as mf:
             json.dump(minimized_run_example, mf, indent=2)
 
-        if stabilized_gt:
-            gt_stability_fraction = 1.0
-        else:
-            gt_stability_fraction = len(last_inter) / first_inter_size if first_inter_size else 0.0
+        gt_stability_fraction = 1.0 if stabilized_gt else (len(last_inter) / first_inter_size if first_inter_size else 0.0)
 
         info = {
             "pre_analysis_id": pre_analysis_id,
@@ -1854,9 +1850,6 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         results = {"experiment_dir": experiment_dir, "info": info}
         with open(results_file, "w") as rf:
             json.dump(results, rf, indent=4)
-
-        next_run_idx += 1
-
 
 def aggregate_pre_analysis_metrics(db_dir, metric_name, output_csv="out.csv"):
     results = []
