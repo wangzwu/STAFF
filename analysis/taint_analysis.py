@@ -16,7 +16,6 @@ import signal
 import time
 import stat
 import warnings
-from analysis.convert_pcap import convert_pcap_into_single_seed_file
 from typing import List, Tuple, Dict
 import socket
 import configparser
@@ -25,8 +24,7 @@ import psutil
 import csv
 import random
 from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score
-import pandas
-
+import pandas as pd
 
 
 RESET = "\033[0m"
@@ -1277,6 +1275,8 @@ def create_config(config_path, subregion_divisor, min_subregion_len, delta_thres
     print(f"[+] Config file '{config_path}' created successfully.")
 
 def taint(firmae_dir, taint_dir, work_dir, mode, firmware, sleep, timeout, subregion_divisor, min_subregion_len, delta_threshold, include_libraries, region_delimiter):
+    from analysis.convert_pcap import convert_pcap_into_single_seed_file
+
     global global_all_app_tb_pcs
     global new_app_tb_pcs
     global global_subregions_app_tb_pcs
@@ -1487,7 +1487,7 @@ def taint(firmae_dir, taint_dir, work_dir, mode, firmware, sleep, timeout, subre
                             print(f"The port for {proto.upper()} is {port}.")
                         except OSError:
                             print(f"Protocol {proto.upper()} not found.")
-                        command = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
+                        command = ["sudo", "-E", "/STAFF/aflnet/client", seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout), "20"]
                         
                         print("Current Working Directory:", os.getcwd())
                         process = subprocess.Popen(command)
@@ -1636,9 +1636,9 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
                      region_delimiter, sleep, timeout, taint_analysis_path,
                      pre_analysis_id, stab_upper_runs=10, n_taint_hints_to_eval=10):
 
-    user_interactions_list = os.listdir(os.path.join(taint_analysis_path, firmware, proto))
-    available_user_interactions = [u for u in user_interactions_list if "user_interaction_0" not in u]
-    if not available_user_interactions:
+    user_interaction_0 = "user_interaction_0.pcap"
+    ui0_path = os.path.join(taint_analysis_path, firmware, proto, user_interaction_0)
+    if not os.path.exists(ui0_path):
         return
 
     os.makedirs(db_dir, exist_ok=True)
@@ -1657,23 +1657,15 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
             if any(os.path.exists(os.path.join(path, f)) for f in essential_files):
                 complete.append(run_idx)
 
-    run_indices = []
-    for i in range(n_taint_hints_to_eval):
-        if i not in complete:
-            run_indices.append(i)
+    run_indices = [i for i in range(n_taint_hints_to_eval) if i not in complete]
 
     for next_run_idx in run_indices:
-        chosen_user_interaction = random.choice(available_user_interactions)
-
         experiment_dir = os.path.join(firmware_dir, f"pre_analysis_{pre_analysis_id}_{next_run_idx}")
         os.makedirs(experiment_dir, exist_ok=True)
 
-        seed_path = os.path.join(taint_analysis_path, firmware, proto,
-                                 chosen_user_interaction, chosen_user_interaction + ".seed")
-        seed_metadata = os.path.join(taint_analysis_path, firmware, proto,
-                                     chosen_user_interaction, chosen_user_interaction + ".seed_metadata.json")
-        results_file = os.path.join(taint_analysis_path, firmware, proto,
-                                    chosen_user_interaction, "pre_analysis_exp.json")
+        seed_path = os.path.join(ui0_path, user_interaction_0 + ".seed")
+        seed_metadata = os.path.join(ui0_path, user_interaction_0 + ".seed_metadata.json")
+        results_file = os.path.join(ui0_path, "pre_analysis_exp.json")
 
         shutil.rmtree(os.path.join(work_dir, "debug"), ignore_errors=True)
         os.makedirs(os.path.join(work_dir, "debug"), exist_ok=True)
@@ -1690,14 +1682,14 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         subprocess.run(["sudo", "-E", "/STAFF/aflnet/TaintQueue", seed_path,
                         os.path.join(work_dir, "outputs"), "taint_metrics", "1"], check=False)
 
-        with open(os.path.join(work_dir, "debug", chosen_user_interaction + ".seed_app_tb_pcs_post.json")) as f:
+        with open(os.path.join(work_dir, "debug", user_interaction_0 + ".seed_app_tb_pcs_post.json")) as f:
             data = json.load(f)
 
         elements = data.get("elements", [])
-        if not elements:
+        if not elements or next_run_idx >= len(elements):
             continue
 
-        chosen_element_index = random.randrange(len(elements))
+        chosen_element_index = next_run_idx
         chosen_element = elements[chosen_element_index]
 
         region = chosen_element.get("index")
@@ -1724,9 +1716,9 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         gt_run_times_ms, taint_runs = [], []
         num_runs, last_inter, first_inter_size, stabilized_gt = 0, None, None, False
 
+        # --- Ground truth runs ---
         while True:
-            try:
-                cleanup(firmae_dir, work_dir)
+            try: cleanup(firmae_dir, work_dir)
             except: pass
 
             process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
@@ -1736,15 +1728,33 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
             num_runs += 1
             time.sleep(sleep)
 
-            start_ts = time.time()
-            cmd = ["sudo", "-E", "/STAFF/aflnet/client", seed_path,
-                   open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
-            subprocess.run(cmd)
-            try:
-                send_signal_recursive(qemu_pid, signal.SIGINT)
+            while True:
+                start_ts = time.time()
+                client_cmd = ["sudo", "-E", "/STAFF/aflnet/client", seed_path,
+                              open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout), "20"]
+                result = subprocess.run(client_cmd)
+                retcode = result.returncode
+                if retcode == 0:
+                    break
+                elif retcode == 2:
+                    try: send_signal_recursive(qemu_pid, signal.SIGINT)
+                    except: pass
+                    try: os.waitpid(qemu_pid, 0)
+                    except: pass
+                    time.sleep(2)
+                    try: cleanup(firmae_dir, work_dir)
+                    except: pass
+                    process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
+                                                firmware, "run", "0.0.0.0"],
+                                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    qemu_pid = process.pid
+                    time.sleep(sleep)
+                else:
+                    raise RuntimeError(f"Client exited with unexpected code {retcode}")
+
+            try: send_signal_recursive(qemu_pid, signal.SIGINT)
             except: pass
-            try:
-                os.waitpid(qemu_pid, 0)
+            try: os.waitpid(qemu_pid, 0)
             except: pass
             time.sleep(2)
             end_ts = time.time()
@@ -1757,8 +1767,7 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
             if last_inter is None:
                 last_inter = current_run_set
                 first_inter_size = len(last_inter)
-                if num_runs >= stab_upper_runs:
-                    break
+                if num_runs >= stab_upper_runs: break
                 continue
 
             current_inter = last_inter & current_run_set
@@ -1776,18 +1785,16 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         pre_analysis_list = [{"inode": pc[0], "pc": pc[1]} if isinstance(pc, (list, tuple))
                              else {"inode": pc["inode"], "pc": pc["pc"]} for pc in inode_pcs]
 
-        chosen_taint_index = random.randrange(len(taint_runs)) if taint_runs else None
-        taint_run_example = [{"inode": i, "pc": p} for (i, p) in sorted(list(taint_runs[chosen_taint_index]))] \
-            if chosen_taint_index is not None else []
+        taint_run_example = [{"inode": i, "pc": p} for (i, p) in sorted(list(taint_runs[-1]))] if taint_runs else []
 
+        # --- Minimized run ---
         ids = sorted(set([i for i, v in enumerate(affected_regions) if v] +
                          [i for i, v in enumerate(region_influences) if v]))
         ids_arg = ",".join(map(str, ids)) if ids else ""
         os.environ["TARGET_REGION"] = str(ids.index(region)) if ids and region in ids else str(region)
         os.environ["MEM_OPS"] = "0"
 
-        try:
-            cleanup(firmae_dir, work_dir)
+        try: cleanup(firmae_dir, work_dir)
         except: pass
         process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
                                     firmware, "run", "0.0.0.0"],
@@ -1795,17 +1802,34 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         qemu_pid = process.pid
         time.sleep(sleep)
 
-        start_min_ts = time.time()
-        cmd_min = ["sudo", "-E", "/STAFF/aflnet/client", seed_path,
-                   open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout)]
-        if ids_arg:
-            cmd_min.append("--ids=" + ids_arg)
-        subprocess.run(cmd_min)
-        try:
-            send_signal_recursive(qemu_pid, signal.SIGINT)
+        while True:
+            start_min_ts = time.time()
+            client_cmd = ["sudo", "-E", "/STAFF/aflnet/client", seed_path,
+                          open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(timeout), "20"]
+            if ids_arg: client_cmd.append("--ids=" + ids_arg)
+            result = subprocess.run(client_cmd)
+            retcode = result.returncode
+            if retcode == 0:
+                break
+            elif retcode == 2:
+                try: send_signal_recursive(qemu_pid, signal.SIGINT)
+                except: pass
+                try: os.waitpid(qemu_pid, 0)
+                except: pass
+                time.sleep(2)
+                try: cleanup(firmae_dir, work_dir)
+                except: pass
+                process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
+                                            firmware, "run", "0.0.0.0"],
+                                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                qemu_pid = process.pid
+                time.sleep(sleep)
+            else:
+                raise RuntimeError(f"Client exited with unexpected code {retcode}")
+
+        try: send_signal_recursive(qemu_pid, signal.SIGINT)
         except: pass
-        try:
-            os.waitpid(qemu_pid, 0)
+        try: os.waitpid(qemu_pid, 0)
         except: pass
         time.sleep(2)
         end_min_ts = time.time()
@@ -1815,6 +1839,7 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         minimized_taint_pcs = {(entry["inode"], entry["app_tb_pc"]) for entry in taint_data}
         minimized_run_example = [{"inode": i, "pc": p} for (i, p) in sorted(list(minimized_taint_pcs))]
 
+        # --- Save all results ---
         with open(os.path.join(experiment_dir, "times_ms.json"), "w") as tf:
             json.dump({"gt_runs_ms": gt_run_times_ms, "minimized_run_ms": minimized_run_ms}, tf, indent=2)
         with open(os.path.join(experiment_dir, "ground_truth.json"), "w") as gf:
@@ -1831,8 +1856,8 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         info = {
             "pre_analysis_id": pre_analysis_id,
             "experiment_index": next_run_idx,
-            "user_interaction_id": chosen_user_interaction,
-            "taint_hint_id": chosen_element_index,
+            "user_interaction_id": user_interaction_0,
+            "taint_hint_id": next_run_idx,
             "target_region": region,
             "target_offset": offset,
             "target_len": length,
@@ -1859,67 +1884,70 @@ def aggregate_pre_analysis_metrics(db_dir, metric_name, output_csv="out.csv"):
         metric_values = []
         time_deltas = []
 
-        for run_dir in os.listdir(firmware_path):
-            if not run_dir.startswith("pre_analysis_"):
-                continue
-            run_path = os.path.join(firmware_path, run_dir)
+        for fw in os.listdir(firmware_path):
+            for run_dir in os.listdir(os.path.join(firmware_path, fw)):
+                if not run_dir.startswith("pre_analysis_"):
+                    continue
+                run_path = os.path.join(firmware_path, fw, run_dir)
 
-            ground_truth_path = os.path.join(run_path, "ground_truth.json")
-            pre_path = os.path.join(run_path, "pre_analysis.json")
-            taint_path = os.path.join(run_path, "taint.json")
-            min_taint_path = os.path.join(run_path, "minimized_taint.json")
-            times_path = os.path.join(run_path, "times_ms.json")
+                ground_truth_path = os.path.join(run_path, "ground_truth.json")
+                pre_path = os.path.join(run_path, "pre_analysis.json")
+                taint_path = os.path.join(run_path, "taint.json")
+                min_taint_path = os.path.join(run_path, "minimized_taint.json")
+                times_path = os.path.join(run_path, "times_ms.json")
 
-            if not (os.path.exists(ground_truth_path) and os.path.exists(pre_path)):
-                continue
+                if not (os.path.exists(ground_truth_path) and os.path.exists(pre_path)):
+                    print(f"Warning: '{run_path}' is empty!")
+                    continue
+
+                if metric_name.lower() == "time":
+                    if not os.path.exists(times_path):
+                        continue
+                    with open(times_path) as tf:
+                        times = json.load(tf)
+                    gt_times = times.get("gt_runs_ms", [])
+                    minimized_time = times.get("minimized_run_ms")
+                    if gt_times and minimized_time:
+                        avg_gt = np.mean(gt_times)
+                        delta_pct = ((avg_gt - minimized_time) / avg_gt) * 100.0
+                        time_deltas.append(delta_pct)
+                    continue
+
+                with open(ground_truth_path) as gf:
+                    gt_runs = json.load(gf)
+                with open(pre_path) as pf:
+                    pre_runs = json.load(pf)
+
+                gt_set = {(e["inode"], e["pc"]) for run in gt_runs for e in run}
+                pre_set = {(e["inode"], e["pc"]) for e in pre_runs}
+
+                if not gt_set:
+                    print(f"Warning: ground truth of '{run_path}' is empty!")
+                    continue
+
+                y_true = [1 if x in gt_set else 0 for x in sorted(gt_set | pre_set)]
+                y_pred = [1 if x in pre_set else 0 for x in sorted(gt_set | pre_set)]
+
+                if metric_name.lower() == "f1":
+                    value = f1_score(y_true, y_pred, zero_division=0)
+                elif metric_name.lower() == "precision":
+                    value = precision_score(y_true, y_pred, zero_division=0)
+                elif metric_name.lower() == "recall":
+                    value = recall_score(y_true, y_pred, zero_division=0)
+                elif metric_name.lower() == "accuracy":
+                    value = accuracy_score(y_true, y_pred)
+                else:
+                    raise ValueError(f"Unsupported metric: {metric_name}")
+
+                metric_values.append(value)
 
             if metric_name.lower() == "time":
-                if not os.path.exists(times_path):
-                    continue
-                with open(times_path) as tf:
-                    times = json.load(tf)
-                gt_times = times.get("gt_runs_ms", [])
-                minimized_time = times.get("minimized_run_ms")
-                if gt_times and minimized_time:
-                    avg_gt = np.mean(gt_times)
-                    delta_pct = ((avg_gt - minimized_time) / avg_gt) * 100.0
-                    time_deltas.append(delta_pct)
-                continue
-
-            with open(ground_truth_path) as gf:
-                gt_runs = json.load(gf)
-            with open(pre_path) as pf:
-                pre_runs = json.load(pf)
-
-            gt_set = {(e["inode"], e["pc"]) for run in gt_runs for e in run}
-            pre_set = {(e["inode"], e["pc"]) for e in pre_runs}
-
-            if not gt_set:
-                continue
-
-            y_true = [1 if x in gt_set else 0 for x in sorted(gt_set | pre_set)]
-            y_pred = [1 if x in pre_set else 0 for x in sorted(gt_set | pre_set)]
-
-            if metric_name.lower() == "f1":
-                value = f1_score(y_true, y_pred, zero_division=0)
-            elif metric_name.lower() == "precision":
-                value = precision_score(y_true, y_pred, zero_division=0)
-            elif metric_name.lower() == "recall":
-                value = recall_score(y_true, y_pred, zero_division=0)
-            elif metric_name.lower() == "accuracy":
-                value = accuracy_score(y_true, y_pred)
+                avg_value = np.mean(time_deltas) if time_deltas else None
             else:
-                raise ValueError(f"Unsupported metric: {metric_name}")
+                avg_value = np.mean(metric_values) if metric_values else None
 
-            metric_values.append(value)
-
-        if metric_name.lower() == "time":
-            avg_value = np.mean(time_deltas) if time_deltas else None
-        else:
-            avg_value = np.mean(metric_values) if metric_values else None
-
-        if avg_value is not None:
-            results.append({"firmware": firmware, metric_name: avg_value})
+            if avg_value is not None:
+                results.append({"firmware": firmware, metric_name: avg_value})
 
     df = pd.DataFrame(results)
     df.to_csv(output_csv, index=False)

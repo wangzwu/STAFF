@@ -491,7 +491,7 @@ def replay_firmware(firmware, work_dir, crash_analysis=False, crash_seed=None, t
         time.sleep(sleep)
 
         port = 80
-        command = ["sudo", "-E", os.path.join(STAFF_DIR, "aflnet", "client"), seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(config["GENERAL_FUZZING"]["timeout"]), "3"]    
+        command = ["sudo", "-E", os.path.join(STAFF_DIR, "aflnet", "client"), seed_path, open(os.path.join(work_dir, "ip")).read().strip(), str(port), str(config["GENERAL_FUZZING"]["timeout"]), "20"]    
         print(" ".join(command))
         subprocess.run(command)
 
