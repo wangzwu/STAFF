@@ -1936,7 +1936,7 @@ def aggregate_pre_analysis_metrics(db_dir, metric_name, output_csv="out.csv"):
 
 def print_usage():
     print("Usage:")
-    print("  sudo python3 run.py -d <db_dir> -m <metric>")
+    print("  sudo python3 taint_analysis.py -d <db_dir> -m <metric>")
     print("")
     print("Arguments:")
     print("  -d <db_dir>    Path to the database directory containing pre_analysis experiments")
