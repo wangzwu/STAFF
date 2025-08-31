@@ -175,11 +175,11 @@ def read_config(exp_dir):
     return cfg.get("GENERAL","firmware"), cfg.get("GENERAL","mode")
 
 if __name__ == "__main__":
-    find_and_copy_crashes(BASE_DIRS[0], "extracted_crash_out")
+    # find_and_copy_crashes(BASE_DIRS[0], "extracted_crash_out")
 
-    input("Press Enter to continue after reviewing extracted crashes...")
-    rename_crash_files("extracted_crash_out")
-    substitute_extracted_crashes(BASE_DIRS[0], "extracted_crash_out")
+    # input("Press Enter to continue after reviewing extracted crashes...")
+    # rename_crash_files("extracted_crash_out")
+    # substitute_extracted_crashes(BASE_DIRS[0], "extracted_crash_out")
 
     agg_ids = defaultdict(list)
     agg = defaultdict(lambda: defaultdict(list))
