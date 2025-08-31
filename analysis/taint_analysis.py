@@ -3,7 +3,7 @@ import sys
 import os
 import subprocess
 import shutil
-from collections import defaultdict, deque
+from collections import defaultdict, deque, OrderedDict
 import itertools
 from colorama import Fore, Style
 from tqdm import tqdm
@@ -23,7 +23,7 @@ import struct
 import psutil
 import csv
 import random
-from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score
+import argparse
 import pandas as pd
 
 
@@ -1874,158 +1874,264 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         with open(results_file, "w") as rf:
             json.dump(results, rf, indent=4)
 
-def aggregate_pre_analysis_metrics(db_dir, metric_name, max_runs=None, output_csv="out.csv"):
-    results = []
-    for firmware in os.listdir(db_dir):
-        firmware_path = os.path.join(db_dir, firmware)
-        if not os.path.isdir(firmware_path):
+
+def set_based_metrics_from_sets(pred_set, gt_set):
+    tp = len(pred_set & gt_set)
+    fp = len(pred_set - gt_set)
+    fn = len(gt_set - pred_set)
+    prec = (tp / (tp + fp)) if (tp + fp) > 0 else 0.0
+    rec = (tp / (tp + fn)) if (tp + fn) > 0 else 0.0
+    f1 = (2 * prec * rec / (prec + rec)) if (prec + rec) > 0 else 0.0
+    acc = (tp / (tp + fp + fn)) if (tp + fp + fn) > 0 else 0.0
+    return {
+        "precision": prec,
+        "recall": rec,
+        "f1": f1,
+        "accuracy": acc,
+        "tp": tp,
+        "fp": fp,
+        "fn": fn
+    }
+
+def _load_set_from_list_of_dicts(lst):
+    s = set()
+    for e in lst:
+        try:
+            inode = e.get("inode", None)
+            pc = e.get("pc", None)
+            if isinstance(pc, str) and pc.startswith("0x"):
+                try:
+                    pc_int = int(pc, 16)
+                    s.add((inode, pc_int))
+                except:
+                    s.add((inode, pc))
+            else:
+                s.add((inode, pc))
+        except Exception:
             continue
+    return s
 
-        metric_values = []
-        time_deltas = []
+def _read_json_safe(path):
+    try:
+        with open(path, "r") as f:
+            return json.load(f)
+    except Exception:
+        return None
 
-        for fw in os.listdir(firmware_path):
-            run_dirs = [
-                rd for rd in os.listdir(os.path.join(firmware_path, fw))
-                if rd.startswith("pre_analysis_")
-            ]
-            run_dirs.sort()
+def _format_float(x, prec=3):
+    try:
+        return round(float(x), prec)
+    except Exception:
+        return x
 
+def build_latex_table(df, caption="Aggregated results", label="tab:results"):
+    def esc(s):
+        if isinstance(s, str):
+            s = s.replace("avg_", r"$\mu$")
+            s = s.replace("#", r"\#")
+            s = s.replace("_", r"\_")
+            return s
+        return s
+    headers = list(df.columns)
+    colspec = " | ".join(["l" if df[col].dtype == 'object' else "r" for col in headers])
+    lines = []
+    lines.append(r"\begin{table*}[ht!]")
+    lines.append(r"\centering")
+    lines.append(r"\footnotesize")
+    lines.append(r"\begin{tabular}{" + "| " + colspec + " |}")
+    lines.append(r"\hline")
+    header_row = " & ".join([r"\textbf{" + esc(h) + "}" for h in headers]) + r" \\"
+    lines.append(header_row)
+    lines.append(r"\hline")
+    for _, row in df.iterrows():
+        formatted = []
+        for col in headers:
+            val = row[col]
+            if pd.isna(val):
+                formatted.append("")
+            elif isinstance(val, (int, np.integer)):
+                formatted.append(str(int(val)))
+            elif isinstance(val, (float, np.floating)):
+                formatted.append(f"{val:.2f}")
+            else:
+                formatted.append(esc(str(val)))
+        lines.append(" & ".join(formatted) + r" \\")
+    lines.append(r"\hline")
+    lines.append(r"\end{tabular}")
+    lines.append(r"\caption{" + caption + "}")
+    lines.append(r"\label{" + label + "}")
+    lines.append(r"\end{table*}")
+    return "\n".join(lines)
+
+def aggregate_pre_analysis_metrics(db_dir, mode, metric_name, max_runs=None, output_csv="out.csv", output_tex="out.tex"):
+    metric_name = metric_name.lower()
+    mode = mode.lower()
+    
+    if mode not in ("min_vs_orig", "heu_vs_taint"):
+        raise ValueError("mode must be one of 'min_vs_orig' or 'heu_vs_taint'")
+    
+    if metric_name not in ("precision", "recall", "f1", "accuracy", "time"):
+        raise ValueError("metric must be one of precision, recall, f1, accuracy, time")
+    
+    rows = []
+    for brand in sorted(os.listdir(db_dir)):
+        brand_path = os.path.join(db_dir, brand)
+        
+        if not os.path.isdir(brand_path):
+            continue
+        
+        for fw in sorted(os.listdir(brand_path)):
+            fw_path = os.path.join(brand_path, fw)
+            
+            if not os.path.isdir(fw_path):
+                continue
+            
+            run_dirs = [d for d in sorted(os.listdir(fw_path)) if d.startswith("pre_analysis_")]
+            
             if max_runs is not None:
                 run_dirs = run_dirs[:max_runs]
+            
+            if not run_dirs:
+                continue
+            
+            per_run_results = []
 
             for run_dir in run_dirs:
-                run_path = os.path.join(firmware_path, fw, run_dir)
-
+                run_path = os.path.join(fw_path, run_dir)
                 ground_truth_path = os.path.join(run_path, "ground_truth.json")
                 pre_path = os.path.join(run_path, "pre_analysis.json")
+                min_taint_path = os.path.join(run_path, "minimized_taint.json")
                 times_path = os.path.join(run_path, "times_ms.json")
+                info_path = os.path.join(run_path, "info.json")
+                taint_runs = _read_json_safe(ground_truth_path)
 
-                if not (os.path.exists(ground_truth_path) and os.path.exists(pre_path)):
-                    print(f"Warning: '{run_path}' is empty!")
+                if not taint_runs:
+                    print(ground_truth_path)
                     continue
+                
+                gt_run_sets = [
+                    s for run in taint_runs
+                    if isinstance(run, list)
+                    for s in [_load_set_from_list_of_dicts(run)]
+                    if s
+                ]
 
-                if metric_name.lower() == "time":
-                    if not os.path.exists(times_path):
-                        continue
-                    with open(times_path) as tf:
-                        times = json.load(tf)
-                    gt_times = times.get("gt_runs_ms", [])
-                    minimized_time = times.get("minimized_run_ms")
-                    if gt_times and minimized_time:
-                        avg_gt = np.mean(gt_times)
-                        delta_pct = ((avg_gt - minimized_time) / avg_gt) * 100.0
-                        time_deltas.append(delta_pct)
+                if not gt_run_sets:
                     continue
-
-                with open(ground_truth_path) as gf:
-                    gt_runs = json.load(gf)
-                with open(pre_path) as pf:
-                    pre_runs = json.load(pf)
-
-                gt_set = {(e["inode"], e["pc"]) for run in gt_runs for e in run}
-                pre_set = {(e["inode"], e["pc"]) for e in pre_runs}
-
+                try:
+                    gt_set = set.union(*gt_run_sets) if len(gt_run_sets) > 1 else (gt_run_sets[0] if gt_run_sets else set())
+                except Exception:
+                    gt_set = set()
                 if not gt_set:
-                    print(f"Warning: ground truth of '{run_path}' is empty!")
                     continue
+                
+                pre_list = _read_json_safe(pre_path) or []
+                pre_set = _load_set_from_list_of_dicts(pre_list)
+                if (not pre_set):
+                    continue
+                min_list = _read_json_safe(min_taint_path) or []
+                min_set = _load_set_from_list_of_dicts(min_list)
+                per_run_entry = {"brand": brand, "firmware": fw, "run_dir": run_dir}
+                apre_pct = None
+                if os.path.exists(times_path):
+                    times = _read_json_safe(times_path) or {}
+                    gt_times = times.get("gt_runs_ms", []) or []
+                    minimized_time = times.get("minimized_run_ms", None)
+                    if gt_times and minimized_time and np.mean(gt_times) > 0:
+                        avg_gt = float(np.mean(gt_times))
+                        apre_pct = 100.0 * (avg_gt - float(minimized_time)) / avg_gt
+                if mode == "min_vs_orig":
+                    if (min_set):
+                        metrics_min_vs_gt = set_based_metrics_from_sets(min_set, gt_set)
+                        if metric_name == "time":
+                            per_run_entry["apre_pct"] = apre_pct
+                        else:
+                            per_run_entry[f"min_{metric_name}"] = metrics_min_vs_gt.get(metric_name, 0.0)
+                            per_run_entry["apre_pct"] = apre_pct
+                elif mode == "heu_vs_taint":
+                    single_run_metrics = []
+                    for single_run_set in gt_run_sets:
+                        if (single_run_set):
+                            m = set_based_metrics_from_sets(single_run_set, gt_set)
+                            single_run_metrics.append(m.get(metric_name, 0.0))
+                    mean_taint_metric = float(np.mean(single_run_metrics)) if single_run_metrics else None
+                    heuristic_metrics = set_based_metrics_from_sets(pre_set, gt_set)
+                    heuristic_metric_val = heuristic_metrics.get(metric_name, 0.0)
+                    per_run_entry[f"taint_{metric_name}"] = mean_taint_metric
+                    per_run_entry[f"heuristic_{metric_name}"] = heuristic_metric_val
+                per_run_entry["gt_size"] = len(gt_set)
+                per_run_entry["pre_size"] = len(pre_set)
+                per_run_entry["min_size"] = len(min_set)
+                per_run_results.append(per_run_entry)
+            if not per_run_results:
+                continue
+            row = OrderedDict()
+            row["brand"] = brand
+            row["firmware"] = fw
 
-                y_true = [1 if x in gt_set else 0 for x in sorted(gt_set | pre_set)]
-                y_pred = [1 if x in pre_set else 0 for x in sorted(gt_set | pre_set)]
-
-                if metric_name.lower() == "f1":
-                    value = f1_score(y_true, y_pred, zero_division=0)
-                elif metric_name.lower() == "precision":
-                    value = precision_score(y_true, y_pred, zero_division=0)
-                elif metric_name.lower() == "recall":
-                    value = recall_score(y_true, y_pred, zero_division=0)
-                elif metric_name.lower() == "accuracy":
-                    value = accuracy_score(y_true, y_pred)
-                else:
-                    raise ValueError(f"Unsupported metric: {metric_name}")
-
-                metric_values.append(value)
-
-            if metric_name.lower() == "time":
-                avg_value = np.mean(time_deltas) if time_deltas else None
+            row["#taint_hints"] = len(per_run_results)
+            row["#taint_runs"] = len(gt_run_sets)
+            if mode == "min_vs_orig":
+                apre_vals = [r["apre_pct"] for r in per_run_results if r.get("apre_pct") is not None]
+                row["avg_pre_pct"] = round(float(np.mean(apre_vals)), 2) if apre_vals else None
+                if metric_name != "time":
+                    vals = [r.get(f"min_{metric_name}") for r in per_run_results if r.get(f"min_{metric_name}") is not None]
+                    row[f"avg_min_{metric_name}"] = round(float(np.mean(vals)), 2) if vals else None
             else:
-                avg_value = np.mean(metric_values) if metric_values else None
-
-            if avg_value is not None:
-                results.append({"firmware": fw, metric_name: avg_value})
-
-    df = pd.DataFrame(results)
+                mean_taint_vals = [r.get(f"taint_{metric_name}") for r in per_run_results if r.get(f"taint_{metric_name}") is not None]
+                heuristic_vals = [r.get(f"heuristic_{metric_name}") for r in per_run_results if r.get(f"heuristic_{metric_name}") is not None]
+                
+                row[f"avg_heu_{metric_name}"] = round(float(np.mean(heuristic_vals)), 2) if heuristic_vals else None
+            rows.append(row)
+    if not rows:
+        print("No valid runs found to aggregate.")
+        return pd.DataFrame()
+    df = pd.DataFrame(rows)
+    cols_order = ["brand", "firmware", "#taint_hints", "#taint_runs"]
+    if "avg_pre_pct" in df.columns and mode == "min_vs_orig":
+        cols_order.append("avg_pre_pct")
+    if mode == "min_vs_orig" and metric_name != "time":
+        cols_order.append(f"avg_min_{metric_name}")
+    if mode == "heu_vs_taint":
+        cols_order += [f"avg_heu_{metric_name}"]
     df.to_csv(output_csv, index=False)
+    mode = mode.replace("_", "\_")
+    latex_str = build_latex_table(df, caption=f"Aggregated {metric_name} ({mode})", label="tab:agg_results")
+    with open(output_tex, "w") as f:
+        f.write(latex_str)
     return df
 
 def print_usage():
     print("Usage:")
-    print("  sudo python3 taint_analysis.py -d <db_dir> -m <metric> [-n <max_runs>]")
+    print("  python3 aggregate_metrics.py -d <db_dir> -M <mode> -m <metric> [-n <max_runs>] [-o <out.csv>] [-t <out.tex>]")
     print("")
-    print("Arguments:")
-    print("  -d <db_dir>     Path to the database directory containing pre_analysis experiments")
-    print("  -m <metric>     Metric to compute: accuracy, f1, precision, recall, time")
-    print("  -n <max_runs>   (Optional) Use only the first N runs per firmware")
+    print("Mode:")
+    print("  min_vs_orig   Compare minimized runs vs original (produces APRE + metric on minimized set)")
+    print("  heu_vs_taint  Compare heuristic vs taint runs (mean taint metric and heuristic metric)")
+    print("")
+    print("Metric:")
+    print("  precision | recall | f1 | accuracy | time")
+    print("")
+    print("Examples:")
+    print("  python3 aggregate_metrics.py -d pre_analysis_db -M min_vs_orig -m precision -n 5")
+    print("  python3 aggregate_metrics.py -d pre_analysis_db -M heu_vs_taint -m f1")
 
 if __name__ == "__main__":
-    if os.geteuid() != 0:
-        print("[-] This script must run with 'root' privilege")
-        sys.exit(1)
-
-    db_dir = None
-    metric = None
-    max_runs = None
-
-    i = 1
-    while i < len(sys.argv):
-        arg = sys.argv[i]
-        if arg == "-d":
-            i += 1
-            if i < len(sys.argv):
-                db_dir = sys.argv[i]
-            else:
-                print("[-] Missing value for -d argument.")
-                print_usage()
-                sys.exit(1)
-            i += 1
-        elif arg == "-m":
-            i += 1
-            if i < len(sys.argv):
-                metric = sys.argv[i].lower()
-            else:
-                print("[-] Missing value for -m argument.")
-                print_usage()
-                sys.exit(1)
-            i += 1
-        elif arg == "-n":
-            i += 1
-            if i < len(sys.argv):
-                try:
-                    max_runs = int(sys.argv[i])
-                except ValueError:
-                    print("[-] -n must be an integer.")
-                    sys.exit(1)
-            else:
-                print("[-] Missing value for -n argument.")
-                sys.exit(1)
-            i += 1
-        elif arg == "-h":
-            print_usage()
-            sys.exit(0)
-        else:
-            print(f"[-] Unknown argument: {arg}")
-            print_usage()
-            sys.exit(1)
-
-    if not db_dir or not metric:
-        print("[-] Both -d and -m arguments are mandatory.")
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("-d", dest="db_dir", required=True)
+    parser.add_argument("-M", dest="mode", required=True)
+    parser.add_argument("-m", dest="metric", required=True)
+    parser.add_argument("-n", dest="max_runs", type=int, default=None)
+    parser.add_argument("-o", dest="output_csv", default="out.csv")
+    parser.add_argument("-t", dest="output_tex", default="out.tex")
+    parser.add_argument("-h", "--help", action="store_true")
+    args = parser.parse_args()
+    if args.help:
         print_usage()
+        sys.exit(0)
+    if not os.path.isdir(args.db_dir):
+        print(f"[-] db_dir '{args.db_dir}' does not exist or is not a directory")
         sys.exit(1)
-
-    if not os.path.isdir(db_dir):
-        print(f"[-] db_dir '{db_dir}' does not exist or is not a directory")
-        sys.exit(1)
-
-    print(f"[+] Aggregating metric '{metric}' over database '{db_dir}'" +
-          (f" (first {max_runs} runs)" if max_runs else ""))
-    aggregate_pre_analysis_metrics(db_dir, metric, max_runs=max_runs)
+    print(f"[+] Aggregating metric '{args.metric}' in mode '{args.mode}' over database '{args.db_dir}'" + (f" (first {args.max_runs} runs)" if args.max_runs else ""))
+    df = aggregate_pre_analysis_metrics(args.db_dir, args.mode, args.metric, max_runs=args.max_runs, output_csv=args.output_csv, output_tex=args.output_tex)
+    print(df)
