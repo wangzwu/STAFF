@@ -6,6 +6,10 @@ import re
 import argparse
 from typing import List, Tuple
 import pandas as pd
+import csv
+import textwrap
+from collections import defaultdict
+from typing import Dict, Tuple
 
 SKIP_MODULES = {("dap2310_v1.00_o772.bin", "any", "ethlink"), ("dap2310_v1.00_o772.bin", "any", "aparraymsg"),
                 ("dir300_v1.03_7c.bin", "any", "ethlink"), ("dir300_v1.03_7c.bin", "any", "aparraymsg"), 
@@ -18,6 +22,13 @@ SKIP_MODULES = {("dap2310_v1.00_o772.bin", "any", "ethlink"), ("dap2310_v1.00_o7
 
 DEFAULT_METHODS = ["triforce", "aflnet_state_aware", "staff_state_aware", "aflnet_base"]
 
+METHOD_ABBR = {
+    "aflnet_base": "AB",
+    "aflnet_state_aware": "ASA",
+    "triforce": "TRI",
+    "staff_state_aware": "STAFF"
+}
+
 PC_RANGES = {
     # "DGN3500-V1.1.00.30_NA.zip": {
     #     "setup.cgi": {
@@ -28,13 +39,6 @@ PC_RANGES = {
 }
 
 GROUPS = []
-
-import csv
-import re
-import os
-import textwrap
-from collections import defaultdict
-from typing import Dict, Tuple
 
 def _parse_num_token(tok: str):
     if tok is None:
@@ -329,21 +333,8 @@ def unify_crash_and_trace_filenames(extracted_root="extracted_crashes_outputs", 
                                 print(f"[RENAME] crash: {cfile} -> {new_path}")
                             os.rename(cfile, new_path)
 
-
-import os
-import shutil
-import configparser
-
 def update_extracted_root_from_experiments(experiments_dir, extracted_root="extracted_crashes_outputs", verbose=True):
-    """
-    Copy crashes/crash_traces from experiment outputs into a structured extracted_root.
-    Special handling for 'triforce': filenames are renamed using the timestamp after '$' (ts//1000).
-    """
     def extract_ts_from_name(filename):
-        """
-        Extract timestamp after `$` in filename.
-        Returns integer timestamp // 1000 or None if not found.
-        """
         if "$" not in filename:
             return None
         try:
@@ -381,7 +372,6 @@ def update_extracted_root_from_experiments(experiments_dir, extracted_root="extr
 
         firmware_basename = os.path.basename(firmware_path)
 
-        # skip if both crashes and crash_traces exist but empty
         if (os.path.isdir(os.path.join(sub_path, "outputs", "crash_traces")) and not os.listdir(os.path.join(sub_path, "outputs", "crash_traces"))
             and os.path.isdir(os.path.join(sub_path, "outputs", "crashes")) and not os.listdir(os.path.join(sub_path, "outputs", "crashes"))):
             continue
@@ -429,7 +419,6 @@ def update_extracted_root_from_experiments(experiments_dir, extracted_root="extr
 
                 dst_file = os.path.join(dst_folder, file)
 
-                # --- special handling for triforce ---
                 if mode == "triforce":
                     ts = extract_ts_from_name(file)
                     if ts is not None:
@@ -446,6 +435,13 @@ def update_extracted_root_from_experiments(experiments_dir, extracted_root="extr
             print(f"[RESULT] {sub_exp} -> firmware='{firmware_basename}', mode='{mode}': "
                   f"crashes_copied={copied_counts['crashes']}, "
                   f"traces_copied={copied_counts['crash_traces']}")
+
+def events_to_crash_times(events: List[Tuple[int, int, int]]) -> Dict[int, int]:
+    crash_times = {}
+    for unix_time, prev, new in events:
+        for k in range(prev + 1, new + 1):
+            crash_times[k] = unix_time
+    return crash_times
 
 def annotate_extracted_with_tte(experiments_dir, extracted_root="extracted_crashes_outputs", verbose=True):
     if not os.path.isdir(experiments_dir):
@@ -509,36 +505,14 @@ def annotate_extracted_with_tte(experiments_dir, extracted_root="extracted_crash
                 print(f"[INFO] no unique_crashes changes detected in {plot_path}")
             continue
 
-        crash_times = {}
-        prev_u = 0
-        try:
-            with open(plot_path, "r") as pf:
-                for ln in pf:
-                    ln = ln.strip()
-                    if not ln or ln.startswith("#"):
-                        continue
-                    parts = [p.strip() for p in ln.split(",")]
-                    if len(parts) < 9:
-                        continue
-                    try:
-                        unix_time = int(parts[0])
-                        unique_crashes = int(parts[8])
-                    except ValueError:
-                        continue
-                    if unique_crashes > prev_u:
-                        for k in range(prev_u + 1, unique_crashes + 1):
-                            if k not in crash_times:
-                                crash_times[k] = unix_time
-                    prev_u = unique_crashes
-        except Exception:
-            crash_times = {}
+        crash_times = events_to_crash_times(events)
 
         crashes_folder = os.path.join(target_exp_dir, "crashes")
         crash_entries = {}
         crash_real_mtime = {}
         if os.path.isdir(crashes_folder):
             for fname in sorted(os.listdir(crashes_folder)):
-                if "sig" in fname:
+                if "sig" not in fname:
                     continue
                 fpath = os.path.join(crashes_folder, fname)
                 if not os.path.isfile(fpath):
@@ -576,7 +550,9 @@ def annotate_extracted_with_tte(experiments_dir, extracted_root="extracted_crash
                 if not os.path.isfile(fpath):
                     continue
                 mtime = cid_to_mtime.get(cid)
-                files_map.append((fpath, "crashes", mtime-start_time))
+                if mtime is None:
+                    continue
+                files_map.append((fpath, "crashes", mtime - start_time))
 
         traces_folder = os.path.join(target_exp_dir, "crash_traces")
         if os.path.isdir(traces_folder):
@@ -595,7 +571,8 @@ def annotate_extracted_with_tte(experiments_dir, extracted_root="extracted_crash
                         tm = int(os.path.getmtime(tpath))
                     except Exception:
                         tm = None
-                files_map.append((tpath, "crash_traces", tm-start_time))
+                if tm is not None:
+                    files_map.append((tpath, "crash_traces", tm - start_time))
 
         matched_any = False
 
@@ -607,30 +584,15 @@ def annotate_extracted_with_tte(experiments_dir, extracted_root="extracted_crash
             new_fname = make_tte_suffix(fname, tte)
             new_path = os.path.join(dirname, new_fname)
             if verbose:
-                print(f"[RENAME] {ftype}: {fpath} -> {new_path}", tte, start_time, unix_time)
-
+                print(f"[RENAME] {ftype}: {fpath} -> {new_path}", tte)
             safe_rename(fpath, new_path, overwrite=True)
 
             matched_any = True
 
         if not matched_any and verbose:
-            print(f"[WARN] no extracted crash file matched unix_time={unix_time} for {sub_exp}")
-
-def extract_crashID(fname: str):
-    match = re.search(r"£(\d+)", fname)
-    if match:
-        return match.group(1)
-    return None
-
-import os
-import re
-from collections import defaultdict
+            print(f"[WARN] no extracted crash file matched events for {sub_exp}")
 
 def _parse_first_frame_pc_module(trace_path):
-    """
-    Parse a crash_trace file and return (pc, module) from the first trace block first frame.
-    Returns (pc_str, module_str) or (None, None) if not found.
-    """
     pc = None
     module = None
     in_trace = False
@@ -646,160 +608,27 @@ def _parse_first_frame_pc_module(trace_path):
                 if in_trace:
                     if ln.startswith("Process:"):
                         continue
-                    # first frame line, e.g.:
-                    # [00] inode: 24715, pc: 0x000034e0, module: udhcpd
                     m_pc = re.search(r"pc:\s*(0x[0-9A-Fa-f]+)", ln)
                     m_mod = re.search(r"module:\s*([^\s,]+)", ln)
                     if m_pc:
                         pc = m_pc.group(1)
                     if m_mod:
                         module = m_mod.group(1)
-                    # return after processing the first frame-like line
                     if ln.startswith("["):
                         return (pc, module)
     except Exception:
         return (None, None)
     return (None, None)
 
-
-def _latex_escape(s: str) -> str:
-    """Escape characters that are special in LaTeX tables."""
-    if s is None:
+def format_time_hm(seconds: float) -> str:
+    if seconds is None:
         return ""
-    s = str(s)
-    replacements = {
-        "\\": r"\textbackslash{}",
-        "&": r"\&",
-        "%": r"\%",
-        "$": r"\$",
-        "#": r"\#",
-        "_": r"\_",
-        "{": r"\{",
-        "}": r"\}",
-        "~": r"\textasciitilde{}",
-        "^": r"\textasciicircum{}",
-    }
-    for k, v in replacements.items():
-        s = s.replace(k, v)
-    return s
+    seconds = int(seconds)
+    h = seconds // 3600
+    m = (seconds % 3600) // 60
+    return f"{h}h{m}m"
 
-def _write_csv_rows(headers, rows, out_csv, verbose=True):
-    """Write CSV deterministically; always write header even if rows empty."""
-    try:
-        with open(out_csv, "w", newline='', encoding="utf-8") as fh:
-            writer = csv.DictWriter(fh, fieldnames=headers)
-            writer.writeheader()
-            for r in rows:
-                # ensure serializable simple values
-                serial = {}
-                for h in headers:
-                    v = r.get(h, "")
-                    if v is None:
-                        v = ""
-                    # convert floats/int to str or keep number (csv will stringify)
-                    serial[h] = v
-                writer.writerow(serial)
-        if verbose:
-            print(f"[WRITE] CSV -> {out_csv}")
-    except Exception as e:
-        if verbose:
-            print(f"[ERROR] writing CSV {out_csv}: {e}")
-
-
-def _write_tex_table(headers, rows, out_tex, verbose=True):
-    """Write a simple LaTeX tabular wrapped in table*; truncate firmware to 13 chars."""
-    try:
-        with open(out_tex, "w", encoding="utf-8") as fh:
-            fh.write("\\begin{table*}[ht]\n\\centering\n")
-            fh.write("\\begin{tabular}{%s}\n" % ("l" * len(headers)))
-            fh.write(" & ".join(_latex_escape(h) for h in headers) + " \\\\\n")
-            fh.write("\\hline\n")
-            for r in rows:
-                vals = []
-                for h in headers:
-                    v = r.get(h, "")
-                    if v is None:
-                        v = ""
-                    # truncate firmware column
-                    if h.lower() == "firmware":
-                        v = str(v)[:13]
-                    vals.append(_latex_escape(v))
-                fh.write(" & ".join(vals) + " \\\\\n")
-            fh.write("\\end{tabular}\n")
-            fh.write("\\end{table*}\n")
-        if verbose:
-            print(f"[WRITE] LaTeX -> {out_tex}")
-    except Exception as e:
-        if verbose:
-            print(f"[ERROR] writing LaTeX {out_tex}: {e}")
-
-
-def _write_tex_table_count_tte(headers, rows, methods, out_tex, verbose=True):
-    """
-    Write a LaTeX tabular with two-level headers wrapped in table*:
-    - First row: method names (merged over two columns each)
-    - Second row: 'Count' and 'TTE' subcolumns for each method
-    - Truncate firmware to 13 chars.
-    """
-    try:
-        with open(out_tex, "w", encoding="utf-8") as fh:
-            n_fixed = 3  # firmware, module, pc
-            n_cols = n_fixed + 2 * len(methods)
-            col_spec = "l" * n_cols
-            fh.write("\\begin{table*}[ht]\n\\centering\n")
-            fh.write("\\begin{tabular}{%s}\n" % col_spec)
-
-            # First header row
-            first_row = ["Firmware", "Module", "PC"]
-            for m in methods:
-                first_row.append("\\multicolumn{2}{c}{%s}" % _latex_escape(m))
-            fh.write(" & ".join(first_row) + " \\\\\n")
-
-            # Second header row: Count / TTE
-            second_row = [""] * n_fixed
-            for _ in methods:
-                second_row.extend(["Count", "TTE"])
-            fh.write(" & ".join(second_row) + " \\\\\n")
-
-            fh.write("\\hline\n")
-
-            # Data rows
-            for r in rows:
-                vals = []
-                for h in headers:
-                    v = r.get(h, "")
-                    if v is None:
-                        v = ""
-                    # truncate firmware column
-                    if h.lower() == "firmware":
-                        v = str(v)[:13]
-                    vals.append(_latex_escape(v))
-                fh.write(" & ".join(vals) + " \\\\\n")
-
-            fh.write("\\end{tabular}\n")
-            fh.write("\\end{table*}\n")
-
-        if verbose:
-            print(f"[WRITE] LaTeX -> {out_tex}")
-    except Exception as e:
-        if verbose:
-            print(f"[ERROR] writing LaTeX {out_tex}: {e}")
-
-
-def build_agg_from_extracted(extracted_root="extracted_crashes_outputs", methods=None, verbose=False):
-    member_to_group = {}
-    for group in GROUPS:
-        if not group:
-            continue
-        rep = group[0]
-        for member in group:
-            member_to_group[member] = rep
-
-    # normalized_skip = set((fw, mode, mod.lower()) for fw, mode, mod in SKIP_MODULES)
-
-    if methods is None:
-        methods = DEFAULT_METHODS
-
+def build_agg_from_extracted(extracted_root="extracted_crashes_outputs", verbose=False):
     agg = defaultdict(lambda: defaultdict(dict))
 
     def collect_trace_files(traces_dir):
@@ -822,14 +651,16 @@ def build_agg_from_extracted(extracted_root="extracted_crashes_outputs", methods
         if not os.path.isdir(fw_path):
             continue
 
-        for method in methods:
+        for method in DEFAULT_METHODS:
             method_path = os.path.join(fw_path, method)
             if not os.path.isdir(method_path):
                 continue
+
             for exp in sorted(os.listdir(method_path)):
                 exp_path = os.path.join(method_path, exp)
                 if not os.path.isdir(exp_path):
                     continue
+
                 traces_dir = os.path.join(exp_path, "crash_traces")
                 if not os.path.isdir(traces_dir):
                     continue
@@ -847,14 +678,8 @@ def build_agg_from_extracted(extracted_root="extracted_crashes_outputs", methods
                         continue
 
                     module_norm = (module or "(unknown_module)")
-                    # if (firmware, mode, module_norm.lower()) in normalized_skip:
-                    #     if verbose:
-                    #         print(f"[SKIP] (fw,mode,module) in SKIP_MODULES: ({firmware},{mode},{module_norm}) -> {tf}")
-                    #     continue
-
                     pc_norm = pc or "(unknown_pc)"
                     raw_key = (firmware, module_norm, pc_norm)
-                    group_key = member_to_group.get(raw_key, raw_key)
 
                     bname = os.path.basename(tf)
                     tte_val = None
@@ -865,242 +690,158 @@ def build_agg_from_extracted(extracted_root="extracted_crashes_outputs", methods
                         except Exception:
                             tte_val = None
 
-                    prev = per_exp_min_tte.get(group_key)
+                    prev = per_exp_min_tte.get(raw_key)
                     if prev is None:
-                        per_exp_min_tte[group_key] = tte_val
+                        per_exp_min_tte[raw_key] = tte_val
                     else:
                         if prev is None:
-                            per_exp_min_tte[group_key] = tte_val
+                            per_exp_min_tte[raw_key] = tte_val
                         elif tte_val is None:
                             pass
                         else:
-                            per_exp_min_tte[group_key] = min(prev, tte_val)
+                            per_exp_min_tte[raw_key] = min(prev, tte_val)
 
                 for key, min_tte in per_exp_min_tte.items():
                     agg[key][method][exp] = min_tte
 
     return agg
 
-def build_three_tables_and_write_consistent(
-        extracted_root="extracted_crashes_outputs",
-        methods=None,
-        out1_csv="out1.csv", out1_tex="out1.tex",
-        out2_csv="out2.csv", out2_tex="out2.tex",
-        out3_csv="out3.csv", out3_tex="out3.tex",
-        firmwares_csv="analysis/fw_names.csv",
-        verbose=True):
-    """
-    Build tables and write CSV+LaTeX with three tables:
-    - Table1: Number of crashes
-    - Table2: TTE crashes
-    - Table3: Rare crashes (staff_state_aware only)
-    Columns: brand, firmware, version, module, function (for Table2+3)
-    """
-    import re
+def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte_table=False):
+    import pandas as pd
     from collections import defaultdict
-    import csv
 
-    if methods is None:
-        methods = DEFAULT_METHODS
-
-    # Method abbreviations for headers
-    METHOD_ABBR = {
-        "aflnet_base": "AB",
-        "aflnet_state_aware": "ASA",
-        "triforce": "TRI",
-        "staff_state_aware": "STAFF"
-    }
-
-    # Load firmware -> (brand, name, version)
-    def load_firmware_map_triplet(path):
-        mapping = {}
-        with open(path, newline="", encoding="utf-8") as fh:
-            reader = csv.DictReader(fh)
-            for row in reader:
-                fw_file = row["firmware"].strip()
-                brand = row.get("brand", "").strip()
-                name = row.get("name", "").strip()
-                version = row.get("version", "").strip()
-                mapping[fw_file] = (brand, name, version)
-        return mapping
-
-    fw_map = load_firmware_map_triplet(firmwares_csv)
-
-    # Build raw aggregation
-    agg_raw = build_agg_from_extracted(extracted_root=extracted_root, methods=methods, verbose=verbose)
-
-    # Flatten GROUPS mapping
-    member_to_group = {}
-    for group in GROUPS:
-        if not group:
-            continue
-        rep = group[0]
-        for member in group:
-            member_to_group[member] = rep
-
-    # Helper: convert pc string to int
-    def pc_to_int(pc_str):
-        if pc_str is None:
-            return None
-        s = str(pc_str).strip()
-        try:
-            return int(s, 0)
-        except:
-            m = re.search(r"(0x[0-9a-fA-F]+)", s)
-            if m:
-                return int(m.group(1), 16)
-            m2 = re.search(r"(\d+)", s)
-            if m2:
-                return int(m2.group(1), 10)
-        return None
-
-    # Map raw key into function ranges / GROUPS
-    def map_key_by_range_and_groups_debug(fw, module, pc_str):
-        raw = (fw, module, pc_str)
-        pc_int = pc_to_int(pc_str)
-        if raw in member_to_group:
-            return member_to_group[raw]
-        if pc_int is not None:
-            norm_pc = f"0x{pc_int:08x}"
-            alt = (fw, module, norm_pc)
-            if alt in member_to_group:
-                return member_to_group[alt]
-        for fw_key, modmap in PC_RANGES.items():
-            if fw_key.lower() != fw.lower() and fw_key not in fw and fw not in fw_key:
-                continue
-            ranges = modmap.get(module) or modmap.get(module.lower())
-            if not ranges:
-                continue
-            if pc_int is None:
-                pc_int = pc_to_int(pc_str)
-                if pc_int is None:
-                    continue
-            for fun_name, (start, end) in ranges.items():
-                try:
-                    s = int(start)
-                    e = int(end)
-                except:
-                    continue
-                if s <= pc_int <= e:
-                    return (fw, module, fun_name)
-        return raw
-
-    def should_skip(fw, method, module):
-        return (fw, method, module) in SKIP_MODULES or (fw, "any", module) in SKIP_MODULES
-
-    # Remap agg_raw into agg applying ranges/groups
-    agg = defaultdict(lambda: defaultdict(dict))
-    for (fw, module, pc_key), method_dict in agg_raw.items():
-        mapped_key = map_key_by_range_and_groups_debug(fw, module, pc_key)
-        for method_name, exp_map in method_dict.items():
-            if should_skip(fw, method_name, module):
-                continue
-            for exp, tte in exp_map.items():
-                prev = agg[mapped_key][method_name].get(exp)
-                if prev is None:
-                    agg[mapped_key][method_name][exp] = tte
-                elif prev is not None and tte is not None:
-                    agg[mapped_key][method_name][exp] = min(prev, tte)
-
-    competitor_names = ["aflnet_base", "aflnet_state_aware", "triforce"]
-
-    # ---------- Table1: Number of crashes ----------
-    firmware_set = sorted({k[0] for k in agg.keys()})
-    table1_rows = []
-    for fw in firmware_set:
-        brand, name, version = fw_map.get(fw, ("", fw, ""))
-        row = {"brand": brand, "firmware": name, "version": version}
-        for m in methods:
-            per_run_crashes = defaultdict(set)
-            for (f, module, pc), method_dict in agg.items():
-                if f != fw:
-                    continue
-                for exp, tte in method_dict.get(m, {}).items():
-                    if tte is not None:
-                        per_run_crashes[exp].add((f, module, pc))
-            mean_crashes = (sum(len(s) for s in per_run_crashes.values()) / len(per_run_crashes)) if per_run_crashes else 0.0
-            row[f"{METHOD_ABBR.get(m, m)}_mean_cnt"] = round(mean_crashes, 3)
-        rare_cnt = 0
-        for (f, module, pc), method_dict in agg.items():
-            if f != fw:
-                continue
-            staff_found = "staff_state_aware" in method_dict and len(method_dict["staff_state_aware"]) > 0
-            competitor_found = any(len(method_dict.get(c, {})) > 0 for c in competitor_names)
-            if staff_found and not competitor_found:
-                rare_cnt += 1
-        row["rare_crashes"] = rare_cnt
-        table1_rows.append(row)
-
-    headers1 = ["brand", "firmware", "version"] + [f"{METHOD_ABBR.get(m, m)}_mean_cnt" for m in methods] + ["rare_crashes"]
-
-    # ---------- Table2: TTE crashes and Table3: rare crashes ----------
-    def format_time_hm(seconds: float) -> str:
-        if seconds is None:
+    def latex_escape(s):
+        if s is None:
             return ""
-        seconds = int(seconds)
-        h = seconds // 3600
-        m = (seconds % 3600) // 60
-        return f"{h}h{m}m"
+        s = str(s).replace("_", "\\_")
+        s = s.replace("mean\\_", "\\(\\mu\\)")
+        s = s.replace("avg\\_", "\\(\\mu\\)")
+        return s
 
-    table23_rows = []
-    table3_rows = []
+    if not rows:
+        df = pd.DataFrame(columns=headers)
+        df.to_csv(csv_path, index=False, encoding="utf-8")
+        print(f"[WRITE] CSV -> {csv_path} ; LaTeX -> {tex_path} (no rows)")
+        with open(tex_path, "w", encoding="utf-8") as fh:
+            fh.write("\\begin{table*}[ht]\n\\centering\n")
+            fh.write("\\renewcommand{\\arraystretch}{1.06}\n")
+            fh.write("\\setlength{\\tabcolsep}{4pt}\n")
+            col_format = "|" + "|".join("l" for _ in headers) + "|"
+            fh.write(f"\\begin{{tabular}}{{{col_format}}}\n\\hline\n")
+            fh.write(" & ".join(latex_escape(h) for h in headers) + " \\\\\n\\hline\n")
+            fh.write("\\end{tabular}\n")
+            if caption:
+                fh.write(f"\\caption{{{latex_escape(caption)}}}\n")
+            fh.write("\\end{table*}\n")
+        return
 
-    for (fw, module, pc), method_dict in sorted(agg.items(), key=lambda x: (x[0][0], x[0][1], str(x[0][2]))):
-        brand, name, version = fw_map.get(fw, ("", fw, ""))
-        row = {"brand": brand, "firmware": name, "version": version, "module": module, "function": pc}
-        for m in methods:
-            cnt = len(method_dict.get(m, {}))
-            row[f"{METHOD_ABBR.get(m, m)}_cnt"] = cnt
-            ttes = [v for v in method_dict.get(m, {}).values() if v is not None]
-            avg_tte = (sum(ttes) / len(ttes)) if ttes else None
-            row[f"{METHOD_ABBR.get(m, m)}_avg_tte"] = format_time_hm(avg_tte) if avg_tte is not None else ""
-        table23_rows.append(row)
+    df = pd.DataFrame(rows)
+    for h in headers:
+        if h not in df.columns:
+            df[h] = None
+    df = df[headers]
+    df.to_csv(csv_path, index=False, encoding="utf-8")
 
-        # Rare crashes only
-        staff_found = "staff_state_aware" in method_dict and len(method_dict["staff_state_aware"]) > 0
-        competitor_found = any(len(method_dict.get(c, {})) > 0 for c in competitor_names)
-        if staff_found and not competitor_found:
-            rare_row = {"brand": brand, "firmware": name, "version": version, "module": module, "function": pc}
-            table3_rows.append(rare_row)
+    with open(tex_path, "w", encoding="utf-8") as fh:
+        fh.write("\\begin{table*}[ht]\n\\centering\n")
+        fh.write("\\renewcommand{\\arraystretch}{1.06}\n")
+        fh.write("\\setlength{\\tabcolsep}{4pt}\n")
 
-    headers23 = ["brand", "firmware", "version", "module", "function"]
-    for m in methods:
-        headers23.append(f"{METHOD_ABBR.get(m, m)}_cnt")
-        headers23.append(f"{METHOD_ABBR.get(m, m)}_avg_tte")
-    headers3 = ["brand", "firmware", "version", "module", "function"]
+        if not count_tte_table:
+            col_format = "|" + "|".join("l" for _ in headers) + "|"
+        else:
+            col_format = "|l|l|l|" + "|".join("c|c" for _ in DEFAULT_METHODS)
+        if not col_format.endswith("|"):
+            col_format += "|"
 
-    # ---------- Write CSV + LaTeX ----------
+        fh.write(f"\\begin{{tabular}}{{{col_format}}}\n")
+        fh.write("\\hline\n")
+
+        if count_tte_table:
+            first_row = ["\\textbf{Firmware}", "\\textbf{Binary}", "\\textbf{Function}"]
+            for m in DEFAULT_METHODS:
+                abbr = METHOD_ABBR.get(m, m)
+                first_row.append(f"\\multicolumn{{2}}{{c|}}{{\\textbf{{{latex_escape(abbr)}}}}}")
+            fh.write(" & ".join(first_row) + " \\\\\n")
+
+            second_row = ["", "", ""]
+            for _ in DEFAULT_METHODS:
+                second_row.append("\\textbf{cnt}")
+                second_row.append("\\textbf{TTE}")
+            fh.write(" & ".join(second_row) + " \\\\\n")
+            fh.write("\\hline\n")
+
+            grouped = defaultdict(lambda: defaultdict(list))
+            for row in rows:
+                grouped[row["firmware"]][row["module"]].append(row)
+
+            total_cols = 3 + 2 * len(DEFAULT_METHODS)
+            cline_rest_start = 2
+            cline_rest_end = total_cols
+
+            fw_items = list(grouped.items())
+            for fw_idx, (fw, modules) in enumerate(fw_items):
+                module_items = list(modules.items())
+                fw_rows = sum(len(funcs) for _, funcs in module_items)
+                first_fw_row = True
+
+                for mod_idx, (module, funcs) in enumerate(module_items):
+                    mod_rows = len(funcs)
+                    first_mod_row = True
+
+                    for i, row in enumerate(funcs):
+                        cells = []
+
+                        if first_fw_row:
+                            cells.append(f"\\multirow{{{fw_rows}}}{{*}}{{{latex_escape(fw)}}}")
+                            first_fw_row = False
+                        else:
+                            cells.append("")
+
+                        if first_mod_row:
+                            cells.append(f"\\multirow{{{mod_rows}}}{{*}}{{{latex_escape(module)}}}")
+                            first_mod_row = False
+                        else:
+                            cells.append("")
+
+                        cells.append(latex_escape(row.get("function", "")))
+                        for m in DEFAULT_METHODS:
+                            abbr = METHOD_ABBR.get(m, m)
+                            cells.append(str(row.get(f"{abbr}_cnt", "")))
+                            cells.append(str(row.get(f"{abbr}_avg_tte", "")))
+
+                        fh.write(" & ".join(cells) + " \\\\\n")
+
+                    fh.write(f"\\cline{{{cline_rest_start}-{cline_rest_end}}}\n")
+
+                    if mod_idx == len(module_items) - 1:
+                        fh.write("\\cline{1-1}\n")
+
+            fh.write("\\hline\n")
+
+        else:
+            fh.write(" & ".join("\\textbf{" + latex_escape(h) + "}" for h in headers) + " \\\\\n")
+            fh.write("\\hline\n")
+            for row in rows:
+                values = [latex_escape(row.get(h, "")) for h in headers]
+                fh.write(" & ".join(values) + " \\\\\n")
+                fh.write("\\hline\n")
+
+        fh.write("\\end{tabular}\n")
+        if caption:
+            fh.write(f"\\caption{{{latex_escape(caption)}}}\n")
+        fh.write("\\end{table*}\n")
+
+    print(f"[WRITE] CSV -> {csv_path} ; LaTeX -> {tex_path}")
+
 def build_three_tables_and_write_consistent(
         extracted_root="extracted_crashes_outputs",
-        methods=None,
         out1_csv="out1.csv", out1_tex="out1.tex",
         out2_csv="out2.csv", out2_tex="out2.tex",
         out3_csv="out3.csv", out3_tex="out3.tex",
         firmwares_csv="analysis/fw_names.csv",
         verbose=True):
-    """
-    Build tables and write CSV+LaTeX with three tables:
-    - Table1: Number of crashes
-    - Table2: TTE crashes
-    - Table3: Rare crashes (staff_state_aware only)
-    Columns: brand, firmware, version, module, function (for Table2+3)
-    """
-    import re
-    from collections import defaultdict
-    import csv
 
-    if methods is None:
-        methods = DEFAULT_METHODS
-
-    # Method abbreviations for headers
-    METHOD_ABBR = {
-        "aflnet_base": "AB",
-        "aflnet_state_aware": "ASA",
-        "triforce": "TRI",
-        "staff_state_aware": "STAFF"
-    }
-
-    # Load firmware -> (brand, name, version)
     def load_firmware_map_triplet(path):
         mapping = {}
         with open(path, newline="", encoding="utf-8") as fh:
@@ -1115,19 +856,7 @@ def build_three_tables_and_write_consistent(
 
     fw_map = load_firmware_map_triplet(firmwares_csv)
 
-    # Build raw aggregation
-    agg_raw = build_agg_from_extracted(extracted_root=extracted_root, methods=methods, verbose=verbose)
-
-    # Flatten GROUPS mapping
-    member_to_group = {}
-    for group in GROUPS:
-        if not group:
-            continue
-        rep = group[0]
-        for member in group:
-            member_to_group[member] = rep
-
-    # Helper: convert pc string to int
+    agg_raw = build_agg_from_extracted(extracted_root=extracted_root, verbose=verbose)
     def pc_to_int(pc_str):
         if pc_str is None:
             return None
@@ -1143,17 +872,9 @@ def build_three_tables_and_write_consistent(
                 return int(m2.group(1), 10)
         return None
 
-    # Map raw key into function ranges / GROUPS
-    def map_key_by_range_and_groups_debug(fw, module, pc_str):
+    def map_key_by_range_and_groups(fw, module, pc_str):
         raw = (fw, module, pc_str)
         pc_int = pc_to_int(pc_str)
-        if raw in member_to_group:
-            return member_to_group[raw]
-        if pc_int is not None:
-            norm_pc = f"0x{pc_int:08x}"
-            alt = (fw, module, norm_pc)
-            if alt in member_to_group:
-                return member_to_group[alt]
         for fw_key, modmap in PC_RANGES.items():
             if fw_key.lower() != fw.lower() and fw_key not in fw and fw not in fw_key:
                 continue
@@ -1177,10 +898,9 @@ def build_three_tables_and_write_consistent(
     def should_skip(fw, method, module):
         return (fw, method, module) in SKIP_MODULES or (fw, "any", module) in SKIP_MODULES
 
-    # Remap agg_raw into agg applying ranges/groups
     agg = defaultdict(lambda: defaultdict(dict))
     for (fw, module, pc_key), method_dict in agg_raw.items():
-        mapped_key = map_key_by_range_and_groups_debug(fw, module, pc_key)
+        mapped_key = map_key_by_range_and_groups(fw, module, pc_key)
         for method_name, exp_map in method_dict.items():
             if should_skip(fw, method_name, module):
                 continue
@@ -1202,7 +922,7 @@ def build_three_tables_and_write_consistent(
         row = {"brand": brand, "firmware": name, "version": version}
 
         # Compute mean crashes per method
-        for m in methods:
+        for m in DEFAULT_METHODS:
             per_run_crashes = defaultdict(set)
             for (f, module, pc), method_dict in agg.items():
                 if f != fw:
@@ -1214,7 +934,6 @@ def build_three_tables_and_write_consistent(
                 sum(len(s) for s in per_run_crashes.values()) / len(per_run_crashes)
                 if per_run_crashes else 0.0
             )
-            # Use abbreviation for the column name
             col_name = f"{METHOD_ABBR.get(m, m)}_mean_cnt"
             row[col_name] = round(mean_crashes, 3)
 
@@ -1230,112 +949,40 @@ def build_three_tables_and_write_consistent(
         row["rare_crashes"] = rare_cnt
         table1_rows.append(row)
 
-    # Table headers using abbreviations
-    headers1 = ["brand", "firmware", "version"] + [f"{METHOD_ABBR.get(m, m)}_mean_cnt" for m in methods] + ["rare_crashes"]
+    headers1 = ["brand", "firmware", "version"] + [f"{METHOD_ABBR.get(m, m)}_mean_cnt" for m in DEFAULT_METHODS] + ["rare_crashes"]
 
     # ---------- Table2: TTE crashes and Table3: rare crashes ----------
-    def format_time_hm(seconds: float) -> str:
-        if seconds is None:
-            return ""
-        seconds = int(seconds)
-        h = seconds // 3600
-        m = (seconds % 3600) // 60
-        return f"{h}h{m}m"
-
-    table23_rows = []
+    table2_rows = []
     table3_rows = []
 
     for (fw, module, pc), method_dict in sorted(agg.items(), key=lambda x: (x[0][0], x[0][1], str(x[0][2]))):
         brand, name, version = fw_map.get(fw, ("", fw, ""))
-        # row = {"brand": brand, "firmware": name, "version": version, "module": module, "function": pc}
         row = {"firmware": name, "module": module, "function": pc}
-        for m in methods:
+        for m in DEFAULT_METHODS:
             cnt = len(method_dict.get(m, {}))
             row[f"{METHOD_ABBR.get(m, m)}_cnt"] = cnt
             ttes = [v for v in method_dict.get(m, {}).values() if v is not None]
             avg_tte = (sum(ttes) / len(ttes)) if ttes else None
             row[f"{METHOD_ABBR.get(m, m)}_avg_tte"] = format_time_hm(avg_tte) if avg_tte is not None else ""
-        table23_rows.append(row)
+        table2_rows.append(row)
 
-        # Rare crashes only
         staff_found = "staff_state_aware" in method_dict and len(method_dict["staff_state_aware"]) > 0
         competitor_found = any(len(method_dict.get(c, {})) > 0 for c in competitor_names)
         if staff_found and not competitor_found:
             rare_row = {"brand": brand, "firmware": name, "version": version, "module": module, "function": pc}
             table3_rows.append(rare_row)
 
-    # headers23 = ["brand", "firmware", "version", "module", "function"]
-    headers23 = ["firmware", "module", "function"]
-    for m in methods:
-        headers23.append(f"{METHOD_ABBR.get(m, m)}_cnt")
-        headers23.append(f"{METHOD_ABBR.get(m, m)}_avg_tte")
+    headers2 = ["firmware", "module", "function"]
+    for m in DEFAULT_METHODS:
+        headers2.append(f"{METHOD_ABBR.get(m, m)}_cnt")
+        headers2.append(f"{METHOD_ABBR.get(m, m)}_avg_tte")
     headers3 = ["brand", "firmware", "version", "module", "function"]
 
-    # ---------- Write CSV + LaTeX ----------
-    def write_pair(headers, rows, csv_path, tex_path, caption="", count_tte_table=False):
-        import pandas as pd
-        pd = pd if "pd" in globals() else None
+    write_csv_and_latex(headers1, table1_rows, out1_csv, out1_tex, caption="Number of crashes")
+    write_csv_and_latex(headers2, table2_rows, out2_csv, out2_tex, caption="TTE crashes", count_tte_table=True)
+    write_csv_and_latex(headers3, table3_rows, out3_csv, out3_tex, caption="Rare crashes")
 
-        def latex_escape(s):
-            if s is None:
-                return ""
-            s = str(s).replace("_", "\\_")
-            s = s.replace("mean\\_", "\\(\\mu\\)")
-            s = s.replace("avg\\_", "\\(\\mu\\)")
-            return s
-
-        if pd is not None and rows:
-            df = pd.DataFrame(rows)
-            for h in headers:
-                if h not in df.columns:
-                    df[h] = None
-            df = df[headers]
-            df.to_csv(csv_path, index=False, encoding="utf-8")
-
-            with open(tex_path, "w", encoding="utf-8") as fh:
-                fh.write("\\begin{table*}[ht]\n\\centering\n")
-                col_format = "l" * len(headers) if not count_tte_table else "l" * 3 + "cc" * len(methods)
-                fh.write(f"\\begin{{tabular}}{{{col_format}}}\n")
-
-                if count_tte_table:
-                    first_row = ["firmware", "module", "function"]
-                    for m in methods:
-                        abbr = METHOD_ABBR.get(m, m)
-                        first_row.append(f"\\multicolumn{{2}}{{c}}{{{latex_escape(abbr)}}}")
-                    fh.write(" & ".join(first_row) + " \\\\\n")
-                    second_row = [""] * 3
-                    for _ in methods:
-                        second_row.append("cnt")
-                        second_row.append("TTE")
-                    fh.write(" & ".join(second_row) + " \\\\\n\\hline\n")
-                else:
-                    fh.write(" & ".join(latex_escape(h) for h in headers) + " \\\\\n\\hline\n")
-
-                # --- Write rows ---
-                for row in rows:
-                    if count_tte_table:
-                        values = [latex_escape(row.get(h, "")) for h in ["firmware","module","function"]]
-                        for m in methods:
-                            abbr = METHOD_ABBR.get(m, m)
-                            values.append(str(row.get(f"{abbr}_cnt", "")))
-                            values.append(str(row.get(f"{abbr}_avg_tte", "")))
-                    else:
-                        values = [latex_escape(row.get(h, "")) for h in headers]
-                    fh.write(" & ".join(values) + " \\\\\n")
-
-                fh.write("\\end{tabular}\n")
-                if caption:
-                    fh.write(f"\\caption{{{latex_escape(caption)}}}\n")
-                fh.write("\\end{table*}\n")
-
-            if pd is not None:
-                print(f"[WRITE] CSV -> {csv_path} ; LaTeX -> {tex_path}")
-
-    write_pair(headers1, table1_rows, out1_csv, out1_tex, caption="Number of crashes")
-    write_pair(headers23, table23_rows, out2_csv, out2_tex, caption="TTE crashes", count_tte_table=True)
-    write_pair(headers3, table3_rows, out3_csv, out3_tex, caption="Rare crashes")
-
-    return (table1_rows, table23_rows, table3_rows), agg
+    return (table1_rows, table2_rows, table3_rows), agg
 
 
 if __name__ == "__main__":
@@ -1358,20 +1005,17 @@ if __name__ == "__main__":
     args = parser.parse_args()
     verbose = not args.quiet
 
-    # load/generate PC_RANGES from the provided CSV
     try:
         PC_RANGES = load_pc_ranges_from_csv(args.crashes_csv, output_py=args.pc_ranges_py, verbose=verbose)
     except Exception as e:
         print(f"[ERROR] cannot load PC ranges from '{args.crashes_csv}': {e}")
         raise SystemExit(1)
 
-    # debug: show loaded ranges (pause if you still want to inspect)
     print("Loaded PC_RANGES (top-level keys):", list(PC_RANGES.keys()))
-    # print full mapping if you need:
+
     if verbose:
         import pprint
         pprint.pprint(PC_RANGES)
-    # input("PC_RANGES loaded — press Enter to continue...")
     
     unify_crash_and_trace_filenames()
 
@@ -1389,7 +1033,6 @@ if __name__ == "__main__":
 
     build_three_tables_and_write_consistent(
         extracted_root="extracted_crashes_outputs",
-        methods=None,
         out1_csv="out1.csv", out1_tex="out1.tex",
         out2_csv="out2.csv", out2_tex="out2.tex",
         out3_csv="out3.csv", out3_tex="out3.tex",
