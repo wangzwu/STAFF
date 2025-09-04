@@ -26,6 +26,14 @@ schedule.csv
 TaintQueue
 plot_params.ini
 pre_analysis_db
-pre_analysis_exp
+pre_analysis_exp*
+out.csv
+out.tex
+out1.csv
+out1.tex
+out2.csv
+out2.tex
+out3.csv
+out3.tex
 extracted_crashes_out*
 extracted_crash_out*
