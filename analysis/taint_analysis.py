@@ -1634,7 +1634,7 @@ def compute_f1_vs_ground_truth(run_sets, ground_truth):
 
 def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libraries,
                      region_delimiter, sleep, timeout, taint_analysis_path,
-                     pre_analysis_id, stab_upper_runs=10, n_taint_hints_to_eval=10):
+                     pre_analysis_id, stab_upper_runs=5, n_taint_hints_to_eval=10):
 
     user_interaction_0 = "user_interaction_0.pcap"
     ui0_path = os.path.join(taint_analysis_path, firmware, proto, user_interaction_0)
@@ -1717,7 +1717,8 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         num_runs, last_inter, first_inter_size, stabilized_gt = 0, None, None, False
 
         # --- Ground truth runs ---
-        while True:
+        # while True:
+        for _ in range(stab_upper_runs):
             try: cleanup(firmae_dir, work_dir)
             except: pass
 
@@ -1764,21 +1765,21 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
             current_run_set = {(entry["inode"], entry["app_tb_pc"]) for entry in taint_data}
             taint_runs.append(current_run_set)
 
-            if last_inter is None:
-                last_inter = current_run_set
-                first_inter_size = len(last_inter)
-                if num_runs >= stab_upper_runs: break
-                continue
+            # if last_inter is None:
+            #     last_inter = current_run_set
+            #     first_inter_size = len(last_inter)
+            #     if num_runs >= stab_upper_runs: break
+            #     continue
 
-            current_inter = last_inter & current_run_set
-            if current_inter == last_inter and num_runs > 2:
-                stabilized_gt = True
-                break
-            if num_runs >= stab_upper_runs:
-                stabilized_gt = False
-                last_inter = current_inter
-                break
-            last_inter = current_inter
+            # current_inter = last_inter & current_run_set
+            # if current_inter == last_inter and num_runs > 2:
+            #     stabilized_gt = True
+            #     break
+            # if num_runs >= stab_upper_runs:
+            #     stabilized_gt = False
+            #     last_inter = current_inter
+            #     break
+            # last_inter = current_inter
 
         ground_truth_runs_serializable = [[{"inode": i, "pc": p} for (i, p) in sorted(list(run_set))]
                                           for run_set in taint_runs]
@@ -1963,7 +1964,9 @@ def build_latex_table(df, caption="Aggregated results", label="tab:results"):
     lines.append(r"\end{table*}")
     return "\n".join(lines)
 
-def aggregate_pre_analysis_metrics(db_dir, mode, metric_name, max_runs=None, output_csv="out.csv", output_tex="out.tex"):
+def aggregate_pre_analysis_metrics(db_dir, mode, metric_name, max_runs=None,
+                                   output_csv="out.csv", output_tex="out.tex",
+                                   mapping_csv="analysis/fw_names.csv"):
     metric_name = metric_name.lower()
     mode = mode.lower()
     
@@ -1972,76 +1975,68 @@ def aggregate_pre_analysis_metrics(db_dir, mode, metric_name, max_runs=None, out
     
     if metric_name not in ("precision", "recall", "f1", "accuracy", "time"):
         raise ValueError("metric must be one of precision, recall, f1, accuracy, time")
+
+    if not os.path.exists(mapping_csv):
+        raise FileNotFoundError(f"Firmware mapping CSV not found: {mapping_csv}")
+    map_df = pd.read_csv(mapping_csv)
+    mapping = map_df.set_index("firmware").to_dict(orient="index")
     
     rows = []
     for brand in sorted(os.listdir(db_dir)):
         brand_path = os.path.join(db_dir, brand)
-        
         if not os.path.isdir(brand_path):
             continue
         
         for fw in sorted(os.listdir(brand_path)):
             fw_path = os.path.join(brand_path, fw)
-            
             if not os.path.isdir(fw_path):
                 continue
             
             run_dirs = [d for d in sorted(os.listdir(fw_path)) if d.startswith("pre_analysis_")]
-            
             if max_runs is not None:
                 run_dirs = run_dirs[:max_runs]
-            
             if not run_dirs:
                 continue
             
             per_run_results = []
-
             for run_dir in run_dirs:
                 run_path = os.path.join(fw_path, run_dir)
                 ground_truth_path = os.path.join(run_path, "ground_truth.json")
                 pre_path = os.path.join(run_path, "pre_analysis.json")
                 min_taint_path = os.path.join(run_path, "minimized_taint.json")
                 times_path = os.path.join(run_path, "times_ms.json")
-                info_path = os.path.join(run_path, "info.json")
-                taint_runs = _read_json_safe(ground_truth_path)
 
-                if not taint_runs:
-                    print(ground_truth_path)
-                    continue
+                taint_runs = _read_json_safe(ground_truth_path) or []
                 
                 gt_run_sets = [
-                    s for run in taint_runs
-                    if isinstance(run, list)
-                    for s in [_load_set_from_list_of_dicts(run)]
-                    if s
+                    _load_set_from_list_of_dicts(run) if isinstance(run, list) else set()
+                    for run in taint_runs
                 ]
 
-                if not gt_run_sets:
-                    continue
                 try:
-                    gt_set = set.union(*gt_run_sets) if len(gt_run_sets) > 1 else (gt_run_sets[0] if gt_run_sets else set())
+                    gt_set = set.union(*gt_run_sets) if gt_run_sets else set()
                 except Exception:
                     gt_set = set()
-                if not gt_set:
-                    continue
-                
+
                 pre_list = _read_json_safe(pre_path) or []
                 pre_set = _load_set_from_list_of_dicts(pre_list)
-                if (not pre_set):
-                    continue
+
                 min_list = _read_json_safe(min_taint_path) or []
                 min_set = _load_set_from_list_of_dicts(min_list)
+
                 per_run_entry = {"brand": brand, "firmware": fw, "run_dir": run_dir}
+
                 apre_pct = None
                 if os.path.exists(times_path):
                     times = _read_json_safe(times_path) or {}
                     gt_times = times.get("gt_runs_ms", []) or []
-                    minimized_time = times.get("minimized_run_ms", None)
+                    minimized_time = times.get("minimized_run_ms")
                     if gt_times and minimized_time and np.mean(gt_times) > 0:
                         avg_gt = float(np.mean(gt_times))
                         apre_pct = 100.0 * (avg_gt - float(minimized_time)) / avg_gt
+
                 if mode == "min_vs_orig":
-                    if (min_set):
+                    if min_set and gt_set:
                         metrics_min_vs_gt = set_based_metrics_from_sets(min_set, gt_set)
                         if metric_name == "time":
                             per_run_entry["apre_pct"] = apre_pct
@@ -2049,28 +2044,43 @@ def aggregate_pre_analysis_metrics(db_dir, mode, metric_name, max_runs=None, out
                             per_run_entry[f"min_{metric_name}"] = metrics_min_vs_gt.get(metric_name, 0.0)
                             per_run_entry["apre_pct"] = apre_pct
                 elif mode == "heu_vs_taint":
-                    single_run_metrics = []
-                    for single_run_set in gt_run_sets:
-                        if (single_run_set):
-                            m = set_based_metrics_from_sets(single_run_set, gt_set)
-                            single_run_metrics.append(m.get(metric_name, 0.0))
-                    mean_taint_metric = float(np.mean(single_run_metrics)) if single_run_metrics else None
-                    heuristic_metrics = set_based_metrics_from_sets(pre_set, gt_set)
-                    heuristic_metric_val = heuristic_metrics.get(metric_name, 0.0)
-                    per_run_entry[f"taint_{metric_name}"] = mean_taint_metric
-                    per_run_entry[f"heuristic_{metric_name}"] = heuristic_metric_val
+                    if gt_set:
+                        single_run_metrics = []
+                        for single_run_set in gt_run_sets:
+                            if single_run_set:
+                                m = set_based_metrics_from_sets(single_run_set, gt_set)
+                                single_run_metrics.append(m.get(metric_name, 0.0))
+                        mean_taint_metric = float(np.mean(single_run_metrics)) if single_run_metrics else None
+                        heuristic_metrics = set_based_metrics_from_sets(pre_set, gt_set)
+                        heuristic_metric_val = heuristic_metrics.get(metric_name, 0.0)
+                        per_run_entry[f"taint_{metric_name}"] = mean_taint_metric
+                        per_run_entry[f"heuristic_{metric_name}"] = heuristic_metric_val
+
                 per_run_entry["gt_size"] = len(gt_set)
                 per_run_entry["pre_size"] = len(pre_set)
                 per_run_entry["min_size"] = len(min_set)
+
                 per_run_results.append(per_run_entry)
+
+            
             if not per_run_results:
                 continue
+            
             row = OrderedDict()
             row["brand"] = brand
             row["firmware"] = fw
-
             row["#taint_hints"] = len(per_run_results)
             row["#taint_runs"] = len(gt_run_sets)
+            
+            if fw in mapping:
+                row["brand"] = mapping[fw]["brand"]
+                row["firmware"] = mapping[fw]["name"]
+                row["version"] = mapping[fw]["version"]
+            else:
+                row["brand"] = None
+                row["firmware"] = None
+                row["version"] = None
+
             if mode == "min_vs_orig":
                 apre_vals = [r["apre_pct"] for r in per_run_results if r.get("apre_pct") is not None]
                 row["avg_pre_pct"] = round(float(np.mean(apre_vals)), 2) if apre_vals else None
@@ -2078,27 +2088,33 @@ def aggregate_pre_analysis_metrics(db_dir, mode, metric_name, max_runs=None, out
                     vals = [r.get(f"min_{metric_name}") for r in per_run_results if r.get(f"min_{metric_name}") is not None]
                     row[f"avg_min_{metric_name}"] = round(float(np.mean(vals)), 2) if vals else None
             else:
-                mean_taint_vals = [r.get(f"taint_{metric_name}") for r in per_run_results if r.get(f"taint_{metric_name}") is not None]
                 heuristic_vals = [r.get(f"heuristic_{metric_name}") for r in per_run_results if r.get(f"heuristic_{metric_name}") is not None]
-                
                 row[f"avg_heu_{metric_name}"] = round(float(np.mean(heuristic_vals)), 2) if heuristic_vals else None
+            
             rows.append(row)
+    
     if not rows:
         print("No valid runs found to aggregate.")
         return pd.DataFrame()
+    
     df = pd.DataFrame(rows)
-    cols_order = ["brand", "firmware", "#taint_hints", "#taint_runs"]
+
+    cols_order = ["brand", "firmware", "version", "#taint_hints", "#taint_runs"]
     if "avg_pre_pct" in df.columns and mode == "min_vs_orig":
         cols_order.append("avg_pre_pct")
     if mode == "min_vs_orig" and metric_name != "time":
         cols_order.append(f"avg_min_{metric_name}")
     if mode == "heu_vs_taint":
-        cols_order += [f"avg_heu_{metric_name}"]
+        cols_order.append(f"avg_heu_{metric_name}")
+
+    df = df[cols_order]
+    
     df.to_csv(output_csv, index=False)
     mode = mode.replace("_", "\_")
     latex_str = build_latex_table(df, caption=f"Aggregated {metric_name} ({mode})", label="tab:agg_results")
     with open(output_tex, "w") as f:
         f.write(latex_str)
+    
     return df
 
 def print_usage():

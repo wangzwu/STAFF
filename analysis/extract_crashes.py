@@ -887,11 +887,14 @@ def build_three_tables_and_write_consistent(
         out1_csv="out1.csv", out1_tex="out1.tex",
         out2_csv="out2.csv", out2_tex="out2.tex",
         out3_csv="out3.csv", out3_tex="out3.tex",
+        firmwares_csv="analysis/fw_names.csv",
         verbose=True):
     """
-    Build tables and write CSV+LaTeX. Supports PC_RANGES global dict mapping:
-      PC_RANGES[firmware][module] = {fun_name: (start_int, end_int)}
-    If a pc falls inside a range, that crash is grouped under the function name as 'PC' column.
+    Build tables and write CSV+LaTeX with three tables:
+    - Table1: Number of crashes
+    - Table2: TTE crashes
+    - Table3: Rare crashes (staff_state_aware only)
+    Columns: brand, firmware, version, module, function (for Table2+3)
     """
     import re
     from collections import defaultdict
@@ -900,9 +903,33 @@ def build_three_tables_and_write_consistent(
     if methods is None:
         methods = DEFAULT_METHODS
 
-    # Build raw aggregation first
+    # Method abbreviations for headers
+    METHOD_ABBR = {
+        "aflnet_base": "AB",
+        "aflnet_state_aware": "ASA",
+        "triforce": "TRI",
+        "staff_state_aware": "STAFF"
+    }
+
+    # Load firmware -> (brand, name, version)
+    def load_firmware_map_triplet(path):
+        mapping = {}
+        with open(path, newline="", encoding="utf-8") as fh:
+            reader = csv.DictReader(fh)
+            for row in reader:
+                fw_file = row["firmware"].strip()
+                brand = row.get("brand", "").strip()
+                name = row.get("name", "").strip()
+                version = row.get("version", "").strip()
+                mapping[fw_file] = (brand, name, version)
+        return mapping
+
+    fw_map = load_firmware_map_triplet(firmwares_csv)
+
+    # Build raw aggregation
     agg_raw = build_agg_from_extracted(extracted_root=extracted_root, methods=methods, verbose=verbose)
 
+    # Flatten GROUPS mapping
     member_to_group = {}
     for group in GROUPS:
         if not group:
@@ -911,58 +938,36 @@ def build_three_tables_and_write_consistent(
         for member in group:
             member_to_group[member] = rep
 
+    # Helper: convert pc string to int
     def pc_to_int(pc_str):
-        """Convert pc string like '0x000034e0' (or decimal) to int; return None if fail."""
         if pc_str is None:
             return None
         s = str(pc_str).strip()
         try:
             return int(s, 0)
-        except Exception:
+        except:
             m = re.search(r"(0x[0-9a-fA-F]+)", s)
             if m:
-                try:
-                    return int(m.group(1), 16)
-                except Exception:
-                    pass
+                return int(m.group(1), 16)
             m2 = re.search(r"(\d+)", s)
             if m2:
-                try:
-                    return int(m2.group(1), 10)
-                except Exception:
-                    pass
+                return int(m2.group(1), 10)
         return None
 
+    # Map raw key into function ranges / GROUPS
     def map_key_by_range_and_groups_debug(fw, module, pc_str):
-        """Map raw crash key into group/function range with debug prints."""
         raw = (fw, module, pc_str)
         pc_int = pc_to_int(pc_str)
-
-        # 1) exact GROUPS match
         if raw in member_to_group:
-            rep = member_to_group[raw]
-            # print("[GROUPS] exact raw ->", rep)
-            # input("Press Enter (GROUPS matched)...")
-            return rep
-
-        # 2) normalized GROUPS match
+            return member_to_group[raw]
         if pc_int is not None:
             norm_pc = f"0x{pc_int:08x}"
             alt = (fw, module, norm_pc)
             if alt in member_to_group:
-                rep = member_to_group[alt]
-                # print("[GROUPS] normalized ->", rep)
-                # input("Press Enter (GROUPS normalized matched)...")
-                return rep
-
-        # 3) PC_RANGES mapping
-        matched_any_fw = False
+                return member_to_group[alt]
         for fw_key, modmap in PC_RANGES.items():
-            fw_match = (fw_key == fw) or (fw_key.lower() == fw.lower()) or (fw_key in fw) or (fw.lower() in fw_key.lower())
-            if not fw_match:
+            if fw_key.lower() != fw.lower() and fw_key not in fw and fw not in fw_key:
                 continue
-            matched_any_fw = True
-
             ranges = modmap.get(module) or modmap.get(module.lower())
             if not ranges:
                 continue
@@ -970,34 +975,18 @@ def build_three_tables_and_write_consistent(
                 pc_int = pc_to_int(pc_str)
                 if pc_int is None:
                     continue
-
             for fun_name, (start, end) in ranges.items():
                 try:
                     s = int(start)
                     e = int(end)
-                except Exception:
+                except:
                     continue
-                print(f"    Testing range {fun_name}: 0x{s:08x}-0x{e:08x} ; pc_int=0x{pc_int:08x}")
                 if s <= pc_int <= e:
-                    mapped = (fw, module, fun_name)
-                    # print("  -> MATCH! mapped to:", mapped)
-                    # input("Press Enter (RANGE matched)...")
-                    return mapped
-                else:
-                    print("    -> not in this range")
-
-        print("Finished searching PC_RANGES. matched_any_fw =", matched_any_fw)
-        print("No mapping found. Returning RAW key.")
-        # input("Press Enter to continue (no mapping)...")
+                    return (fw, module, fun_name)
         return raw
 
     def should_skip(fw, method, module):
-        """Check if (fw, method, module) should be skipped based on SKIP_MODULES."""
-        if (fw, method, module) in SKIP_MODULES:
-            return True
-        if (fw, "any", module) in SKIP_MODULES:
-            return True
-        return False
+        return (fw, method, module) in SKIP_MODULES or (fw, "any", module) in SKIP_MODULES
 
     # Remap agg_raw into agg applying ranges/groups
     agg = defaultdict(lambda: defaultdict(dict))
@@ -1005,29 +994,22 @@ def build_three_tables_and_write_consistent(
         mapped_key = map_key_by_range_and_groups_debug(fw, module, pc_key)
         for method_name, exp_map in method_dict.items():
             if should_skip(fw, method_name, module):
-                if verbose:
-                    print(f"[SKIP] ({fw}, {method_name}, {module})")
                 continue
             for exp, tte in exp_map.items():
                 prev = agg[mapped_key][method_name].get(exp)
                 if prev is None:
                     agg[mapped_key][method_name][exp] = tte
-                else:
-                    if prev is None:
-                        agg[mapped_key][method_name][exp] = tte
-                    elif tte is None:
-                        pass
-                    else:
-                        agg[mapped_key][method_name][exp] = min(prev, tte)
+                elif prev is not None and tte is not None:
+                    agg[mapped_key][method_name][exp] = min(prev, tte)
 
-    # ---------- Table1 ----------
-    firmware_set = sorted({k[0] for k in agg.keys()})
-    table1_rows = []
     competitor_names = ["aflnet_base", "aflnet_state_aware", "triforce"]
 
+    # ---------- Table1: Number of crashes ----------
+    firmware_set = sorted({k[0] for k in agg.keys()})
+    table1_rows = []
     for fw in firmware_set:
-        row = {"firmware": fw}
-
+        brand, name, version = fw_map.get(fw, ("", fw, ""))
+        row = {"brand": brand, "firmware": name, "version": version}
         for m in methods:
             per_run_crashes = defaultdict(set)
             for (f, module, pc), method_dict in agg.items():
@@ -1037,8 +1019,7 @@ def build_three_tables_and_write_consistent(
                     if tte is not None:
                         per_run_crashes[exp].add((f, module, pc))
             mean_crashes = (sum(len(s) for s in per_run_crashes.values()) / len(per_run_crashes)) if per_run_crashes else 0.0
-            row[f"{m}_mean_count"] = round(mean_crashes, 3)
-
+            row[f"{METHOD_ABBR.get(m, m)}_mean_cnt"] = round(mean_crashes, 3)
         rare_cnt = 0
         for (f, module, pc), method_dict in agg.items():
             if f != fw:
@@ -1047,12 +1028,12 @@ def build_three_tables_and_write_consistent(
             competitor_found = any(len(method_dict.get(c, {})) > 0 for c in competitor_names)
             if staff_found and not competitor_found:
                 rare_cnt += 1
-        row["rare_crashes_only_staff"] = rare_cnt
+        row["rare_crashes"] = rare_cnt
         table1_rows.append(row)
 
-    headers1 = ["firmware"] + [f"{m}_mean_count" for m in methods] + ["rare_crashes_only_staff"]
+    headers1 = ["brand", "firmware", "version"] + [f"{METHOD_ABBR.get(m, m)}_mean_cnt" for m in methods] + ["rare_crashes"]
 
-    # ---------- Table2+3 Combined ----------
+    # ---------- Table2: TTE crashes and Table3: rare crashes ----------
     def format_time_hm(seconds: float) -> str:
         if seconds is None:
             return ""
@@ -1062,64 +1043,300 @@ def build_three_tables_and_write_consistent(
         return f"{h}h{m}m"
 
     table23_rows = []
-    for (fw, module, pc), method_dict in sorted(
-        agg.items(), key=lambda x: (x[0][0], x[0][1], str(x[0][2]))
-    ):
-        row = {"firmware": fw, "module": module, "function": pc}  # rename PC column
+    table3_rows = []
+
+    for (fw, module, pc), method_dict in sorted(agg.items(), key=lambda x: (x[0][0], x[0][1], str(x[0][2]))):
+        brand, name, version = fw_map.get(fw, ("", fw, ""))
+        row = {"brand": brand, "firmware": name, "version": version, "module": module, "function": pc}
         for m in methods:
             cnt = len(method_dict.get(m, {}))
-            row[f"{m}_count"] = cnt
+            row[f"{METHOD_ABBR.get(m, m)}_cnt"] = cnt
             ttes = [v for v in method_dict.get(m, {}).values() if v is not None]
             avg_tte = (sum(ttes) / len(ttes)) if ttes else None
-            row[f"{m}_avg_tte"] = format_time_hm(avg_tte) if avg_tte is not None else ""
+            row[f"{METHOD_ABBR.get(m, m)}_avg_tte"] = format_time_hm(avg_tte) if avg_tte is not None else ""
         table23_rows.append(row)
 
+        # Rare crashes only
+        staff_found = "staff_state_aware" in method_dict and len(method_dict["staff_state_aware"]) > 0
+        competitor_found = any(len(method_dict.get(c, {})) > 0 for c in competitor_names)
+        if staff_found and not competitor_found:
+            rare_row = {"brand": brand, "firmware": name, "version": version, "module": module, "function": pc}
+            table3_rows.append(rare_row)
+
+    headers23 = ["brand", "firmware", "version", "module", "function"]
+    for m in methods:
+        headers23.append(f"{METHOD_ABBR.get(m, m)}_cnt")
+        headers23.append(f"{METHOD_ABBR.get(m, m)}_avg_tte")
+    headers3 = ["brand", "firmware", "version", "module", "function"]
+
+    # ---------- Write CSV + LaTeX ----------
+def build_three_tables_and_write_consistent(
+        extracted_root="extracted_crashes_outputs",
+        methods=None,
+        out1_csv="out1.csv", out1_tex="out1.tex",
+        out2_csv="out2.csv", out2_tex="out2.tex",
+        out3_csv="out3.csv", out3_tex="out3.tex",
+        firmwares_csv="analysis/fw_names.csv",
+        verbose=True):
+    """
+    Build tables and write CSV+LaTeX with three tables:
+    - Table1: Number of crashes
+    - Table2: TTE crashes
+    - Table3: Rare crashes (staff_state_aware only)
+    Columns: brand, firmware, version, module, function (for Table2+3)
+    """
+    import re
+    from collections import defaultdict
+    import csv
+
+    if methods is None:
+        methods = DEFAULT_METHODS
+
+    # Method abbreviations for headers
+    METHOD_ABBR = {
+        "aflnet_base": "AB",
+        "aflnet_state_aware": "ASA",
+        "triforce": "TRI",
+        "staff_state_aware": "STAFF"
+    }
+
+    # Load firmware -> (brand, name, version)
+    def load_firmware_map_triplet(path):
+        mapping = {}
+        with open(path, newline="", encoding="utf-8") as fh:
+            reader = csv.DictReader(fh)
+            for row in reader:
+                fw_file = row["firmware"].strip()
+                brand = row.get("brand", "").strip()
+                name = row.get("name", "").strip()
+                version = row.get("version", "").strip()
+                mapping[fw_file] = (brand, name, version)
+        return mapping
+
+    fw_map = load_firmware_map_triplet(firmwares_csv)
+
+    # Build raw aggregation
+    agg_raw = build_agg_from_extracted(extracted_root=extracted_root, methods=methods, verbose=verbose)
+
+    # Flatten GROUPS mapping
+    member_to_group = {}
+    for group in GROUPS:
+        if not group:
+            continue
+        rep = group[0]
+        for member in group:
+            member_to_group[member] = rep
+
+    # Helper: convert pc string to int
+    def pc_to_int(pc_str):
+        if pc_str is None:
+            return None
+        s = str(pc_str).strip()
+        try:
+            return int(s, 0)
+        except:
+            m = re.search(r"(0x[0-9a-fA-F]+)", s)
+            if m:
+                return int(m.group(1), 16)
+            m2 = re.search(r"(\d+)", s)
+            if m2:
+                return int(m2.group(1), 10)
+        return None
+
+    # Map raw key into function ranges / GROUPS
+    def map_key_by_range_and_groups_debug(fw, module, pc_str):
+        raw = (fw, module, pc_str)
+        pc_int = pc_to_int(pc_str)
+        if raw in member_to_group:
+            return member_to_group[raw]
+        if pc_int is not None:
+            norm_pc = f"0x{pc_int:08x}"
+            alt = (fw, module, norm_pc)
+            if alt in member_to_group:
+                return member_to_group[alt]
+        for fw_key, modmap in PC_RANGES.items():
+            if fw_key.lower() != fw.lower() and fw_key not in fw and fw not in fw_key:
+                continue
+            ranges = modmap.get(module) or modmap.get(module.lower())
+            if not ranges:
+                continue
+            if pc_int is None:
+                pc_int = pc_to_int(pc_str)
+                if pc_int is None:
+                    continue
+            for fun_name, (start, end) in ranges.items():
+                try:
+                    s = int(start)
+                    e = int(end)
+                except:
+                    continue
+                if s <= pc_int <= e:
+                    return (fw, module, fun_name)
+        return raw
+
+    def should_skip(fw, method, module):
+        return (fw, method, module) in SKIP_MODULES or (fw, "any", module) in SKIP_MODULES
+
+    # Remap agg_raw into agg applying ranges/groups
+    agg = defaultdict(lambda: defaultdict(dict))
+    for (fw, module, pc_key), method_dict in agg_raw.items():
+        mapped_key = map_key_by_range_and_groups_debug(fw, module, pc_key)
+        for method_name, exp_map in method_dict.items():
+            if should_skip(fw, method_name, module):
+                continue
+            for exp, tte in exp_map.items():
+                prev = agg[mapped_key][method_name].get(exp)
+                if prev is None:
+                    agg[mapped_key][method_name][exp] = tte
+                elif prev is not None and tte is not None:
+                    agg[mapped_key][method_name][exp] = min(prev, tte)
+
+    competitor_names = ["aflnet_base", "aflnet_state_aware", "triforce"]
+
+    # ---------- Table1: Number of crashes ----------
+    firmware_set = sorted({k[0] for k in agg.keys()})
+    table1_rows = []
+
+    for fw in firmware_set:
+        brand, name, version = fw_map.get(fw, ("", fw, ""))
+        row = {"brand": brand, "firmware": name, "version": version}
+
+        # Compute mean crashes per method
+        for m in methods:
+            per_run_crashes = defaultdict(set)
+            for (f, module, pc), method_dict in agg.items():
+                if f != fw:
+                    continue
+                for exp, tte in method_dict.get(m, {}).items():
+                    if tte is not None:
+                        per_run_crashes[exp].add((f, module, pc))
+            mean_crashes = (
+                sum(len(s) for s in per_run_crashes.values()) / len(per_run_crashes)
+                if per_run_crashes else 0.0
+            )
+            # Use abbreviation for the column name
+            col_name = f"{METHOD_ABBR.get(m, m)}_mean_cnt"
+            row[col_name] = round(mean_crashes, 3)
+
+        # Compute "rare crashes"
+        rare_cnt = 0
+        for (f, module, pc), method_dict in agg.items():
+            if f != fw:
+                continue
+            staff_found = "staff_state_aware" in method_dict and len(method_dict["staff_state_aware"]) > 0
+            competitor_found = any(len(method_dict.get(c, {})) > 0 for c in competitor_names)
+            if staff_found and not competitor_found:
+                rare_cnt += 1
+        row["rare_crashes"] = rare_cnt
+        table1_rows.append(row)
+
+    # Table headers using abbreviations
+    headers1 = ["brand", "firmware", "version"] + [f"{METHOD_ABBR.get(m, m)}_mean_cnt" for m in methods] + ["rare_crashes"]
+
+    # ---------- Table2: TTE crashes and Table3: rare crashes ----------
+    def format_time_hm(seconds: float) -> str:
+        if seconds is None:
+            return ""
+        seconds = int(seconds)
+        h = seconds // 3600
+        m = (seconds % 3600) // 60
+        return f"{h}h{m}m"
+
+    table23_rows = []
+    table3_rows = []
+
+    for (fw, module, pc), method_dict in sorted(agg.items(), key=lambda x: (x[0][0], x[0][1], str(x[0][2]))):
+        brand, name, version = fw_map.get(fw, ("", fw, ""))
+        # row = {"brand": brand, "firmware": name, "version": version, "module": module, "function": pc}
+        row = {"firmware": name, "module": module, "function": pc}
+        for m in methods:
+            cnt = len(method_dict.get(m, {}))
+            row[f"{METHOD_ABBR.get(m, m)}_cnt"] = cnt
+            ttes = [v for v in method_dict.get(m, {}).values() if v is not None]
+            avg_tte = (sum(ttes) / len(ttes)) if ttes else None
+            row[f"{METHOD_ABBR.get(m, m)}_avg_tte"] = format_time_hm(avg_tte) if avg_tte is not None else ""
+        table23_rows.append(row)
+
+        # Rare crashes only
+        staff_found = "staff_state_aware" in method_dict and len(method_dict["staff_state_aware"]) > 0
+        competitor_found = any(len(method_dict.get(c, {})) > 0 for c in competitor_names)
+        if staff_found and not competitor_found:
+            rare_row = {"brand": brand, "firmware": name, "version": version, "module": module, "function": pc}
+            table3_rows.append(rare_row)
+
+    # headers23 = ["brand", "firmware", "version", "module", "function"]
     headers23 = ["firmware", "module", "function"]
     for m in methods:
-        headers23.append(f"{m}_count")
-        headers23.append(f"{m}_avg_tte")
+        headers23.append(f"{METHOD_ABBR.get(m, m)}_cnt")
+        headers23.append(f"{METHOD_ABBR.get(m, m)}_avg_tte")
+    headers3 = ["brand", "firmware", "version", "module", "function"]
 
-    # pandas writing
-    pd = None
-    try:
+    # ---------- Write CSV + LaTeX ----------
+    def write_pair(headers, rows, csv_path, tex_path, caption="", count_tte_table=False):
         import pandas as pd
-    except Exception:
-        pd = None
+        pd = pd if "pd" in globals() else None
 
-    def write_pair(headers, rows, csv_path, tex_path, count_tte_table=False):
+        def latex_escape(s):
+            if s is None:
+                return ""
+            s = str(s).replace("_", "\\_")
+            s = s.replace("mean\\_", "\\(\\mu\\)")
+            s = s.replace("avg\\_", "\\(\\mu\\)")
+            return s
+
         if pd is not None and rows:
-            try:
-                df = pd.DataFrame(rows)
-                for h in headers:
-                    if h not in df.columns:
-                        df[h] = None
-                df = df[headers]
-                df.to_csv(csv_path, index=False, encoding="utf-8")
-                try:
+            df = pd.DataFrame(rows)
+            for h in headers:
+                if h not in df.columns:
+                    df[h] = None
+            df = df[headers]
+            df.to_csv(csv_path, index=False, encoding="utf-8")
+
+            with open(tex_path, "w", encoding="utf-8") as fh:
+                fh.write("\\begin{table*}[ht]\n\\centering\n")
+                col_format = "l" * len(headers) if not count_tte_table else "l" * 3 + "cc" * len(methods)
+                fh.write(f"\\begin{{tabular}}{{{col_format}}}\n")
+
+                if count_tte_table:
+                    first_row = ["firmware", "module", "function"]
+                    for m in methods:
+                        abbr = METHOD_ABBR.get(m, m)
+                        first_row.append(f"\\multicolumn{{2}}{{c}}{{{latex_escape(abbr)}}}")
+                    fh.write(" & ".join(first_row) + " \\\\\n")
+                    second_row = [""] * 3
+                    for _ in methods:
+                        second_row.append("cnt")
+                        second_row.append("TTE")
+                    fh.write(" & ".join(second_row) + " \\\\\n\\hline\n")
+                else:
+                    fh.write(" & ".join(latex_escape(h) for h in headers) + " \\\\\n\\hline\n")
+
+                # --- Write rows ---
+                for row in rows:
                     if count_tte_table:
-                        _write_tex_table_count_tte(headers, rows, methods, tex_path, verbose=verbose)
+                        values = [latex_escape(row.get(h, "")) for h in ["firmware","module","function"]]
+                        for m in methods:
+                            abbr = METHOD_ABBR.get(m, m)
+                            values.append(str(row.get(f"{abbr}_cnt", "")))
+                            values.append(str(row.get(f"{abbr}_avg_tte", "")))
                     else:
-                        latex = df.to_latex(index=False, longtable=True)
-                        with open(tex_path, "w", encoding="utf-8") as fh:
-                            fh.write(latex)
-                except Exception:
-                    _write_tex_table(headers, rows, tex_path, verbose=verbose)
-                if verbose:
-                    print(f"[WRITE] CSV -> {csv_path} (pandas) ; LaTeX -> {tex_path}")
-                return
-            except Exception as e:
-                if verbose:
-                    print(f"[WARN] pandas write failed, falling back: {e}")
-        _write_csv_rows(headers, rows, csv_path, verbose=verbose)
-        if count_tte_table:
-            _write_tex_table_count_tte(headers, rows, methods, tex_path, verbose=verbose)
-        else:
-            _write_tex_table(headers, rows, tex_path, verbose=verbose)
+                        values = [latex_escape(row.get(h, "")) for h in headers]
+                    fh.write(" & ".join(values) + " \\\\\n")
 
-    write_pair(headers1, table1_rows, out1_csv, out1_tex)
-    write_pair(headers23, table23_rows, out2_csv, out2_tex, count_tte_table=True)
+                fh.write("\\end{tabular}\n")
+                if caption:
+                    fh.write(f"\\caption{{{latex_escape(caption)}}}\n")
+                fh.write("\\end{table*}\n")
 
-    return (table1_rows, table23_rows), agg
+            if pd is not None:
+                print(f"[WRITE] CSV -> {csv_path} ; LaTeX -> {tex_path}")
+
+    write_pair(headers1, table1_rows, out1_csv, out1_tex, caption="Number of crashes")
+    write_pair(headers23, table23_rows, out2_csv, out2_tex, caption="TTE crashes", count_tte_table=True)
+    write_pair(headers3, table3_rows, out3_csv, out3_tex, caption="Rare crashes")
+
+    return (table1_rows, table23_rows, table3_rows), agg
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -1154,7 +1371,7 @@ if __name__ == "__main__":
     if verbose:
         import pprint
         pprint.pprint(PC_RANGES)
-    input("PC_RANGES loaded — press Enter to continue...")
+    # input("PC_RANGES loaded — press Enter to continue...")
     
     unify_crash_and_trace_filenames()
 
