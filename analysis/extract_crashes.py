@@ -11,7 +11,8 @@ import textwrap
 from collections import defaultdict
 from typing import Dict, Tuple
 
-SKIP_MODULES = {("dap2310_v1.00_o772.bin", "any", "ethlink"), ("dap2310_v1.00_o772.bin", "any", "aparraymsg"),
+SKIP_MODULES = {("dap2310_v1.00_o772.bin", "any", "neaps_array"), ("dap2310_v1.00_o772.bin", "any", "neaps_array"),
+                ("dap2310_v1.00_o772.bin", "any", "ethlink"), ("dap2310_v1.00_o772.bin", "any", "aparraymsg"),
                 ("dir300_v1.03_7c.bin", "any", "ethlink"), ("dir300_v1.03_7c.bin", "any", "aparraymsg"), 
                 ("FW_RT_N10U_B1_30043763754.zip", "any", "u2ec"), ("DGND3300_Firmware_Version_1.1.00.22__North_America_.zip", "any", "potcounter"),
                 ("DGND3300_Firmware_Version_1.1.00.22__North_America_.zip", "any", "busybox"), ("FW_RE1000_1.0.02.001_US_20120214_SHIPPING.bin", "any", "upnp"),
@@ -61,7 +62,7 @@ def _parse_num_token(tok: str):
 
 def load_pc_ranges_from_csv(csv_path: str = "crashes.csv",
                             output_py: str = "pc_ranges_generated.py",
-                            verbose: bool = True) -> Dict[str, Dict[str, Dict[str, Tuple[int,int]]]]:
+                            verbose: bool = True) -> Dict[str, Dict[str, Dict[str, Tuple[int,int,str]]]]:
     pc_ranges = defaultdict(lambda: defaultdict(dict))
 
     if not os.path.isfile(csv_path):
@@ -101,6 +102,10 @@ def load_pc_ranges_from_csv(csv_path: str = "crashes.csv",
                 if m:
                     func_tok = m.group(0)
 
+            category = None
+            if len(cols) >= 6:
+                category = cols[5].strip()
+
             func_name = None
             if func_tok is not None:
                 fn = str(func_tok).strip()
@@ -131,11 +136,12 @@ def load_pc_ranges_from_csv(csv_path: str = "crashes.csv",
                 if verbose:
                     old = pc_ranges[firmware][module][func_name]
                     print(f"[WARN] row {row_no}: duplicate function '{func_name}' for {firmware}/{module}; "
-                          f"old={hex(old[0])}-{hex(old[1])} -> new={hex(s_int)}-{hex(e_int)} (overwriting)")
+                          f"old={old} -> new={(s_int,e_int,category)} (overwriting)")
 
-            pc_ranges[firmware][module][func_name] = (s_int, e_int)
+            pc_ranges[firmware][module][func_name] = (s_int, e_int, category)
             if verbose:
-                print(f"[ROW {row_no}] {firmware} / {module} -> {func_name}: 0x{s_int:08x}-0x{e_int:08x}")
+                print(f"[ROW {row_no}] {firmware} / {module} -> {func_name}: "
+                      f"0x{s_int:08x}-0x{e_int:08x} [{category}]")
 
     pc_ranges = {fw: {mod: dict(funcs) for mod, funcs in mods.items()} for fw, mods in pc_ranges.items()}
 
@@ -146,8 +152,9 @@ def load_pc_ranges_from_csv(csv_path: str = "crashes.csv",
         lines.append(f"    {fw!r}: {{")
         for mod, funcs in sorted(mods.items()):
             lines.append(f"        {mod!r}: {{")
-            for fname, (s, e) in sorted(funcs.items()):
-                lines.append(f"            {fname!r}: (0x{s:08x}, 0x{e:08x}),")
+            for fname, (s, e, cat) in sorted(funcs.items()):
+                cat_repr = repr(cat) if cat is not None else "None"
+                lines.append(f"            {fname!r}: (0x{s:08x}, 0x{e:08x}, {cat_repr}),")
             lines.append("        },")
         lines.append("    },")
     lines.append("}")
@@ -706,7 +713,7 @@ def build_agg_from_extracted(extracted_root="extracted_crashes_outputs", verbose
 
     return agg
 
-def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte_table=False):
+def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte_table=False, add_category_col=False):
     import pandas as pd
     from collections import defaultdict
 
@@ -728,7 +735,7 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
             fh.write("\\setlength{\\tabcolsep}{4pt}\n")
             col_format = "|" + "|".join("l" for _ in headers) + "|"
             fh.write(f"\\begin{{tabular}}{{{col_format}}}\n\\hline\n")
-            fh.write(" & ".join(latex_escape(h) for h in headers) + " \\\\\n\\hline\n")
+            fh.write(" & ".join("\\textbf{" + latex_escape(h) + "}" for h in headers) + " \\\\\n\\hline\n")
             fh.write("\\end{tabular}\n")
             if caption:
                 fh.write(f"\\caption{{{latex_escape(caption)}}}\n")
@@ -750,7 +757,7 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
         if not count_tte_table:
             col_format = "|" + "|".join("l" for _ in headers) + "|"
         else:
-            col_format = "|l|l|l|" + "|".join("c|c" for _ in DEFAULT_METHODS)
+            col_format = "|l|l|l|l|" + "|".join("c|c" for _ in DEFAULT_METHODS)
         if not col_format.endswith("|"):
             col_format += "|"
 
@@ -759,12 +766,16 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
 
         if count_tte_table:
             first_row = ["\\textbf{Firmware}", "\\textbf{Binary}", "\\textbf{Function}"]
+            if add_category_col:
+                first_row.append("\\textbf{Category}")
             for m in DEFAULT_METHODS:
                 abbr = METHOD_ABBR.get(m, m)
                 first_row.append(f"\\multicolumn{{2}}{{c|}}{{\\textbf{{{latex_escape(abbr)}}}}}")
             fh.write(" & ".join(first_row) + " \\\\\n")
 
             second_row = ["", "", ""]
+            if add_category_col:
+                second_row.append("")
             for _ in DEFAULT_METHODS:
                 second_row.append("\\textbf{cnt}")
                 second_row.append("\\textbf{TTE}")
@@ -775,7 +786,7 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
             for row in rows:
                 grouped[row["firmware"]][row["module"]].append(row)
 
-            total_cols = 3 + 2 * len(DEFAULT_METHODS)
+            total_cols = 3 + (1 if add_category_col else 0) + 2 * len(DEFAULT_METHODS)
             cline_rest_start = 2
             cline_rest_end = total_cols
 
@@ -805,6 +816,10 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
                             cells.append("")
 
                         cells.append(latex_escape(row.get("function", "")))
+
+                        if add_category_col:
+                            cells.append(latex_escape(row.get("category", "")))
+
                         for m in DEFAULT_METHODS:
                             abbr = METHOD_ABBR.get(m, m)
                             cells.append(str(row.get(f"{abbr}_cnt", "")))
@@ -834,6 +849,7 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
 
     print(f"[WRITE] CSV -> {csv_path} ; LaTeX -> {tex_path}")
 
+
 def build_three_tables_and_write_consistent(
         extracted_root="extracted_crashes_outputs",
         out1_csv="out1.csv", out1_tex="out1.tex",
@@ -857,6 +873,7 @@ def build_three_tables_and_write_consistent(
     fw_map = load_firmware_map_triplet(firmwares_csv)
 
     agg_raw = build_agg_from_extracted(extracted_root=extracted_root, verbose=verbose)
+
     def pc_to_int(pc_str):
         if pc_str is None:
             return None
@@ -873,7 +890,7 @@ def build_three_tables_and_write_consistent(
         return None
 
     def map_key_by_range_and_groups(fw, module, pc_str):
-        raw = (fw, module, pc_str)
+        raw = (fw, module, pc_str, None)
         pc_int = pc_to_int(pc_str)
         for fw_key, modmap in PC_RANGES.items():
             if fw_key.lower() != fw.lower() and fw_key not in fw and fw not in fw_key:
@@ -885,14 +902,19 @@ def build_three_tables_and_write_consistent(
                 pc_int = pc_to_int(pc_str)
                 if pc_int is None:
                     continue
-            for fun_name, (start, end) in ranges.items():
+            for fun_name, tpl in ranges.items():
+                if len(tpl) == 3:
+                    start, end, category = tpl
+                else:
+                    start, end = tpl
+                    category = None
                 try:
                     s = int(start)
                     e = int(end)
                 except:
                     continue
                 if s <= pc_int <= e:
-                    return (fw, module, fun_name)
+                    return (fw, module, fun_name, category)
         return raw
 
     def should_skip(fw, method, module):
@@ -921,10 +943,9 @@ def build_three_tables_and_write_consistent(
         brand, name, version = fw_map.get(fw, ("", fw, ""))
         row = {"brand": brand, "firmware": name, "version": version}
 
-        # Compute mean crashes per method
         for m in DEFAULT_METHODS:
             per_run_crashes = defaultdict(set)
-            for (f, module, pc), method_dict in agg.items():
+            for (f, module, pc, category), method_dict in agg.items():
                 if f != fw:
                     continue
                 for exp, tte in method_dict.get(m, {}).items():
@@ -937,9 +958,9 @@ def build_three_tables_and_write_consistent(
             col_name = f"{METHOD_ABBR.get(m, m)}_mean_cnt"
             row[col_name] = round(mean_crashes, 3)
 
-        # Compute "rare crashes"
+        # rare crashes
         rare_cnt = 0
-        for (f, module, pc), method_dict in agg.items():
+        for (f, module, pc, category), method_dict in agg.items():
             if f != fw:
                 continue
             staff_found = "staff_state_aware" in method_dict and len(method_dict["staff_state_aware"]) > 0
@@ -951,13 +972,20 @@ def build_three_tables_and_write_consistent(
 
     headers1 = ["brand", "firmware", "version"] + [f"{METHOD_ABBR.get(m, m)}_mean_cnt" for m in DEFAULT_METHODS] + ["rare_crashes"]
 
-    # ---------- Table2: TTE crashes and Table3: rare crashes ----------
+    # ---------- Table2 & Table3 ----------
     table2_rows = []
     table3_rows = []
 
-    for (fw, module, pc), method_dict in sorted(agg.items(), key=lambda x: (x[0][0], x[0][1], str(x[0][2]))):
+    for (fw, module, func_or_pc, category), method_dict in sorted(
+        agg.items(), key=lambda x: (x[0][0], x[0][1], str(x[0][2]))
+    ):
         brand, name, version = fw_map.get(fw, ("", fw, ""))
-        row = {"firmware": name, "module": module, "function": pc}
+        row = {
+            "firmware": name,
+            "module": module,
+            "function": func_or_pc,
+            "category": category or "",
+        }
         for m in DEFAULT_METHODS:
             cnt = len(method_dict.get(m, {}))
             row[f"{METHOD_ABBR.get(m, m)}_cnt"] = cnt
@@ -969,18 +997,25 @@ def build_three_tables_and_write_consistent(
         staff_found = "staff_state_aware" in method_dict and len(method_dict["staff_state_aware"]) > 0
         competitor_found = any(len(method_dict.get(c, {})) > 0 for c in competitor_names)
         if staff_found and not competitor_found:
-            rare_row = {"brand": brand, "firmware": name, "version": version, "module": module, "function": pc}
+            rare_row = {
+                "brand": brand,
+                "firmware": name,
+                "version": version,
+                "module": module,
+                "function": func_or_pc,
+                "category": category or "",
+            }
             table3_rows.append(rare_row)
 
-    headers2 = ["firmware", "module", "function"]
+    headers2 = ["firmware", "module", "function", "category"]
     for m in DEFAULT_METHODS:
         headers2.append(f"{METHOD_ABBR.get(m, m)}_cnt")
         headers2.append(f"{METHOD_ABBR.get(m, m)}_avg_tte")
-    headers3 = ["brand", "firmware", "version", "module", "function"]
+    headers3 = ["brand", "firmware", "version", "module", "function", "category"]
 
     write_csv_and_latex(headers1, table1_rows, out1_csv, out1_tex, caption="Number of crashes")
-    write_csv_and_latex(headers2, table2_rows, out2_csv, out2_tex, caption="TTE crashes", count_tte_table=True)
-    write_csv_and_latex(headers3, table3_rows, out3_csv, out3_tex, caption="Rare crashes")
+    write_csv_and_latex(headers2, table2_rows, out2_csv, out2_tex, caption="TTE crashes", count_tte_table=True, add_category_col=True)
+    write_csv_and_latex(headers3, table3_rows, out3_csv, out3_tex, caption="Rare crashes", add_category_col=True)
 
     return (table1_rows, table2_rows, table3_rows), agg
 
