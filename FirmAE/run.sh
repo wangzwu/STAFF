@@ -135,9 +135,12 @@ function cleanup_on_exit() {
     chmod 777 "$csv_file_path"
 
     if [ ! ${OPTION} = "check" ]; then
-        if [[ ${MODE} = "run" ]]; then
-            ${WORK_DIR}/run.sh 1
-
+        if [[ ${MODE} == "run" || ${MODE} == *"pre_analysis"* || ${MODE} == *"pre_exp"* ]]; then
+            if [[ ${MODE} == "run" ]]; then
+                ${WORK_DIR}/run.sh 1
+            else
+                ${WORK_DIR}/run_${MODE}.sh 1
+            fi
             echo "[*] cleanup"
             ./flush_interface.sh > /dev/null 2>&1;
             echo "======================================"

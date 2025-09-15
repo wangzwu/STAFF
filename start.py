@@ -26,12 +26,18 @@ patterns = [
     "FirmAE/scratch/staff*",
     "FirmAE/scratch/aflnet*",
     "FirmAE/scratch/triforce*",
+    "FirmAE/scratch/pre_analysis*",
+    "FirmAE/scratch/pre_exp*",
     "FirmAE/images/staff*",
     "FirmAE/images/aflnet*",
     "FirmAE/images/triforce*",
+    "FirmAE/images/pre_analysis*",
+    "FirmAE/images/pre_exp*",
     "FirmAE/firm_db_aflnet*",
     "FirmAE/firm_db_staff*",
-    "FirmAE/firm_db_triforce*"
+    "FirmAE/firm_db_triforce*",
+    "FirmAE/firm_db_pre_analysis*",
+    "FirmAE/firm_db_pre_exp*",
 ]
 
 DEFAULT_CONFIG = {
@@ -333,6 +339,12 @@ def copy_image(dst_mode, firmware):
     elif "aflnet_state_aware" in dst_mode:
         suffix = dst_mode.split("aflnet_state_aware", 1)[1]
         dst_abbr_mode = f"as{suffix}"
+    elif "pre_analysis" in dst_mode:
+        suffix = dst_mode.split("pre_analysis", 1)[1]
+        dst_abbr_mode = f"pa{suffix}"
+    elif "pre_exp" in dst_mode:
+        suffix = dst_mode.split("pre_exp", 1)[1]
+        dst_abbr_mode = f"pe{suffix}"
     else:
         assert(0)
 
@@ -983,14 +995,15 @@ def fuzz(out_dir, container_name, replay_exp):
 
     return ret
 
-def pre_analysis():
+def pre_analysis(container_name):
     global config
 
+    mode = container_name if container_name else config["GENERAL"]["mode"]
     os.environ["INCLUDE_LIBRARIES"] = str(config["EMULATION_TRACING"]["include_libraries"])
 
     if (config["GENERAL"]["firmware"] != "all"):
-        iid = str(check("run"))
-        work_dir = os.path.join(FIRMAE_DIR, "scratch", "run", iid)
+        iid = str(check(mode))
+        work_dir = os.path.join(FIRMAE_DIR, "scratch", mode, iid)
 
         if "true" in open(os.path.join(work_dir, "web_check")).read():
             with open(os.path.join(work_dir, "time_web"), 'r') as file:
@@ -999,7 +1012,7 @@ def pre_analysis():
 
             taint_dir = get_taint_dir(config["PRE-ANALYSIS"]["pre_analysis_id"], TAINT_DIR)
             print(f"PRE-ANALYSIS dir: {taint_dir}")
-            taint(FIRMAE_DIR, taint_dir, work_dir, "run", config["GENERAL"]["firmware"], sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
+            taint(FIRMAE_DIR, taint_dir, work_dir, mode, config["GENERAL"]["firmware"], sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
     else:
         firmware_brands = {}
         
@@ -1022,8 +1035,8 @@ def pre_analysis():
         for brand, devices in firmware_brands.items():
             for device, files in devices.items():
                 print(f"Pre-analyzing {os.path.basename(brand)}/{os.path.basename(device)}")
-                iid = str(check_firmware(os.path.join(os.path.basename(brand), os.path.basename(device)), "run"))
-                work_dir = os.path.join(FIRMAE_DIR, "scratch", "run", iid)
+                iid = str(check_firmware(os.path.join(os.path.basename(brand), os.path.basename(device)), mode))
+                work_dir = os.path.join(FIRMAE_DIR, "scratch", mode, iid)
 
                 if "true" in open(os.path.join(work_dir, "web_check")).read():
                     with open(os.path.join(work_dir, "time_web"), 'r') as file:
@@ -1032,7 +1045,7 @@ def pre_analysis():
 
                     taint_dir = get_taint_dir(config["PRE-ANALYSIS"]["pre_analysis_id"], TAINT_DIR)
                     print(f"PRE-ANALYSIS dir: {taint_dir}")
-                    taint(FIRMAE_DIR, taint_dir, work_dir, "run", os.path.join(os.path.basename(brand), os.path.basename(device)), sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
+                    taint(FIRMAE_DIR, taint_dir, work_dir, mode, os.path.join(os.path.basename(brand), os.path.basename(device)), sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
 
 def crash_analysis(_=None):
     global config
@@ -1253,6 +1266,7 @@ def crash_analysis(_=None):
                     crash_trace = crash_file_path.replace("crashes", "crash_traces")
                 else:
                     crash_trace = os.path.join(crash_file_path.replace("crashes", "crash_traces"), "seed")
+                    continue
 
                 with open(crash_trace) as tf:
                     not_reproducible = False
@@ -1266,7 +1280,7 @@ def crash_analysis(_=None):
                         ))
                         work_dir = os.path.join(FIRMAE_DIR, "scratch", "run", iid)
                         if "true" in open(os.path.join(work_dir, "web_check")).read():
-                            if "seed" not in crash_trace:
+                            if "/seed" not in crash_trace:
                                 replay_firmware(
                                     os.path.join(os.path.dirname(config["GENERAL"]["firmware"]), base_fw),
                                     work_dir, True,
@@ -1275,7 +1289,7 @@ def crash_analysis(_=None):
                                 )
                             dest = os.path.join(crash_file_path.replace("crashes", "crash_traces"))
 
-                            if "seed" not in crash_trace:
+                            if "/seed" not in crash_trace:
                                 ret = move_dir_contents(os.path.join(work_dir, "crash_analysis"), dest)
                                 if ret is False:
                                     not_reproducible = True
@@ -1283,7 +1297,7 @@ def crash_analysis(_=None):
                                 shutil.copy(os.path.join(work_dir, "qemu.final.serial.log"), dest)
 
                             for fn in os.listdir(dest):
-                                if "qemu" not in fn and "seed" not in fn:
+                                if "qemu" not in fn and "/seed" not in fn:
                                     print(os.path.join(dest, fn))
                                     annotate_log_file(os.path.join(dest, fn), extract_dir)
 
@@ -1351,17 +1365,17 @@ def start(keep_config, reset_firmware_images, replay_exp, out_dir, container_nam
         check("run")
         if out_dir:
             update_schedule_status(SCHEDULE_CSV_PATH_1, "succeeded", os.path.basename(out_dir))
-    elif mode == "pre_analysis":
+    elif "pre_analysis" in mode:
         if os.path.exists(os.path.join(STAFF_DIR, "wait_for_container_init")):
             os.remove(os.path.join(STAFF_DIR, "wait_for_container_init"))
-        pre_analysis()
+        pre_analysis(container_name)
         if out_dir:
             update_schedule_status(SCHEDULE_CSV_PATH_1, "succeeded", os.path.basename(out_dir))
-    elif mode == "pre_analysis_exp":
+    elif "pre_exp" in mode:
         if os.path.exists(os.path.join(STAFF_DIR, "wait_for_container_init")):
             os.remove(os.path.join(STAFF_DIR, "wait_for_container_init"))
-        iid = str(check("run"))
-        work_dir = os.path.join(FIRMAE_DIR, "scratch", "run", iid)
+        iid = str(check(container_name if container_name else config["GENERAL"]["mode"]))
+        work_dir = os.path.join(FIRMAE_DIR, "scratch", container_name if container_name else config["GENERAL"]["mode"], iid)
 
         if "true" in open(os.path.join(work_dir, "web_check")).read():
             with open(os.path.join(work_dir, "time_web"), 'r') as file:
@@ -1374,7 +1388,7 @@ def start(keep_config, reset_firmware_images, replay_exp, out_dir, container_nam
             taint_dir = get_taint_dir(config["PRE-ANALYSIS"]["pre_analysis_id"], TAINT_DIR)
             print(f"PRE-ANALYSIS dir: {taint_dir}")
 
-            pre_analysis_exp(PRE_ANALYSIS_EXP_DIR, FIRMAE_DIR, work_dir, config["GENERAL"]["firmware"], os.path.basename(config["AFLNET_FUZZING"]["proto"]), config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"], sleep, config["GENERAL_FUZZING"]["timeout"], taint_dir, config["PRE-ANALYSIS"]["pre_analysis_id"])
+            pre_analysis_exp(os.path.join(PRE_ANALYSIS_EXP_DIR, "pre_analysis_"+str(config["PRE-ANALYSIS"]["pre_analysis_id"])), FIRMAE_DIR, work_dir, config["GENERAL"]["firmware"], os.path.basename(config["AFLNET_FUZZING"]["proto"]), config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"], sleep, config["GENERAL_FUZZING"]["timeout"], taint_dir, config["PRE-ANALYSIS"]["pre_analysis_id"])
         
         if out_dir:
             update_schedule_status(SCHEDULE_CSV_PATH_1, "succeeded", os.path.basename(out_dir))

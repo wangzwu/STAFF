@@ -25,6 +25,7 @@ import csv
 import random
 import argparse
 import pandas as pd
+import fnmatch
 
 
 RESET = "\033[0m"
@@ -105,18 +106,29 @@ def send_signal_recursive(target_pid, signal_code):
         os.kill(target_pid, signal_code)
 
 def cleanup(firmae_dir, work_dir):
-    print("\n[*] Cleanup Procedure..")
+    print("\n[*] Cleanup Procedure...")
 
-    if os.path.exists(os.path.join(work_dir, "debug")):
-        shutil.rmtree(os.path.join(work_dir, "debug"), ignore_errors=True)
+    debug_path = os.path.join(work_dir, "debug")
+    if os.path.exists(debug_path):
+        print(f"    [*] Removing {debug_path}")
+        shutil.rmtree(debug_path, ignore_errors=True)
 
-    subprocess.run(["sudo", "-E", "umount", f"{work_dir}/dev/null"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(["sudo", "-E", "umount", f"{work_dir}/dev/urandom"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(["sudo", "-E", "umount", f"{work_dir}/proc_host/stat"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    mount_points = [
+        f"{work_dir}/dev/null",
+        f"{work_dir}/dev/urandom",
+        f"{work_dir}/proc_host/stat",
+        f"{work_dir}/image"
+    ]
+
+    for mp in mount_points:
+        if os.path.ismount(mp):
+            print(f"    [*] Unmounting {mp}")
+            subprocess.run(["sudo", "-E", "umount", "-l", mp],
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     current_pid = os.getpid()
-
     parent_pids = set()
+
     try:
         pid = current_pid
         while pid != 1:
@@ -127,18 +139,10 @@ def cleanup(firmae_dir, work_dir):
             parent_pids.add(ppid)
             pid = ppid
     except Exception as e:
-        print(f"[!] Error while finding parent processes: {e}")
+        print(f"[!] Error finding parent processes: {e}")
 
     try:
         output = subprocess.check_output(["ps", "-e", "-o", "pid=", "-o", "comm="]).decode().splitlines()
-
-        print("\n[*] Running processes before cleanup:")
-        for line in output:
-            pid_str, *command_parts = line.strip().split()
-            pid = int(pid_str)
-            command = ' '.join(command_parts)
-            print(f"    PID {pid}: {command}")
-
         print("\n[*] Killing processes:")
         for line in output:
             pid_str, *command_parts = line.strip().split()
@@ -153,11 +157,30 @@ def cleanup(firmae_dir, work_dir):
                 print(f"    [*] Killed PID {pid} ({command})")
             except ProcessLookupError:
                 pass
+            except PermissionError:
+                print(f"    [!] No permission to kill PID {pid} ({command})")
 
     except Exception as e:
         print(f"[!] Error during process cleanup: {e}")
 
-    subprocess.run(["sudo", "-E", f"{firmae_dir}/flush_interface.sh"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    try:
+        tap_devices_output = subprocess.check_output(["ip", "-o", "link", "show"]).decode().splitlines()
+        for line in tap_devices_output:
+            if ": tap" in line:
+                dev_name = line.split(":")[1].strip().split("@")[0]
+                print(f"    [*] Removing TAP device: {dev_name}")
+                subprocess.run(["sudo", "ip", "tuntap", "del", "dev", dev_name, "mode", "tap"],
+                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except Exception as e:
+        print(f"[!] Error removing TAP devices: {e}")
+
+    flush_script = os.path.join(firmae_dir, "flush_interface.sh")
+    if os.path.exists(flush_script):
+        print(f"    [*] Running {flush_script}")
+        subprocess.run(["sudo", "-E", flush_script],
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    print("[*] Cleanup complete!\n")
 
 def sigint_handler(sig, frame):
     if qemu_pid:
@@ -1979,159 +2002,285 @@ def aggregate_pre_analysis_metrics(db_dir, mode, metric_name, max_runs=None,
     map_df = pd.read_csv(mapping_csv)
     mapping = map_df.set_index("firmware").to_dict(orient="index")
 
-    rows = []
-    for brand in sorted(os.listdir(db_dir)):
-        brand_path = os.path.join(db_dir, brand)
-        if not os.path.isdir(brand_path):
-            continue
+    if isinstance(db_dir, (list, tuple, set)):
+        db_dirs = list(db_dir)
+    elif isinstance(db_dir, str):
+        if "," in db_dir:
+            db_dirs = [p.strip() for p in db_dir.split(",") if p.strip()]
+        else:
+            db_dirs = [db_dir]
+    else:
+        try:
+            db_dirs = list(db_dir)
+        except Exception:
+            raise ValueError("db_dir must be a path or an iterable of paths")
 
-        for fw in sorted(os.listdir(brand_path)):
-            fw_path = os.path.join(brand_path, fw)
-            if not os.path.isdir(fw_path):
+    def _read_json_safe(path):
+        if not os.path.isfile(path):
+            return None
+        try:
+            with open(path, "r", encoding="utf-8") as fh:
+                return json.load(fh)
+        except Exception:
+            return None
+
+    def _load_set_from_list_of_dicts(lst):
+        out = set()
+        for it in lst:
+            if not isinstance(it, dict):
+                continue
+            pc = it.get("pc") or it.get("addr") or it.get("location") or ""
+            module = it.get("module") or it.get("binary") or ""
+            out.add((str(module), str(pc)))
+        return out
+
+    def set_based_metrics_from_sets(pred_set, gt_set):
+        out = {"precision": 0.0, "recall": 0.0, "f1": 0.0, "accuracy": 0.0}
+        pset = set(pred_set or [])
+        gset = set(gt_set or [])
+        TP = len(pset & gset)
+        FP = len(pset - gset)
+        FN = len(gset - pset)
+        denom = TP + FP
+        precision = (TP / denom) if denom > 0 else None
+        denom = TP + FN
+        recall = (TP / denom) if denom > 0 else None
+        if precision is not None and recall is not None and (precision + recall) > 0:
+            f1 = 2 * precision * recall / (precision + recall)
+        else:
+            f1 = None
+        accuracy = (TP / len(gset)) if len(gset) > 0 else None
+
+        out["precision"] = precision if precision is not None else 0.0
+        out["recall"] = recall if recall is not None else 0.0
+        out["f1"] = f1 if f1 is not None else 0.0
+        out["accuracy"] = accuracy if accuracy is not None else 0.0
+        return out
+
+    def process_single_db(db_root):
+        rows = []
+        if not os.path.isdir(db_root):
+            return pd.DataFrame()
+
+        for brand in sorted(os.listdir(db_root)):
+            brand_path = os.path.join(db_root, brand)
+            if not os.path.isdir(brand_path):
                 continue
 
-            run_dirs = [d for d in sorted(os.listdir(fw_path)) if d.startswith("pre_analysis_")]
-            if max_runs is not None:
-                run_dirs = run_dirs[:max_runs]
-            if not run_dirs:
-                continue
+            for fw in sorted(os.listdir(brand_path)):
+                fw_path = os.path.join(brand_path, fw)
+                if not os.path.isdir(fw_path):
+                    continue
 
-            per_run_results = []
-            for run_dir in run_dirs:
-                run_path = os.path.join(fw_path, run_dir)
-                ground_truth_path = os.path.join(run_path, "ground_truth.json")
-                pre_path = os.path.join(run_path, "pre_analysis.json")
-                min_taint_path = os.path.join(run_path, "minimized_taint.json")
-                times_path = os.path.join(run_path, "times_ms.json")
+                run_dirs = [d for d in sorted(os.listdir(fw_path)) if d.startswith("pre_analysis_")]
+                if max_runs is not None:
+                    run_dirs = run_dirs[:max_runs]
+                if not run_dirs:
+                    continue
 
-                taint_runs = _read_json_safe(ground_truth_path) or []
+                per_run_results = []
+                last_gt_run_sets = []
 
-                gt_run_sets = [
-                    _load_set_from_list_of_dicts(run) if isinstance(run, list) else set()
-                    for run in taint_runs
-                ]
+                for run_dir in run_dirs:
+                    run_path = os.path.join(fw_path, run_dir)
+                    ground_truth_path = os.path.join(run_path, "ground_truth.json")
+                    pre_path = os.path.join(run_path, "pre_analysis.json")
+                    min_taint_path = os.path.join(run_path, "minimized_taint.json")
+                    times_path = os.path.join(run_path, "times_ms.json")
 
-                try:
-                    gt_set = set.union(*gt_run_sets) if gt_run_sets else set()
-                except Exception:
-                    gt_set = set()
+                    taint_runs = _read_json_safe(ground_truth_path) or []
 
-                pre_list = _read_json_safe(pre_path) or []
-                pre_set = _load_set_from_list_of_dicts(pre_list)
+                    gt_run_sets = [
+                        _load_set_from_list_of_dicts(run) if isinstance(run, list) else set()
+                        for run in taint_runs
+                    ]
+                    last_gt_run_sets = gt_run_sets
 
-                min_list = _read_json_safe(min_taint_path) or []
-                min_set = _load_set_from_list_of_dicts(min_list)
+                    try:
+                        gt_set = set.union(*gt_run_sets) if gt_run_sets else set()
+                    except Exception:
+                        gt_set = set()
 
-                per_run_entry = {"brand": brand, "firmware": fw, "run_dir": run_dir}
+                    pre_list = _read_json_safe(pre_path) or []
+                    pre_set = _load_set_from_list_of_dicts(pre_list)
 
-                speedup = None
-                if os.path.exists(times_path):
-                    times = _read_json_safe(times_path) or {}
-                    gt_times = times.get("gt_runs_ms", []) or []
-                    minimized_time = times.get("minimized_run_ms")
-                    if gt_times and minimized_time and float(minimized_time) > 0:
-                        avg_gt = float(np.mean(gt_times))
-                        speedup = avg_gt / float(minimized_time) if float(minimized_time) > 0 else None
+                    min_list = _read_json_safe(min_taint_path) or []
+                    min_set = _load_set_from_list_of_dicts(min_list)
+
+                    per_run_entry = {"brand": brand, "firmware": fw, "run_dir": run_dir}
+
+                    speedup = None
+                    if os.path.exists(times_path):
+                        times = _read_json_safe(times_path) or {}
+                        gt_times = times.get("gt_runs_ms", []) or []
+                        minimized_time = times.get("minimized_run_ms")
+                        try:
+                            if gt_times and minimized_time and float(minimized_time) > 0:
+                                avg_gt = float(np.mean([float(x) for x in gt_times]))
+                                speedup = (avg_gt / float(minimized_time)) if float(minimized_time) > 0 else None
+                        except Exception:
+                            speedup = None
+
+                    if mode == "min_vs_orig":
+                        if min_set is not None and gt_set is not None:
+                            metrics_min_vs_gt = set_based_metrics_from_sets(min_set, gt_set)
+                            if metric_name == "time":
+                                per_run_entry["speedup"] = speedup if speedup is not None else None
+                            else:
+                                per_run_entry[f"min_{metric_name}"] = metrics_min_vs_gt.get(metric_name, 0.0)
+                                per_run_entry["speedup"] = speedup if speedup is not None else None
+                    elif mode == "heu_vs_taint":
+                        if gt_set is not None:
+                            single_run_metrics = []
+                            for single_run_set in gt_run_sets:
+                                if single_run_set:
+                                    m = set_based_metrics_from_sets(single_run_set, gt_set)
+                                    single_run_metrics.append(m.get(metric_name, 0.0))
+                                else:
+                                    single_run_metrics.append(0.0)
+                            mean_taint_metric = float(np.mean(single_run_metrics)) if single_run_metrics else None
+                            heuristic_metrics = set_based_metrics_from_sets(pre_set, gt_set)
+                            heuristic_metric_val = heuristic_metrics.get(metric_name, 0.0)
+                            per_run_entry[f"taint_{metric_name}"] = mean_taint_metric if mean_taint_metric is not None else 0.0
+                            per_run_entry[f"heuristic_{metric_name}"] = heuristic_metric_val if heuristic_metric_val is not None else 0.0
+
+                    per_run_entry["gt_size"] = len(gt_set)
+                    per_run_entry["pre_size"] = len(pre_set)
+                    per_run_entry["min_size"] = len(min_set)
+
+                    per_run_results.append(per_run_entry)
+
+                if not per_run_results:
+                    continue
+
+                row = OrderedDict()
+                row["brand"] = brand
+                row["firmware"] = fw
+                row["#taint_hints"] = len(per_run_results)
+                row["#taint_runs"] = len(last_gt_run_sets) if last_gt_run_sets is not None else 0
+
+                if fw in mapping:
+                    row["brand"] = mapping[fw]["brand"]
+                    row["firmware"] = mapping[fw]["name"]
+                    row["version"] = mapping[fw]["version"]
+                else:
+                    row["brand"] = None
+                    row["firmware"] = fw
+                    row["version"] = None
 
                 if mode == "min_vs_orig":
-                    if min_set and gt_set:
-                        metrics_min_vs_gt = set_based_metrics_from_sets(min_set, gt_set)
-                        if metric_name == "time":
-                            per_run_entry["speedup"] = speedup
-                        else:
-                            per_run_entry[f"min_{metric_name}"] = metrics_min_vs_gt.get(metric_name, 0.0)
-                            per_run_entry["speedup"] = speedup
-                elif mode == "heu_vs_taint":
-                    if gt_set:
-                        single_run_metrics = []
-                        for single_run_set in gt_run_sets:
-                            if single_run_set:
-                                m = set_based_metrics_from_sets(single_run_set, gt_set)
-                                single_run_metrics.append(m.get(metric_name, 0.0))
-                            else:
-                                single_run_metrics.append(0.0)
-                        mean_taint_metric = float(np.mean(single_run_metrics)) if single_run_metrics else None
-                        heuristic_metrics = set_based_metrics_from_sets(pre_set, gt_set)
-                        heuristic_metric_val = heuristic_metrics.get(metric_name, 0.0)
-                        per_run_entry[f"taint_{metric_name}"] = mean_taint_metric
-                        per_run_entry[f"heuristic_{metric_name}"] = heuristic_metric_val
+                    speedup_vals = [r["speedup"] for r in per_run_results if r.get("speedup") is not None]
+                    row["avg_speedup"] = float(np.mean(speedup_vals)) if speedup_vals else None
+                    if metric_name != "time":
+                        vals = [r.get(f"min_{metric_name}") for r in per_run_results if r.get(f"min_{metric_name}") is not None]
+                        row[f"avg_min_{metric_name}"] = float(np.mean(vals)) if vals else None
+                else:
+                    heuristic_vals = [r.get(f"heuristic_{metric_name}") for r in per_run_results if r.get(f"heuristic_{metric_name}") is not None]
+                    row[f"avg_heu_{metric_name}"] = float(np.mean(heuristic_vals)) if heuristic_vals else None
 
-                per_run_entry["gt_size"] = len(gt_set)
-                per_run_entry["pre_size"] = len(pre_set)
-                per_run_entry["min_size"] = len(min_set)
+                row["avg_gt_size"] = float(np.mean([r.get("gt_size", 0) for r in per_run_results])) if per_run_results else 0.0
+                row["avg_pre_size"] = float(np.mean([r.get("pre_size", 0) for r in per_run_results])) if per_run_results else 0.0
+                row["avg_min_size"] = float(np.mean([r.get("min_size", 0) for r in per_run_results])) if per_run_results else 0.0
 
-                per_run_results.append(per_run_entry)
+                rows.append(row)
 
-            if not per_run_results:
-                continue
+        if not rows:
+            return pd.DataFrame()
+        df = pd.DataFrame(rows)
+        cols_order = ["brand", "firmware", "version", "#taint_hints", "#taint_runs"]
+        if "avg_speedup" in df.columns and mode == "min_vs_orig":
+            cols_order.append("avg_speedup")
+        if mode == "min_vs_orig" and metric_name != "time":
+            cols_order.append(f"avg_min_{metric_name}")
+        if mode == "heu_vs_taint":
+            cols_order.append(f"avg_heu_{metric_name}")
+        cols_order += ["avg_gt_size", "avg_pre_size", "avg_min_size"]
+        cols_order = [c for c in cols_order if c in df.columns]
+        df = df[cols_order]
+        return df
 
-            row = OrderedDict()
-            row["brand"] = brand
-            row["firmware"] = fw
-            row["#taint_hints"] = len(per_run_results)
-            row["#taint_runs"] = len(gt_run_sets)
+    per_db_dfs = []
+    for db in db_dirs:
+        db = db.strip()
+        if not db:
+            continue
+        if not os.path.isdir(db):
+            print(f"[WARN] db_dir '{db}' not found or not a directory; skipping")
+            continue
+        print(f"[INFO] processing DB: {db}")
+        df_db = process_single_db(db)
+        if df_db is None or df_db.empty:
+            print(f"[INFO] no data found in DB: {db}")
+            continue
+        df_db["_source_db"] = os.path.basename(os.path.normpath(db))
+        per_db_dfs.append(df_db)
 
-            if fw in mapping:
-                row["brand"] = mapping[fw]["brand"]
-                row["firmware"] = mapping[fw]["name"]
-                row["version"] = mapping[fw]["version"]
-            else:
-                row["brand"] = None
-                row["firmware"] = None
-                row["version"] = None
-
-            if mode == "min_vs_orig":
-                speedup_vals = [r["speedup"] for r in per_run_results if r.get("speedup") is not None]
-                row["avg_speedup"] = f"X{round(float(np.mean(speedup_vals)), 2)}" if speedup_vals else None
-                if metric_name != "time":
-                    vals = [r.get(f"min_{metric_name}") for r in per_run_results if r.get(f"min_{metric_name}") is not None]
-                    row[f"avg_min_{metric_name}"] = round(float(np.mean(vals)), 2) if vals else None
-            else:
-                heuristic_vals = [r.get(f"heuristic_{metric_name}") for r in per_run_results if r.get(f"heuristic_{metric_name}") is not None]
-                row[f"avg_heu_{metric_name}"] = round(float(np.mean(heuristic_vals)), 2) if heuristic_vals else None
-
-            rows.append(row)
-
-    if not rows:
-        print("No valid runs found to aggregate.")
+    if not per_db_dfs:
+        print("No valid runs found to aggregate across provided DB directories.")
         return pd.DataFrame()
 
-    df = pd.DataFrame(rows)
-    cols_order = ["brand", "firmware", "version", "#taint_hints", "#taint_runs"]
-    if "avg_speedup" in df.columns and mode == "min_vs_orig":
-        cols_order.append("avg_speedup")
-    if mode == "min_vs_orig" and metric_name != "time":
-        cols_order.append(f"avg_min_{metric_name}")
-    if mode == "heu_vs_taint":
-        cols_order.append(f"avg_heu_{metric_name}")
+    if len(per_db_dfs) == 1:
+        final_df = per_db_dfs[0].copy()
+    else:
+        concat = pd.concat(per_db_dfs, ignore_index=True, sort=False)
 
-    df = df[cols_order]
-    df.to_csv(output_csv, index=False)
+        numeric_cols = concat.select_dtypes(include=[np.number]).columns.tolist()
+        for c in concat.columns:
+            if c.startswith("avg_") and c not in numeric_cols:
+                concat[c] = pd.to_numeric(concat[c], errors="coerce")
+                if concat[c].dtype.kind in "fi":
+                    numeric_cols.append(c)
+
+        grouped = concat.groupby("firmware")
+        mean_df = grouped[numeric_cols].mean().reset_index()
+
+        first_df = grouped.first().reset_index()
+        final_df = mean_df.merge(first_df.drop(columns=numeric_cols, errors="ignore"), on="firmware", how="left")
+
+        cols_after = [c for c in final_df.columns if c not in ("brand", "firmware", "version")]
+        preferred = ["#taint_hints", "#taint_runs", "avg_speedup", f"avg_min_{metric_name}", f"avg_heu_{metric_name}", "avg_gt_size", "avg_pre_size", "avg_min_size"]
+        ordered_numeric = [c for c in preferred if c in cols_after] + [c for c in cols_after if c not in preferred]
+        out_cols = ["brand", "firmware", "version"] + ordered_numeric
+        final_df = final_df[[c for c in out_cols if c in final_df.columns]]
+
+    final_df.to_csv(output_csv, index=False)
+
     mode_label = mode.replace("_", r"\_")
-    latex_str = build_latex_table(df, caption=f"Aggregated {metric_name} ({mode_label})", label="tab:agg_results")
-    with open(output_tex, "w") as f:
-        f.write(latex_str)
+    try:
+        latex_str = build_latex_table(final_df, caption=f"Aggregated {metric_name} ({mode_label})", label="tab:agg_results")
+        with open(output_tex, "w", encoding="utf-8") as f:
+            f.write(latex_str)
+    except Exception:
+        with open(output_tex, "w", encoding="utf-8") as f:
+            f.write("\\begin{table}[ht]\n\\centering\n")
+            f.write(final_df.to_latex(index=False, escape=True))
+            f.write("\\end{table}\n")
 
-    return df
+    return final_df
 
 def print_usage():
     print("Usage:")
-    print("  python3 aggregate_metrics.py -d <db_dir> -M <mode> -m <metric> [-n <max_runs>] [-o <out.csv>] [-t <out.tex>]")
+    print("  python3 aggregate_metrics.py -d <parent_dir> [-d <other_parent>] -M <mode> -m <metric> [-n <max_runs>] [-o <out.csv>] [-t <out.tex>]")
+    print("")
+    print("Notes:")
+    print("  If a provided -d path contains child directories named like 'pre_analysis_*', those child directories")
+    print("  will be expanded and used as the actual DB directories to aggregate. Otherwise the provided path is")
+    print("  used directly as a DB dir.")
     print("")
     print("Mode:")
-    print("  min_vs_orig   Compare minimized runs vs original (produces APRE + metric on minimized set)")
-    print("  heu_vs_taint  Compare heuristic vs taint runs (mean taint metric and heuristic metric)")
+    print("  min_vs_orig   Compare minimized runs vs original")
+    print("  heu_vs_taint  Compare heuristic vs taint runs")
     print("")
     print("Metric:")
     print("  precision | recall | f1 | accuracy | time")
-    print("")
     print("Examples:")
-    print("  python3 aggregate_metrics.py -d pre_analysis_db -M min_vs_orig -m precision -n 5")
-    print("  python3 aggregate_metrics.py -d pre_analysis_db -M heu_vs_taint -m f1")
+    print("  python3 aggregate_metrics.py -d pre_analysis_parent -M min_vs_orig -m precision -n 5")
+    print("  python3 aggregate_metrics.py -d db_parent1 db_parent2 -M heu_vs_taint -m f1")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument("-d", dest="db_dir", required=True)
+    parser.add_argument("-d", dest="db_dirs", required=True, nargs="+",
+                        help="One or more parent directories (space-separated). If a parent contains children 'pre_analysis_*', they are expanded.")
     parser.add_argument("-M", dest="mode", required=True)
     parser.add_argument("-m", dest="metric", required=True)
     parser.add_argument("-n", dest="max_runs", type=int, default=None)
@@ -2139,12 +2288,69 @@ if __name__ == "__main__":
     parser.add_argument("-t", dest="output_tex", default="out.tex")
     parser.add_argument("-h", "--help", action="store_true")
     args = parser.parse_args()
+
     if args.help:
         print_usage()
         sys.exit(0)
-    if not os.path.isdir(args.db_dir):
-        print(f"[-] db_dir '{args.db_dir}' does not exist or is not a directory")
+
+    raw_db_dirs = args.db_dirs
+    if len(raw_db_dirs) == 1 and "," in raw_db_dirs[0]:
+        cand_dirs = [p.strip() for p in raw_db_dirs[0].split(",") if p.strip()]
+    else:
+        cand_dirs = raw_db_dirs
+
+    expanded_db_dirs = []
+    for p in cand_dirs:
+        if not os.path.exists(p):
+            print(f"[-] Warning: provided path '{p}' does not exist; skipping")
+            continue
+        if not os.path.isdir(p):
+            print(f"[-] Warning: provided path '{p}' is not a directory; skipping")
+            continue
+
+        try:
+            children = sorted(os.listdir(p))
+        except Exception as e:
+            print(f"[-] Warning: cannot list directory '{p}': {e}; treating '{p}' as a DB dir")
+            expanded_db_dirs.append(os.path.abspath(p))
+            continue
+
+        matched_children = []
+        for name in children:
+            if fnmatch.fnmatch(name, "pre_analysis_*"):
+                child_path = os.path.join(p, name)
+                if os.path.isdir(child_path):
+                    matched_children.append(os.path.abspath(child_path))
+
+        if matched_children:
+            expanded_db_dirs.extend(matched_children)
+            print(f"[INFO] expanded parent '{p}' to {len(matched_children)} DB dirs (first child: {matched_children[0]})")
+        else:
+            expanded_db_dirs.append(os.path.abspath(p))
+            print(f"[INFO] using provided path as DB dir: {os.path.abspath(p)} (no pre_analysis_* children found)")
+
+    seen = set()
+    final_db_dirs = []
+    for d in expanded_db_dirs:
+        dn = os.path.normpath(d)
+        if dn not in seen:
+            seen.add(dn)
+            final_db_dirs.append(dn)
+
+    if not final_db_dirs:
+        print("[-] No valid DB directories resolved. Exiting.")
         sys.exit(1)
-    print(f"[+] Aggregating metric '{args.metric}' in mode '{args.mode}' over database '{args.db_dir}'" + (f" (first {args.max_runs} runs)" if args.max_runs else ""))
-    df = aggregate_pre_analysis_metrics(args.db_dir, args.mode, args.metric, max_runs=args.max_runs, output_csv=args.output_csv, output_tex=args.output_tex)
+
+    print(f"[+] Aggregating metric '{args.metric}' in mode '{args.mode}' over {len(final_db_dirs)} DB dirs:")
+    for d in final_db_dirs:
+        print("    ", d)
+
+    df = aggregate_pre_analysis_metrics(final_db_dirs,
+                                        args.mode,
+                                        args.metric,
+                                        max_runs=args.max_runs,
+                                        output_csv=args.output_csv,
+                                        output_tex=args.output_tex)
+
     print(df)
+

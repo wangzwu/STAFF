@@ -758,7 +758,7 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
             fh.write("\\setlength{\\tabcolsep}{4pt}\n")
             col_format = "|" + "|".join("l" for _ in headers) + "|"
             fh.write(f"\\begin{{tabular}}{{{col_format}}}\n\\hline\n")
-            fh.write(" & ".join("\\textbf{" + latex_escape(h) + "}" for h in headers) + " \\\\\n\\hline\n")
+            fh.write(" & ".join("{\sc " + latex_escape(h) + "}" for h in headers) + " \\\\\n\\hline\n")
             fh.write("\\end{tabular}\n")
             if caption:
                 fh.write(f"\\caption{{{latex_escape(caption)}}}\n")
@@ -801,20 +801,20 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
         fh.write("\\hline\n")
 
         if count_tte_table:
-            first_row = ["\\textbf{Firmware}", "\\textbf{Binary}", "\\textbf{Function}"]
+            first_row = ["\\{\sc Firmware}", "\\{\sc Binary}", "\\{\sc Function}"]
             if add_category_col:
-                first_row.append("\\textbf{Category}")
+                first_row.append("\\{\sc Category}")
             for m in DEFAULT_METHODS:
                 abbr = METHOD_ABBR.get(m, m)
-                first_row.append(f"\\multicolumn{{2}}{{c|}}{{\\textbf{{{latex_escape(abbr)}}}}}")
+                first_row.append(f"\\multicolumn{{2}}{{c|}}{{\sc {{{latex_escape(m)}}}}}")
             fh.write(" & ".join(first_row) + " \\\\\n")
 
             second_row = ["", "", ""]
             if add_category_col:
                 second_row.append("")
             for _ in DEFAULT_METHODS:
-                second_row.append("\\textbf{cnt}")
-                second_row.append("\\textbf{TTE}")
+                second_row.append("{\sc cnt}")
+                second_row.append("{\sc TTE}")
             fh.write(" & ".join(second_row) + " \\\\\n")
             fh.write("\\hline\n")
 
@@ -876,7 +876,7 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
             fh.write("\\hline\n")
 
         else:
-            fh.write(" & ".join("\\textbf{" + latex_escape(h) + "}" for h in headers) + " \\\\\n")
+            fh.write(" & ".join("{\sc " + latex_escape(h) + "}" for h in headers) + " \\\\\n")
             fh.write("\\toprule\n")
             fh.write("\\hline\n")
             for row in rows:
@@ -1349,7 +1349,7 @@ def build_detection_efficiency_table(
         colfmt = "|l|r|r|r|\n"
         fh.write(f"\\begin{{tabular}}{{{colfmt}}}")
         fh.write("\\hline\n")
-        fh.write(" & ".join("\\textbf{" + latex_escape(h) + "}" for h in headers) + " \\\\\n")
+        fh.write(" & ".join("{\sc " + latex_escape(h) + "}" for h in headers) + " \\\\\n")
         fh.write("\\hline\n")
         for r in out_rows:
             vals = [r["firmware"], r["n_experiments"], r[csv_fields[2]], r[csv_fields[3]]]

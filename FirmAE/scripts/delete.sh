@@ -36,6 +36,12 @@ elif [[ "${MODE}" == *"aflnet_base"* ]]; then
 elif [[ "${MODE}" == *"aflnet_state_aware"* ]]; then
     suffix=${MODE#*"aflnet_state_aware"}
     mode_abbr="as${suffix}"
+elif [[ "${MODE}" == *"pre_analysis"* ]]; then
+    suffix=${MODE#*"pre_analysis"}
+    mode_abbr="pa${suffix}"
+elif [[ "${MODE}" == *"pre_exp"* ]]; then
+    suffix=${MODE#*"pre_exp"}
+    mode_abbr="pe${suffix}"
 else
     echo "ERROR: Insert mode!"
     exit 1

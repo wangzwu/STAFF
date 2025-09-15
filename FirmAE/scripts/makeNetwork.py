@@ -56,6 +56,12 @@ elif [[ "${BASENAME}" == *"aflnet_base"* ]]; then
 elif [[ "${BASENAME}" == *"aflnet_state_aware"* ]]; then
     suffix=$(echo "${BASENAME}" | sed -n 's/.*aflnet_state_aware\([^\.]*\)\.sh/\\1/p')
     MODE="aflnet_state_aware${suffix}"
+elif [[ "${BASENAME}" == *"pre_analysis"* ]]; then
+    suffix=$(echo "${BASENAME}" | sed -n 's/.*pre_analysis\([^\.]*\)\.sh/\\1/p')
+    MODE="pre_analysis${suffix}"
+elif [[ "${BASENAME}" == *"pre_exp"* ]]; then
+    suffix=$(echo "${BASENAME}" | sed -n 's/.*pre_exp\([^\.]*\)\.sh/\\1/p')
+    MODE="pre_exp${suffix}"
 fi
 
 IMAGE=`get_fs ${IID} ${MODE}`
@@ -369,6 +375,12 @@ def startNetwork(network, iid):
     elif "aflnet_state_aware" in MODE:
         suffix = MODE.split("aflnet_state_aware", 1)[1]
         mode_abbr = f"as{suffix}"
+    elif "pre_analysis" in MODE:
+        suffix = MODE.split("pre_analysis", 1)[1]
+        mode_abbr = f"pa{suffix}"
+    elif "pre_exp" in MODE:
+        suffix = MODE.split("pre_exp", 1)[1]
+        mode_abbr = f"pe{suffix}"
     else:
         assert(0)
 
