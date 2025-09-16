@@ -5,10 +5,8 @@ function print_usage()
     echo "Usage: ${0} [mode]... [brand] [firmware|firmware_directory] [mode]"
     echo "mode: use one option at once"
     echo "      -r, --run           : run mode         - run emulation"
-    echo "      -ra, --run_analysis : analysis mode    - run_analysis emulation"
     echo "      -c, --check         : check mode       - check network reachable and web access"
     echo "      -f, --fuzz          : fuzz mode        - fuzz"
-    echo "      -re, --replay       : replay mode      - replay testcases on Full"
 }
 
 if [ $# -ne 5 ]; then
@@ -135,17 +133,20 @@ function cleanup_on_exit() {
     chmod 777 "$csv_file_path"
 
     if [ ! ${OPTION} = "check" ]; then
-        if [[ ${MODE} == "run" || ${MODE} == *"pre_analysis"* || ${MODE} == *"pre_exp"* ]]; then
-            if [[ ${MODE} == "run" ]]; then
-                ${WORK_DIR}/run.sh 1
-            else
-                ${WORK_DIR}/run_${MODE}.sh 1
-            fi
+        if [[ ${MODE} == "run" ]]; then
+            ${WORK_DIR}/run.sh 1
             echo "[*] cleanup"
             ./flush_interface.sh > /dev/null 2>&1;
             echo "======================================"
         else
-            ${WORK_DIR}/run_${MODE}.sh 0
+            if [[ ${OPTION} == "run" ]]; then
+                ${WORK_DIR}/run_${MODE}.sh 1
+                echo "[*] cleanup"
+                ./flush_interface.sh > /dev/null 2>&1;
+                echo "======================================"
+            else
+                ${WORK_DIR}/run_${MODE}.sh 0
+            fi
         fi
     fi
 }

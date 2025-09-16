@@ -1653,7 +1653,7 @@ def compute_f1_vs_ground_truth(run_sets, ground_truth):
             f1_scores.append(2 * tp / (2 * tp + fp + fn))
     return sum(f1_scores) / len(f1_scores) if f1_scores else 0.0
 
-def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libraries,
+def pre_analysis_exp(db_dir, firmae_dir, work_dir, mode, firmware, proto, include_libraries,
                      region_delimiter, sleep, timeout, taint_analysis_path,
                      pre_analysis_id, stab_upper_runs=5, n_taint_hints_to_eval=10):
 
@@ -1744,7 +1744,7 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
             except: pass
 
             process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
-                                        firmware, "run", "0.0.0.0"])
+                                        firmware, mode, "0.0.0.0"])
             qemu_pid = process.pid
             num_runs += 1
             time.sleep(sleep)
@@ -1766,7 +1766,7 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
                     try: cleanup(firmae_dir, work_dir)
                     except: pass
                     process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
-                                                firmware, "run", "0.0.0.0"])
+                                                firmware, mode, "0.0.0.0"])
                     qemu_pid = process.pid
                     time.sleep(sleep)
                 else:
@@ -1817,7 +1817,7 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         try: cleanup(firmae_dir, work_dir)
         except: pass
         process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
-                                    firmware, "run", "0.0.0.0"])
+                                    firmware, mode, "0.0.0.0"])
         qemu_pid = process.pid
         time.sleep(sleep)
 
@@ -1839,7 +1839,7 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
                 try: cleanup(firmae_dir, work_dir)
                 except: pass
                 process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
-                                            firmware, "run", "0.0.0.0"])
+                                            firmware, mode, "0.0.0.0"])
                 qemu_pid = process.pid
                 time.sleep(sleep)
             else:

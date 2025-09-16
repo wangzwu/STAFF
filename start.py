@@ -679,7 +679,7 @@ def fuzz(out_dir, container_name, replay_exp):
         with open(os.path.join(tmp_work_dir, "time_web"), 'r') as file:
             sleep = file.read().strip()
         sleep=int(float(sleep))
-        taint(FIRMAE_DIR, taint_dir, tmp_work_dir, "run", config["GENERAL"]["firmware"], sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
+        taint(FIRMAE_DIR, taint_dir, tmp_work_dir, mode, config["GENERAL"]["firmware"], sleep, config["GENERAL_FUZZING"]["timeout"], config["PRE-ANALYSIS"]["subregion_divisor"], config["PRE-ANALYSIS"]["min_subregion_len"], config["PRE-ANALYSIS"]["delta_threshold"], config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"])
 
     iid = str(check(mode))
     work_dir = os.path.join(FIRMAE_DIR, "scratch", mode, iid)
@@ -1388,7 +1388,7 @@ def start(keep_config, reset_firmware_images, replay_exp, out_dir, container_nam
             taint_dir = get_taint_dir(config["PRE-ANALYSIS"]["pre_analysis_id"], TAINT_DIR)
             print(f"PRE-ANALYSIS dir: {taint_dir}")
 
-            pre_analysis_exp(os.path.join(PRE_ANALYSIS_EXP_DIR, "pre_analysis_"+str(config["PRE-ANALYSIS"]["pre_analysis_id"])), FIRMAE_DIR, work_dir, config["GENERAL"]["firmware"], os.path.basename(config["AFLNET_FUZZING"]["proto"]), config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"], sleep, config["GENERAL_FUZZING"]["timeout"], taint_dir, config["PRE-ANALYSIS"]["pre_analysis_id"])
+            pre_analysis_exp(os.path.join(PRE_ANALYSIS_EXP_DIR, "pre_analysis_"+str(config["PRE-ANALYSIS"]["pre_analysis_id"])), FIRMAE_DIR, work_dir, container_name if container_name else config["GENERAL"]["mode"], config["GENERAL"]["firmware"], os.path.basename(config["AFLNET_FUZZING"]["proto"]), config["EMULATION_TRACING"]["include_libraries"], config["AFLNET_FUZZING"]["region_delimiter"], sleep, config["GENERAL_FUZZING"]["timeout"], taint_dir, config["PRE-ANALYSIS"]["pre_analysis_id"])
         
         if out_dir:
             update_schedule_status(SCHEDULE_CSV_PATH_1, "succeeded", os.path.basename(out_dir))
