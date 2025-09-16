@@ -182,11 +182,6 @@ def cleanup(firmae_dir, work_dir):
 
     print("[*] Cleanup complete!\n")
 
-def sigint_handler(sig, frame):
-    if qemu_pid:
-        send_signal_recursive(qemu_pid, signal.SIGKILL)
-    exit(0)
-
 def auto_find_brand(var):
     for brand, regions in BRAND_KEYWORDS.items():
         if any(region in var for region in regions):
@@ -1519,12 +1514,15 @@ def taint(firmae_dir, taint_dir, work_dir, mode, firmware, sleep, timeout, subre
                             print("\nCommand executed successfully.")
                         elif process.returncode == 1:
                             print("\nCommand finished with errors. Return Code:", process.returncode)
+                            try: send_signal_recursive(qemu_pid, signal.SIGKILL)
+                            except: pass
+                            try: os.waitpid(qemu_pid, 0)
+                            except: pass
                             exit(1)
-                        
                         break
 
-                    print("Sending SIGINT to", qemu_pid)
-                    send_signal_recursive(qemu_pid, signal.SIGINT)
+                    print("Sending SIGKILL to", qemu_pid)
+                    send_signal_recursive(qemu_pid, signal.SIGKILL)
 
                     try:
                         os.waitpid(qemu_pid, 0)
@@ -1746,8 +1744,7 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
             except: pass
 
             process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
-                                        firmware, "run", "0.0.0.0"],
-                                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                                        firmware, "run", "0.0.0.0"])
             qemu_pid = process.pid
             num_runs += 1
             time.sleep(sleep)
@@ -1761,7 +1758,7 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
                 if retcode == 0:
                     break
                 elif retcode == 2:
-                    try: send_signal_recursive(qemu_pid, signal.SIGINT)
+                    try: send_signal_recursive(qemu_pid, signal.SIGKILL)
                     except: pass
                     try: os.waitpid(qemu_pid, 0)
                     except: pass
@@ -1769,14 +1766,13 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
                     try: cleanup(firmae_dir, work_dir)
                     except: pass
                     process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
-                                                firmware, "run", "0.0.0.0"],
-                                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                                                firmware, "run", "0.0.0.0"])
                     qemu_pid = process.pid
                     time.sleep(sleep)
                 else:
                     raise RuntimeError(f"Client exited with unexpected code {retcode}")
 
-            try: send_signal_recursive(qemu_pid, signal.SIGINT)
+            try: send_signal_recursive(qemu_pid, signal.SIGKILL)
             except: pass
             try: os.waitpid(qemu_pid, 0)
             except: pass
@@ -1821,8 +1817,7 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
         try: cleanup(firmae_dir, work_dir)
         except: pass
         process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
-                                    firmware, "run", "0.0.0.0"],
-                                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                                    firmware, "run", "0.0.0.0"])
         qemu_pid = process.pid
         time.sleep(sleep)
 
@@ -1836,7 +1831,7 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
             if retcode == 0:
                 break
             elif retcode == 2:
-                try: send_signal_recursive(qemu_pid, signal.SIGINT)
+                try: send_signal_recursive(qemu_pid, signal.SIGKILL)
                 except: pass
                 try: os.waitpid(qemu_pid, 0)
                 except: pass
@@ -1844,14 +1839,13 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, firmware, proto, include_libr
                 try: cleanup(firmae_dir, work_dir)
                 except: pass
                 process = subprocess.Popen(["sudo", "-E", "./run.sh", "-r", os.path.dirname(firmware),
-                                            firmware, "run", "0.0.0.0"],
-                                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                                            firmware, "run", "0.0.0.0"])
                 qemu_pid = process.pid
                 time.sleep(sleep)
             else:
                 raise RuntimeError(f"Client exited with unexpected code {retcode}")
 
-        try: send_signal_recursive(qemu_pid, signal.SIGINT)
+        try: send_signal_recursive(qemu_pid, signal.SIGKILL)
         except: pass
         try: os.waitpid(qemu_pid, 0)
         except: pass

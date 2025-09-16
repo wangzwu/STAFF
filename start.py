@@ -508,7 +508,7 @@ def replay_firmware(firmware, work_dir, crash_analysis=False, crash_seed=None, t
         print(" ".join(command))
         subprocess.run(command)
 
-        send_signal_recursive(qemu_pid, signal.SIGINT)
+        send_signal_recursive(qemu_pid, signal.SIGKILL)
     else:
         pcap_dir = os.path.join(PCAP_DIR, firmware)
                     
@@ -544,7 +544,7 @@ def replay_firmware(firmware, work_dir, crash_analysis=False, crash_seed=None, t
                 print(" ".join(command))
                 subprocess.run(command)
 
-                send_signal_recursive(qemu_pid, signal.SIGINT)
+                send_signal_recursive(qemu_pid, signal.SIGKILL)
                 try:
                     os.waitpid(qemu_pid, 0)
                 except:
@@ -610,7 +610,7 @@ def run(capture, crash_analysis, crash_dir=None):
     # os.environ["DEBUG"] = "1"
     # os.environ["TAINT"] = "1"
     
-    signal.signal(signal.SIGINT, run_capture_signal_handler)
+    signal.signal(signal.SIGKILL, run_capture_signal_handler)
 
     if os.path.exists(os.path.join(work_dir, "webserver_ready")):
         os.remove(os.path.join(work_dir, "webserver_ready"))
@@ -657,7 +657,7 @@ def run(capture, crash_analysis, crash_dir=None):
             " ".join(whitelist_keywords)
         ])
 
-        os.kill(qemu_pid, signal.SIGINT)
+        os.kill(qemu_pid, signal.SIGKILL)
 
     os.waitpid(qemu_pid, 0)
 
