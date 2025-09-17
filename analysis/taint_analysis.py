@@ -1730,12 +1730,11 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, mode, firmware, proto, includ
             "TARGET_OFFSET": str(offset),
             "TARGET_LEN": str(length),
             "MEM_OPS": "0",
-            "DEBUG": "1"
+            "DEBUG": "0"
         })
 
         json_dir = f"{work_dir}/taint/"
-        print(json_dir, region)
-        input()
+
         gt_run_times_ms, taint_runs = [], []
         num_runs, last_inter, first_inter_size, stabilized_gt = 0, None, None, False
 
@@ -1785,8 +1784,6 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, mode, firmware, proto, includ
             taint_data = process_log_file(os.path.join(json_dir, "taint_mem.log"))
             current_run_set = {(entry["inode"], entry["app_tb_pc"]) for entry in taint_data}
             taint_runs.append(current_run_set)
-            print(current_run_set)
-            input()
 
             # if last_inter is None:
             #     last_inter = current_run_set

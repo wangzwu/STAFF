@@ -5,13 +5,13 @@ import configparser
 from collections import defaultdict
 import pandas as pd
 from scipy.stats import mannwhitneyu
-from analysis.extract_crashes import find_and_copy_crashes, substitute_extracted_crashes, rename_crash_files
+# from analysis.extract_crashes import find_and_copy_crashes, substitute_extracted_crashes, rename_crash_files
 import re
 
 BLACKBOX = ["neaps_array", "ethlink", "aparraymsg"]
 
 BASE_DIRS = [
-    "experiments"
+    "experiments_0"
 ]
 OUTPUT_DIR = "results"
 os.makedirs(OUTPUT_DIR, exist_ok=True)

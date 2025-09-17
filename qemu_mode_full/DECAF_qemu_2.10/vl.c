@@ -3308,7 +3308,7 @@ int main(int argc, char **argv, char **envp)
     if (env_var)
         child_tmout = atoi(env_var);
 
-    if (debug || debug_taint){
+    if (debug || debug_fuzz || debug_taint){
         struct stat st = {0};
         if (stat("debug", &st) == -1)
             mkdir("debug", 0777);

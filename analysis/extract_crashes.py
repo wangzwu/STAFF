@@ -697,6 +697,27 @@ def build_agg_from_extracted(extracted_root="extracted_crashes_outputs", verbose
                         files.append(subp)
         return files
 
+    def parse_suffixes(bname):
+        tte = None
+        taint = None
+        if "$" in bname:
+            try:
+                suf = bname.rsplit("$", 1)[1]
+                m = re.match(r"(\d+)", suf)
+                if m:
+                    tte = int(m.group(1))
+            except Exception:
+                tte = None
+        if "&" in bname:
+            try:
+                suf = bname.rsplit("&", 1)[1]
+                m = re.match(r"([0-9]*\.?[0-9]+)", suf)
+                if m:
+                    taint = float(m.group(1))
+            except Exception:
+                taint = None
+        return tte, taint
+
     for firmware in sorted(os.listdir(extracted_root)):
         fw_path = os.path.join(extracted_root, firmware)
         if not os.path.isdir(fw_path):
@@ -720,7 +741,7 @@ def build_agg_from_extracted(extracted_root="extracted_crashes_outputs", verbose
                 if not files:
                     continue
 
-                per_exp_min_tte = {}
+                per_exp_info = {}
                 for tf in files:
                     pc, module = _parse_first_frame_pc_module(tf)
                     if pc is None and module is None:
@@ -733,27 +754,29 @@ def build_agg_from_extracted(extracted_root="extracted_crashes_outputs", verbose
                     raw_key = (firmware, module_norm, pc_norm)
 
                     bname = os.path.basename(tf)
-                    tte_val = None
-                    if "$" in bname:
-                        suf = bname.rsplit("$", 1)[1]
-                        try:
-                            tte_val = int(suf)
-                        except Exception:
-                            tte_val = None
+                    tte_val, taint_val = parse_suffixes(bname)
 
-                    prev = per_exp_min_tte.get(raw_key)
+                    prev = per_exp_info.get(raw_key)
                     if prev is None:
-                        per_exp_min_tte[raw_key] = tte_val
+                        per_exp_info[raw_key] = {"tte": tte_val, "taints": ([taint_val] if taint_val is not None else [])}
                     else:
-                        if prev is None:
-                            per_exp_min_tte[raw_key] = tte_val
-                        elif tte_val is None:
-                            pass
-                        else:
-                            per_exp_min_tte[raw_key] = min(prev, tte_val)
+                        prev_tte = prev.get("tte")
+                        if prev_tte is None:
+                            prev["tte"] = tte_val
+                        elif tte_val is not None:
+                            prev["tte"] = min(prev_tte, tte_val)
+                        if taint_val is not None:
+                            prev["taints"].append(taint_val)
 
-                for key, min_tte in per_exp_min_tte.items():
-                    agg[key][method][exp] = min_tte
+                for key, info in per_exp_info.items():
+                    taints = info.get("taints", []) or []
+                    taint_avg = None
+                    if taints:
+                        try:
+                            taint_avg = int(sum(taints) / len(taints)) if all(float(t).is_integer() for t in taints) else (sum(taints) / len(taints))
+                        except Exception:
+                            taint_avg = sum(taints) / len(taints)
+                    agg[key][method][exp] = {"tte": info.get("tte"), "taint": taint_avg}
 
     return agg
 
@@ -816,10 +839,13 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
             else:
                 col_format = "|l||" + "|".join("c" for _ in range(ncols - 1)) + "|"
         else:
-            left_prefix = "|l|l|l|"
+            left_prefix = "|l||c|c|"
             if add_category_col:
-                left_prefix = "|l|l|l|l|"
-            method_part = "".join("c|c|" for _ in DEFAULT_METHODS)
+                left_prefix = "|l||c|c|c|"
+            method_part = "".join(
+                "c|c|c|" if "staff" in m else "c|c|" 
+                for m in DEFAULT_METHODS
+            )
             col_format = left_prefix + method_part
             if not col_format.startswith("|"):
                 col_format = "|" + col_format
@@ -833,20 +859,25 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
         fh.write("\\hline\n")
 
         if count_tte_table:
-            first_row = ["\\{\sc Firmware}", "\\{\sc Binary}", "\\{\sc Function}"]
+            first_row = ["{\sc Firmware}", "{\sc Binary}", "{\sc Function}"]
             if add_category_col:
-                first_row.append("\\{\sc Category}")
+                first_row.append("{\sc Category}")
             for m in DEFAULT_METHODS:
                 abbr = METHOD_ABBR.get(m, m)
-                first_row.append(f"\\multicolumn{{2}}{{c|}}{{\sc {{{latex_escape(m)}}}}}")
+                if "staff" in m:
+                    first_row.append(f"\\multicolumn{{3}}{{c|}}{{\sc {{{latex_escape(m)}}}}}")
+                else:
+                    first_row.append(f"\\multicolumn{{2}}{{c|}}{{\sc {{{latex_escape(m)}}}}}")
             fh.write(" & ".join(first_row) + " \\\\\n")
 
             second_row = ["", "", ""]
             if add_category_col:
                 second_row.append("")
-            for _ in DEFAULT_METHODS:
+            for m in DEFAULT_METHODS:
                 second_row.append("{\sc cnt}")
                 second_row.append("{\sc TTE}")
+                if "staff" in m:
+                    second_row.append("{\sc taint}")
             fh.write(" & ".join(second_row) + " \\\\\n")
             fh.write("\\hline\n")
 
@@ -856,7 +887,7 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
                 module = row.get("module", "")
                 grouped[fw][module].append(row)
 
-            total_cols = 3 + (1 if add_category_col else 0) + 2 * len(DEFAULT_METHODS)
+            total_cols = 3 + (1 if add_category_col else 0) + 2 * len(DEFAULT_METHODS) + 1 
             cline_rest_start = 2
             cline_rest_start_func = 3
             cline_rest_end = total_cols
@@ -873,6 +904,7 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
 
                     for fi, row in enumerate(funcs):
                         cells = []
+                        # firmware cell (multirow)
                         if first_fw_row:
                             cells.append(f"\\multirow{{{fw_rows}}}{{*}}{{{latex_escape(fw)}}}")
                             first_fw_row = False
@@ -896,6 +928,8 @@ def write_csv_and_latex(headers, rows, csv_path, tex_path, caption="", count_tte
                             tte_val = row.get(f"{abbr}_avg_tte", "")
                             cells.append("" if cnt_val is None else str(cnt_val))
                             cells.append("" if tte_val is None else str(tte_val))
+                            if "staff" in m:
+                                cells.append(str(row.get(f"{abbr}_avg_taint", "")))
 
                         fh.write(" & ".join(cells) + " \\\\\n")
 
@@ -1000,12 +1034,15 @@ def build_three_tables_and_write_consistent(
         for method_name, exp_map in method_dict.items():
             if should_skip(fw, method_name, module):
                 continue
-            for exp, tte in exp_map.items():
+            for exp, d in exp_map.items():
+                tte = d["tte"]
+                taint = d["taint"]
                 prev = agg[mapped_key][method_name].get(exp)
                 if prev is None:
-                    agg[mapped_key][method_name][exp] = tte
+                    agg[mapped_key][method_name][exp] = {"tte": tte, "taint": taint}
                 elif prev is not None and tte is not None:
-                    agg[mapped_key][method_name][exp] = min(prev, tte)
+                    if (tte < prev["tte"]):
+                        agg[mapped_key][method_name][exp] = {"tte": tte, "taint": taint}
 
     # ---------- Table1: Number of crashes ----------
     firmware_set = sorted({k[0] for k in agg.keys()})
@@ -1059,11 +1096,15 @@ def build_three_tables_and_write_consistent(
             "category": category or "",
         }
         for m in DEFAULT_METHODS:
-            cnt = len(method_dict.get(m, {}))
+            entries = method_dict.get(m, {})
+            cnt = len(entries)
             row[f"{METHOD_ABBR.get(m, m)}_cnt"] = cnt
-            ttes = [v for v in method_dict.get(m, {}).values() if v is not None]
+            ttes = [v.get("tte") for v in entries.values() if v and v.get("tte") is not None]
+            taints = [v.get("taint") for v in entries.values() if v and v.get("taint") is not None]
             avg_tte = (sum(ttes) / len(ttes)) if ttes else None
+            avg_taint = (sum(taints) / len(taints)) if taints else None
             row[f"{METHOD_ABBR.get(m, m)}_avg_tte"] = format_time_hm(avg_tte) if avg_tte is not None else ""
+            row[f"{METHOD_ABBR.get(m, m)}_avg_taint"] = (round(avg_taint, 3) if avg_taint is not None else "")
         table2_rows.append(row)
 
         staff_found = "staff_state_aware" in method_dict and len(method_dict["staff_state_aware"]) > 0
