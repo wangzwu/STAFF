@@ -98,7 +98,7 @@ CONFIG_INI_PATH=os.path.join(STAFF_DIR, "config.ini")
 SCHEDULE_CSV_PATH_0=os.path.join(STAFF_DIR, "schedule_0.csv")
 SCHEDULE_CSV_PATH_1=os.path.join(STAFF_DIR, "schedule_1.csv")
 EXP_DONE_PATH=os.path.join(STAFF_DIR, "experiments_done")
-PRE_ANALYSIS_EXP_DIR=os.path.join(STAFF_DIR, "pre_analysis_exp5")
+PRE_ANALYSIS_EXP_DIR=os.path.join(STAFF_DIR, "pre_analysis_exp")
 CRASH_ANALYSIS_LOG=os.path.join(STAFF_DIR, "crash_analysis.log")
 
 captured_pcap_path = None

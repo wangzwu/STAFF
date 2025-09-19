@@ -1656,7 +1656,7 @@ def compute_f1_vs_ground_truth(run_sets, ground_truth):
 
 def pre_analysis_exp(db_dir, firmae_dir, work_dir, mode, firmware, proto, include_libraries,
                      region_delimiter, sleep, timeout, taint_analysis_path,
-                     pre_analysis_id, stab_upper_runs=5, n_taint_hints_to_eval=1):
+                     pre_analysis_id, stab_upper_runs=5, n_taint_hints_to_eval=10):
 
     user_interaction_0 = "user_interaction_0.pcap"
     ui0_path = os.path.join(taint_analysis_path, firmware, proto, user_interaction_0)
@@ -1896,22 +1896,35 @@ def pre_analysis_exp(db_dir, firmae_dir, work_dir, mode, firmware, proto, includ
 
 
 def set_based_metrics_from_sets(pred_set, gt_set):
-    tp = len(pred_set & gt_set)
-    fp = len(pred_set - gt_set)
-    fn = len(gt_set - pred_set)
-    prec = (tp / (tp + fp)) if (tp + fp) > 0 else 0.0
-    rec = (tp / (tp + fn)) if (tp + fn) > 0 else 0.0
-    f1 = (2 * prec * rec / (prec + rec)) if (prec + rec) > 0 else 0.0
-    acc = (tp / (tp + fp + fn)) if (tp + fp + fn) > 0 else 0.0
-    return {
-        "precision": prec,
-        "recall": rec,
-        "f1": f1,
-        "accuracy": acc,
-        "tp": tp,
-        "fp": fp,
-        "fn": fn
-    }
+    out = {"precision": None, "recall": None, "f1": None, "accuracy": None}
+    pset = set(pred_set or [])
+    gset = set(gt_set or [])
+    
+    if len(gset) == 0:
+        return out
+        
+    TP = len(pset & gset)
+    FP = len(pset - gset)
+    FN = len(gset - pset)
+    
+    denom = TP + FP
+    precision = (TP / denom) if denom > 0 else None
+    
+    denom = TP + FN
+    recall = (TP / denom) if denom > 0 else 0.0
+    
+    if precision is not None and recall is not None and (precision + recall) > 0:
+        f1 = 2 * precision * recall / (precision + recall)
+    else:
+        f1 = None
+        
+    accuracy = (TP / len(gset)) if len(gset) > 0 else None
+
+    out["precision"] = precision
+    out["recall"] = recall
+    out["f1"] = f1
+    out["accuracy"] = accuracy
+    return out
 
 def _load_set_from_list_of_dicts(lst):
     s = set()
@@ -2039,55 +2052,6 @@ def aggregate_pre_analysis_metrics(db_dir, mode, metric_name, max_runs=None,
         except Exception:
             raise ValueError("db_dir must be a path or an iterable of paths")
 
-    def _read_json_safe(path):
-        if not os.path.isfile(path):
-            return None
-        try:
-            with open(path, "r", encoding="utf-8") as fh:
-                return json.load(fh)
-        except Exception:
-            return None
-
-    def _load_set_from_list_of_dicts(lst):
-        out = set()
-        for it in lst:
-            if not isinstance(it, dict):
-                continue
-            pc = it.get("pc") or it.get("addr") or it.get("location") or ""
-            module = it.get("module") or it.get("binary") or ""
-            out.add((str(module), str(pc)))
-        return out
-
-    def set_based_metrics_from_sets(pred_set, gt_set):
-        out = {"precision": None, "recall": None, "f1": None, "accuracy": None}
-        pset = set(pred_set or [])
-        gset = set(gt_set or [])
-        
-        if len(gset) == 0:
-            return out
-            
-        TP = len(pset & gset)
-        FP = len(pset - gset)
-        FN = len(gset - pset)
-        
-        denom = TP + FP
-        precision = (TP / denom) if denom > 0 else None
-        
-        denom = TP + FN
-        recall = (TP / denom) if denom > 0 else 0.0
-        
-        if precision is not None and recall is not None and (precision + recall) > 0:
-            f1 = 2 * precision * recall / (precision + recall)
-        else:
-            f1 = None
-            
-        accuracy = (TP / len(gset)) if len(gset) > 0 else None
-
-        out["precision"] = precision
-        out["recall"] = recall
-        out["f1"] = f1
-        out["accuracy"] = accuracy
-        return out
 
     def process_single_db(db_root):
         rows = []
